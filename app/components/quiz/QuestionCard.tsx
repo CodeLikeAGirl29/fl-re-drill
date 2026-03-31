@@ -1,27 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { questions } from '../../lib/questions';
 
-export default function QuestionCard({ index, score, onNext }: any) {
+export default function QuestionCard({ index, score, onNext, questionsList }: any) {
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
-  const q = questions[index];
+  // Use the list passed from the parent (which is shuffled)
+  const q = questionsList ? questionsList[index] : null;
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [index]);
 
-  // If we ran out of questions
   if (!q) {
     return (
-      <div className="bg-white/95 p-8 rounded-[2rem] text-center shadow-2xl">
+      <div className="bg-white/95 p-8 rounded-[2rem] text-center shadow-2xl animate-in">
         <h2 className="text-2xl font-black text-slate-800">Quiz Complete!</h2>
         <p className="text-indigo-600 font-bold text-xl mt-2">Final Score: {score}</p>
         <button
           onClick={() => window.location.reload()}
-          className="mt-6 bg-slate-900 text-white px-6 py-3 rounded-xl font-bold"
+          className="mt-6 bg-slate-900 text-white px-8 py-4 rounded-xl font-bold hover:bg-black transition-all w-full"
         >
           Try Again
         </button>
@@ -38,24 +37,23 @@ export default function QuestionCard({ index, score, onNext }: any) {
   };
 
   const handleNextClick = () => {
-    // 1. Determine if the choice was correct
     const isCorrect = selected === q.correct;
-
-    // 2. Reset local card state
     setIsAnswered(false);
     setSelected(null);
-
-    // 3. Tell the parent to update the score and move to the next index
     onNext(isCorrect);
   };
 
   return (
     <div className="bg-white/95 backdrop-blur-md p-8 rounded-[2rem] shadow-2xl border border-white/20 animate-in">
-      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{q.cat}</span>
-      <h2 className="text-sm font-bold text-slate-800 mt-2 mb-6 leading-relaxed">{q.q}</h2>
+      <div className="flex justify-between items-center mb-2">
+        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{q.cat}</span>
+        <span className="text-[10px] font-bold text-indigo-400">Question {index + 1}</span>
+      </div>
+
+      <h2 className="text-sm font-bold text-slate-800 mb-6 leading-relaxed">{q.q}</h2>
 
       <div className="space-y-3">
-        {q.options.map((opt, i) => (
+        {q.options.map((opt: string, i: number) => (
           <button
             key={i}
             disabled={isAnswered}
