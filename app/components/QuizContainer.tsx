@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import WelcomeScreen from './WelcomeScreen';
 import QuestionCard from './quiz/QuestionCard';
+import ResultsView from './quiz/ResultsView'; // Make sure to create this file!
 import FormulaModal from './FormulaModal';
 import { useTimer } from '../hooks/useTimer';
 import { questions as originalQuestions } from '../lib/questions';
@@ -15,35 +16,33 @@ export default function QuizContainer() {
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [missedCategories, setMissedCategories] = useState<string[]>([]);
 
-  // Custom hook for timer
   const { formatTime, seconds } = useTimer();
 
-  // Check for saved progress ONCE on mount
+  // 1. Logic to calculate top missed categories for the report
+  const topMissed = useMemo(() => {
+    const counts: Record<string, number> = {};
+    missedCategories.forEach(cat => counts[cat] = (counts[cat] || 0) + 1);
+    return Object.entries(counts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 3);
+  }, [missedCategories]);
+
   useEffect(() => {
     const saved = localStorage.getItem('fl_quiz_progress');
-    if (saved) {
-      setHasSavedProgress(true);
-    }
+    if (saved) setHasSavedProgress(true);
   }, []);
 
   const handleNewQuiz = () => {
-    // 1. Shuffle
     const randomized = shuffleArray(originalQuestions);
-
-    // 2. Reset States
     setActiveQuestions(randomized);
     setScore(0);
     setCurrentIdx(0);
-
-    // 3. Clear and Set LocalStorage
+    setMissedCategories([]);
     localStorage.setItem('fl_quiz_progress', JSON.stringify({
-      idx: 0,
-      scr: 0,
-      orderedQuestions: randomized,
-      time: 0
+      idx: 0, scr: 0, orderedQuestions: randomized, time: 0
     }));
-
     setView('quiz');
   };
 
@@ -59,20 +58,19 @@ export default function QuizContainer() {
   };
 
   const handleNext = (isCorrect: boolean) => {
-    // We use functional updates (prev => ...) to ensure we always have the latest data
-    let nextScore = score;
+    // FIX: Track missed categories only if WRONG
+    if (!isCorrect) {
+      const currentCat = activeQuestions[currentIdx].cat;
+      setMissedCategories(prev => [...prev, currentCat]);
+    }
 
     if (isCorrect) {
-      setScore(prev => {
-        nextScore = prev + 1;
-        return nextScore;
-      });
+      setScore(prev => prev + 1);
     }
 
     const nextIndex = currentIdx + 1;
     setCurrentIdx(nextIndex);
 
-    // Save current state to local storage
     localStorage.setItem('fl_quiz_progress', JSON.stringify({
       idx: nextIndex,
       scr: isCorrect ? score + 1 : score,
@@ -81,48 +79,47 @@ export default function QuizContainer() {
     }));
   };
 
-  // Final Background Save (Updates time periodically)
+  // Background timer save
   useEffect(() => {
-    if (view === 'quiz') {
+    if (view === 'quiz' && currentIdx < activeQuestions.length) {
       const data = JSON.parse(localStorage.getItem('fl_quiz_progress') || '{}');
       localStorage.setItem('fl_quiz_progress', JSON.stringify({
-        ...data,
-        idx: currentIdx,
-        scr: score,
-        time: seconds
+        ...data, idx: currentIdx, scr: score, time: seconds
       }));
     }
-  }, [seconds, view, currentIdx, score]);
+  }, [seconds, view, currentIdx, score, activeQuestions.length]);
 
   return (
-    <div className="w-full max-w-md mx-auto py-10 relative z-10">
-      {/* Header Stats */}
-      <div className="flex justify-between items-center mb-6 px-2">
-        <span className="text-white/40 font-mono text-xs tracking-widest">{formatTime()}</span>
-        <span className="text-indigo-400 font-black text-xs uppercase tracking-tighter">Score: {score}</span>
+    <div className="w-full max-w-md mx-auto py-10 relative z-10 px-4">
+      {/* Top HUD */}
+      <div className="flex justify-between items-center mb-4 px-2">
+        <span className="text-white/40 font-mono text-[10px] tracking-widest">{formatTime()}</span>
+        <span className="text-indigo-400 font-black text-[10px] uppercase tracking-tighter">Score: {score}</span>
       </div>
 
-      {/* Fixed Formula Button */}
-      <button
-        onClick={() => setIsModalOpen(true)}
-        className="fixed top-6 right-6 z-50 bg-indigo-500/10 border border-indigo-400/20 text-indigo-300 px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-tighter backdrop-blur-md hover:bg-indigo-500/30 transition-all"
-      >
-        <i className="fa-solid fa-calculator mr-2"></i> Formulas
-      </button>
-
-      {/* View Logic */}
-      {view === 'welcome' ? (
-        <WelcomeScreen
-          onNew={handleNewQuiz}
-          onResume={handleResume}
-          hasProgress={hasSavedProgress}
+      {/* Progress Bar */}
+      <div className="w-full bg-white/10 h-1.5 rounded-full mb-6 overflow-hidden">
+        <div
+          className="bg-indigo-500 h-full transition-all duration-500 ease-out"
+          style={{ width: `${(currentIdx / activeQuestions.length) * 100}%` }}
         />
-      ) : (
+      </div>
+
+      {/* View Switcher */}
+      {view === 'welcome' ? (
+        <WelcomeScreen onNew={handleNewQuiz} onResume={handleResume} hasProgress={hasSavedProgress} />
+      ) : currentIdx < activeQuestions.length ? (
         <QuestionCard
           questionsList={activeQuestions}
           index={currentIdx}
           score={score}
           onNext={handleNext}
+        />
+      ) : (
+        <ResultsView
+          score={score}
+          total={activeQuestions.length}
+          missed={topMissed}
         />
       )}
 
