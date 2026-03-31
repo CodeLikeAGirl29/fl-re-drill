@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+S# 🏠 Florida Real Estate Master Drill
 
-## Getting Started
+A high-performance, interactive exam preparation engine built for Florida Real Estate candidates. This application transforms dry state exam material into a fast, fluid, and high-retention learning experience.
 
-First, run the development server:
+view the project [here](https://fl-re-drill.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+-----
+
+## 🚀 The Experience
+
+  * **Zero-Latency Drills:** Questions are bundled locally for instant transitions. No loading spinners between questions.
+  * **Intelligent Persistence:** Built-in `localStorage` synchronization. If a user closes their browser mid-drill, they can resume their exact score, time, and question index.
+  * **Contextual Math Support:** A persistent **Formula Cheat Sheet** modal accessible at any time, specializing in Florida-specific taxes (Doc Stamps, Intangible Tax) and acreage.
+  * **Styled Feedback:** Explanations aren't just text—they are formatted for retention:
+      * \<strong style="color: \#2563eb;"\>Key Points:\</strong\> Crucial theory and law.
+      * \<strong style="color: \#9333ea;"\>Calculations:\</strong\> Step-by-step math breakdowns.
+  * **Modern UX:** A deep indigo "Starburst" mesh gradient with glassmorphism UI cards and automatic "scroll-to-top" navigation.
+
+-----
+
+## 🛠️ Architecture (Colocation Pattern)
+
+This project uses the **Next.js App Router** with a colocated folder structure for maximum maintainability:
+
+```text
+app/
+├── components/     # UI Atoms (QuestionCard, FormulaModal, etc.)
+├── hooks/          # Logic (useTimer for tracking exam duration)
+├── lib/            # Data (The Florida Question Bank)
+├── globals.css     # Tailwind v4 & Mesh Gradient logic
+└── page.tsx        # Root entry point
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-----
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ⚡ Quick Start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1.  **Clone & Install:**
 
-## Learn More
+    ```bash
+    git clone https://github.com/codelikeagirl29/fl-re-drill.git
+    cd fl-re-drill
+    npm install
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+2.  **Run Development Server:**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    ```bash
+    npm run dev
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3.  **Build for Production:**
 
-## Deploy on Vercel
+    ```bash
+    npm run build
+    ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+-----
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📐 Mathematical Formulas Included
+
+The integrated **FormulaModal** provides instant access to:
+
+  * **Deed Stamps:** (Price / 100) \* $0.70 (Rounding up logic included)
+  * **Note Stamps:** (New/Assumed Debt / 100) \* $0.35
+  * **Intangible Tax:** New Mortgage \* $0.002
+  * **Acreage:** 43,560 Square Feet
+  * **Commission Net:** (Target + Costs) / (100% - Comm %)
+
+-----
+
+## 🗺️ Future Roadmap
+
+  - [ ] **Category Filtering:** Toggle between Law, Principles, and Math specific drills.
+  - [ ] **Timed Mock Exam:** A strict 3.5-hour simulation of the 100-question state test.
+  - [ ] **Performance Analytics:** Charts showing which chapters the user is struggling with most.
+  - [ ] **Supabase Integration:** Sync progress across devices via a user account.
+
+-----
+
+## 🤝 Support & Contribution
+
+If you're a Florida Real Estate instructor or student and want to contribute more questions or improve the logic:
+
+1.  Fork the Project
+2.  Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3.  Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4.  Push to the Branch (`git push origin feature/AmazingFeature`)
+5.  Open a Pull Request
+
+**Author:** [Lindsey Howard](http://linkedin.com/in/lindsey-howard)  
+**License:** © 2026 RE Master Drill - Proprietary Study Tool
