@@ -93,7 +93,7 @@ export const questions = [
       "It applies to option contracts"
     ],
     "correct": 1,
-    "explanation": "Correction: Not ALL contracts must be in writing. For example, a lease for less than one year does not fall under the Statute of Frauds and can be oral. Note: To be 'enforceable in court,' real estate sales contracts MUST be in writing."
+    "explanation": "<strong class='text-red-500 font-bold'>Correction:</strong> Not ALL contracts must be in writing to be valid. For example, a lease for less than one year is an exception. <br><br><strong class='text-blue-600 font-bold'>Key Point:</strong> The Statute of Frauds requires documents that convey an interest in real property (like deeds, mortgages, and purchase contracts) to be in writing to be *enforceable* in court."
   },
   {
     "cat": "Disclosures",
@@ -1196,8 +1196,8 @@ export const questions = [
       "2.5 acres",
       "40 acres"
     ],
-    "correct": 2,
-    "explanation": "Calculation: 640 / 4 / 4 / 4 = 10 acres... wait, 640 / 64 = 10. Let's re-divide: 640 / 4 = 160. 160 / 4 = 40. 40 / 4 = 10. Correction: 640 / 4 / 4 / 4 is 10 acres. (Checked the math again!)"
+    "correct": 1,
+    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> 640 / 4 / 4 / 4 = 10 acres. <br><br><strong class='text-blue-600 font-bold'>Key Point:</strong> A section contains 640 acres. To solve, divide 640 by the denominator of each fraction in the description (640 ÷ 4 = 160; 160 ÷ 4 = 40; 40 ÷ 4 = 10)."
   },
   {
     "cat": "License Law",
