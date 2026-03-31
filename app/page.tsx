@@ -1,15 +1,25 @@
+'use client';
+import { useState } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import QuizContainer from './components/QuizContainer';
+import FormulaModal from './components/FormulaModal';
 
 export default function Home() {
-  return (
-    <main className="min-h-screen flex flex-col items-center justify-center p-4">
-      <QuizContainer />
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-      <footer className="mt-auto py-10 opacity-30 text-white text-center">
-        <p className="text-[10px] font-black uppercase tracking-[0.3em]">
-          © 2026 FL Real Estate Master Drill
-        </p>
-      </footer>
-    </main>
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Header onOpenFormulas={() => setIsModalOpen(true)} />
+
+      <main className="flex-grow flex items-center justify-center p-4">
+        <QuizContainer />
+      </main>
+
+      <Footer />
+
+      {/* The Modal lives here so it can be triggered from the Header */}
+      <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </div>
   );
 }

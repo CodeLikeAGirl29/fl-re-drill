@@ -15,7 +15,7 @@ export default function QuestionCard({ index, score, onNext, questionsList }: an
 
   if (!q) {
     return (
-      <div className="bg-white/95 p-8 rounded-[2rem] text-center shadow-2xl animate-in">
+      <div className="bg-white/95 p-6 rounded-[2rem] text-center shadow-2xl animate-in">
         <h2 className="text-2xl font-black text-slate-800">Quiz Complete!</h2>
         <p className="text-indigo-600 font-bold text-xl mt-2">Final Score: {score}</p>
         <button
@@ -44,7 +44,7 @@ export default function QuestionCard({ index, score, onNext, questionsList }: an
   };
 
   return (
-    <div className="bg-white/95 backdrop-blur-md p-8 rounded-[2rem] shadow-2xl border border-white/20 animate-in">
+    <div className="bg-white/95 backdrop-blur-md p-6 rounded-[2rem] shadow-2xl border border-white/20 animate-in">
       <div className="flex justify-between items-center mb-2">
         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{q.cat}</span>
         <span className="text-[10px] font-bold text-indigo-400">Question {index + 1}</span>
