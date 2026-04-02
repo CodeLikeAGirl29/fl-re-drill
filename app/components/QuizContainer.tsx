@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import WelcomeScreen from './WelcomeScreen';
 import QuestionCard from './quiz/QuestionCard';
-import ResultsView from './quiz/ResultsView'; // Make sure to create this file!
+import ResultsView from './quiz/ResultsView';
 import FormulaModal from './FormulaModal';
 import { useTimer } from '../hooks/useTimer';
 import { questions as originalQuestions } from '../lib/questions';
@@ -20,7 +20,6 @@ export default function QuizContainer() {
 
   const { formatTime, seconds } = useTimer();
 
-  // 1. Logic to calculate top missed categories for the report
   const topMissed = useMemo(() => {
     const counts: Record<string, number> = {};
     missedCategories.forEach(cat => counts[cat] = (counts[cat] || 0) + 1);
@@ -58,52 +57,32 @@ export default function QuizContainer() {
   };
 
   const handleNext = (isCorrect: boolean) => {
-    // FIX: Track missed categories only if WRONG
     if (!isCorrect) {
       const currentCat = activeQuestions[currentIdx].cat;
       setMissedCategories(prev => [...prev, currentCat]);
     }
-
     if (isCorrect) {
       setScore(prev => prev + 1);
     }
-
     const nextIndex = currentIdx + 1;
     setCurrentIdx(nextIndex);
-
-    localStorage.setItem('fl_quiz_progress', JSON.stringify({
-      idx: nextIndex,
-      scr: isCorrect ? score + 1 : score,
-      orderedQuestions: activeQuestions,
-      time: seconds
-    }));
   };
 
-  // Background timer save
-  useEffect(() => {
-    if (view === 'quiz' && currentIdx < activeQuestions.length) {
-      const data = JSON.parse(localStorage.getItem('fl_quiz_progress') || '{}');
-      localStorage.setItem('fl_quiz_progress', JSON.stringify({
-        ...data, idx: currentIdx, scr: score, time: seconds
-      }));
-    }
-  }, [seconds, view, currentIdx, score, activeQuestions.length]);
-
   return (
-    <div className="w-full max-w-md mx-auto py-10 relative z-10 px-4">
-      {/* Top HUD */}
-      <div className="flex justify-between items-center mb-4 px-2">
-        <span className="text-white/40 font-mono text-[10px] tracking-widest">{formatTime()}</span>
-        <span className="text-indigo-400 font-black text-[10px] uppercase tracking-tighter">Score: {score}</span>
-      </div>
+    // Widened to max-w-4xl for the new card style
+    <div className="w-full max-w-4xl mx-auto py-10 relative z-10 px-4">
 
-      {/* Progress Bar */}
-      <div className="w-full bg-white/10 h-1.5 rounded-full mb-6 overflow-hidden">
-        <div
-          className="bg-indigo-500 h-full transition-all duration-500 ease-out"
-          style={{ width: `${(currentIdx / activeQuestions.length) * 100}%` }}
-        />
-      </div>
+      {/* HUD and Progress Bar only show if we haven't finished */}
+      {view === 'quiz' && currentIdx < activeQuestions.length && (
+        <>
+          <div className="w-full bg-white/10 h-1.5 rounded-full mb-10 overflow-hidden">
+            <div
+              className="bg-[#06b6d4] h-full transition-all duration-500 ease-out"
+              style={{ width: `${(currentIdx / activeQuestions.length) * 100}%` }}
+            />
+          </div>
+        </>
+      )}
 
       {/* View Switcher */}
       {view === 'welcome' ? (
@@ -112,7 +91,8 @@ export default function QuizContainer() {
         <QuestionCard
           questionsList={activeQuestions}
           index={currentIdx}
-          score={score}
+          totalQuestions={activeQuestions.length}
+          currentTime={formatTime()}
           onNext={handleNext}
         />
       ) : (

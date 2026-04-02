@@ -18,7 +18,7 @@ export default function Footer() {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-slate-500 hover:text-indigo-400 transition-all transform hover:scale-110 text-xl"
+              className="text-slate-500 hover:text-rose-400 transition-all transform hover:scale-110 text-xl"
             >
               <i className={`fa-brands ${link.icon}`}></i>
             </a>
@@ -29,7 +29,7 @@ export default function Footer() {
         <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 mb-2">
           © 2026 FL Real Estate Master Drill
         </p>
-        <div className="h-px w-8 bg-indigo-500/30 mb-4"></div>
+        <div className="h-px w-8 bg-rose-500/30 mb-4"></div>
         <p className="text-[9px] text-slate-500 leading-relaxed max-w-[250px] italic">
           Designed for high-retention learning and Florida State Exam excellence.
         </p>

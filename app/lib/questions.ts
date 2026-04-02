@@ -12,8 +12,20 @@ export const questions = [
     "explanation": "Key Point: In Title Theory states, the lender holds the title until the debt is paid. Note: Florida is a Lien Theory state, meaning the borrower retains the title and the lender simply holds a lien."
   },
   {
+    "cat": "",
+    "q": "Which benefit is NOT provided by the Florida Constitutional Homestead law?",
+    "options": [
+      "A reduction in the assessed value for propperty tax purposes.",
+      "Protection from the family in the event of the death of a spouse.",
+      "Protection against forced sale by general creditors, such as credit card companies.",
+      "Immunity from forced sale due to non-payment of property taxes."
+    ],
+    "correct": 3,
+    "explanation": "Correction: The Florida Constitutional Homestead does NOT provide immunity from forced sale due to non-payment of property taxes. Note: It does provide protection from general creditors and a reduction in assessed value, but property tax debts can still lead to a forced sale."
+  },
+  {
     "cat": "Legal Theory",
-    "q": "Which describes a non-freehold estate that includes a definite specified amount of time?",
+    "q": "Which describes a non-freehold (leasehold) estate that has a definite ending date?",
     "options": [
       "Tenancy at will",
       "Estate by the entireties",
@@ -21,7 +33,31 @@ export const questions = [
       "Estate for years"
     ],
     "correct": 3,
-    "explanation": "Key Point: An 'Estate for Years' (or Tenancy for Years) is a leasehold that has a specific start and end date. Note: Even a one-week lease can be an 'Estate for Years' if the dates are fixed."
+    "explanation": "Key Point: An 'Estate for Years' is a leasehold (non-freehold) estate that has a specific start and end date. It is the only leasehold that does NOT require a notice to terminate because the end date is already known. Note: Even a one-week lease can be an 'Estate for Years' if the dates are fixed."
+  },
+  {
+    "cat": "Homestead",
+    "q": "What is the formula for finding the taxable value of a homestead property?",
+    "options": [
+      "Assessed value + homestead exemptions = taxable value",
+      "Assessed value - taxable value = homestead exemptions",
+      "Assessed value - homestead exemptions = taxable value",
+      "Homestead exemptions - assessed value = taxable value"
+    ],
+    "correct": 2,
+    "explanation": "Key Point: The taxable value is the amount you actually pay taxes on. It is the Assessed Value minus all qualifying exemptions."
+  },
+  {
+    "cat": "Land",
+    "q": "Which of the following is NOT one of the three physical components of land?",
+    "options": [
+      "Surface rights",
+      "Air rights",
+      "Legal rights",
+      "Subsurface rights"
+    ],
+    "correct": 2,
+    "explanation": "Key Point: Land consists of Surface, Subsurface, and Air. 'Legal Rights' refers to the Bundle of Rights (Real Property), not the physical land itself."
   },
   {
     "cat": "Titles",
@@ -82,6 +118,18 @@ export const questions = [
     ],
     "correct": 3,
     "explanation": "Correction: The DBPR is governed by F.S. 455. F.S. 120 is the Administrative Procedure Act, which governs the disciplinary process for all state agencies."
+  },
+  {
+    "cat": "Homestead",
+    "q": "What is the formula for finding the taxable value of a homestead property?",
+    "options": [
+      "Assessed value + homestead exemptions = taxable value",
+      "Assessed value - taxable value = homestead exemptions",
+      "Assessed value - homestead exemptions = taxable value",
+      "Homestead exemptions - assessed value = taxable value"
+    ],
+    "correct": 2,
+    "explanation": "Key Point: Taxable value is the portion of the assessed value that is actually subject to taxation after all exemptions are removed."
   },
   {
     "cat": "Statute of Frauds",
@@ -372,16 +420,28 @@ export const questions = [
     "explanation": "Key Point: In an amortized loan, the interest portion of the payment decreases over time, and the principal portion increases. By the end of the term, almost the entire payment is principal."
   },
   {
-    "cat": "Closing",
-    "q": "Which is FALSE concerning the Closing Disclosure (CD)?",
+    "cat": "Homestead",
+    "q": "What is the formula for finding the taxable value of a homestead property?",
     "options": [
-      "Binder deposit is a credit to buyer and debit to seller",
-      "Intangible tax is a debit to the buyer",
-      "Unpaid property taxes are a debit to seller/credit to buyer",
-      "The binder deposit is a credit to the buyer"
+      "Assessed value + homestead exemptions = taxable value",
+      "Assessed value - taxable value = homestead exemptions",
+      "Assessed value - homestead exemptions = taxable value",
+      "Homestead exemptions - assessed value = taxable value"
+    ],
+    "correct": 2,
+    "explanation": "Key Point: The taxable value is the amount you actually pay taxes on. It is calculated by taking the Assessed Value (which may be limited by the Save Our Homes cap) and subtracting all qualifying exemptions."
+  },
+  {
+    "cat": "Closing",
+    "q": "Which statement is TRUE concerning the Closing Disclosure (CD)?",
+    "options": [
+      "The binder deposit is a credit to the buyer only",
+      "The binder deposit is a credit to the buyer and a debit to the seller",
+      "Property taxes are always a credit to the seller",
+      "The sales price is a credit to the buyer"
     ],
     "correct": 0,
-    "explanation": "Correction: The binder (earnest money) deposit is ONLY a credit to the buyer. It has already been paid and is sitting in escrow; it does not come out of the seller's proceeds at closing. Note: Unpaid taxes are a debit to the seller (for the days they lived there) and a credit to the buyer."
+    "explanation": "Key Point: The binder (earnest money) deposit is already in escrow; it is credited to the buyer to reduce what they owe at closing, but it does NOT affect the seller's side of the ledger."
   },
   {
     "cat": "Finance",
@@ -685,15 +745,15 @@ export const questions = [
   },
   {
     "cat": "Brokerage Operations",
-    "q": "Which of the following is NOT true concerning kickbacks?",
+    "q": "Which of the following statements is FALSE regarding kickbacks and referral fees in a Florida real estate transaction?",
     "options": [
-      "Not all kickbacks are illegal",
-      "A real estate licensee may not be paid a fee for referring buyers to a title company",
-      "Kickbacks cannot violate RESPA",
-      "All kickbacks are illegal"
+      "All parties to the transaction must be fully informed of the kickback or referral fee.",
+      "A real estate licensee may be paid a fee for referring a buyer to a specific title insurance company.",
+      "A kickback is legal only if it is for a service actually performed and does not violate RESPA.",
+      "It is a violation of Florida law for a licensee to share a commission with an unlicensed person for the referral of real estate business."
     ],
-    "correct": 3,
-    "explanation": "Correction: Kickbacks are legal only if they are for a legitimate service, do not violate RESPA, and all parties are informed. For example, a licensee can receive a referral fee from a carpet cleaner, but NOT from a title company."
+    "correct": 1,
+    "explanation": "Under both Florida law and RESPA, a licensee is strictly prohibited from receiving a kickback or referral fee from a settlement service provider (such as a title company, mortgage lender, or surveyor). Kickbacks are only legal for non-settlement services (like a landscaper or a cleaning crew) provided that all parties are informed and no other laws are violated."
   },
   {
     "cat": "License Law",
@@ -865,7 +925,7 @@ export const questions = [
   },
   {
     "cat": "Real Estate Math",
-    "q": "Rent is $900/mo. Closing is May 6. Buyer owns the day of closing. What is the proration?",
+    "q": "A property closes on May 6th. The monthly rent is $900 and was collected by the seller on the 1st of the month. If the buyer is responsible for the day of closing, what is the amount and direction of the rent proration at closing (using the 31-day method)?",
     "options": [
       "Debit seller, Credit buyer $754.84",
       "Debit buyer, Credit seller $754.84",

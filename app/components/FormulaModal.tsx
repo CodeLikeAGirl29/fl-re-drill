@@ -53,11 +53,23 @@ export default function FormulaModal({ isOpen, onClose }: { isOpen: boolean; onC
 
           <FormulaSection
             title="State Transfer Taxes"
-            color="text-indigo-600"
+            color="text-rose-600"
             formulas={[
               { label: "Deed Stamps", math: "(Price / 100) * $0.70", note: "CRITICAL: Always round Price UP to the nearest 100 first." },
               { label: "Note Stamps", math: "(Debt / 100) * $0.35", note: "Applies to New AND Assumed mortgages. Round debt up to 100." },
               { label: "Intangible Tax", math: "New Debt * 0.002", note: "Only applies to NEW mortgages. No rounding required." }
+            ]}
+          />
+
+          <FormulaSection
+            title="Valuation & Taxes"
+            color="text-purple-600"
+            formulas={[
+              {
+                label: "Taxable Value",
+                math: "Assessed Value - Exemptions",
+                note: "Standard exemptions: $25k (all taxes) + up to $25k (non-school taxes)."
+              }
             ]}
           />
 

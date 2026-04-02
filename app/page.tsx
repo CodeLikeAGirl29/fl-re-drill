@@ -7,6 +7,7 @@ import FormulaModal from './components/FormulaModal';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
     <div className="flex flex-col min-h-screen">

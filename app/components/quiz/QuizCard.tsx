@@ -39,7 +39,7 @@ export default function QuestionCard({ index, score, onNext }: any) {
             onClick={() => { setSelected(i); setIsAnswered(true); }}
             className={`w-full text-left p-4 rounded-xl border-2 transition-all text-sm font-medium ${isAnswered
               ? i === q.correct ? 'bg-green-100 border-green-500 text-green-700' : i === selected ? 'bg-red-100 border-red-500 text-red-700' : 'opacity-40'
-              : 'bg-white border-slate-100 hover:border-indigo-400 text-slate-600'
+              : 'bg-white border-slate-100 hover:border-rose-400 text-slate-600'
               }`}
           >
             {opt}

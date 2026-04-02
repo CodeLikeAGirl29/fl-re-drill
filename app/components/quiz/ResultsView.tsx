@@ -1,20 +1,72 @@
 'use client';
 
+import React from 'react';
+import { Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+// Register Chart.js components
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 export default function ResultsView({ score, total, missed }: any) {
   const percentage = Math.round((score / total) * 100);
-  const topMissed = missed; // Passed from getTopMissed()
+  const topMissed = missed;
+
+  // Chart.js Data Configuration
+  const data = {
+    labels: ['Correct', 'Remaining'],
+    datasets: [
+      {
+        data: [score, total - score],
+        backgroundColor: ['#4f46e5', '#f1f5f9'], // rose-600 and Slate-100
+        hoverBackgroundColor: ['#4338ca', '#f1f5f9'],
+        borderWidth: 0,
+        circumference: 360,
+        rotation: 0,
+        cutout: '85%',
+        borderRadius: 20,
+      },
+    ],
+  };
+
+  // Chart.js Options
+  const options = {
+    plugins: {
+      tooltip: { enabled: false },
+      legend: { display: false },
+    },
+    responsive: true,
+    maintainAspectRatio: true,
+    animation: {
+      duration: 2000,
+      easing: 'easeOutQuart' as const,
+    },
+  };
 
   return (
     <div className="bg-white/95 p-6 rounded-[2.5rem] shadow-2xl border border-white/20 animate-in w-full max-w-md">
-      <div className="text-center mb-8">
-        <div className="inline-block p-4 rounded-full bg-indigo-50 mb-4">
-          <i className="fa-solid fa-graduation-cap text-3xl text-indigo-600"></i>
+      <div className="text-center mb-8 flex flex-col items-center">
+
+        {/* Chart Container */}
+        <div className="relative w-48 h-48 mb-4">
+          <Doughnut data={data} options={options} />
+
+          {/* Absolute Center Text */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-3xl font-black text-slate-800 tracking-tighter">
+              {score}/{total}
+            </span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+              {percentage}% Correct
+            </span>
+          </div>
         </div>
+
         <h2 className="text-2xl font-black text-slate-800 tracking-tight">Drill Complete!</h2>
-        <p className="text-4xl font-black text-indigo-600 mt-2">{percentage}%</p>
-        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-          {score} out of {total} Correct
-        </p>
       </div>
 
       {topMissed.length > 0 ? (

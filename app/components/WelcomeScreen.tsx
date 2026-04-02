@@ -1,46 +1,76 @@
-'use client';
+// components/WelcomeScreen.tsx
+import { BookOpen, Target, Zap, Clock } from 'lucide-react';
 
-interface WelcomeProps {
-  onNew: () => void;
-  onResume: () => void;
-  hasProgress: boolean;
-}
-
-export default function WelcomeScreen({ onNew, onResume, hasProgress }: WelcomeProps) {
+export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
   return (
-    <div className="bg-white p-10 shadow-2xl rounded-[2.5rem] w-full border border-white/20 text-center animate-in relative overflow-hidden">
-      {/* Subtle top glow */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50" />
+    <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] p-8 shadow-2xl text-white">
 
-      <div className="mb-8">
-        <div className="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-6 transform -rotate-6">
-          <i className="fa-solid fa-house-chimney text-3xl"></i>
-        </div>
-        <h1 className="text-2xl font-black text-slate-800 mb-3 tracking-tight">Florida Real Estate Master Drill</h1>
-        <p className="text-slate-400 text-sm leading-relaxed px-4">
-          The definitive study tool for the Florida state exam.
-        </p>
+      {/* Title Section */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold text-[#06b6d4] mb-2">Florida Real Estate Drill</h1>
+        <p className="text-pink-400 text-md italic">Drill the Concepts. Master the Exam. Own Florida Real Estate</p>
+        <p className="text-[#817a8e] text-md italic">Mastering F.S. 475 & the Emerald Coast Market</p>
       </div>
 
-      <div className="space-y-3">
+      {/* App Features / Why use this? */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+          <Zap className="text-yellow-400 mt-1" size={20} />
+          <div>
+            <h4 className="font-semibold text-sm">Smart Shuffle</h4>
+            <p className="text-xs text-[#817a8e]">Every session is unique to prevent "memorizing the order."</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+          <Target className="text-rose-400 mt-1" size={20} />
+          <div>
+            <h4 className="font-semibold text-sm">Weak Point Tracking</h4>
+            <p className="text-xs text-[#817a8e]">We track your missed categories to focus your study time.</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+          <BookOpen className="text-[#06b6d4] mt-1" size={20} />
+          <div>
+            <h4 className="font-semibold text-sm">Legal Explanations</h4>
+            <p className="text-xs text-[#817a8e]">Detailed rationales for F.S. 475 and F.S. 83 regulations.</p>
+          </div>
+        </div>
+
+        <div className="flex items-start gap-3 p-3 rounded-lg bg-white/5 border border-white/10">
+          <Clock className="text-emerald-400 mt-1" size={20} />
+          <div>
+            <h4 className="font-semibold text-sm">Timed Practice</h4>
+            <p className="text-xs text-[#817a8e]">Simulate the 3.5-hour state exam pressure.</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Buttons Section */}
+      <div className="flex flex-col gap-3">
         <button
-          onClick={hasProgress ? onResume : onNew}
-          className={`w-full font-black py-4 px-8 rounded-2xl shadow-lg transition-all transform hover:scale-[1.02] active:scale-95 ${hasProgress ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-indigo-600 hover:bg-indigo-700 text-white'
-            }`}
+          onClick={onNew}
+          className="w-full py-4 bg-[#06b6d4] hover:bg-[#0ea5e9] text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-[1.02]"
         >
-          {hasProgress ? 'Resume Quiz' : 'Start Drill'} <i className="fa-solid fa-play ml-2 text-xs"></i>
+          {hasProgress ? "Start Fresh Drill" : "Begin Master Drill"}
         </button>
 
         {hasProgress && (
           <button
-            onClick={() => {
-              if (confirm("Start fresh? All progress will be lost.")) onNew();
-            }}
-            className="w-full bg-white border-2 border-slate-100 text-slate-400 hover:text-slate-600 hover:border-slate-200 font-bold py-3 px-8 rounded-2xl transition-all text-xs"
+            onClick={onResume}
+            className="w-full py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-lg border border-white/20 transition-all duration-300"
           >
-            Start New Quiz
+            Resume Previous Session
           </button>
         )}
+      </div>
+
+      {/* Footer / Exam Tip */}
+      <div className="mt-8 pt-6 border-t border-[#444444] text-center">
+        <p className="text-[10px] text-[#817a8e] uppercase tracking-[0.2em]">
+          State Exam Goal: <span className="text-[#06b6d4]">75% Passing Score</span>
+        </p>
       </div>
     </div>
   );

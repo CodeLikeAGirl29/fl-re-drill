@@ -14,7 +14,7 @@ view the project [here](https://fl-re-drill.vercel.app/)
   * **Styled Feedback:** Explanations aren't just text—they are formatted for retention:
       * \<strong style="color: \#2563eb;"\>Key Points:\</strong\> Crucial theory and law.
       * \<strong style="color: \#9333ea;"\>Calculations:\</strong\> Step-by-step math breakdowns.
-  * **Modern UX:** A deep indigo "Starburst" mesh gradient with glassmorphism UI cards and automatic "scroll-to-top" navigation.
+  * **Modern UX:** A deep rose "Starburst" mesh gradient with glassmorphism UI cards and automatic "scroll-to-top" navigation.
 
 -----
 
