@@ -74,7 +74,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
 
         {/* Footer */}
         <div className="mt-8 pt-6 border-t border-[#444444] text-center">
-          <p className="text-[10px] text-[#817a8e] uppercase tracking-[0.2em]">
+          <p className="text-[0.625rem] text-[#817a8e] uppercase tracking-[0.2em]">
             State Exam Goal: <span className="text-[#06b6d4] font-bold">75% Passing Score</span>
           </p>
         </div>

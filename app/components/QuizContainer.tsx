@@ -100,7 +100,7 @@ export default function QuizContainer() {
 
               return (
                 <div
-                  className={`${barColor} h-full transition-all duration-700 ease-out flex items-center justify-center text-[10px] font-black text-white uppercase tracking-widest`}
+                  className={`${barColor} h-full transition-all duration-700 ease-out flex items-center justify-center text-[0.625rem] font-black text-white uppercase tracking-widest`}
                   style={{ width: `${progress}%` }}
                 >
                   {progress > 10 && <span>{Math.round(progress)}% Complete</span>}

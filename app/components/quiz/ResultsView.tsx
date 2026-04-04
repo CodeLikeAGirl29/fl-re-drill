@@ -61,7 +61,7 @@ export default function ResultsView({ score, total, missed }: any) {
               <span className="text-3xl font-black text-slate-800 tracking-tighter">
                 {score}/{total}
               </span>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+              <span className="text-[0.625rem] font-bold text-slate-400 uppercase tracking-widest mt-1">
                 {percentage}% Correct
               </span>
             </div>
@@ -72,13 +72,13 @@ export default function ResultsView({ score, total, missed }: any) {
 
         {topMissed.length > 0 ? (
           <div className="space-y-4">
-            <h3 className="text-[10px] font-black uppercase tracking-widest text-slate-500 border-b pb-2">
+            <h3 className="text-[0.625rem] font-black uppercase tracking-widest text-slate-500 border-b pb-2">
               Focus Areas Needed:
             </h3>
             {topMissed.map(([cat, count]: any) => (
               <div key={cat} className="flex justify-between items-center bg-red-50 p-3 rounded-xl border border-red-100">
                 <span className="text-xs font-bold text-red-700">{cat}</span>
-                <span className="text-[10px] font-black bg-red-200 text-red-800 px-2 py-1 rounded-md">
+                <span className="text-[0.625rem] font-black bg-red-200 text-red-800 px-2 py-1 rounded-md">
                   {count} Missed
                 </span>
               </div>
@@ -87,7 +87,7 @@ export default function ResultsView({ score, total, missed }: any) {
         ) : (
           <div className="bg-green-50 p-4 rounded-2xl border border-green-100 text-center">
             <p className="text-sm font-bold text-green-700">Perfect Score! 🚀</p>
-            <p className="text-[10px] text-green-600 mt-1 uppercase font-black">You are ready for the State Exam.</p>
+            <p className="text-[0.625rem] text-green-600 mt-1 uppercase font-black">You are ready for the State Exam.</p>
           </div>
         )}
 

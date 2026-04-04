@@ -26,11 +26,11 @@ export default function Footer() {
         </div>
 
         {/* Branding & Copyright */}
-        <p className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-600 mb-2">
+        <p className="text-[0.625rem] font-black uppercase tracking-[0.4em] text-slate-600 mb-2">
           © 2026 FL Real Estate Master Drill
         </p>
-        <div className="h-px w-8 bg-rose-500/30 mb-4"></div>
-        <p className="text-[9px] text-slate-500 leading-relaxed max-w-[250px] italic">
+        <div className="h-px w-8 bg-blue-500/30 mb-4"></div>
+        <p className="text-[0.69rem] text-slate-500 leading-relaxed max-w-[250px] italic">
           Designed for high-retention learning and Florida State Exam excellence.
         </p>
       </div>

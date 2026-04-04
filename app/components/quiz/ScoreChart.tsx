@@ -48,7 +48,7 @@ export default function ScoreChart({ score, total }: ScoreChartProps) {
       {/* Center Text Overlay */}
       <div className="absolute inset-0 flex flex-col items-center justify-center">
         <span className="text-2xl font-black text-slate-800">{score}/{total}</span>
-        <span className="text-[10px] font-bold text-slate-400 uppercase">Score</span>
+        <span className="text-[0.625rem] font-bold text-slate-400 uppercase">Score</span>
       </div>
     </div>
   );

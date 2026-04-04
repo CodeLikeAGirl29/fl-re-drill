@@ -18,7 +18,7 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
       aria-valuemax={100}
     >
       <div
-        className="flex flex-col justify-center rounded-full overflow-hidden bg-primary text-[10px] font-bold text-primary-foreground text-center whitespace-nowrap transition-all duration-500 ease-out"
+        className="flex flex-col justify-center rounded-full overflow-hidden bg-primary text-[0.625rem] font-bold text-primary-foreground text-center whitespace-nowrap transition-all duration-500 ease-out"
         style={{ width: `${percentage}%` }}
       >
         {/* Only show the text if the bar is wide enough to contain it (> 10%) */}

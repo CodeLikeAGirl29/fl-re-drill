@@ -21,7 +21,7 @@ export default function QuestionCard({ index, score, onNext }: any) {
 
   return (
     <div className="bg-white/95 backdrop-blur-md p-8 rounded-[2rem] shadow-2xl border border-white/20">
-      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+      <span className="text-[0.625rem] font-black text-slate-400 uppercase tracking-widest">
         {q.cat || 'General'} {/* */}
       </span>
       <h2 className="text-sm font-bold text-slate-800 mt-2 mb-6 leading-relaxed">{q.q}</h2>
