@@ -5,9 +5,11 @@ import WelcomeScreen from './WelcomeScreen';
 import QuestionCard from './quiz/QuestionCard';
 import ResultsView from './quiz/ResultsView';
 import FormulaModal from './FormulaModal';
+import QuizCalculator from './QuizCalculator'; // New Component
 import { useTimer } from '../hooks/useTimer';
 import { questions as originalQuestions } from '../lib/questions';
 import { shuffleArray } from '../lib/utils';
+import { Calculator, BookOpen } from 'lucide-react';
 
 export default function QuizContainer() {
   const [activeQuestions, setActiveQuestions] = useState(originalQuestions);
@@ -15,11 +17,13 @@ export default function QuizContainer() {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
   const [missedCategories, setMissedCategories] = useState<string[]>([]);
 
   const { formatTime, seconds } = useTimer();
 
+  // Logic for Top 3 Missed Categories
   const topMissed = useMemo(() => {
     const counts: Record<string, number> = {};
     missedCategories.forEach(cat => counts[cat] = (counts[cat] || 0) + 1);
@@ -27,6 +31,16 @@ export default function QuizContainer() {
       .sort(([, a], [, b]) => b - a)
       .slice(0, 3);
   }, [missedCategories]);
+
+  // Logic for Emerald Coast Ranks
+  const getRank = (finalScore: number, total: number) => {
+    const percentage = (finalScore / total) * 100;
+    if (percentage >= 95) return { name: "Emerald Coast Legend", sub: "Ready for Sundance." };
+    if (percentage >= 85) return { name: "Luxury Broker", sub: "Destin listings await." };
+    if (percentage >= 75) return { name: "Licensed Professional", sub: "You passed the State Exam!" };
+    if (percentage >= 60) return { name: "Probationary Associate", sub: "Almost there. Drill F.S. 475." };
+    return { name: "The Anchor", sub: "Stuck in the sand. Back to the books!" };
+  };
 
   useEffect(() => {
     const saved = localStorage.getItem('fl_quiz_progress');
@@ -69,24 +83,41 @@ export default function QuizContainer() {
   };
 
   return (
-    // Widened to max-w-4xl for the new card style
-    <div className="w-full max-w-4xl mx-auto py-10 relative z-10 px-4">
+    <div className="w-full max-w-3xl mx-auto py-10 relative z-10 px-4">
 
-      {/* HUD and Progress Bar only show if we haven't finished */}
+      {/* 1. DYNAMIC PROGRESS BAR */}
       {view === 'quiz' && currentIdx < activeQuestions.length && (
-        <>
-          <div className="w-full bg-white/10 h-1.5 rounded-full mb-10 overflow-hidden">
-            <div
-              className="bg-[#06b6d4] h-full transition-all duration-500 ease-out"
-              style={{ width: `${(currentIdx / activeQuestions.length) * 100}%` }}
-            />
+        <div className="w-full mb-10 animate-in fade-in duration-700">
+          <div className="w-full bg-white/5 h-6 rounded-full overflow-hidden relative border border-white/10 shadow-inner">
+            {(() => {
+              const progress = (currentIdx / activeQuestions.length) * 100;
+              const currentPassRate = currentIdx > 0 ? (score / currentIdx) * 100 : 0;
+
+              // Color based on CURRENT PASS RATE (Success Logic)
+              let barColor = "bg-[#1d4ed8]"; // Default Blue
+              if (currentPassRate >= 75) barColor = "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]";
+              else if (currentPassRate < 70 && currentIdx > 5) barColor = "bg-rose-500";
+
+              return (
+                <div
+                  className={`${barColor} h-full transition-all duration-700 ease-out flex items-center justify-center text-[10px] font-black text-white uppercase tracking-widest`}
+                  style={{ width: `${progress}%` }}
+                >
+                  {progress > 10 && <span>{Math.round(progress)}% Complete</span>}
+                </div>
+              );
+            })()}
           </div>
-        </>
+        </div>
       )}
 
-      {/* View Switcher */}
+      {/* 2. VIEW SWITCHER */}
       {view === 'welcome' ? (
-        <WelcomeScreen onNew={handleNewQuiz} onResume={handleResume} hasProgress={hasSavedProgress} />
+        <WelcomeScreen
+          onNew={handleNewQuiz}
+          onResume={handleResume}
+          hasProgress={hasSavedProgress}
+        />
       ) : currentIdx < activeQuestions.length ? (
         <QuestionCard
           questionsList={activeQuestions}
@@ -100,10 +131,43 @@ export default function QuizContainer() {
           score={score}
           total={activeQuestions.length}
           missed={topMissed}
+          rank={getRank(score, activeQuestions.length)} // Passing the custom rank
         />
       )}
 
-      <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      {/* 3. FLOATING TOOLKIT (Calculator + Formulas) */}
+      {view === 'quiz' && currentIdx < activeQuestions.length && (
+        <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-[60]">
+          {/* Calculator Toggle */}
+          <button
+            onClick={() => setIsCalcOpen(!isCalcOpen)}
+            className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen ? 'bg-emerald-600 scale-110' : 'bg-slate-700 hover:bg-slate-600'
+              }`}
+          >
+            <Calculator size={24} className="text-white group-hover:rotate-12 transition-transform" />
+          </button>
+
+          {/* Formula Sheet Toggle */}
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="w-14 h-14 bg-[#1d4ed8] hover:bg-[#1e40af] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] hover:scale-110"
+          >
+            <BookOpen size={24} />
+          </button>
+        </div>
+      )}
+
+      {/* 4. MODALS & OVERLAYS */}
+      <FormulaModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+
+      <QuizCalculator
+        isOpen={isCalcOpen}
+        onClose={() => setIsCalcOpen(false)}
+      />
+
     </div>
   );
 }
