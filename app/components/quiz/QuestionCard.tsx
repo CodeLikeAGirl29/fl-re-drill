@@ -107,7 +107,8 @@ export default function QuestionCard({
             className="mt-5 p-4 rounded-lg bg-[#0f172a] border-l-2 border-[#06b6d4]"
           >
             <p
-              className="text-xs text-[#817a8e] italic leading-relaxed"
+              /* Changed text-xs to text-sm or text-base for larger text */
+              className="text-sm text-[#817a8e] italic leading-relaxed"
               dangerouslySetInnerHTML={{ __html: formatExplanation(q.explanation) }}
             />
           </motion.div>

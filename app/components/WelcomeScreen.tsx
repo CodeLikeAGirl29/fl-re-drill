@@ -53,7 +53,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
           onClick={onNew}
           className="w-full py-4 bg-[#06b6d4] hover:bg-[#0ea5e9] text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-[1.02]"
         >
-          {hasProgress ? "Start Fresh Drill" : "Begin Master Drill"}
+          {hasProgress ? "Start New Drill" : "Begin Master Drill"}
         </button>
 
         {hasProgress && (

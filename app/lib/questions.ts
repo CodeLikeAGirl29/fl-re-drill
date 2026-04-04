@@ -949,7 +949,7 @@ export const questions = [
   },
   {
     "cat": "Legal Descriptions",
-    "q": "A woman owned the NW 1/2 of a section. She sold the W 1/2 of that NW 1/2. How many acres does she own?",
+    "q": "A property owner holds title to the NW 1/2 of a standard section. If she subsequently conveys the W 1/2 of that specific parcel to a relative, how many acres does she retain in her possession?",
     "options": [
       "160 acres",
       "400 acres",
@@ -985,7 +985,7 @@ export const questions = [
   },
   {
     "cat": "Math",
-    "q": "Paving cost $18.50/ft. City pays 20%. Lot is 115'x150'. What is Alex's special assessment?",
+    "q": "Alex owns a residential lot that measures 115 feet wide by 150 feet deep. The city plans to pave the street in front of his property at a cost of $18.50 per foot. If the city covers 20% of the paving expenses, how much will Alex be charged for his share of the special assessment?",
     "options": [
       "$920",
       "$875",
