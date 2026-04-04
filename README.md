@@ -11,11 +11,14 @@ view the project [here](https://fl-re-drill.vercel.app/)
 ## 🚀 The Experience
 
   * **Zero-Latency Drills:** Questions are bundled locally for instant transitions. No loading spinners between questions.
+  * **⚡ Keyboard-First Navigation:** Optimized for rapid-fire studying with built-in shortcuts:
+      * **[1] [2] [3] [4]**: Select the corresponding answer choice.
+      * **[Enter]**: Advance to the next question once an answer is locked in.
   * **Intelligent Persistence:** Built-in `localStorage` synchronization. If a user closes their browser mid-drill, they can resume their exact score, time, and question index.
   * **Contextual Math Support:** A persistent **Formula Cheat Sheet** modal accessible at any time, specializing in Florida-specific taxes (Doc Stamps, Intangible Tax) and acreage.
   * **Styled Feedback:** Explanations aren't just text—they are formatted for retention:
-      * \<strong style="color: \#2563eb;"\>Key Points:\</strong\> Crucial theory and law.
-      * \<strong style="color: \#9333ea;"\>Calculations:\</strong\> Step-by-step math breakdowns.
+      * <strong style="color: #2563eb;">Key Points:</strong> Crucial theory and law.
+      * <strong style="color: #9333ea;">Calculations:</strong> Step-by-step math breakdowns.
   * **Modern UX:** A deep rose "Starburst" mesh gradient with glassmorphism UI cards and automatic "scroll-to-top" navigation.
 
 -----

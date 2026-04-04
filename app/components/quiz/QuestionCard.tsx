@@ -27,6 +27,31 @@ export default function QuestionCard({
     onNext(isCorrect);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // 1. Handle selecting options with keys '1', '2', '3', '4'
+      if (!isAnswered && ['1', '2', '3', '4'].includes(event.key)) {
+        const optionIndex = parseInt(event.key) - 1;
+        if (q.options[optionIndex]) {
+          setSelected(optionIndex);
+          setIsAnswered(true);
+        }
+      }
+
+      // 2. Handle 'Enter' to go to the next question
+      if (isAnswered && event.key === 'Enter') {
+        handleNextClick();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    // Cleanup listener on unmount or when dependencies change
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isAnswered, q.options, handleNextClick]);
+
+
+
   const addLeadingZero = (number: number) => (number > 9 ? number : `0${number}`);
 
   if (!q) return null;
