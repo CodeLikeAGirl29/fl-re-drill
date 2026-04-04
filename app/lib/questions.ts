@@ -961,6 +961,18 @@ export const questions = [
   },
   {
     "cat": "Appraisal",
+    "q": "When using the Sales Comparison Approach, if a comparable property is superior to the subject property in a given feature, the appraiser should make which adjustment?",
+    "options": [
+      "Make a negative adjustment to the comparable.",
+      "Make a positive adjustment to the comparable.",
+      "Discard the comparable entirely.",
+      "Make a positive adjustment to the subject property."
+    ],
+    "correct": 0,
+    "explanation": "Key Point: Always adjust the comparable, never the subject. Remember CBS (Comparable Better, Subtract) and CIA (Comparable Inferior, Add)."
+  },
+  {
+    "cat": "Appraisal",
     "q": "Subject: 3-bed/1-bath. Comp: 3-bed/2-bath sold for $126k. Extra bath value: $4k. Subject value?",
     "options": [
       "$130,000",
