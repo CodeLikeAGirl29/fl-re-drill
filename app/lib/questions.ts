@@ -1,1382 +1,1460 @@
 export const questions = [
   {
-    "cat": "Legal Theory",
-    "q": "In which mortgage lending theory does the borrower NOT retain title during the loan period?",
-    "options": [
-      "Lien theory",
-      "Title theory",
-      "Bank theory",
-      "Loan theory"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: In Title Theory states, the lender holds the title until the debt is paid. Note: Florida is a Lien Theory state, meaning the borrower retains the title and the lender simply holds a lien."
+    cat: "Legal Theory",
+    q: "In a 'Title Theory' state, which party retains the equitable title during the mortgage period?",
+    options: ["The mortgagee", "The mortgagor", "The trustee", "The vendor"],
+    correct: 1,
+    explanation:
+      "Key Point: In Title Theory states, the lender (mortgagee) holds legal title, while the borrower (mortgagor) retains equitable title. Note: Florida is a Lien Theory state where the borrower holds both.",
   },
   {
-    "cat": "",
-    "q": "Which benefit is NOT provided by the Florida Constitutional Homestead law?",
-    "options": [
-      "A reduction in the assessed value for propperty tax purposes.",
-      "Protection from the family in the event of the death of a spouse.",
-      "Protection against forced sale by general creditors, such as credit card companies.",
-      "Immunity from forced sale due to non-payment of property taxes."
+    cat: "Homestead",
+    q: "The Florida Constitutional Homestead law provides several protections; however, a homestead property is NOT immune from forced sale for non-payment of:",
+    options: [
+      "Credit card debt",
+      "Personal loans",
+      "Medical bills",
+      "Special assessments",
     ],
-    "correct": 3,
-    "explanation": "Correction: The Florida Constitutional Homestead does NOT provide immunity from forced sale due to non-payment of property taxes. Note: It does provide protection from general creditors and a reduction in assessed value, but property tax debts can still lead to a forced sale."
+    correct: 3,
+    explanation:
+      "Correction: Homestead property is protected from 'general creditors' (credit cards, etc.), but is NEVER protected from forced sale due to property taxes, special assessments, mortgages, or construction liens.",
   },
   {
-    "cat": "Legal Theory",
-    "q": "Which describes a non-freehold (leasehold) estate that has a definite ending date?",
-    "options": [
+    cat: "Real Property",
+    q: "A leasehold estate that has a specific, predetermined beginning and ending date is categorized as a:",
+    options: [
       "Tenancy at will",
-      "Estate by the entireties",
-      "Life estate",
-      "Estate for years"
+      "Tenancy at sufferance",
+      "Tenancy for years",
+      "Fee simple estate",
     ],
-    "correct": 3,
-    "explanation": "Key Point: An 'Estate for Years' is a leasehold (non-freehold) estate that has a specific start and end date. It is the only leasehold that does NOT require a notice to terminate because the end date is already known. Note: Even a one-week lease can be an 'Estate for Years' if the dates are fixed."
+    correct: 2,
+    explanation:
+      "Key Point: A 'Tenancy for Years' (or Estate for Years) is a non-freehold estate with a definite duration. Because the end date is certain, no notice to terminate is required.",
   },
   {
-    "cat": "Homestead",
-    "q": "What is the formula for finding the taxable value of a homestead property?",
-    "options": [
-      "Assessed value + homestead exemptions = taxable value",
-      "Assessed value - taxable value = homestead exemptions",
-      "Assessed value - homestead exemptions = taxable value",
-      "Homestead exemptions - assessed value = taxable value"
+    cat: "Homestead",
+    q: "Which of the following represents the correct formula for determining a property's taxable value?",
+    options: [
+      "Market Value - Assessment Limitation = Taxable Value",
+      "Assessed Value - Homestead Exemptions = Taxable Value",
+      "Just Value + Exemptions = Taxable Value",
+      "Assessed Value / Millage Rate = Taxable Value",
     ],
-    "correct": 2,
-    "explanation": "Key Point: The taxable value is the amount you actually pay taxes on. It is the Assessed Value minus all qualifying exemptions."
+    correct: 1,
+    explanation:
+      "Key Point: Taxable value is the amount used to calculate property taxes. Formula: Assessed Value (Just Value minus Save Our Homes cap) minus all qualifying exemptions.",
   },
   {
-    "cat": "Land",
-    "q": "Which of the following is NOT one of the three physical components of land?",
-    "options": [
-      "Surface rights",
-      "Air rights",
-      "Legal rights",
-      "Subsurface rights"
+    cat: "Land",
+    q: "The physical components of land include surface rights, air rights, and subsurface rights. Which of the following is NOT a physical component of land?",
+    options: [
+      "Riparian rights",
+      "Mineral rights",
+      "Easement rights",
+      "Space rights",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Land consists of Surface, Subsurface, and Air. 'Legal Rights' refers to the Bundle of Rights (Real Property), not the physical land itself."
+    correct: 2,
+    explanation:
+      "Key Point: Land physically consists of the surface, everything below it (subsurface), and the space above it (air). 'Easement rights' are legal interests in land, not physical components.",
   },
   {
-    "cat": "Titles",
-    "q": "What is NOT true of an abstract of title?",
-    "options": [
-      "It is a complete search of recorded documents",
-      "It is a complete successive record of ownership (Chain of Title)",
-      "An opinion of title is executed by an attorney",
-      "It helps determine if a title is marketable"
+    cat: "Titles",
+    q: "An 'Abstract of Title' is best described as a:",
+    options: [
+      "Guarantee of a marketable title",
+      "Chain of successive ownership links",
+      "Condensed history or summary of all recorded documents affecting a title",
+      "Legal opinion regarding the validity of a title",
     ],
-    "correct": 1,
-    "explanation": "Correction: The successive record of ownership itself is the 'Chain of Title.' An 'Abstract' is the summary or condensed history of all those recorded documents. Note: An attorney provides the 'Opinion of Title' after reviewing the Abstract."
+    correct: 2,
+    explanation:
+      "Key Point: An abstract is the summary of the history. The 'Chain of Title' is the list of owners. An 'Opinion of Title' is what an attorney writes after reading the abstract.",
   },
   {
-    "cat": "Legal",
-    "q": "Which clause in a deed states the grantor owns the property and has the legal right to convey it?",
-    "options": [
-      "Seisin",
-      "Constructive notice",
-      "Actual notice",
-      "Habendum clause"
+    cat: "Legal",
+    q: "The 'Covenant of Seisin' in a General Warranty Deed represents the grantor's promise that they:",
+    options: [
+      "Will defend the title against all lawful claims",
+      "Own the property and have the legal right to convey it",
+      "Have disclosed all encumbrances to the grantee",
+      "Will provide any further documentation needed to perfect the title",
     ],
-    "correct": 0,
-    "explanation": "Key Point: The 'Covenant of Seisin' is a promise that the grantor actually owns the property and has the right to sell it. Note: This is the most fundamental promise in a General Warranty Deed."
+    correct: 1,
+    explanation:
+      "Key Point: Seisin means 'I own it and I have the right to sell it.' This is the first covenant found in a General Warranty Deed.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "Which statement is FALSE concerning legal descriptions?",
-    "options": [
-      "Every section in a township contains 43,560 square feet",
-      "Lot and block is used for recorded plat maps",
-      "Metes and bounds uses a POB and compass degrees",
-      "The principal meridian runs north/south through Tallahassee"
+    cat: "Legal Descriptions",
+    q: "Which statement is mathematically correct regarding Florida's system of legal descriptions?",
+    options: [
+      "A section contains 640 acres.",
+      "A township contains 36 square miles and 43,560 acres.",
+      "A check contains 16 townships.",
+      "An acre contains 43,650 square feet.",
     ],
-    "correct": 0,
-    "explanation": "Correction: Every section in a township contains 640 ACRES. An ACRE contains 43,560 square feet. Note: Remember the '7-11' rule (4+3=7, 5+6=11) to memorize the square footage of an acre."
+    correct: 0,
+    explanation:
+      "Key Point: One section is 1 mile by 1 mile, which equals 640 acres. Remember: 43,560 square feet = 1 acre (use the 7-11 rule: 4+3=7, 5+6=11).",
   },
   {
-    "cat": "Legal Theory",
-    "q": "Which statement is INCORRECT regarding mortgage lending theories?",
-    "options": [
-      "In Lien Theory states, the borrower does not retain ownership",
-      "Florida practices Lien Theory",
-      "In Title Theory states, the borrower does not retain ownership",
-      "In Lien Theory states, the borrower does retain ownership"
+    cat: "Statute of Frauds",
+    q: "According to the Statute of Frauds, which contract would be enforceable in a court of law despite being oral?",
+    options: [
+      "A purchase and sale contract for a residential home",
+      "A six-month lease agreement",
+      "An option contract for a commercial lot",
+      "A mortgage on a condominium",
     ],
-    "correct": 0,
-    "explanation": "Correction: In Lien Theory states (like Florida), the borrower DOES retain ownership/title. The mortgage is simply a lien against the property used as security for the debt."
+    correct: 1,
+    explanation:
+      "Key Point: The Statute of Frauds requires contracts conveying an interest in real property to be in writing to be enforceable. Leases for one year or less are a primary exception.",
   },
   {
-    "cat": "Legal",
-    "q": "Which statement is FALSE concerning Florida Statutes and FREC rules?",
-    "options": [
-      "The FREC rules are Chapter 61J2",
-      "Real estate laws are F.S. 475",
-      "The HOA disclosure law is F.S. 720",
-      "The DBPR laws are F.S. 120"
+    cat: "Disclosures",
+    q: "Based on the ruling in Johnson v. Davis, a licensee is required to disclose which of the following to a prospective buyer of residential property?",
+    options: [
+      "The fact that a previous occupant died of HIV/AIDS",
+      "A nearby registered sex offender",
+      "Known material facts that affect the value of the property and are not readily observable",
+      "The seller's motivation for moving",
     ],
-    "correct": 3,
-    "explanation": "Correction: The DBPR is governed by F.S. 455. F.S. 120 is the Administrative Procedure Act, which governs the disciplinary process for all state agencies."
+    correct: 2,
+    explanation:
+      "Key Point: Johnson v. Davis established that sellers (and by extension agents) must disclose material defects. Deaths/Suicides/HIV are NOT material facts in Florida (F.S. 689.25).",
   },
   {
-    "cat": "Homestead",
-    "q": "What is the formula for finding the taxable value of a homestead property?",
-    "options": [
-      "Assessed value + homestead exemptions = taxable value",
-      "Assessed value - taxable value = homestead exemptions",
-      "Assessed value - homestead exemptions = taxable value",
-      "Homestead exemptions - assessed value = taxable value"
+    cat: "Agency",
+    q: "In Florida, if a brokerage represents a seller as a Single Agent, what must occur before the broker can show the property to a buyer who is also represented by the firm as a Single Agent?",
+    options: [
+      "The broker must disclose the dual agency relationship.",
+      "Both parties must sign a 'Consent to Transition to Transaction Broker' notice.",
+      "The broker must terminate the agreement with the buyer.",
+      "The broker must appoint a designated sales associate for each party.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Taxable value is the portion of the assessed value that is actually subject to taxation after all exemptions are removed."
+    correct: 1,
+    explanation:
+      "Key Point: Dual Agency is illegal. The only way for one broker to assist both parties is to transition into a Transaction Brokerage relationship with written consent.",
   },
   {
-    "cat": "Statute of Frauds",
-    "q": "Which of the following is FALSE regarding the Statute of Frauds?",
-    "options": [
-      "Deeds and mortgages must be in writing",
-      "All contracts must be in writing to be enforceable",
-      "It does not apply to a 3-month listing",
-      "It applies to option contracts"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-red-500 font-bold'>Correction:</strong> Not ALL contracts must be in writing to be valid. For example, a lease for less than one year is an exception. <br><br><strong class='text-blue-600 font-bold'>Key Point:</strong> The Statute of Frauds requires documents that convey an interest in real property (like deeds, mortgages, and purchase contracts) to be in writing to be *enforceable* in court."
+    cat: "Property Management",
+    q: "Under the Florida Residential Landlord and Tenant Act, a landlord who intends to impose a claim on a security deposit has how many days to notify the tenant?",
+    options: ["15 days", "30 days", "45 days", "7 days"],
+    correct: 1,
+    explanation:
+      "Correction: If the landlord is NOT making a claim, they have 15 days to return the deposit. If they ARE making a claim, they have 30 days to notify the tenant via certified mail.",
   },
   {
-    "cat": "Disclosures",
-    "q": "A broker knows the roof leaks. He satisfies his legal obligation by telling the buyer:",
-    "options": [
-      "The roof leaks",
-      "The buyer should order an inspection",
-      "Nothing, if it is an 'As-Is' contract",
-      "Nothing, if he is a Transaction Broker"
-    ],
-    "correct": 0,
-    "explanation": "Key Point: Under Johnson v. Davis, licensees MUST disclose all known material facts that affect the value of residential property. Note: Simply telling them to 'get an inspection' does not fulfill the duty to disclose a known defect."
+    cat: "Finance",
+    q: "If a lender charges 4 discount points on a 6% fixed-rate mortgage, what is the approximate effective yield to the lender?",
+    options: ["6.25%", "6.50%", "7.00%", "5.50%"],
+    correct: 1,
+    explanation:
+      "Calculation: Each point adds 1/8% to the yield. 4 points = 4/8% = 0.5%. 6% + 0.5% = 6.5%.",
   },
   {
-    "cat": "Disclosures",
-    "q": "A seller tells a broker in confidence that the roof leaks. Which of the following applies?",
-    "options": [
-      "A Single Agent is not required to disclose it",
-      "The broker is always required to disclose it to all buyers",
-      "Disclosure is not required if it is an 'As-Is' contract",
-      "The broker has an ethical but not a legal obligation to disclose"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: Material defects must ALWAYS be disclosed to buyers, regardless of agency relationship or 'As-Is' status. Note: Your duty to the law and the public overrides your duty of confidentiality to a seller when it comes to material facts."
+    cat: "Math",
+    q: "The N 1/2 of the SW 1/4 of the SE 1/4 of Section 10 contains how many acres?",
+    options: ["20 acres", "40 acres", "80 acres", "10 acres"],
+    correct: 0,
+    explanation:
+      "Calculation: 640 / 4 (SE) / 4 (SW) / 2 (N) = 20 acres.",
   },
   {
-    "cat": "Agency",
-    "q": "To show a 'Single Agent' buyer a property listed by the same 'Single Agent' brokerage, both parties must:",
-    "options": [
-      "Sign a Dual Agency waiver",
-      "Transition to a Transaction Broker relationship",
-      "Cancel the buyer agreement",
-      "Pay an extra commission fee"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: Dual Agency is ILLEGAL in Florida. To represent both the buyer and seller in the same transaction, the brokerage must transition to a Transaction Broker relationship with written consent from both parties."
+    cat: "Licensing",
+    q: "A sales associate's first renewal period is approaching. If the licensee fails to complete the 45-hour post-licensing requirement, the license will:",
+    options: ["Become Involuntary Inactive", "Be suspended", "Become Null and Void", "Be revoked"],
+    correct: 2,
+    explanation:
+      "Key Point: Post-licensing is mandatory. Failure to complete it by the first expiration date results in the license becoming Null and Void immediately.",
   },
   {
-    "cat": "Agency",
-    "q": "Which statement about Florida agency relationships is CORRECT?",
-    "options": [
-      "The presumed relationship is Single Agency",
-      "No Brokerage disclosure must be given before showing property",
-      "A Single Agent can represent both parties with consent",
-      "Transaction Brokers have a fiduciary duty"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: In a No Brokerage Relationship (Non-representation), the disclosure must be given BEFORE showing the property. Note: In Florida, the 'presumed' relationship is actually Transaction Broker."
-  },
-  {
-    "cat": "Homestead",
-    "q": "Which statement is FALSE regarding the Florida Constitutional Homestead?",
-    "options": [
-      "It provides protection of family, homestead, and tax exemptions",
-      "Both spouses must sign the deed even if only one is on the title",
-      "Homestead is protected from forced sale for nonpayment of property taxes",
-      "Homes over $75k get $50k exemption from city/county and $25k from schools"
-    ],
-    "correct": 2,
-    "explanation": "Correction: Homestead is NOT protected from forced sale for nonpayment of property taxes, special assessments, or mortgage/construction liens. Note: It IS protected from personal judgment debts like credit cards or medical bills."
-  },
-  {
-    "cat": "Property Management",
-    "q": "Which statement is FALSE concerning Florida landlord security deposit rules?",
-    "options": [
-      "Landlords have three options for holding deposits",
-      "If no claim is made, the deposit must be returned in 15 days",
-      "If a claim is made, the landlord has 15 days to notify the tenant",
-      "Banks used to hold deposits must be located in Florida"
-    ],
-    "correct": 2,
-    "explanation": "Correction: If a landlord intends to make a claim on the security deposit, they have 30 DAYS (not 15) to notify the tenant by certified mail. Note: If no claim is made, they have 15 days to return it."
-  },
-  {
-    "cat": "Contracts",
-    "q": "What does 'Novation' mean in contract law?",
-    "options": [
-      "A seller is obligated to list with a broker",
-      "Agreement to substitute a new party for an original one",
-      "A contract where only one party is bound to perform",
-      "A legal remedy for breach of contract"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: Novation is the substitution of a new contract or a new party for an old one, effectively releasing the original party from liability."
-  },
-  {
-    "cat": "Fair Housing",
-    "q": "Which statement is INCORRECT regarding Fair Housing violations?",
-    "options": [
-      "Steering involves channeling buyers to certain areas",
-      "Blockbusting involves scaring owners into selling",
-      "Redlining is a discriminatory lending practice",
-      "Steering is when sellers are encouraged to list properties"
-    ],
-    "correct": 3,
-    "explanation": "Correction: Steering applies to BUYERS (channeling them toward or away from neighborhoods). Encouraging sellers to list because a minority group is moving in is called 'Blockbusting' or 'Panic Peddling.'"
-  },
-  {
-    "cat": "Antitrust",
-    "q": "Two brokers meeting to set commission rates for the upcoming year is a violation of:",
-    "options": [
-      "RESPA",
-      "The Truth in Lending Act (TILA)",
-      "Anti Trust Laws",
-      "The Fair Housing Act"
-    ],
-    "correct": 2,
-    "explanation": "Key Point: Price-fixing (setting commission rates between competing brokerages) is a violation of the Sherman-Clayton Antitrust Acts. Note: Commissions are always negotiable; there is no 'standard' rate."
-  },
-  {
-    "cat": "Federal Law",
-    "q": "A homeowner is selling a house built in the 1960s. Which statement is FALSE?",
-    "options": [
-      "The homeowner is responsible for EPA disclosures and pamphlets",
-      "The sales associate is legally responsible for the disclosure and pamphlet",
-      "The buyer must acknowledge receiving the lead-based paint disclosure",
-      "The buyer is not required to inspect the property for lead"
-    ],
-    "correct": 1,
-    "explanation": "Correction: Under the Lead-Based Paint Hazard Reduction Act, the SELLER (owner) is responsible for providing the disclosure and pamphlet. The agent's job is to ensure compliance. Note: The buyer is given a 10-day period to inspect, but it is not required."
-  },
-  {
-    "cat": "Licensing",
-    "q": "If a sales associate fails to complete the 45-hour post-licensing course by the first expiration, the license is:",
-    "options": [
-      "Involuntary Inactive",
-      "Voluntary Inactive",
-      "Null and Void",
-      "Suspended"
-    ],
-    "correct": 2,
-    "explanation": "Key Point: The first renewal is the most critical. If you miss the post-license education, the license becomes 'Null and Void' (as if it never existed). Note: You would have to take the 63-hour course and state exam all over again."
-  },
-  {
-    "cat": "Licensing",
-    "q": "Who must complete the 14 hours of continuing education every two years?",
-    "options": [
-      "Only active licensees",
+    cat: "Licensing",
+    q: "In Florida, which licensees are required to complete the 14-hour continuing education (CE) requirement during every renewal period?",
+    options: [
+      "Only active sales associates and brokers",
       "Only inactive licensees",
-      "Both active and inactive licensees",
-      "Only brokers"
+      "Both active and voluntarily inactive licensees",
+      "Only licensees with more than 10 years of experience",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Both active and voluntarily inactive licensees must complete 14 hours of CE every renewal cycle to maintain their license status."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> To maintain a license, both active and voluntarily inactive licensees must complete 14 hours of CE. <strong>Note:</strong> This requirement begins after the initial post-license education has been completed.",
   },
   {
-    "cat": "Brokerage Office",
-    "q": "Taking ORIGINAL listing contracts when leaving a brokerage is considered:",
-    "options": [
-      "Breach of Trust",
-      "Culpable Negligence",
+    cat: "Brokerage Office",
+    q: "If a sales associate terminates their employment with a brokerage and takes original listing contracts, the associate may be charged with:",
+    options: [
+      "Breach of trust",
+      "Culpable negligence",
       "Larceny",
-      "Commingling"
+      "Commingling",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Original listings and records are the physical property of the broker. Removing them is Larceny (theft). Note: Removing copies may be a Breach of Trust (ethical), but taking originals is a crime."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Original listings and records are the physical property of the broker. Removing them constitutes <strong>Larceny</strong> (theft). While taking copies might be a 'Breach of Trust,' taking the actual originals is a criminal act.",
   },
   {
-    "cat": "License Law",
-    "q": "Which statement is FALSE regarding Florida's continuing education requirements?",
-    "options": [
-      "Both active and inactive associates must do 45-hr post-license",
-      "If a broker dies, associates become involuntarily inactive",
-      "Only active associates must complete the 45-hr post-license course",
-      "Failure to do 14-hr CE results in involuntary inactive status"
+    cat: "License Law",
+    q: "Regarding Florida's education requirements, which of the following statements is FALSE?",
+    options: [
+      "Both active and inactive associates must complete the 45-hour post-license course.",
+      "If a qualifying broker dies, associates become involuntarily inactive.",
+      "Only active associates are required to complete the 45-hour post-license course.",
+      "Failure to complete the 14-hour CE results in an involuntary inactive status.",
     ],
-    "correct": 2,
-    "explanation": "Correction: BOTH active and inactive sales associates must complete the 45-hour post-licensing course before their first expiration to avoid the license becoming Null and Void."
+    correct: 2,
+    explanation:
+      "<strong>Correction:</strong> Both active AND inactive sales associates must complete the 45-hour post-licensing course before their first expiration. Failure to do so results in the license becoming <strong>Null and Void</strong>.",
   },
   {
-    "cat": "License Law",
-    "q": "A seller is thrilled with a sales associate's performance. What can the seller legally do for the associate directly?",
-    "options": [
-      "Give the associate a cash bonus",
-      "Give the associate a gift worth up to $25",
-      "Express her thanks to the sales associate",
-      "Give the associate a bottle of wine"
+    cat: "License Law",
+    q: "A seller is highly satisfied with a sales associate's performance. Under Florida law, what may the seller provide directly to the associate?",
+    options: [
+      "A cash bonus at the closing table",
+      "A gift card with a value not exceeding $50",
+      "Professional thanks and appreciation",
+      "A valuable gift, such as a bottle of high-end wine",
     ],
-    "correct": 2,
-    "explanation": "Key Point: A sales associate can ONLY be compensated by their employing broker. Note: The seller cannot give you a cash bonus, a bottle of wine, or a gift card directly. They should give it to your broker to pass on to you."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> A sales associate is an agent of the broker. They can <strong>ONLY</strong> be compensated for real estate services by their employing broker. Direct bonuses or gifts from clients are prohibited.",
   },
   {
-    "cat": "License Law",
-    "q": "Who is the only person that can legally pay a sales associate for real estate services?",
-    "options": [
-      "The seller in the transaction",
-      "The buyer in the transaction",
-      "The associate's employer (Broker or Owner-Developer)",
-      "The DBPR"
+    cat: "License Law",
+    q: "Which entity or individual is legally authorized to pay a sales associate for performing real estate services?",
+    options: [
+      "The seller of the property",
+      "The buyer of the property",
+      "The associate's employing broker or owner-developer",
+      "The Florida Real Estate Commission (FREC)",
     ],
-    "correct": 2,
-    "explanation": "Key Point: All commissions and fees must be paid to the Broker, who then pays the Sales Associate. You can never accept a direct payment for real estate services from a client."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> All compensation must flow through the employing broker. A sales associate cannot legally accept payment from any other party for real estate activities.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "A broker wants to close one branch office and open a new one at a different location. Which applies?",
-    "options": [
-      "He can transfer the registration to the new office",
-      "He must register the new location and pay a fee",
-      "Brokers are limited to one principal office only",
-      "Branch offices do not require registration"
+    cat: "Brokerage Operations",
+    q: "If a broker chooses to close an existing branch office and open a new branch at a different location, which of the following is correct?",
+    options: [
+      "The broker may transfer the existing registration to the new location.",
+      "The broker must register the new location and pay the required fee.",
+      "Brokers are prohibited from moving branch offices during a renewal cycle.",
+      "Branch offices do not require individual registration with the DBPR.",
     ],
-    "correct": 1,
-    "explanation": "Key Point: Branch office registrations are NOT transferable. If a broker moves a branch office, they must register the new location and pay a new registration fee. Note: A principal office registration CAN be transferred."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> Branch office registrations are <strong>NOT transferable</strong>. If a branch location changes, the broker must register the new office and pay the registration fee. Note that a principal office registration CAN be transferred.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "When advertising on the internet, where must the brokerage firm's name appear?",
-    "options": [
-      "Adjacent to or immediately above/below the point of contact info",
-      "Anywhere on the page as long as it is visible",
-      "On a separate 'About Us' page only",
-      "Only the licensee's name is required for internet ads"
+    cat: "Brokerage Operations",
+    q: "According to Florida's internet advertising rules, where must the name of the brokerage firm appear in an online advertisement?",
+    options: [
+      "Immediately adjacent to, above, or below the point of contact information.",
+      "Anywhere on the webpage, provided the font is legible.",
+      "Only on the 'Terms of Service' or 'About Us' page.",
+      "The brokerage name is optional if the licensee's name is present.",
     ],
-    "correct": 0,
-    "explanation": "Key Point: Proximity rule. The brokerage name must be right next to, or immediately above/below, the contact info. Note: This prevents 'Blind Ads' where the public doesn't know which firm you work for."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> This is known as the <strong>Proximity Rule</strong>. It ensures that the public can easily identify the firm the licensee represents, preventing 'blind ads.'",
   },
   {
-    "cat": "License Law",
-    "q": "Sales associate Sloane has 26 months of experience. Which of the following is INCORRECT regarding her options?",
-    "options": [
-      "She can become a broker associate and later open her own office",
-      "She can become a general partner in her current brokerage firm",
-      "She can quit and go to work for a different brokerage",
-      "She can buy stock in her current brokerage firm"
+    cat: "License Law",
+    q: "Sales associate Sloane has been licensed for 26 months. Which of the following is PROHIBITED regarding her career options?",
+    options: [
+      "Changing her status to a broker associate after passing the broker exam.",
+      "Serving as a general partner in her current brokerage firm.",
+      "Terminating her employment to work for a different brokerage.",
+      "Purchasing stock (limited partnership) in her current brokerage firm.",
     ],
-    "correct": 1,
-    "explanation": "Correction: A Sales Associate cannot be an officer, director, or general partner of a real estate brokerage. Note: They CAN, however, own stock (be a limited partner) in the firm."
+    correct: 1,
+    explanation:
+      "<strong>Correction:</strong> A sales associate or broker associate cannot serve as an officer, director, or <strong>general partner</strong> of a brokerage. They may, however, be shareholders or limited partners.",
   },
   {
-    "cat": "License Law",
-    "q": "What is the penalty for unlicensed activity or falsifying a DBPR application?",
-    "options": [
-      "1st degree misdemeanor",
-      "2nd degree misdemeanor",
-      "3rd degree felony",
-      "Administrative fine only"
+    cat: "License Law",
+    q: "Operating as a real estate licensee without a valid license or providing false information on a DBPR application is classified as a:",
+    options: [
+      "First-degree misdemeanor",
+      "Second-degree misdemeanor",
+      "Third-degree felony",
+      "Violation punishable by administrative fine only",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Falsifying an application or practicing without a license are serious crimes—they are Third Degree Felonies in Florida."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Unlicensed activity and application fraud are serious offenses. In Florida, these are prosecuted as <strong>Third-Degree Felonies</strong>.",
   },
   {
-    "cat": "License Law",
-    "q": "What recourse does a sales associate have if their broker refuses to pay an earned commission?",
-    "options": [
-      "Request an Escrow Disbursement Order from the FREC",
-      "Sue the Seller directly",
-      "Sue the Broker in a civil court",
-      "File a claim with the Real Estate Recovery Fund"
+    cat: "License Law",
+    q: "If a broker refuses to pay a sales associate an earned commission, what is the associate's legal recourse?",
+    options: [
+      "File a petition for an Escrow Disbursement Order with the FREC.",
+      "Sue the seller for the unpaid portion of the commission.",
+      "File a civil lawsuit against the broker in a court of law.",
+      "Submit a claim to the Real Estate Recovery Fund.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: A commission dispute between a broker and an associate is a civil matter. You must sue the broker in civil court. Note: FREC does not have the authority to settle commission disputes between licensees."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Commission disputes are civil matters. The FREC does not have the authority to settle disputes between brokers and associates; the associate must seek a judgment in <strong>civil court</strong>.",
   },
   {
-    "cat": "Finance",
-    "q": "What is the effective yield to a lender if a 5% loan has 4 discount points purchased?",
-    "options": [
-      "5.25%",
-      "5.5%",
-      "5.75%",
-      "6.0%"
-    ],
-    "correct": 1,
-    "explanation": "Calculation: Each discount point increases the lender's yield by 1/8 percent. 4 points = 4/8 (or 1/2) percent. 5% + 0.5% = 5.5% effective yield."
+    cat: "Finance",
+    q: "If a borrower obtains a mortgage loan at 5% interest plus 4 discount points, what is the approximate effective yield to the lender?",
+    options: ["5.25%", "5.50%", "5.75%", "6.00%"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> Each discount point increases the lender's yield by 1/8 of 1 percent (0.125). <br>4 points × 0.125 = 0.50%. <br>5% + 0.50% = 5.50% effective yield.",
   },
   {
-    "cat": "Finance",
-    "q": "On a 30-year fixed rate fully amortized mortgage, most of the payment at the END of the term goes to:",
-    "options": [
-      "Interest",
-      "Principal",
-      "Taxes",
-      "Insurance"
+    cat: "Finance",
+    q: "In a 30-year, fixed-rate, fully amortized mortgage, the portion of the monthly payment that is applied to the principal balance:",
+    options: [
+      "Remains constant throughout the term",
+      "Increases each month as the interest portion decreases",
+      "Decreases each month as the interest portion increases",
+      "Is highest during the first year of the loan",
     ],
-    "correct": 1,
-    "explanation": "Key Point: In an amortized loan, the interest portion of the payment decreases over time, and the principal portion increases. By the end of the term, almost the entire payment is principal."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> In an amortized loan, the interest is calculated on the remaining balance. As the balance drops, the interest portion of the payment decreases, allowing more of the fixed payment to be applied to the <strong>principal</strong>.",
   },
   {
-    "cat": "Homestead",
-    "q": "What is the formula for finding the taxable value of a homestead property?",
-    "options": [
-      "Assessed value + homestead exemptions = taxable value",
-      "Assessed value - taxable value = homestead exemptions",
-      "Assessed value - homestead exemptions = taxable value",
-      "Homestead exemptions - assessed value = taxable value"
+    cat: "Homestead",
+    q: "The formula for determining the taxable value of a homesteaded property in Florida is:",
+    options: [
+      "Assessed value + total exemptions = taxable value",
+      "Just value - assessment limitations = taxable value",
+      "Assessed value - qualifying exemptions = taxable value",
+      "Market value × millage rate = taxable value",
     ],
-    "correct": 2,
-    "explanation": "Key Point: The taxable value is the amount you actually pay taxes on. It is calculated by taking the Assessed Value (which may be limited by the Save Our Homes cap) and subtracting all qualifying exemptions."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Taxable value is the final figure used to calculate tax liability. It is derived by taking the <strong>Assessed Value</strong> (after Save Our Homes caps) and subtracting all applicable exemptions.",
   },
   {
-    "cat": "Closing",
-    "q": "Which statement is TRUE concerning the Closing Disclosure (CD)?",
-    "options": [
-      "The binder deposit is a credit to the buyer only",
-      "The binder deposit is a credit to the buyer and a debit to the seller",
-      "Property taxes are always a credit to the seller",
-      "The sales price is a credit to the buyer"
+    cat: "Closing",
+    q: "On a Closing Disclosure (CD), how is the binder (earnest money) deposit typically recorded?",
+    options: [
+      "Credit to the buyer only",
+      "Credit to the buyer and a debit to the seller",
+      "Debit to the buyer and a credit to the seller",
+      "Credit to the seller only",
     ],
-    "correct": 0,
-    "explanation": "Key Point: The binder (earnest money) deposit is already in escrow; it is credited to the buyer to reduce what they owe at closing, but it does NOT affect the seller's side of the ledger."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> The binder deposit is money already held in escrow. It appears as a <strong>Credit to the Buyer</strong> because it reduces the amount of cash they must bring to closing. It does not appear on the seller's side because they haven't received it yet.",
   },
   {
-    "cat": "Finance",
-    "q": "What is the effective yield to a lender if a borrower has a 4% interest rate and pays 6 discount points?",
-    "options": [
-      "4.75%",
-      "5%",
-      "3.25%",
-      "4.5%"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 6 points = 6/8 percent. 6/8 simplifies to 0.75%. 4% + 0.75% = 4.75% effective yield."
+    cat: "Finance",
+    q: "What is the effective yield on a 4% loan if the borrower pays 6 discount points at closing?",
+    options: ["4.75%", "5.00%", "4.50%", "3.25%"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> 6 points × 1/8% (0.125) = 0.75%. <br>4% + 0.75% = 4.75% total yield.",
   },
   {
-    "cat": "Finance",
-    "q": "Which statement is FALSE concerning the mortgage markets?",
-    "options": [
-      "The primary market involves the borrower and lender",
-      "The secondary market originates new loans for borrowers",
-      "Fannie Mae is a major contributor in the secondary market",
-      "The secondary market provides liquidity to the primary market"
+    cat: "Finance",
+    q: "Regarding the mortgage markets, which of the following statements is FALSE?",
+    options: [
+      "The primary market is where loans are originated between borrowers and lenders.",
+      "The secondary market provides liquidity by originating new loans directly to consumers.",
+      "Fannie Mae and Freddie Mac operate in the secondary market.",
+      "The secondary market purchases existing mortgages from primary lenders.",
     ],
-    "correct": 1,
-    "explanation": "Correction: The Secondary Market DOES NOT originate loans. It buys existing loans from the Primary Market to provide lenders with fresh cash (liquidity) to make more loans."
+    correct: 1,
+    explanation:
+      "<strong>Correction:</strong> The <strong>Secondary Market</strong> never interacts with the public or originates loans; it only buys and sells existing mortgages to ensure primary lenders have consistent cash flow.",
   },
   {
-    "cat": "Finance",
-    "q": "Concerning the FHA and the VA, which statement is TRUE?",
-    "options": [
-      "FHA is a government guaranteed loan",
-      "VA is a government insured loan",
-      "A veteran's widow is eligible for VA benefits if she does not remarry",
-      "FHA loans require a VA funding fee"
+    cat: "Finance",
+    q: "Which statement accurately describes the difference between FHA and VA loans?",
+    options: [
+      "FHA guarantees loans; VA insures loans.",
+      "FHA loans are only for low-income borrowers; VA is for all residents.",
+      "FHA insures loans; VA guarantees loans.",
+      "VA loans require a down payment; FHA loans do not.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: VA loans are for veterans and their un-remarried surviving spouses. Note: FHA INSURES loans, while VA GUARANTEES loans."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> FHA (Federal Housing Administration) acts as an <strong>insurance</strong> fund for lenders. VA (Veterans Affairs) provides a <strong>guarantee</strong> to the lender against default.",
   },
   {
-    "cat": "Math",
-    "q": "What is the formula for calculating documentary stamp taxes on the deed in Florida?",
-    "options": [
-      "Sales price / 100 (round up) * .70",
-      "Mortgage price / 100 (round up) * .35",
-      "Sales price / 100 (round up) * .35",
-      "Total mortgages * .0020"
+    cat: "Math",
+    q: "What is the standard formula for calculating Florida documentary stamp taxes on a deed?",
+    options: [
+      "($100 increments of sales price) × $0.70",
+      "($100 increments of mortgage price) × $0.35",
+      "($100 increments of sales price) × $0.35",
+      "Total mortgage amount × 0.002",
     ],
-    "correct": 0,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> (Sales Price / 100) * $0.70. <br><br><strong class='text-blue-600'>Key Point:</strong> Always round the Sales Price UP to the nearest 100 before dividing. While Miami-Dade uses $0.60, the state exam assumes the $0.70 rate for all other Florida counties."
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> (Sales Price / 100) * $0.70. <strong>Note:</strong> You must round the sales price UP to the nearest 100 before the calculation.",
   },
   {
-    "cat": "Math",
-    "q": "A developer owns 175 acres and sets aside 25% for streets. If each lot is 7,500 sq ft, how many lots are available for development?",
-    "options": [
-      "254",
-      "762",
-      "813",
-      "1,106"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Usable Percent: 100% - 25% = 75% (0.75). <br>2. Usable Acres: 175 * 0.75 = 131.25 acres. <br>3. Total Sq Ft: 131.25 * 43,560 = 5,717,250 sq ft. <br>4. Total Lots: 5,717,250 / 7,500 = 762.3. <br><br><strong class='text-blue-600'>Key Point:</strong> Always round DOWN for lots, as you cannot sell a partial lot."
+    cat: "Math",
+    q: "A developer owns 175 acres and reserves 25% for infrastructure. If the remaining land is divided into 7,500 sq. ft. lots, how many full lots are available?",
+    options: ["254 lots", "762 lots", "813 lots", "1,106 lots"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Usable land: 175 acres × 0.75 = 131.25 acres. <br>2. Total Sq Ft: 131.25 × 43,560 = 5,717,250 sq. ft. <br>3. Total Lots: 5,717,250 / 7,500 = 762.3. <br><strong>Note:</strong> Always round DOWN because you cannot sell a partial lot.",
   },
   {
-    "cat": "Math",
-    "q": "A property is 250' x 300'. The cost of paving is $20 per foot, with the city contributing 40%. What amount will the owner be assessed?",
-    "options": [
-      "$1,500",
-      "$1,200",
-      "$3,000",
-      "$5,000"
-    ],
-    "correct": 0,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Paving Cost: 250 front feet * $20 = $5,000. <br>2. Total Owners' Share: $5,000 * 0.60 (100% - 40% city share) = $3,000. <br>3. Individual Assessment: $3,000 / 2 = $1,500. <br><br><strong class='text-blue-600'>Key Point:</strong> You must divide by 2 because the cost is split between the owners on both sides of the street."
+    cat: "Math",
+    q: "A lot measures 250' x 300'. Paving costs are $20 per linear foot. If the city pays 40% of the cost, what is the special assessment for the owner of this lot?",
+    options: ["$1,500", "$1,200", "$3,000", "$5,000"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Cost: 250 front feet × $20 = $5,000. <br>2. Owner's Side share: $5,000 × 0.60 (Owner's 60%) = $3,000. <br>3. Individual share: $3,000 / 2 = $1,500. <br><strong>Key Point:</strong> You must divide by 2 because the cost is shared by owners on both sides of the street.",
   },
   {
-    "cat": "Math",
-    "q": "A house sold for $450k. The associate got 70% of commission ($22,050). What was the commission rate?",
-    "options": [
-      "6%",
-      "7%",
-      "7.5%",
-      "8%"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Gross Commission: $22,050 / 0.70 = $31,500. <br>2. Commission Rate: $31,500 / $450,000 = 0.07 or 7%."
+    cat: "Math",
+    q: "A sales associate received $22,050, representing 70% of the total commission. If the property sold for $450,000, what was the total commission rate?",
+    options: ["6%", "7%", "7.5%", "8%"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. 100% Commission: $22,050 / 0.70 = $31,500. <br>2. Rate: $31,500 / $450,000 = 0.07 or 7%.",
   },
   {
-    "cat": "Math",
-    "q": "How many acres are in the N 1/2 of the SE 1/4 of the NW 1/4 AND the N 1/2 of the S 1/2 of the SE 1/4 of the N 1/4?",
-    "options": [
-      "10 acres",
-      "20 acres",
-      "30 acres",
-      "80 acres"
-    ],
-    "correct": 2,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>Parcel A: 640 / 2 / 4 / 4 = 20 acres. <br>Parcel B: 640 / 2 / 2 / 4 / 4 = 10 acres. <br>Total: 20 + 10 = 30 acres. <br><br><strong class='text-blue-600'>Key Point:</strong> In legal descriptions, the word 'AND' indicates you must calculate two separate parcels and add them together."
+    cat: "Math",
+    q: "How many total acres are contained in the following description: The N 1/2 of the SE 1/4 of the NW 1/4 AND the N 1/2 of the S 1/2 of the SE 1/4 of the N 1/4?",
+    options: ["10 acres", "20 acres", "30 acres", "80 acres"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> <br>Parcel A: 640 / 2 / 4 / 4 = 20 acres. <br>Parcel B: 640 / 2 / 2 / 4 / 4 = 10 acres. <br>Total: 20 + 10 = 30 acres. <br><strong>Key Point:</strong> The word 'AND' requires you to calculate two separate areas and sum them.",
   },
   {
-    "cat": "Math",
-    "q": "A property sold for $497,000. The associate got 75% of the commission ($22,365). What was the total commission rate?",
-    "options": [
-      "5%",
-      "6%",
-      "7%",
-      "8%"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Commission: $22,365 / 0.75 = $29,820. <br>2. Rate: $29,820 / $497,000 = 0.06 or 6%."
+    cat: "Math",
+    q: "A property sold for $497,000. The sales associate received 75% of the total commission, which amounted to $22,365. What was the total commission rate for this transaction?",
+    options: ["5%", "6%", "7%", "8%"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Find 100% of commission: $22,365 / 0.75 = $29,820. <br>2. Find rate: $29,820 / $497,000 = 0.06 or 6%.",
   },
   {
-    "cat": "Math",
-    "q": "A developer has 75 acres of land. If 20% is set aside for streets and sidewalks and each lot must be 10,000 sq ft, how many lots are available?",
-    "options": [
-      "632 lots",
-      "261 lots",
-      "450 lots",
-      "285 lots"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Usable Land: 75 acres * 0.80 = 60 acres. <br>2. Sq Ft: 60 * 43,560 = 2,613,600 sq ft. <br>3. Lots: 2,613,600 / 10,000 = 261.36. <br><br><strong class='text-blue-600'>Key Point:</strong> Always round down to 261 available lots."
+    cat: "Math",
+    q: "A developer owns 75 acres of land. If 20% of the land is reserved for infrastructure (streets and sidewalks) and the remaining land is divided into 10,000 sq. ft. lots, how many full lots are available for sale?",
+    options: ["632 lots", "261 lots", "450 lots", "285 lots"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Usable Land: 75 acres × 0.80 = 60 acres. <br>2. Total Sq Ft: 60 × 43,560 = 2,613,600 sq. ft. <br>3. Total Lots: 2,613,600 / 10,000 = 261.36. <br><strong>Note:</strong> Always round down to the nearest whole lot.",
   },
   {
-    "cat": "Math",
-    "q": "A 3-story building has 100' x 50' floors. If 30% of each floor is unusable, how many 5' x 5' bins will fit?",
-    "options": [
-      "250 bins",
-      "700 bins",
-      "420 bins",
-      "270 bins"
-    ],
-    "correct": 2,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Area: 100 * 50 * 3 floors = 15,000 sq ft. <br>2. Usable Area: 15,000 * 0.70 = 10,500 sq ft. <br>3. Bin Size: 5 * 5 = 25 sq ft per bin. <br>4. Total Bins: 10,500 / 25 = 420 bins."
+    cat: "Math",
+    q: "A three-story storage facility has floor dimensions of 100' x 50'. If 30% of each floor is required for common areas and is unusable for storage, how many 5' x 5' storage bins can fit in the building?",
+    options: ["250 bins", "700 bins", "420 bins", "270 bins"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Building Area: 100 × 50 × 3 floors = 15,000 sq. ft. <br>2. Usable Area: 15,000 × 0.70 = 10,500 sq. ft. <br>3. Bin Size: 5 × 5 = 25 sq. ft. per bin. <br>4. Capacity: 10,500 / 25 = 420 bins.",
   },
   {
-    "cat": "Math",
-    "q": "An associate keeps 70% of commission. If they received $29,750 on an $850k sale, what was the commission rate?",
-    "options": [
-      "6%",
-      "7%",
-      "8%",
-      "5%"
-    ],
-    "correct": 3,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Commission: $29,750 / 0.70 = $42,500. <br>2. Rate: $42,500 / $850,000 = 0.05 or 5%."
+    cat: "Math",
+    q: "A sales associate is paid 70% of the total commission. If the associate's share was $29,750 on a property that sold for $850,000, what was the total commission rate?",
+    options: ["6%", "7%", "8%", "5%"],
+    correct: 3,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Commission: $29,750 / 0.70 = $42,500. <br>2. Rate: $42,500 / $850,000 = 0.05 or 5%.",
   },
   {
-    "cat": "Math",
-    "q": "A property is 80' x 125'. The cost to pave is $30 per foot, with the city contributing 15%. What is the homeowner's share of the special assessment?",
-    "options": [
-      "$2,040",
-      "$1,020",
-      "$2,800",
-      "$2,000"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Cost: 80 front feet * $30 = $2,400. <br>2. Total Owners' Share: $2,400 * 0.85 (100% - 15%) = $2,040. <br>3. Owner's Assessment: $2,040 / 2 = $1,020."
+    cat: "Math",
+    q: "A lot measures 80' x 125'. The cost to pave the street is $30 per linear foot, and the city has agreed to pay 15% of the total cost. What is the owner's share of this special assessment?",
+    options: ["$2,040", "$1,020", "$2,800", "$2,000"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Paving: 80 front feet × $30 = $2,400. <br>2. Total Owners' Share: $2,400 × 0.85 (Owner 85%) = $2,040. <br>3. Individual Assessment: $2,040 / 2 = $1,020. <br><strong>Key Point:</strong> Don't forget to divide by 2 for the 'other side of the street' rule.",
   },
   {
-    "cat": "Math",
-    "q": "A real estate closing is set for January 10th. The buyer is assuming the seller's existing mortgage balance of $209,000 at an interest rate of 4.5%. If the day of closing belongs to the buyer, what is the required interest proration?",
-    "options": [
+    cat: "Math",
+    q: "A buyer is assuming a seller's mortgage with a balance of $209,000 at 4.5% interest. The closing is set for January 10th, with the day of closing belonging to the buyer. What is the interest proration using the 365-day method?",
+    options: [
       "$231.90 debit seller, credit buyer",
       "$231.90 debit buyer, credit seller",
       "$257.67 debit seller, credit buyer",
-      "$257.67 debit buyer, credit seller"
+      "$257.67 debit buyer, credit seller",
     ],
-    "correct": 0,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Annual Interest: $209,000 * 0.045 = $9,405. <br>2. Daily Interest: $9,405 / 365 = $25.7671. <br>3. Seller Days: 9 days (Jan 1 through Jan 9). <br>4. Proration: $25.7671 * 9 = $231.90. <br><br><strong class='text-blue-600'>Key Point:</strong> Interest on an assumed loan is paid in arrears and is a Debit to the Seller and Credit to the Buyer."
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Daily Interest: ($209,000 × 0.045) / 365 = $25.7671. <br>2. Seller Days: 9 days (Jan 1–9). <br>3. Proration: $25.7671 × 9 = $231.90. <br><strong>Key Point:</strong> Mortgage interest on assumed loans is paid in arrears; therefore, it is a <strong>Debit to the Seller</strong> and <strong>Credit to the Buyer</strong>.",
   },
   {
-    "cat": "Math",
-    "q": "What is the effective yield to the lender if the borrower is charged 3% interest and buys 6 discount points?",
-    "options": [
-      "6 1/2%",
-      "3 1/2%",
-      "3 3/4%",
-      "3 1/8%"
-    ],
-    "correct": 2,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Point Value: 6 points * 1/8% = 6/8% or 0.75%. <br>2. Total Yield: 3% + 0.75% = 3.75%. <br><br><strong class='text-blue-600'>Key Point:</strong> Each discount point increases the lender's yield by 1/8%."
+    cat: "Math",
+    q: "If a lender charges a nominal interest rate of 3% but requires the purchase of 6 discount points, what is the resulting effective yield?",
+    options: ["6 1/2%", "3 1/2%", "3 3/4%", "3 1/8%"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Point Value: 6 points × 0.125 (1/8%) = 0.75%. <br>2. Yield: 3% + 0.75% = 3.75%.",
   },
   {
-    "cat": "Math",
-    "q": "If a man can borrow $286,000 and this is 2.5 times his salary, how much is his weekly pay?",
-    "options": [
-      "$4,100",
-      "$1,600",
-      "$1,110",
-      "$2,200"
-    ],
-    "correct": 3,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Annual Salary: $286,000 / 2.5 = $114,400. <br>2. Weekly Pay: $114,400 / 52 weeks = $2,200."
+    cat: "Math",
+    q: "A borrower qualifies for a loan of $286,000, which is exactly 2.5 times their annual salary. What is the borrower's gross weekly income?",
+    options: ["$4,100", "$1,600", "$1,110", "$2,200"],
+    correct: 3,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Annual Salary: $286,000 / 2.5 = $114,400. <br>2. Weekly Pay: $114,400 / 52 weeks = $2,200.",
   },
   {
-    "cat": "Math",
-    "q": "Calculate the total acres and square feet for: The S 1/4 of the N 1/4 of the E 1/4 of the SW 1/2 AND the S 1/2 of the E 1/2 of Section 11.",
-    "options": [
-      "165 acres and 2,052,000 sq ft",
-      "165 acres and 7,187,400 sq ft",
-      "120 acres and 5,227,200 sq ft",
-      "125 acres and 7,000,000 sq ft"
+    cat: "Math",
+    q: "Determine the total acreage and square footage for the following description: The S 1/4 of the N 1/4 of the E 1/4 of the SW 1/2 AND the S 1/2 of the E 1/2 of Section 11.",
+    options: [
+      "165 acres and 2,052,000 sq. ft.",
+      "165 acres and 7,187,400 sq. ft.",
+      "120 acres and 5,227,200 sq. ft.",
+      "125 acres and 7,000,000 sq. ft.",
     ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>Parcel A: 640 / 4 / 4 / 4 / 2 = 5 acres. <br>Parcel B: 640 / 2 / 2 = 160 acres. <br>Total: 165 acres. <br>Sq Ft: 165 * 43,560 = 7,187,400 sq ft."
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>Parcel A: 640 / 4 / 4 / 4 / 2 = 5 acres. <br>Parcel B: 640 / 2 / 2 = 160 acres. <br>Total: 165 acres. <br>Sq Ft: 165 × 43,560 = 7,187,400 sq. ft.",
   },
   {
-    "cat": "Math",
-    "q": "How many acres are in the N 1/2 of the S 1/2 of Section 11?",
-    "options": [
-      "160 acres",
-      "140 acres",
-      "178 acres",
-      "165 acres"
-    ],
-    "correct": 0,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> 640 / 2 / 2 = 160 acres. <br><br><strong class='text-blue-600'>Key Point:</strong> A section contains 640 acres. Working backward: the South 1/2 is 320, and the North 1/2 of that is 160."
+    cat: "Math",
+    q: "How many acres are contained within the N 1/2 of the S 1/2 of a standard section?",
+    options: ["160 acres", "140 acres", "178 acres", "165 acres"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> 640 / 2 / 2 = 160 acres. <br><strong>Key Point:</strong> Always start with 640 and divide by the denominators from right to left.",
   },
   {
-    "cat": "Math",
-    "q": "A developer has 20 lots that are 21,780 square feet each. How many acres does he own?",
-    "options": [
-      "20 acres",
-      "10 acres",
-      "75 acres",
-      "40 acres"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> <br>1. Total Sq Ft: 20 lots * 21,780 = 435,600 sq ft. <br>2. Total Acres: 435,600 / 43,560 = 10 acres. <br><br><strong class='text-blue-600'>Key Point:</strong> One acre equals 43,560 square feet."
+    cat: "Math",
+    q: "A developer owns 20 lots, each measuring exactly 21,780 square feet. What is the total acreage owned by the developer?",
+    options: ["20 acres", "10 acres", "75 acres", "40 acres"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total area: 20 × 21,780 = 435,600 sq. ft. <br>2. Acres: 435,600 / 43,560 = 10 acres.",
   },
   {
-    "cat": "Appraisal",
-    "q": "Subject: 3/2 with fireplace. Comp: 3/3 no fireplace. Bath = $5k, Fireplace = $2k. What is the adjustment?",
-    "options": [
+    cat: "Appraisal",
+    q: "You are appraising a subject property with 3 bedrooms, 2 bathrooms, and a fireplace. A comparable property has 3 bedrooms, 3 bathrooms, and no fireplace. If a bathroom is valued at $5,000 and a fireplace at $2,000, what is the net adjustment to the comparable?",
+    options: [
       "Add $7,000 to the comparable",
       "Subtract $3,000 from the comparable",
       "Subtract $3,000 from the subject",
-      "Add $3,000 to the subject"
+      "Add $3,000 to the subject",
     ],
-    "correct": 1,
-    "explanation": "Calculation: Use the CBS/CIA rule (Comp Better Subtract / Comp Inferior Add). 1. The comp has an extra bath (Better): -$5,000. 2. The comp has no fireplace (Inferior): +$2,000. Net adjustment: -$3,000 from the comparable."
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Comp has extra bath (Better): -$5,000. <br>2. Comp lacks fireplace (Inferior): +$2,000. <br>Net Adjustment: -$3,000 from the comparable.",
   },
   {
-    "cat": "Appraisal",
-    "q": "A sales associate is hired to perform an appraisal for a fee. Which is TRUE?",
-    "options": [
-      "They cannot legally perform appraisals",
-      "They are not required to follow USPAP",
-      "USPAP stands for 'Protected' Appraisal Practice",
-      "They can perform it if it's not a federally related transaction"
+    cat: "Appraisal",
+    q: "Which statement is correct regarding a real estate licensee performing an appraisal for a fee?",
+    options: [
+      "It is a violation of Florida law for a licensee to perform any appraisal.",
+      "Licensees are exempt from USPAP standards.",
+      "USPAP standards only apply to certified appraisers.",
+      "Licensees may perform appraisals for non-federally related transactions, provided they follow USPAP.",
     ],
-    "correct": 3,
-    "explanation": "Key Point: Licensees can perform appraisals for a fee if the transaction is NOT a federally related transaction. Note: They MUST follow USPAP (Uniform Standards of Professional Appraisal Practice) if they call it an appraisal."
+    correct: 3,
+    explanation:
+      "<strong>Key Point:</strong> Licensees can perform appraisals if the loan is NOT federally related (e.g., private cash deal), but they MUST adhere to the Uniform Standards of Professional Appraisal Practice (USPAP).",
   },
   {
-    "cat": "Property Rights",
-    "q": "Which rights are associated with water flowing through your property, such as a river or stream?",
-    "options": [
+    cat: "Property Rights",
+    q: "What legal term describes the rights of an owner whose property borders a flowing body of water, such as a river?",
+    options: [
       "Riparian rights",
       "Littoral rights",
       "Subsurface rights",
-      "Mineral rights"
+      "Erosion rights",
     ],
-    "correct": 0,
-    "explanation": "Key Point: Riparian = River (flowing water). Littoral = Lake (stationary water). Subsurface = minerals/oil under the land."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> <strong>R</strong>iparian = <strong>R</strong>iver (Flowing). <strong>L</strong>ittoral = <strong>L</strong>ake (Stationary).",
   },
   {
-    "cat": "Agency",
-    "q": "Which relationship disclosure would a broker who has listed a property as a single agent, show a prospective buyer that wants to look at the property?",
-    "options": [
-      "A nonrepresentation disclosure (no brokerage relationship)",
-      "A single agent relationship disclosure",
-      "A consent to transition to transaction broker disclosure",
-      "A transaction broker disclosure"
+    cat: "Agency",
+    q: "A broker represents a seller as a Single Agent. When a prospective buyer asks to see the property, which disclosure must the broker provide if they do not wish to represent the buyer?",
+    options: [
+      "No Brokerage Relationship Disclosure",
+      "Single Agent Disclosure",
+      "Consent to Transition to Transaction Broker",
+      "Transaction Broker Disclosure",
     ],
-    "correct": 0,
-    "explanation": "Key Point: If the broker already represents the seller as a Single Agent, they cannot represent the buyer at all without transitioning. Therefore, they must treat the buyer as a 'Customer' and give them the No Brokerage Relationship disclosure."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> Since the broker already owes fiduciary duties to the seller, they cannot represent the buyer without a transition. Therefore, the buyer remains a 'customer' under a <strong>No Brokerage Relationship</strong>.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "A sales associate has hired an unlicensed assistant. Which of the following duties can the unlicensed assistant NOT perform?",
-    "options": [
-      "Type contracts",
-      "Deposit escrow checks",
-      "Negotiate a listing agreement with a seller",
-      "Take phone calls"
+    cat: "Brokerage Operations",
+    q: "An unlicensed assistant is hired by a sales associate. Which of the following activities is the assistant PROHIBITED from performing?",
+    options: [
+      "Typing lease contracts for the associate's review",
+      "Delivering an escrow check to a title company",
+      "Negotiating the terms of a listing agreement with a seller",
+      "Answering the phone and taking messages",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Unlicensed assistants can perform administrative tasks but CANNOT perform 'real estate services' like negotiating, listing property, or showing property."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Unlicensed assistants may perform administrative and clerical tasks but <strong>cannot</strong> engage in activities that require a license, such as negotiating or showing property.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "Which of the following statements is INCORRECT concerning a broker that has decided to hold escrow money?",
-    "options": [
-      "The broker cannot keep the escrow money in a stock brokerage firm",
-      "The broker cannot commingle his personal money with the escrow money",
-      "The broker cannot hold the money outside of Florida",
-      "The broker cannot keep the escrow money in an interest-bearing account"
+    cat: "Brokerage Operations",
+    q: "If a Florida broker decides to maintain an escrow account, which of the following is CORRECT regarding interest-bearing accounts?",
+    options: [
+      "Escrow funds may never be placed in an interest-bearing account.",
+      "The broker may keep the interest for personal use without disclosure.",
+      "The broker may utilize an interest-bearing account if all parties provide written consent.",
+      "Interest-bearing accounts must be held in a stock brokerage firm.",
     ],
-    "correct": 3,
-    "explanation": "Correction: A broker CAN keep escrow money in an interest-bearing account if all parties give written consent. Note: The broker must also be specific about who gets the interest."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> A broker CAN place escrow funds in an interest-bearing account provided all parties to the transaction give written consent. The agreement must also specify who will receive the interest earned.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "Which of the following statements is FALSE regarding kickbacks and referral fees in a Florida real estate transaction?",
-    "options": [
-      "All parties to the transaction must be fully informed of the kickback or referral fee.",
-      "A real estate licensee may be paid a fee for referring a buyer to a specific title insurance company.",
-      "A kickback is legal only if it is for a service actually performed and does not violate RESPA.",
-      "It is a violation of Florida law for a licensee to share a commission with an unlicensed person for the referral of real estate business."
+    cat: "Brokerage Operations",
+    q: "Under the Real Estate Settlement Procedures Act (RESPA) and Florida law, which of the following is a FALSE statement regarding referral fees?",
+    options: [
+      "A licensee may pay a referral fee to another licensed broker.",
+      "A licensee may receive a referral fee from a title insurance company for sending them business.",
+      "All parties must be informed if a licensee receives a referral fee from a non-settlement service provider.",
+      "Sharing a commission with an unlicensed person for real estate referrals is a violation of F.S. 475.",
     ],
-    "correct": 1,
-    "explanation": "Under both Florida law and RESPA, a licensee is strictly prohibited from receiving a kickback or referral fee from a settlement service provider (such as a title company, mortgage lender, or surveyor). Kickbacks are only legal for non-settlement services (like a landscaper or a cleaning crew) provided that all parties are informed and no other laws are violated."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> It is <strong>illegal</strong> for a licensee to receive a kickback or referral fee from a settlement service provider (title companies, lenders, etc.). Referral fees are generally only legal between licensed brokers.",
   },
   {
-    "cat": "License Law",
-    "q": "Which of the following is true concerning qualifications of applicants for real estate sales associates in Florida?",
-    "options": [
-      "Applicants must be 18 years old and a resident of Florida",
-      "Applicants must be of good character and a citizen of the US",
-      "Applicants must be at least 21 years of age",
-      "Applicants need not be a citizen or resident but must have a high school diploma and a social security number"
+    cat: "License Law",
+    q: "Which of the following represents the correct legal requirements for an applicant to become a licensed Florida sales associate?",
+    options: [
+      "Must be a U.S. citizen and at least 18 years of age.",
+      "Must be a Florida resident and have a high school diploma.",
+      "Must be at least 18 years of age and have a Social Security number.",
+      "Must be at least 21 years of age and a Florida resident.",
     ],
-    "correct": 3,
-    "explanation": "Key Point: To get a Florida license, you must be 18+ and have a high school diploma/SSN. You DO NOT need to be a Florida resident or a US citizen."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Florida residency and U.S. citizenship are <strong>not</strong> requirements. An applicant must be 18+, have a high school diploma (or equivalent), and possess a Social Security number.",
   },
   {
-    "cat": "License Law",
-    "q": "Salaried employees of an owner-developer in Tampa sell timeshare units. They receive a year-end bonus based on sales production. Are they required to be licensed?",
-    "options": [
-      "No, they work for an owner-developer",
-      "No, but they must hold a timeshare license",
-      "Yes, because part of the compensation is based on real estate sales production",
-      "Yes, because anyone working for a developer must be licensed"
+    cat: "License Law",
+    q: "Salaried employees of an owner-developer are exempt from real estate licensure unless:",
+    options: [
+      "They sell more than 10 units per year.",
+      "They work in a city other than where the developer's main office is located.",
+      "They receive a bonus or commission based on sales production.",
+      "They sell timeshare units instead of traditional residential lots.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Salaried employees of owner-developers are exempt from licensing ONLY if they do not receive a commission or any compensation based on production."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> The exemption for employees of owner-developers applies only if the employee is paid a strictly <strong>salary</strong> basis. As soon as compensation is tied to production (bonuses/commissions), a license is required.",
   },
   {
-    "cat": "Mortgages",
-    "q": "Which mortgage clause, in a title theory state, provides that the conveyance of title to the lender is defeated when all terms are satisfied?",
-    "options": [
+    cat: "Mortgages",
+    q: "In a 'Title Theory' state, which mortgage clause ensures that the lender's legal title is 'defeated' and transferred to the borrower once the debt is paid in full?",
+    options: [
       "Due-on-sale clause",
       "Acceleration clause",
       "Defeasance clause",
-      "Premises clause"
+      "Cognovit clause",
     ],
-    "correct": 2,
-    "explanation": "Key Point: The Defeasance Clause 'defeats' the lender's interest once the loan is paid off. In Title Theory states, it requires the lender to return the title to the borrower."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> The <strong>Defeasance Clause</strong> is the provision that nullifies the lender's interest once the mortgage is satisfied. It is the borrower's most important protection in a mortgage.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "If a person dies intestate without heirs, the principle of law applying to disposition of the real property is:",
-    "options": [
-      "Estoppel",
-      "Bargain and sale deed",
-      "Escheat",
-      "Descent"
-    ],
-    "correct": 2,
-    "explanation": "Key Point: Escheat allows the state to take ownership of property when someone dies without a will (intestate) and has no legal heirs."
+    cat: "Legal Theory",
+    q: "When a property owner dies 'Intestate' (without a will) and has no identifiable legal heirs, the state may take ownership of the property through the power of:",
+    options: ["Police power", "Eminent domain", "Escheat", "Adverse possession"],
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> <strong>Escheat</strong> provides for the revision of property to the state. Note the difference: Eminent Domain is taking private property for public use; Escheat is taking property because no owner exists.",
   },
   {
-    "cat": "Contracts",
-    "q": "Essential elements of a real estate contract include all of the following, EXCEPT:",
-    "options": [
-      "In writing and signed",
+    cat: "Contracts",
+    q: "To be valid and enforceable, a real estate sale and purchase contract must contain all of the following essential elements, EXCEPT:",
+    options: [
       "Offer and acceptance",
-      "Consideration",
-      "Recording"
+      "Legality of object",
+      "Recording in the public records",
+      "Valuable consideration",
     ],
-    "correct": 3,
-    "explanation": "Correction: Recording is NOT required for a contract to be valid. The four essentials are: Competent parties, Offer & Acceptance, Legality, and Consideration (COLC)."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> While recording a <i>deed</i> is important for giving constructive notice, a <i>contract</i> is valid between the parties without being recorded. The four essentials are <strong>C.O.L.C.</strong>: Competent parties, Offer/acceptance, Legality, and Consideration.",
   },
   {
-    "cat": "Contracts",
-    "q": "Which of the following contracts is NOT covered by the Statute of Frauds?",
-    "options": [
-      "Option contracts",
-      "Mortgages",
-      "16-month listing agreement",
-      "6-month lease agreement"
+    cat: "Contracts",
+    q: "According to the Florida Statute of Frauds, which of the following contracts is NOT required to be in writing to be enforceable in court?",
+    options: [
+      "A contract for the sale of a residential lot",
+      "A mortgage on a commercial building",
+      "A six-month lease agreement",
+      "An option contract lasting 18 months",
     ],
-    "correct": 3,
-    "explanation": "Key Point: The Statute of Frauds applies to real estate contracts and leases longer than one year. A 6-month lease is not covered and can be oral."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> The Statute of Frauds applies to leases <strong>longer than one year</strong>. A short-term lease (6 months) is enforceable even if it is an oral agreement.",
   },
   {
-    "cat": "Disclosures",
-    "q": "Which of the following is true regarding an 'as is' provision in a sale contract?",
-    "options": [
-      "It relieves the seller of liability for material defects",
-      "It relieves the licensee of liability for material defects",
-      "It does not relieve the seller or licensee of the duty to disclose known facts materially affecting value",
-      "The 'as is' provision is not used in Florida"
+    cat: "Disclosures",
+    q: "In Florida, the inclusion of an 'As-Is' provision in a residential sales contract has which of the following effects?",
+    options: [
+      "It allows the seller to remain silent about known material defects.",
+      "It waives the buyer's right to any professional inspections.",
+      "It does not exempt the seller or the licensee from the duty to disclose known material facts.",
+      "It guarantees the seller will not be liable for any future repairs.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: An 'As-Is' clause does not mean 'buyer beware' in Florida residential sales. The seller and agent must still disclose all known material defects."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Even with an 'As-Is' clause, the seller still has a legal obligation under <i>Johnson v. Davis</i> to disclose all known facts that materially affect the property's value and are not readily observable.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "In regard to commingling, which applies?",
-    "options": [
-      "Commingling personal and escrow funds is legal in Florida",
-      "Commingling is only permitted if the account is designated",
-      "Commingling occurs when a broker deposits earnest money in a personal account (violation)",
-      "Buyer and seller must agree to commingling"
+    cat: "Brokerage Operations",
+    q: "Which action by a broker constitutes illegal 'commingling' of funds?",
+    options: [
+      "Keeping up to $1,000 of personal funds in a sales escrow account.",
+      "Keeping up to $5,000 of personal funds in a property management escrow account.",
+      "Depositing a buyer's earnest money into the broker's personal checking account.",
+      "Placing escrow funds into a non-interest-bearing account.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Commingling is the illegal act of mixing escrow funds with personal or business funds. Note: A broker can keep up to $1,000 of personal money in a sales escrow account to keep it open."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Commingling is mixing business or personal money with escrow money. Note the exception: Brokers ARE allowed to keep a small amount of their own money in escrow ($1,000 for sales, $5,000 for management) to cover bank fees.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "What is the first thing a broker is required to do when presented with an escrow dispute?",
-    "options": [
-      "Contact FREC within 15 business days in writing",
-      "Implement one of the four settlement procedures",
-      "Contact FREC within 30 business days in writing",
-      "Mediate the matter"
-    ],
-    "correct": 0,
-    "explanation": "Key Point: The broker must notify FREC in writing within 15 business days of receiving conflicting demands for escrow funds."
+    cat: "Brokerage Operations",
+    q: "When a broker is faced with 'conflicting demands' regarding the disbursement of escrowed property, the broker must notify the FREC in writing within:",
+    options: ["10 business days", "15 business days", "30 business days", "7 calendar days"],
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> The broker has <strong>15 business days</strong> to notify FREC and <strong>30 business days</strong> to implement one of the four settlement procedures (M.A.L.E.).",
   },
   {
-    "cat": "Agency",
-    "q": "Which form must be signed or initialed by the principal?",
-    "options": [
-      "Consent to transition to transaction broker disclosure",
-      "Transaction broker disclosure",
-      "Single agent disclosure",
-      "No brokerage relationship disclosure"
+    cat: "Agency",
+    q: "In Florida, which brokerage disclosure form is the only one that requires a signature or initials from the principal to be legally effective?",
+    options: [
+      "No Brokerage Relationship Notice",
+      "Single Agent Notice",
+      "Consent to Transition to Transaction Broker",
+      "Transaction Broker Notice",
     ],
-    "correct": 0,
-    "explanation": "Key Point: The 'Consent to Transition to Transaction Broker' is the only disclosure that MUST be signed by the principal to be valid."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Because a transition involves changing from a fiduciary relationship to a non-fiduciary one, the law requires the principal’s <strong>written consent</strong>.",
   },
   {
-    "cat": "License Law",
-    "q": "A broker owns a firm and wants to open a second separate brokerage firm. What should he apply for?",
-    "options": [
+    cat: "License Law",
+    q: "A broker who wishes to operate more than one brokerage corporation must apply for:",
+    options: [
       "A group license",
       "Multiple licenses",
-      "A reissue",
-      "A transfer"
+      "A corporate waiver",
+      "An involuntary inactive status",
     ],
-    "correct": 1,
-    "explanation": "Key Point: Brokers can hold 'Multiple Licenses' if they manage more than one brokerage entity. Note: Sales Associates can only hold a 'Group License' if they work for an owner-developer with multiple subsidiaries."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> Brokers apply for <strong>Multiple Licenses</strong> for each business entity. Sales associates work for only one employer and may hold a <strong>Group License</strong> if working for an owner-developer with various entities.",
   },
   {
-    "cat": "Mortgages",
-    "q": "Discount points are:",
-    "options": [
-      "Charges to lenders from the Federal Reserve",
-      "Up-front charges to lower mortgage interest rates",
-      "FHA mortgage insurance charges",
-      "A charge by a lender to increase the bank's interest yield"
+    cat: "Finance",
+    q: "Which statement best describes the purpose of 'Discount Points' charged by a lender?",
+    options: [
+      "They are administrative fees for processing a loan.",
+      "They are paid to the secondary market to guarantee the loan.",
+      "They are up-front interest charges paid to increase the lender's yield.",
+      "They are mandatory fees required by the FHA.",
     ],
-    "correct": 3,
-    "explanation": "Key Point: Discount points are paid up-front to the lender to increase their yield (the total interest they make over the life of the loan)."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Each discount point costs 1% of the loan amount and increases the lender's yield by approximately 1/8%. It is 'prepaid interest' that typically results in a lower monthly rate for the borrower.",
   },
   {
-    "cat": "Contracts",
-    "q": "A seller counters a buyer's offer, and the buyer accepts. The broker gives written acceptance to the seller. This is a(n):",
-    "options": [
+    cat: "Contracts",
+    q: "A seller makes a counteroffer to a buyer's original offer. The buyer accepts the counteroffer, and the broker delivers written notice of the acceptance to the seller. This agreement is classified as a(n):",
+    options: [
       "Express contract",
       "Parol contract",
-      "Oral contract",
-      "Novation"
+      "Unilateral contract",
+      "Novation",
     ],
-    "correct": 0,
-    "explanation": "Key Point: An 'Express' contract is one where the terms are clearly stated in words (written or oral). Note: A 'Parol' contract is another name for an oral contract."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> An <strong>Express Contract</strong> is one where the terms are clearly stated in words, whether written or oral. Note: 'Parol' is the legal term for an oral (unwritten) contract.",
   },
   {
-    "cat": "Contracts",
-    "q": "A listing agreement was signed Jan 10. On Feb 12, the broker discovers the seller filed for bankruptcy. Which applies?",
-    "options": [
-      "Enforceable",
-      "Enforceable if in writing",
-      "Terminated",
-      "Continues in effect"
+    cat: "Contracts",
+    q: "A broker has a signed listing agreement with a seller. If the broker later discovers that the seller has filed for bankruptcy, what is the status of the listing?",
+    options: [
+      "The listing remains enforceable.",
+      "The listing is enforceable only if it was recorded.",
+      "The listing is terminated by operation of law.",
+      "The listing continues until the original expiration date.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Bankruptcy of either the seller or the broker terminates a listing agreement by operation of law."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> A listing agreement is automatically <strong>Terminated</strong> if either the broker or the seller files for bankruptcy, as the parties no longer have the legal capacity to fulfill the contract.",
   },
   {
-    "cat": "Real Estate Math",
-    "q": "A property closes on May 6th. The monthly rent is $900 and was collected by the seller on the 1st of the month. If the buyer is responsible for the day of closing, what is the amount and direction of the rent proration at closing (using the 31-day method)?",
-    "options": [
+    cat: "Real Estate Math",
+    q: "A rental property closes on May 6th. The monthly rent of $900 was collected by the seller on May 1st. If the day of closing belongs to the buyer, what is the rent proration at closing using the 31-day (actual days) method?",
+    options: [
       "Debit seller, Credit buyer $754.84",
       "Debit buyer, Credit seller $754.84",
       "Debit seller, Credit buyer $759.30",
-      "Debit buyer, Credit seller $759.30"
+      "Debit buyer, Credit seller $759.30",
     ],
-    "correct": 0,
-    "explanation": "Calculation: 1. Daily rent: $900 / 31 (days in May) = $29.032. 2. Buyer's days: 31 - 5 = 26 days. 3. Proration: $29.032 * 26 = $754.84. Note: Rent is paid in advance, so the seller owes the buyer for the portion of the month they won't be living there."
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Daily Rent: $900 / 31 days = $29.0322. <br>2. Days owed to Buyer: 31 - 5 (Seller's days) = 26 days. <br>3. Proration: $29.0322 × 26 = $754.84. <br><strong>Note:</strong> Rent is paid in advance, so the seller must give the buyer the portion of the rent for the days the buyer owns the property.",
   },
   {
-    "cat": "Taxes",
-    "q": "Sale Price $107,650. New Mortgage $175,000. Assumed Mortgage $25,000. What is the Intangible Tax?",
-    "options": [
-      "$170.00",
-      "$250.00",
-      "$350.00",
-      "$420.00"
-    ],
-    "correct": 2,
-    "explanation": "Calculation: Intangible tax is $0.002 per dollar of NEW mortgage only. $175,000 * 0.002 = $350.00. Note: Assumed mortgages do not pay intangible tax."
+    cat: "Taxes",
+    q: "A property sells for $107,650. The buyer obtains a new mortgage of $175,000 and assumes an existing mortgage of $25,000. What is the total Intangible Tax due on this transaction?",
+    options: ["$170.00", "$250.00", "$350.00", "$420.00"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> Intangible tax is $0.002 per dollar of <strong>NEW</strong> mortgage only. <br>$175,000 × 0.002 = $350.00. <br><strong>Note:</strong> Assumed mortgages are not subject to intangible tax because the tax was already paid when the loan was originally created.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "A property owner holds title to the NW 1/2 of a standard section. If she subsequently conveys the W 1/2 of that specific parcel to a relative, how many acres does she retain in her possession?",
-    "options": [
-      "160 acres",
-      "400 acres",
-      "225 acres",
-      "215 acres"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 1. Total acres: 640 / 2 = 320 acres. 2. Acres sold: 320 / 2 = 160 acres. 3. Remaining: 320 - 160 = 160 acres."
+    cat: "Legal Descriptions",
+    q: "A property owner owns the NW 1/2 of a standard section. If the owner conveys the W 1/2 of that parcel to a relative, how many acres does the owner retain?",
+    options: ["160 acres", "400 acres", "225 acres", "215 acres"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Parcel: 640 / 2 = 320 acres. <br>2. Area Conveyed: 320 / 2 = 160 acres. <br>3. Remaining: 320 - 160 = 160 acres.",
   },
   {
-    "cat": "Appraisal",
-    "q": "When using the Sales Comparison Approach, if a comparable property is superior to the subject property in a given feature, the appraiser should make which adjustment?",
-    "options": [
-      "Make a negative adjustment to the comparable.",
-      "Make a positive adjustment to the comparable.",
-      "Discard the comparable entirely.",
-      "Make a positive adjustment to the subject property."
+    cat: "Appraisal",
+    q: "Using the Sales Comparison Approach, if a comparable property is found to be superior to the subject property in a specific feature, the appraiser must:",
+    options: [
+      "Subtract the value of that feature from the comparable property.",
+      "Add the value of that feature to the comparable property.",
+      "Discard the comparable and find a closer match.",
+      "Add the value of that feature to the subject property.",
     ],
-    "correct": 0,
-    "explanation": "Key Point: Always adjust the comparable, never the subject. Remember CBS (Comparable Better, Subtract) and CIA (Comparable Inferior, Add)."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> You never adjust the subject property. Remember <strong>CBS</strong> (Comparable Better, Subtract) and <strong>CIA</strong> (Comparable Inferior, Add). Since the comp is superior, you subtract.",
   },
   {
-    "cat": "Appraisal",
-    "q": "Subject: 3-bed/1-bath. Comp: 3-bed/2-bath sold for $126k. Extra bath value: $4k. Subject value?",
-    "options": [
-      "$130,000",
-      "$126,000",
-      "$122,000",
-      "$125,000"
-    ],
-    "correct": 2,
-    "explanation": "Calculation: CBS (Comp Better Subtract). The Comp is better than the subject because it has an extra bath. $126,000 - $4,000 = $122,000."
+    cat: "Appraisal",
+    q: "A subject property has 3 bedrooms and 1 bath. A comparable property with 3 bedrooms and 2 baths recently sold for $126,000. If the value of a bathroom is $4,000, what is the adjusted value of the comparable?",
+    options: ["$130,000", "$126,000", "$122,000", "$125,000"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> Using <strong>CBS</strong> (Comp Better Subtract), the comp has an extra bath. <br>$126,000 - $4,000 = $122,000.",
   },
   {
-    "cat": "Appraisal",
-    "q": "An investment property produces an Effective Gross Income of $16,000. The annual Operating Expenses total $12,000. If the Cap Rate is 16%, what is the Market Value?",
-    "options": [
-      "$20,000",
-      "$25,000",
-      "$15,000",
-      "$45,000"
-    ],
-    "correct": 1,
-    "explanation": "Calculation: 1. NOI (Net Operating Income): $16,000 - $12,000 = $4,000. 2. Value: $4,000 / 0.16 = $25,000."
+    cat: "Appraisal",
+    q: "An investment property has an Effective Gross Income (EGI) of $16,000 and annual operating expenses of $12,000. Using a capitalization rate of 16%, what is the indicated market value?",
+    options: ["$20,000", "$25,000", "$15,000", "$45,000"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Net Operating Income (NOI): $16,000 - $12,000 = $4,000. <br>2. Value (I/R=V): $4,000 / 0.16 = $25,000.",
   },
   {
-    "cat": "Math",
-    "q": "Alex owns a residential lot that measures 115 feet wide by 150 feet deep. The city plans to pave the street in front of his property at a cost of $18.50 per foot. If the city covers 20% of the paving expenses, how much will Alex be charged for his share of the special assessment?",
-    "options": [
-      "$920",
-      "$875",
-      "$851",
-      "$900"
-    ],
-    "correct": 2,
-    "explanation": "Calculation: 1. Total cost: 115 * $18.50 = $2,127.50. 2. Owners' share: $2,127.50 * 0.80 = $1,702. 3. Assessment: $1,702 / 2 = $851."
+    cat: "Math",
+    q: "A residential lot is 115' wide by 150' deep. The city is paving the street at $18.50 per linear foot. If the city covers 20% of the cost, what is the owner's share of the special assessment?",
+    options: ["$920", "$875", "$851", "$900"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Cost: 115' × $18.50 = $2,127.50. <br>2. Owner share of cost: $2,127.50 × 0.80 = $1,702. <br>3. Final assessment (split with neighbor): $1,702 / 2 = $851.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "Acres in: NW 1/2 of SW 1/2 of E 1/2 AND NW 1/4 of E 1/2 of Section 14?",
-    "options": [
-      "140 acres",
-      "145 acres",
-      "160 acres",
-      "170 acres"
-    ],
-    "correct": 2,
-    "explanation": "Calculation: Part 1: 640 / 2 / 2 / 2 = 80 acres. Part 2: 640 / 2 / 4 = 80 acres. Total = 160 acres."
+    cat: "Legal Descriptions",
+    q: "How many total acres are contained in the following description: The NW 1/2 of the SW 1/2 of the E 1/2 AND the NW 1/4 of the E 1/2 of Section 14?",
+    options: ["140 acres", "145 acres", "160 acres", "170 acres"],
+    correct: 2,
+    explanation:
+      "<strong>Calculation:</strong> <br>Part 1: 640 / 2 / 2 / 2 = 80 acres. <br>Part 2: 640 / 2 / 4 = 80 acres. <br>Total = 160 acres.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "How many square feet are in 1/2 an acre?",
-    "options": [
-      "21,780",
-      "43,560",
-      "63,580",
-      "320"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 43,560 / 2 = 21,780 sq ft."
+    cat: "Math",
+    q: "An acre of land contains 43,560 square feet. How many square feet are in exactly 0.50 acres?",
+    options: ["21,780", "43,560", "63,580", "320"],
+    correct: 0,
+    explanation: "<strong>Calculation:</strong> 43,560 × 0.50 = 21,780 sq. ft.",
   },
   {
-    "cat": "Real Estate Math",
-    "q": "Associate gets 60% of commission. Sale: $64,000. Commission: 7%. Associate's pay?",
-    "options": [
-      "$2,688",
-      "$4,500",
-      "$4,600",
-      "$2,985"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 1. Total commission: $64,000 * 0.07 = $4,480. 2. Associate's share: $4,480 * 0.60 = $2,688."
+    cat: "Real Estate Math",
+    q: "A sales associate receives 60% of the total commission. If the property sold for $64,000 at a 7% commission rate, what is the associate's compensation?",
+    options: ["$2,688", "$4,500", "$4,600", "$2,985"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total: $64,000 × 0.07 = $4,480. <br>2. Associate: $4,480 × 0.60 = $2,688.",
   },
   {
-    "cat": "Real Estate Math",
-    "q": "A developer has 20 acres and divides it into 20 equal lots. If 15% is reserved for common areas, what is the square footage of each lot?",
-    "options": [
-      "37,026",
-      "56,225",
-      "18,513",
-      "12,268"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 1. Usable acres: 20 * 0.85 = 17 acres. 2. Sq Ft: 17 * 43,560 = 740,520 sq ft. 3. Per lot: 740,520 / 20 = 37,026 sq ft."
+    cat: "Real Estate Math",
+    q: "A developer owns 20 acres and reserves 15% for common areas. If the remaining land is divided into 20 equal lots, what is the square footage of each individual lot?",
+    options: ["37,026", "56,225", "18,513", "12,268"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Usable area: 20 acres × 0.85 = 17 acres. <br>2. Total Sq Ft: 17 × 43,560 = 740,520 sq. ft. <br>3. Per lot: 740,520 / 20 = 37,026 sq. ft.",
   },
   {
-    "cat": "Real Estate Math",
-    "q": "Purchase Price: $460,000. Down Payment: $100,000. Loan to Value (LTV)?",
-    "options": [
-      "75%",
-      "78%",
-      "80%",
-      "70%"
-    ],
-    "correct": 1,
-    "explanation": "Calculation: 1. Loan amount: $460,000 - $100,000 = $360,000. 2. LTV: $360,000 / $460,000 = 0.78 (78%)."
+    cat: "Real Estate Math",
+    q: "A buyer purchases a home for $460,000 and provides a down payment of $100,000. What is the Loan-to-Value (LTV) ratio for this transaction?",
+    options: ["75%", "78%", "80%", "70%"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Loan amount: $460,000 - $100,000 = $360,000. <br>2. LTV Ratio: $360,000 / $460,000 = 0.7826 or approximately 78%.",
   },
   {
-    "cat": "License Law",
-    "q": "Which statement concerning property management is INCORRECT?",
-    "options": [
-      "A property manager paid on a transactional basis must be licensed as an active broker.",
-      "Licensed sales associates cannot work independently as property managers.",
-      "A broker's license is not required if the property manager is paid a salary.",
-      "If a property manager is compensated by salary, he must hold an active broker's license."
+    cat: "License Law",
+    q: "Which statement is CORRECT regarding property management in Florida?",
+    options: [
+      "Property managers must always hold a broker's license.",
+      "Sales associates can work as independent property managers if they have 2 years of experience.",
+      "A license is not required if the property manager is a salaried employee of the owner.",
+      "Salaried property managers must hold an active broker's license.",
     ],
-    "correct": 3,
-    "explanation": "Correction: A salaried property manager for an owner-developer DOES NOT need a real estate license. However, if they are paid a commission or per-unit fee, they MUST be licensed."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> <strong>Salaried</strong> employees of an owner-developer or apartment complex are exempt from licensure. If they are paid per-unit or on a commission basis, they MUST have an active real estate license.",
   },
   {
-    "cat": "License Law",
-    "q": "Which statement is FALSE concerning the required 45-hour post-licensing course?",
-    "options": [
-      "After completion, the license automatically renews for 2 years without further action.",
-      "Failure to complete the course results in a 'null and void' status.",
-      "The licensee must visit the DBPR website to renew and pay a fee after completing the course.",
-      "To continue in real estate after failing to complete the course, one must retake the 63-hour course and state exam."
+    cat: "License Law",
+    q: "Which of the following is TRUE regarding the 45-hour post-licensing course for sales associates?",
+    options: [
+      "The licensee must manually renew their license and pay a fee on the DBPR website after completing the course.",
+      "The license automatically renews for 2 years upon the school reporting the grade.",
+      "Failure to complete the course results in an involuntary inactive status.",
+      "The course is only required for active licensees.",
     ],
-    "correct": 0,
-    "explanation": "Correction: The license DOES NOT renew automatically. You must still go to the DBPR website, confirm you've finished the course, and pay your renewal fee."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> Completing the education is only half the battle. To keep the license from becoming null and void, the licensee must also pay the renewal fee and submit the renewal application to the DBPR.",
   },
   {
-    "cat": "License Law",
-    "q": "Which of the following statements is TRUE regarding Florida regulatory authority?",
-    "options": [
-      "Chapter 61J2 are the laws created by the FREC.",
-      "Chapter 6J12 are the laws created by the FREC.",
-      "Chapter 61J2 are the rules created, implemented, and enforced by the FREC.",
-      "Chapter 61J3 are the rules created by the FREC."
+    cat: "License Law",
+    q: "In the context of Florida real estate regulation, which of the following accurately describes Chapter 61J2?",
+    options: [
+      "The Florida Statutes created by the State Legislature.",
+      "The administrative rules created, implemented, and enforced by the FREC.",
+      "The federal laws governing interstate real estate transactions.",
+      "The internal policy manual for the Department of Business and Professional Regulation.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Chapter 61J2 are the Florida Administrative Code (FAC) rules implemented by the FREC. F.S. 475 is the law created by the Legislature."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> <strong>Chapter 61J2</strong> represents the Florida Administrative Code (rules) established by the FREC. In contrast, <strong>F.S. 475</strong> is the law enacted by the Florida Legislature.",
   },
   {
-    "cat": "License Law",
-    "q": "Which statement is FALSE concerning the 14-hour continuing education (CE) requirement?",
-    "options": [
+    cat: "License Law",
+    q: "Regarding the 14-hour continuing education (CE) requirement in Florida, which of the following statements is FALSE?",
+    options: [
       "Failure to complete post-licensing education results in a null and void status.",
-      "Only actively licensed sales associates are required to complete the 14 hours of CE.",
-      "Both active and inactive licensees must complete the 14 hours of CE.",
-      "A licensee can remain in involuntary inactive status for up to 2 years."
+      "Only active licensees are required to complete the 14-hour CE cycle.",
+      "Both active and voluntarily inactive licensees must complete the 14-hour CE.",
+      "A licensee can remain in involuntary inactive status for up to two years.",
     ],
-    "correct": 1,
-    "explanation": "Correction: Both active and voluntarily inactive licensees must complete their 14 hours of CE every renewal period."
+    correct: 1,
+    explanation:
+      "<strong>Correction:</strong> Both active <strong>and</strong> voluntarily inactive licensees must complete their 14 hours of CE every renewal period to maintain their license. Failure to do so leads to involuntary inactive status.",
   },
   {
-    "cat": "License Law",
-    "q": "Which of the following statements is TRUE regarding Florida licensing?",
-    "options": [
-      "The Florida Governor's signature is on the real estate license.",
-      "Salaried managers of condos renting for up to 1 year must be licensed.",
-      "Licensees working for owner-developers as salaried employees must be licensed.",
-      "It is a violation of law to pay an unlicensed person for the referral of real estate business."
+    cat: "License Law",
+    q: "Which of the following is a CORRECT statement regarding Florida real estate licensing and regulation?",
+    options: [
+      "The Florida Governor's signature must appear on every active license.",
+      "Salaried managers of condominiums renting units for periods up to 1 year are exempt from licensure.",
+      "Licensees working as salaried employees for owner-developers are exempt from licensure.",
+      "It is a violation of F.S. 475 to pay an unlicensed person for the referral of real estate business.",
     ],
-    "correct": 3,
-    "explanation": "Key Point: Paying an unlicensed person for a real estate referral is a violation of F.S. 475. Note: You CAN give a referral fee to another licensed broker, but never to an unlicensed person."
+    correct: 3,
+    explanation:
+      "<strong>Key Point:</strong> Paying an unlicensed person for a referral is a violation of Florida law. While you can pay a referral fee to another licensed broker, <strong>unlicensed 'bird-dogging'</strong> is prohibited.",
   },
   {
-    "cat": "License Law",
-    "q": "Which statement is TRUE concerning the categories of real estate licenses?",
-    "options": [
-      "A sales associate performs real estate services independently of a broker.",
-      "There is no difference between a broker and a broker associate.",
-      "A sales associate performs services under the direction, control, or management of a broker or owner-developer.",
-      "A person must be a sales associate for 3 years before qualifying to be a broker."
+    cat: "License Law",
+    q: "Which statement accurately describes the relationship between a sales associate and their employing broker?",
+    options: [
+      "A sales associate is authorized to perform real estate services independently of their broker.",
+      "There is no legal distinction between the authorities of a broker and a broker associate.",
+      "A sales associate must perform all services under the direction, control, and management of their broker.",
+      "A person must remain a sales associate for three years before applying for a broker's license.",
     ],
-    "correct": 2,
-    "explanation": "Key Point: A sales associate is an employee of the broker and must always work under their supervision. Note: A broker associate is someone who has passed the broker exam but chooses to work under another broker."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> A sales associate is an agent of the broker and <strong>must</strong> work under their supervision. They cannot move independently in a transaction. Note: A broker associate has a broker's license but chooses to work in a sales associate capacity.",
   },
   {
-    "cat": "Legal Descriptions",
-    "q": "Concerning the government survey method, which statement is FALSE?",
-    "options": [
-      "The method breaks the state up into a grid.",
-      "The prime meridian goes through Tallahassee.",
-      "The POB (point of beginning) is used to start the legal description.",
-      "Townships contain 36 sections."
+    cat: "Legal Descriptions",
+    q: "In the Government Survey Method of legal descriptions, which of the following statements is FALSE?",
+    options: [
+      "The method utilizes a grid system of townships and sections.",
+      "The Principal Meridian runs North and South through Tallahassee.",
+      "A 'Point of Beginning' (POB) is the primary starting mechanism for the description.",
+      "Each township is composed of 36 individual sections.",
     ],
-    "correct": 2,
-    "explanation": "Correction: A Point of Beginning (POB) is used in the 'Metes and Bounds' method, not the Government Survey method. The Government Survey method uses Townships and Sections."
+    correct: 2,
+    explanation:
+      "<strong>Correction:</strong> A 'Point of Beginning' (POB) is a feature of the <strong>Metes and Bounds</strong> method. The Government Survey method relies on the intersection of principal meridians and base lines.",
   },
   {
-    "cat": "Escrow",
-    "q": "What is the first thing a broker is required to do when presented with an escrow dispute?",
-    "options": [
-      "Contact FREC within 15 business days in writing.",
-      "Implement one of the four settlement procedures.",
-      "Contact FREC within 30 business days in writing.",
-      "Mediate the matter."
+    cat: "Escrow",
+    q: "When a broker is notified of conflicting demands regarding escrowed funds, what is the broker's first legal requirement?",
+    options: [
+      "Notify the FREC in writing within 15 business days.",
+      "Immediately implement an escrow disbursement order.",
+      "Notify the DBPR in writing within 30 business days.",
+      "Request formal mediation through the local board of Realtors.",
     ],
-    "correct": 0,
-    "explanation": "Key Point: Notification is the first step. You have 15 business days to tell FREC there's a problem, and 30 business days to actually implement a solution."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> The '15-business day' rule is for <strong>notification</strong>. The broker then has a total of 30 business days from the initial dispute to implement one of the four settlement procedures (M.A.L.E.).",
   },
   {
-    "cat": "Property Rights",
-    "q": "If a person dies intestate (without a will) and has no heirs, what principle governs the disposition of their property?",
-    "options": [
-      "Estoppel",
-      "Bargain and sale deed",
-      "Escheat",
-      "Descent"
-    ],
-    "correct": 2,
-    "explanation": "Key Point: Escheat. The property 'returns' to the state because no one else has a legal claim to it."
+    cat: "Property Rights",
+    q: "If a property owner dies 'Intestate' and no legal heirs can be located, the state exercises which power to take ownership of the property?",
+    options: ["Estoppel", "Eminent Domain", "Escheat", "Police Power"],
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> <strong>Escheat</strong> prevents property from becoming 'ownerless.' The property effectively 'falls back' to the state government.",
   },
   {
-    "cat": "Math",
-    "q": "How many square feet are in 1/2 of an acre?",
-    "options": [
-      "21,780",
-      "43,560",
-      "63,580",
-      "320"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 43,560 / 2 = 21,780 sq ft."
+    cat: "Math",
+    q: "A standard acre of land contains 43,560 square feet. How many square feet are contained in 0.50 (1/2) of an acre?",
+    options: ["21,780 sq. ft.", "43,560 sq. ft.", "63,580 sq. ft.", "31,780 sq. ft."],
+    correct: 0,
+    explanation: "<strong>Calculation:</strong> 43,560 / 2 = 21,780 square feet.",
   },
   {
-    "cat": "Math",
-    "q": "An associate earns 60% of all commissions. If they sell a property for $64,000 with a 7% commission, how much is the associate paid?",
-    "options": [
-      "$2,688",
-      "$4,500",
-      "$4,600",
-      "$2,985"
-    ],
-    "correct": 0,
-    "explanation": "Calculation: 1. Total: $64,000 * 0.07 = $4,480. 2. Associate's share: $4,480 * 0.60 = $2,688."
+    cat: "Math",
+    q: "A sales associate earns a 60% split of the total commission. If the associate closes a $64,000 sale with a 7% commission rate, what is the associate's share?",
+    options: ["$2,688", "$4,480", "$4,600", "$2,985"],
+    correct: 0,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Total Commission: $64,000 × 0.07 = $4,480. <br>2. Associate's Split: $4,480 × 0.60 = $2,688.",
   },
   {
-    "cat": "Agency",
-    "q": "Which fiduciary duty is owed by a single agent but NOT by a transaction broker?",
-    "options": [
-      "Use of skill, care, and diligence",
+    cat: "Agency",
+    q: "Which of the following fiduciary duties is required in a Single Agent relationship but is NOT required in a Transaction Broker relationship?",
+    options: [
       "Accounting for all funds",
-      "Full disclosure",
-      "Honesty and fair dealing"
+      "Skill, care, and limited confidentiality",
+      "Full disclosure and absolute loyalty",
+      "Honesty and fair dealing",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Fiduciary duties (COLD: Confidentiality, Obedience, Loyalty, Disclosure) are only for Single Agents. Transaction Brokers only have limited confidentiality and do not owe Full Disclosure."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> Transaction brokers provide <strong>limited</strong> confidentiality and do not owe the principal absolute loyalty or full disclosure. These 'high' fiduciary duties are reserved for <strong>Single Agency</strong>.",
   },
   {
-    "cat": "Finance",
-    "q": "In a mortgage, the clause that allows the lender to call the entire unpaid balance due immediately upon default is the:",
-    "options": [
+    cat: "Finance",
+    q: "Which mortgage clause grants the lender the right to demand immediate repayment of the entire loan balance if the borrower defaults?",
+    options: [
       "Defeasance clause",
       "Acceleration clause",
       "Due-on-sale clause",
-      "Escalator clause"
+      "Subordination clause",
     ],
-    "correct": 1,
-    "explanation": "Key Point: Acceleration means 'speeding up' the timeline. When you default, the bank accelerates the due date for the entire loan amount."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> To <strong>'Accelerate'</strong> means to move the maturity date to the present. This is the bank's primary tool for starting the foreclosure process.",
   },
   {
-    "cat": "Property Rights",
-    "q": "Which type of tenancy is characterized by the 'Right of Survivorship'?",
-    "options": [
+    cat: "Property Rights",
+    q: "Which form of co-ownership is uniquely distinguished by the 'Right of Survivorship'?",
+    options: [
       "Tenancy in common",
       "Joint tenancy",
       "Tenancy at will",
-      "Tenancy at sufferance"
+      "Estate for years",
     ],
-    "correct": 1,
-    "explanation": "Key Point: Joint Tenancy includes the Right of Survivorship, meaning if one owner dies, their share automatically goes to the surviving owners. Note: Tenancy in Common does not have this; the share would go to heirs instead."
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> In <strong>Joint Tenancy</strong>, if one owner dies, their interest passes automatically to the surviving owners, bypassing probate. In Tenancy in Common, the interest passes to the deceased's heirs.",
   },
   {
-    "cat": "Legal",
-    "q": "Which type of deed provides the greatest protection to the grantee?",
-    "options": [
-      "Bargain and sale deed",
-      "Special warranty deed",
-      "Quitclaim deed",
-      "General warranty deed"
+    cat: "Legal",
+    q: "Which type of deed offers the grantee (buyer) the most comprehensive set of warranties and the greatest level of protection?",
+    options: [
+      "Bargain and Sale Deed",
+      "Special Warranty Deed",
+      "Quitclaim Deed",
+      "General Warranty Deed",
     ],
-    "correct": 3,
-    "explanation": "Key Point: The General Warranty Deed is the 'gold standard.' It includes all five covenants and warrants the title forever."
+    correct: 3,
+    explanation:
+      "<strong>Key Point:</strong> The <strong>General Warranty Deed</strong> includes the covenants of seisin, against encumbrances, quiet enjoyment, further assurance, and warranty forever.",
   },
   {
-    "cat": "Math",
-    "q": "A property is valued at $240,000. The net operating income (NOI) is $30,000. What is the capitalization rate?",
-    "options": [
-      "10.5%",
-      "12.5%",
-      "8.0%",
-      "15.0%"
-    ],
-    "correct": 1,
-    "explanation": "Calculation: Rate = Income / Value. $30,000 / $240,000 = 0.125 (12.5%)."
+    cat: "Math",
+    q: "An income-producing property is valued at $240,000. If the Net Operating Income (NOI) is $30,000, what is the capitalization rate?",
+    options: ["10.5%", "12.5%", "8.0%", "15.0%"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> Capitalization Rate = Income / Value. <br>$30,000 / $240,000 = 0.125 or 12.5%.",
   },
   {
-    "cat": "Math",
-    "q": "How many acres are in the NW 1/4 of the NE 1/4 of the SW 1/4 of Section 20?",
-    "options": [
-      "5 acres",
-      "10 acres",
-      "2.5 acres",
-      "40 acres"
-    ],
-    "correct": 1,
-    "explanation": "<strong class='text-purple-600 font-bold'>Calculation:</strong> 640 / 4 / 4 / 4 = 10 acres. <br><br><strong class='text-blue-600 font-bold'>Key Point:</strong> A section contains 640 acres. To solve, divide 640 by the denominator of each fraction in the description (640 ÷ 4 = 160; 160 ÷ 4 = 40; 40 ÷ 4 = 10)."
+    cat: "Math",
+    q: "How many acres are contained in the NW 1/4 of the NE 1/4 of the SW 1/4 of Section 20?",
+    options: ["5 acres", "10 acres", "2.5 acres", "40 acres"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> 640 / 4 / 4 / 4 = 10 acres. <br><strong>Key Point:</strong> To solve acreage problems, always start with 640 and divide by the denominators in the legal description from right to left.",
   },
   {
-    "cat": "License Law",
-    "q": "A broker is moving his office to a new location. Within how many days must the broker notify the DBPR of the change in address?",
-    "options": [
-      "5 days",
-      "10 days",
-      "15 days",
-      "30 days"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: You have 10 DAYS to notify the DBPR of a change in your registered address or your license will cease to be in force."
+    cat: "License Law",
+    q: "If a broker changes their business address, they must notify the Department of Business and Professional Regulation (DBPR) within how many days?",
+    options: ["5 days", "10 days", "15 days", "30 days"],
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> You have <strong>10 days</strong> to notify the DBPR of a change in address. Failure to do so will cause the license to cease to be in force.",
   },
   {
-    "cat": "Finance",
-    "q": "Which federal law requires lenders to provide a Loan Estimate (LE) to a borrower within three business days of a loan application?",
-    "options": [
+    cat: "Finance",
+    q: "Which federal regulation requires lenders to provide borrowers with a Loan Estimate (LE) within three business days of receiving a loan application?",
+    options: [
       "TRID (TILA-RESPA Integrated Disclosure)",
       "Equal Credit Opportunity Act",
       "Sherman Antitrust Act",
-      "Fair Housing Act"
+      "Fair Housing Act",
     ],
-    "correct": 0,
-    "explanation": "Key Point: TRID combined the requirements of TILA and RESPA into the 'Know Before You Owe' rule, requiring the Loan Estimate (LE) and Closing Disclosure (CD)."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> <strong>TRID</strong> combined the requirements of TILA and RESPA into the 'Know Before You Owe' rule, standardizing the Loan Estimate (LE) and Closing Disclosure (CD).",
   },
   {
-    "cat": "Taxes",
-    "q": "Under the 'Save Our Homes' amendment, the annual increase in the assessed value of a homesteaded property is limited to what amount?",
-    "options": [
-      "3% or the CPI, whichever is less",
-      "5% flat",
-      "3% or the CPI, whichever is more",
-      "No limit"
+    cat: "Taxes",
+    q: "Under the 'Save Our Homes' amendment, the annual increase in the assessed value of a homesteaded property is limited to:",
+    options: [
+      "3% or the Consumer Price Index (CPI), whichever is less.",
+      "5% regardless of the current CPI.",
+      "3% or the Consumer Price Index (CPI), whichever is greater.",
+      "The amount determined by the local property appraiser.",
     ],
-    "correct": 0,
-    "explanation": "Key Point: The SOH benefit caps the increase in your assessed value at 3% per year or the Consumer Price Index (CPI), whichever is LESS."
+    correct: 0,
+    explanation:
+      "<strong>Key Point:</strong> The Save Our Homes benefit caps annual increases in assessed value at <strong>3% or the CPI, whichever is LESS</strong>, to protect homeowners from rapidly rising property taxes.",
   },
   {
-    "cat": "Agency",
-    "q": "A residential sale is defined as the sale of improved residential property of how many units or fewer?",
-    "options": [
-      "Two",
-      "Four",
-      "Five",
-      "One"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: Residential sales are defined as 4 units or fewer, or vacant land zoned for 4 units or fewer."
+    cat: "Agency",
+    q: "Under Florida law, a 'residential sale' is defined as the sale of improved residential property consisting of how many units?",
+    options: ["Two or fewer", "Four or fewer", "Five or fewer", "One only"],
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> Residential sales include properties of <strong>four units or fewer</strong>, or vacant land zoned for four units or fewer.",
   },
   {
-    "cat": "Brokerage Operations",
-    "q": "What is the maximum amount that can be paid from the Real Estate Recovery Fund for a single transaction?",
-    "options": [
-      "$25,000",
-      "$50,000",
-      "$150,000",
-      "$10,000"
-    ],
-    "correct": 1,
-    "explanation": "Key Point: The fund pays up to $50,000 for a single judgment, and has a lifetime cap of $150,000 for a single licensee."
+    cat: "Brokerage Operations",
+    q: "What is the maximum amount that may be paid from the Real Estate Recovery Fund for claims arising out of a single real estate transaction?",
+    options: ["$25,000", "$50,000", "$150,000", "$10,000"],
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> The fund pays a maximum of <strong>$50,000</strong> per transaction and a lifetime maximum of <strong>$150,000</strong> for any single licensee.",
   },
   {
-    "cat": "Math",
-    "q": "A seller wants to net $150,000 after paying a 6% commission. What must the property sell for? (Round to nearest dollar)",
-    "options": [
-      "$159,000",
-      "$159,574",
-      "$160,225",
-      "$141,000"
-    ],
-    "correct": 1,
-    "explanation": "Calculation: 1. Net % needed: 100% - 6% = 94%. 2. Sale Price: $150,000 / 0.94 = $159,574.46."
+    cat: "Math",
+    q: "A seller wishes to net $150,000 after paying a 6% commission. What is the required sales price (rounded to the nearest dollar)?",
+    options: ["$159,000", "$159,574", "$160,225", "$141,000"],
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Determine net percentage: 100% - 6% = 94% (0.94). <br>2. Calculate sales price: $150,000 / 0.94 = $159,574.46.",
   },
   {
-    "cat": "Appraisal",
-    "q": "The principle of appraisal that states a property's value is set by the cost of acquiring an equally desirable substitute is:",
-    "options": [
+    cat: "Appraisal",
+    q: "The appraisal principle which states that a prudent buyer will not pay more for a property than the cost of acquiring an equally desirable alternative is the:",
+    options: [
       "Principle of Contribution",
       "Principle of Highest and Best Use",
       "Principle of Substitution",
-      "Principle of Progression"
+      "Principle of Progression",
     ],
-    "correct": 2,
-    "explanation": "Key Point: Substitution is the basis for all three appraisal methods (Sales Comparison, Cost, and Income)."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> The <strong>Principle of Substitution</strong> is the underlying logic for all three appraisal approaches (Sales Comparison, Cost, and Income).",
   },
   {
-    "cat": "Escrow",
-    "q": "If a sales associate receives an earnest money deposit on Wednesday, by what day must the broker deposit the funds into the escrow account?",
-    "options": [
+    cat: "Escrow",
+    q: "If a sales associate receives an earnest money deposit on a Wednesday, the broker must deposit those funds into the escrow account no later than the end of business on which day?",
+    options: [
       "Friday",
-      "Monday (following week)",
+      "Monday of the following week",
       "The following Wednesday",
-      "Saturday"
+      "Saturday",
     ],
-    "correct": 1,
-    "explanation": "Calculation: Wednesday (received) -> Thursday (associate must give to broker) -> Monday (broker must deposit). Weekends don't count for the '3 business day' rule."
+    correct: 1,
+    explanation:
+      "<strong>Calculation:</strong> <br>1. Wednesday: Associate receives funds. <br>2. Thursday: Associate must deliver funds to Broker (1st business day). <br>3. Monday: Broker must deposit funds (3rd business day).",
   },
   {
-    "cat": "Legal",
-    "q": "A 'Cloud on Title' is best resolved through which of the following?",
-    "options": [
-      "General warranty deed",
-      "Title insurance policy",
-      "Quitclaim deed",
-      "Property survey"
+    cat: "Legal",
+    q: "Which legal instrument is most commonly used to quickly clear a 'cloud on title' caused by a minor error in a previous deed?",
+    options: [
+      "General Warranty Deed",
+      "Title Insurance Policy",
+      "Quitclaim Deed",
+      "Property Survey",
     ],
-    "correct": 2,
-    "explanation": "Key Point: A Quitclaim Deed is the fastest way to remove a minor 'cloud' (like a misspelled name or unreleased lien). For major clouds, a 'Suit to Quiet Title' might be necessary."
+    correct: 2,
+    explanation:
+      "<strong>Key Point:</strong> A <strong>Quitclaim Deed</strong> contains no warranties and is used to release any interest a person may have in a property, making it ideal for clearing title defects.",
+  },
+  {
+    cat: "Legal Theory",
+    q: "In which mortgage lending theory does the lender hold the actual legal title to the property until the debt is fully satisfied?",
+    options: ["Lien theory", "Title theory", "Hypothecation theory", "Intermediate theory"],
+    correct: 1,
+    explanation:
+      "<strong>Key Point:</strong> In <strong>Title Theory</strong> states, the lender holds the title. Florida is a <strong>Lien Theory</strong> state, where the borrower retains the title and the lender holds a lien as security for the debt.",
+  },
+  {
+    cat: "Homestead",
+    q: "The Florida Constitutional Homestead law provides all of the following benefits, EXCEPT:",
+    options: [
+      "A reduction in the assessed value for property tax calculations.",
+      "Protection of the family from the death of a spouse.",
+      "Protection against forced sale by general creditors.",
+      "Immunity from forced sale due to non-payment of property taxes or special assessments.",
+    ],
+    correct: 3,
+    explanation:
+      "<strong>Correction:</strong> Homestead property is <strong>never</strong> immune from forced sale for non-payment of property taxes, special assessments, mortgages, or construction liens.",
+  },
+
+  {
+    cat: "Legal Theory",
+    q: "Which type of non-freehold estate is characterized by a specific duration with a predetermined starting and ending date?",
+    options: ["Tenancy at will", "Estate by the entireties", "Life estate", "Tenancy for years"],
+    correct: 3,
+    explanation: "<strong>Key Point:</strong> A <strong>Tenancy for Years</strong> (or Estate for Years) is a leasehold interest with a definite duration. Because the end date is known at the outset, no notice is required to terminate the agreement.",
+  },
+  {
+    cat: "Homestead",
+    q: "Which of the following represents the correct formula for calculating the taxable value of a homesteaded property in Florida?",
+    options: ["Assessed value + total exemptions = taxable value", "Assessed value - taxable value = homestead exemptions", "Assessed value - qualifying exemptions = taxable value", "Just value - assessed value = taxable value"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> Taxable value is the amount used to determine the actual tax bill. It is calculated by taking the <strong>Assessed Value</strong> (after Save Our Homes caps) and subtracting all qualifying exemptions.",
+  },
+  {
+    cat: "Land",
+    q: "Land is physically composed of three distinct components. Which of the following is NOT considered a physical component of land?",
+    options: ["Surface rights", "Air rights", "Legal rights", "Subsurface rights"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> Physically, land consists of the surface, everything below it, and the air above it. <strong>Legal Rights</strong> (the Bundle of Rights) refer to the ownership of real property, not the physical land itself.",
+  },
+  {
+    cat: "Titles",
+    q: "Regarding an 'Abstract of Title,' which of the following statements is INCORRECT?",
+    options: ["It is a comprehensive search of recorded documents.", "It represents the complete successive record of ownership (Chain of Title).", "An opinion of title is typically executed by an attorney after review.", "It is used to help determine if a title is marketable."],
+    correct: 1,
+    explanation: "<strong>Correction:</strong> The <strong>Chain of Title</strong> is the actual record of ownership succession. An <strong>Abstract</strong> is a summary or condensed history of all recorded documents affecting the title.",
+  },
+  {
+    cat: "Legal",
+    q: "Which covenant in a deed represents the grantor's promise that they legally own the property and possess the right to convey it?",
+    options: ["Seisin", "Constructive notice", "Actual notice", "Habendum clause"],
+    correct: 0,
+    explanation: "<strong>Key Point:</strong> The <strong>Covenant of Seisin</strong> is the most fundamental promise in a General Warranty Deed, where the grantor warrants that they are the legal owner.",
+  },
+  {
+    cat: "Legal Descriptions",
+    q: "Which statement regarding legal descriptions and land measurement is mathematically FALSE?",
+    options: ["Every section in a township contains 43,560 square feet.", "The Lot and Block method is used for recorded plat maps.", "Metes and Bounds descriptions utilize a POB and compass degrees.", "The principal meridian runs North and South through Tallahassee."],
+    correct: 0,
+    explanation: "<strong>Correction:</strong> A section contains <strong>640 acres</strong>. One acre contains 43,560 square feet. Use the '7-11' rule (4+3=7, 5+6=11) to remember the square footage of an acre.",
+  },
+  {
+    cat: "Legal Theory",
+    q: "Regarding mortgage lending theories, which of the following statements is INCORRECT?",
+    options: ["In Lien Theory states, the borrower does not retain legal title.", "Florida is a Lien Theory state.", "In Title Theory states, the lender holds legal title until the debt is satisfied.", "In Lien Theory states, the borrower retains legal title and the lender holds a lien."],
+    correct: 0,
+    explanation: "<strong>Correction:</strong> In <strong>Lien Theory</strong> states like Florida, the borrower (mortgagor) DOES retain legal title. The mortgage is simply a lien used as security for the debt.",
+  },
+  {
+    cat: "Legal",
+    q: "Which of the following pairings of Florida Statutes or Administrative Rules with their respective regulatory topics is INCORRECT?",
+    options: ["FREC rules are found in Chapter 61J2.", "Real estate license law is found in F.S. 475.", "Homeowners' Association disclosure requirements are found in F.S. 720.", "DBPR regulatory procedures are governed by F.S. 120."],
+    correct: 3,
+    explanation: "<strong>Correction:</strong> The DBPR is governed primarily by <strong>F.S. 455</strong>. F.S. 120 is the Administrative Procedure Act, which governs the disciplinary process for all state agencies.",
+  },
+  {
+    cat: "Statute of Frauds",
+    q: "Under the Florida Statute of Frauds, which statement regarding the enforceability of contracts is FALSE?",
+    options: ["Deeds and mortgages must be in writing to be enforceable.", "All contracts must be in writing to be legally valid.", "The statute does not apply to a listing agreement with a duration of 3 months.", "The statute applies to real estate option contracts."],
+    correct: 1,
+    explanation: "<strong>Correction:</strong> Not all contracts must be in writing to be valid. For example, a <strong>lease for less than one year</strong> is an exception to the Statute of Frauds and is enforceable even if oral.",
+  },
+  {
+    cat: "Disclosures",
+    q: "A broker is aware that a residential property has a leaking roof. To satisfy the legal requirements of disclosure, the broker must:",
+    options: ["Disclose the defect to the buyer.", "Advise the buyer to obtain a professional inspection.", "Remain silent if the property is being sold under an 'As-Is' contract.", "Remain silent if the broker is acting as a Transaction Broker."],
+    correct: 0,
+    explanation: "<strong>Key Point:</strong> Under <i>Johnson v. Davis</i>, licensees MUST disclose all known material facts that affect the value of residential property, regardless of the contract type or agency relationship.",
+  },
+  {
+    cat: "Disclosures",
+    q: "A seller informs a broker in confidence that the property's roof leaks. How must the broker handle this information regarding a prospective buyer?",
+    options: ["A Single Agent is not required to disclose confidential information.", "The broker is legally required to disclose the defect to all prospective buyers.", "Disclosure is not required if the property is sold 'As-Is'.", "The broker has an ethical but not a legal obligation to disclose."],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> Material defects must <strong>ALWAYS</strong> be disclosed. A licensee's duty to the law and the public regarding material facts overrides their duty of confidentiality to the seller.",
+  },
+  {
+    cat: "Agency",
+    q: "If a brokerage firm represents a buyer as a Single Agent and wishes to show them a property listed by the same firm as a Single Agent, what action is required?",
+    options: ["The parties must sign a Dual Agency waiver.", "Both parties must consent in writing to transition to a Transaction Broker relationship.", "The brokerage must terminate the buyer's representation agreement.", "The brokerage must charge a dual representation fee."],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> Dual Agency is <strong>illegal</strong> in Florida. To represent both parties in the same transaction, the brokerage must transition to a Transaction Brokerage with written consent from both the buyer and seller.",
+  },
+  {
+    cat: "Agency",
+    q: "Which statement accurately describes Florida's real estate agency relationships and disclosure requirements?",
+    options: ["The presumed relationship in Florida is Single Agency.", "A No Brokerage Relationship disclosure must be provided before showing property.", "A Single Agent can represent both the buyer and seller with verbal consent.", "Transaction Brokers owe fiduciary duties to their principals."],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> In a <strong>No Brokerage Relationship</strong>, the written disclosure must be given BEFORE the showing. Note: In Florida, the 'presumed' relationship is actually Transaction Broker.",
+  },
+  {
+    cat: "Property Management",
+    q: "Under the Florida Residential Landlord and Tenant Act, which statement is FALSE regarding the handling of security deposits?",
+    options: ["Landlords have three statutory options for holding tenant deposits.", "If no claim is made, the landlord must return the deposit within 15 days.", "If a claim is made, the landlord has 15 days to notify the tenant.", "Banks used to hold security deposits must be located within Florida."],
+    correct: 2,
+    explanation: "<strong>Correction:</strong> If a landlord intends to make a claim on a security deposit, they have <strong>30 days</strong> (not 15) to notify the tenant by certified mail.",
+  },
+  {
+    cat: "Contracts",
+    q: "In contract law, the term 'Novation' refers to the:",
+    options: ["Obligation of a seller to list exclusively with one broker.", "Substitution of a new party or a new contract for an original one.", "Requirement for a contract to be performed by only one party.", "Legal remedy used when a contract has been breached."],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> <strong>Novation</strong> is the substitution of a new contract or party, which effectively releases the original party from any further liability under the agreement.",
+  },
+  {
+    cat: "Fair Housing",
+    q: "Which of the following statements regarding Fair Housing violations is INCORRECT?",
+    options: ["Steering involves channeling buyers toward or away from certain neighborhoods.", "Blockbusting involves inducing owners to sell by claiming property values will drop due to minorities moving in.", "Redlining is the discriminatory practice of refusing to provide loans in certain areas.", "Steering is the practice of encouraging sellers to list their properties because a minority group is moving into the area."],
+    correct: 3,
+    explanation: "<strong>Correction:</strong> Encouraging sellers to list their property because a minority group is moving in is known as <strong>Blockbusting</strong> or 'Panic Peddling.' <strong>Steering</strong> applies specifically to the channeling of <strong>BUYERS</strong>.",
+  },
+  {
+    cat: "Antitrust",
+    q: "If two competing brokers meet to establish a standard commission rate for the upcoming year, they are in violation of:",
+    options: ["RESPA", "The Truth in Lending Act (TILA)", "Antitrust Laws", "The Fair Housing Act"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> Price-fixing (colluding to set rates) is a violation of the <strong>Sherman-Clayton Antitrust Acts</strong>. Under Florida law, commission rates must always be negotiable between the broker and the principal.",
+  },
+  {
+    cat: "Federal Law",
+    q: "A homeowner is selling a residential property built in 1965. Regarding the Lead-Based Paint Hazard Reduction Act, which statement is FALSE?",
+    options: ["The seller is responsible for providing the required EPA disclosure and lead hazard pamphlet.", "The sales associate is the party legally responsible for providing the disclosure and pamphlet to the buyer.", "The buyer must sign an acknowledgment of receiving the lead-based paint disclosure.", "The buyer is granted a 10-day period to conduct an inspection but is not required to do so."],
+    correct: 1,
+    explanation: "<strong>Correction:</strong> Under federal law, the <strong>SELLER</strong> (owner) is the party responsible for providing the disclosure. The licensee's role is to ensure the seller complies with the law.",
+  },
+  {
+    cat: "Licensing",
+    q: "If a sales associate fails to complete the mandatory 45-hour post-licensing education prior to their initial expiration date, what is the status of their license?",
+    options: ["Involuntary Inactive", "Voluntary Inactive", "Null and Void", "Suspended"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> The first renewal is the most critical. Failure to complete the 45-hour post-license course results in the license becoming <strong>Null and Void</strong>, meaning the individual must retake the pre-license course and state exam.",
+  },
+  {
+    cat: "Licensing",
+    q: "Which licensees must complete 14 hours of continuing education (CE) during every two-year renewal cycle?",
+    options: ["Only active licensees", "Only inactive licensees", "Both active and voluntarily inactive licensees", "Only brokers and broker associates"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> After the initial post-licensing period, both <strong>active and voluntarily inactive</strong> licensees must complete 14 hours of CE to maintain their license status.",
+  },
+  {
+    cat: "Brokerage Office",
+    q: "A sales associate who leaves a brokerage and takes original listing contracts or other trade secrets belonging to the broker may be charged with:",
+    options: ["Breach of Trust", "Culpable Negligence", "Larceny", "Commingling"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> Original listings are the physical property of the broker. Removing them constitutes <strong>Larceny</strong> (theft). Taking copies may be a 'Breach of Trust,' but taking originals is a crime.",
+  },
+  {
+    cat: "License Law",
+    q: "A seller wishes to reward a sales associate for an exceptional performance. Which of the following may the seller legally provide directly to the associate?",
+    options: ["A cash bonus", "A gift with a value of $50 or less", "A sincere expression of thanks and appreciation", "A bottle of wine or a gift certificate"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> A sales associate can <strong>ONLY</strong> be compensated by their employing broker. The seller cannot pay a bonus or provide a gift directly to the associate for real estate services.",
+  },
+  {
+    cat: "Brokerage Operations",
+    q: "If a broker intends to close an existing branch office and open a new one at a different location, which of the following applies?",
+    options: ["The broker may transfer the branch registration to the new office.", "The broker must register the new location and pay a new registration fee.", "A broker is permitted only one principal office and no branch offices.", "Branch offices do not require registration with the DBPR."],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> Branch office registrations are <strong>NOT transferable</strong>. Each new branch location must be registered separately with the state, and the appropriate fee must be paid.",
+  },
+  {
+    cat: "Finance",
+    q: "What is the effective yield to a lender on a 5% loan if the borrower is charged 4 discount points?",
+    options: ["5.25%", "5.50%", "5.75%", "6.00%"],
+    correct: 1,
+    explanation: "<strong>Calculation:</strong> Each point adds 1/8% (0.125) to the yield. <br>4 points × 0.125 = 0.50%. <br>5% + 0.50% = 5.50% effective yield.",
+  },
+  {
+    cat: "Finance",
+    q: "In a 30-year, fixed-rate, fully amortized mortgage, the largest portion of the monthly payment during the FINAL year of the term is applied to:",
+    options: ["Interest", "Principal", "Escrow taxes", "Mortgage insurance"],
+    correct: 1,
+    explanation: "<strong>Key Point:</strong> In an amortized loan, the interest portion decreases as the balance drops. By the end of the 30-year term, almost 100% of the payment is applied toward the <strong>principal</strong>.",
+  },
+  {
+    cat: "Closing",
+    q: "On a Closing Disclosure (CD), how is the binder (earnest money) deposit recorded?",
+    options: ["As a credit to the buyer only", "As a credit to the buyer and a debit to the seller", "As a credit to the seller and a debit to the buyer", "As a debit to the buyer only"],
+    correct: 0,
+    explanation: "<strong>Key Point:</strong> The binder deposit is already in the broker's escrow account. It appears as a <strong>Credit to the Buyer</strong> to reduce the cash they must bring to closing. It does not affect the seller's total proceeds.",
+  },
+  {
+    cat: "Finance",
+    q: "Regarding the mortgage markets, which of the following statements is FALSE?",
+    options: ["The primary market is where loans are originated between the lender and borrower.", "The secondary market originates new loans for residential borrowers.", "Fannie Mae is a major participant in the secondary market.", "The secondary market provides liquidity to primary lenders by purchasing existing loans."],
+    correct: 1,
+    explanation: "<strong>Correction:</strong> The <strong>Secondary Market</strong> does not originate loans or deal with the public; it buys existing mortgages from primary lenders to keep money flowing in the economy.",
+  },
+  {
+    cat: "Math",
+    q: "Which of the following is the correct formula for calculating Florida documentary stamp taxes on a deed?",
+    options: ["(Sales price / 100, rounded up) × $0.70", "(Mortgage price / 100, rounded up) × $0.35", "(Sales price / 100, rounded up) × $0.35", "Total mortgage amount × 0.002"],
+    correct: 0,
+    explanation: "<strong>Calculation:</strong> (Sales Price / 100) × $0.70. <strong>Note:</strong> You must always round the price up to the next $100 increment before performing the calculation.",
+  },
+  {
+    cat: "Math",
+    q: "A developer owns 175 acres and reserves 25% for infrastructure. If each residential lot requires 7,500 square feet, how many full lots can be developed?",
+    options: ["254", "762", "813", "1,106"],
+    correct: 1,
+    explanation: "<strong>Calculation:</strong> <br>1. Usable land: 175 × 0.75 = 131.25 acres. <br>2. Total Sq Ft: 131.25 × 43,560 = 5,717,250. <br>3. Lots: 5,717,250 / 7,500 = 762.3. Round down to <strong>762</strong>.",
+  },
+  {
+    cat: "Math",
+    q: "How many total acres are contained in the N 1/2 of the SE 1/4 of the NW 1/4 AND the N 1/2 of the S 1/2 of the SE 1/4 of the N 1/4?",
+    options: ["10 acres", "20 acres", "30 acres", "80 acres"],
+    correct: 2,
+    explanation: "<strong>Calculation:</strong> <br>Parcel A: 640 / 2 / 4 / 4 = 20 acres. <br>Parcel B: 640 / 2 / 2 / 4 / 4 = 10 acres. <br>Total: 20 + 10 = 30 acres.",
+  },
+  {
+    cat: "Math",
+    q: "A real estate closing is scheduled for January 10th. The buyer is assuming the seller's mortgage of $209,000 at 4.5% interest. If the day of closing belongs to the buyer, what is the interest proration?",
+    options: ["$231.90 debit seller, credit buyer", "$231.90 debit buyer, credit seller", "$257.67 debit seller, credit buyer", "$257.67 debit buyer, credit seller"],
+    correct: 0,
+    explanation: "<strong>Calculation:</strong> <br>1. Daily Interest: ($209,000 × 0.045) / 365 = $25.767. <br>2. Seller Days: 9 days (Jan 1–9). <br>3. Proration: $25.767 × 9 = $231.90. <br><strong>Note:</strong> Assumed interest is a <strong>Debit to the Seller and Credit to the Buyer</strong>.",
+  },
+  {
+    cat: "Appraisal",
+    q: "A subject property has a fireplace. A comparable property lacks a fireplace but has an extra bathroom. If the bathroom is valued at $5,000 and the fireplace at $2,000, what is the adjustment to the comparable?",
+    options: ["Add $7,000 to the comparable", "Subtract $3,000 from the comparable", "Subtract $3,000 from the subject", "Add $3,000 to the subject"],
+    correct: 1,
+    explanation: "<strong>Calculation:</strong> Using <strong>CBS/CIA</strong>: <br>1. Comp has extra bath (Better): -$5,000. <br>2. Comp lacks fireplace (Inferior): +$2,000. <br>Net Adjustment: -$3,000.",
+  },
+  {
+    cat: "Brokerage Operations",
+    q: "Regarding kickbacks and referral fees in Florida, which of the following is FALSE?",
+    options: ["All parties to the transaction must be fully informed of the fee.", "A licensee may legally accept a referral fee from a title insurance company.", "A kickback is only legal if it is for a service actually performed.", "Sharing a commission with an unlicensed person for a real estate referral is a violation of law."],
+    correct: 1,
+    explanation: "<strong>Correction:</strong> Receiving a referral fee from a <strong>settlement service provider</strong> (like a title company) is a violation of both Florida law and RESPA.",
+  },
+  {
+    cat: "Escrow",
+    q: "Upon being presented with an escrow dispute involving conflicting demands, a broker must notify the FREC in writing within:",
+    options: ["15 business days", "10 business days", "30 business days", "7 business days"],
+    correct: 0,
+    explanation: "<strong>Key Point:</strong> The broker has <strong>15 business days</strong> to notify the FREC and a total of <strong>30 business days</strong> to implement one of the four settlement procedures (M.A.L.E.).",
+  },
+  {
+    cat: "Escrow",
+    q: "If a sales associate receives an earnest money deposit on a Wednesday, what is the deadline for the broker to deposit those funds into the escrow account?",
+    options: ["Friday", "Monday of the following week", "The following Wednesday", "Saturday"],
+    correct: 1,
+    explanation: "<strong>Calculation:</strong> Wednesday (Received) → Thursday (Associate gives to Broker) → Monday (End of Broker's 3rd business day deposit deadline).",
+  },
+  {
+    cat: "Legal",
+    q: "A minor 'Cloud on Title' (such as a misspelled name or unreleased lien) is most efficiently resolved through the use of a:",
+    options: ["General Warranty Deed", "Title Insurance Policy", "Quitclaim Deed", "Property Survey"],
+    correct: 2,
+    explanation: "<strong>Key Point:</strong> A <strong>Quitclaim Deed</strong> is the fastest legal instrument used to clear title defects and release any potential interest in a property.",
   }
-]
+];
