@@ -1430,6 +1430,18 @@ export const questions = [
     explanation: "<strong>Calculation:</strong> Using <strong>CBS/CIA</strong>: <br>1. Comp has extra bath (Better): -$5,000. <br>2. Comp lacks fireplace (Inferior): +$2,000. <br>Net Adjustment: -$3,000.",
   },
   {
+    cat: "Legal/Insurance",
+    q: "What is the term for the process by which a title insurance company acquires the rights and claims of the insured against others responsible for a loss after settling a claim?",
+    options: [
+      "Collateral assignment.",
+      "Subrogation.",
+      "Subordination.",
+      "Equitable Transfer."
+    ],
+    correct: 1,
+    explanation: "<strong>Subrogation</strong> is a legal principle that allows one party (in this case, the title insurance company) to step into the shoes of another party (the insured) and assume their rights and claims against a third party who is responsible for the loss.",
+  },
+  {
     cat: "Brokerage Operations",
     q: "Regarding kickbacks and referral fees in Florida, which of the following is FALSE?",
     options: ["All parties to the transaction must be fully informed of the fee.", "A licensee may legally accept a referral fee from a title insurance company.", "A kickback is only legal if it is for a service actually performed.", "Sharing a commission with an unlicensed person for a real estate referral is a violation of law."],
