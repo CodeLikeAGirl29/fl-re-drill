@@ -19,6 +19,7 @@ export interface Question {
   options: [string, string, string, string];
   correct: 0 | 1 | 2 | 3;
   explanation: string;
+  isMarked?: boolean;
 }
 
 export const questions: Question[] = [
