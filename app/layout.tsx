@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Anonymous_Pro } from 'next/font/google';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -7,13 +8,19 @@ export const metadata: Metadata = {
   keywords: ["Florida Real Estate Exam", "FREC", "Real Estate Math", "Sales Associate Practice Test"],
 };
 
+const anonPro = Anonymous_Pro({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  variable: '--font-anon-pro', // Define a CSS variable name
+});
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${anonPro.variable}`}>
       <head>
         {/* FontAwesome for your icons */}
         <link

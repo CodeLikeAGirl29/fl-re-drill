@@ -45,7 +45,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
       </div>
 
       {/* Display */}
-      <div className="p-4 bg-black/20 text-right">
+      <div className="p-4 bg-black/20 text-right font-calculator">
         <div className="text-[0.625rem] text-blue-400 h-4 font-mono">{equation}</div>
         <div className="text-2xl font-bold text-white truncate font-mono">{display}</div>
       </div>

@@ -1,7 +1,13 @@
-// components/WelcomeScreen.tsx
-import { BookOpen, Target, Zap, Clock } from 'lucide-react';
+import { useState } from 'react';
+import { BookOpen, Target, Zap, Clock, Filter } from 'lucide-react';
+import { questions } from '../lib/questions';
+import { getUniqueCategories } from '../lib/utils';
 
 export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
+
+  // Dynamically get categories from your question data
+  const categories = ["All Categories", ...getUniqueCategories(questions)];
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
 
@@ -53,13 +59,34 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
           </div>
         </div>
 
+        {/* Category Selection Section */}
+        <div className="mb-6">
+          <label className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3">
+            <Filter size={14} /> Select Focus Area
+          </label>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="w-full p-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-hidden focus:ring-2 focus:ring-[#06b6d4] transition-all cursor-pointer"
+          >
+            {categories.map(cat => (
+              <option key={cat} value={cat} className="bg-[#1e293b]">
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* Buttons Section */}
         <div className="flex flex-col gap-3">
           <button
-            onClick={onNew}
+            onClick={() => onNew(selectedCategory)}
             className="w-full py-4 bg-[#06b6d4] hover:bg-[#0ea5e9] text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-[1.01] shadow-lg"
           >
-            {hasProgress ? "Start New Drill" : "Begin Master Drill"}
+            {selectedCategory === "All Categories"
+              ? (hasProgress ? "Start New Master Drill" : "Begin Master Drill")
+              : `Start ${selectedCategory} Drill`
+            }
           </button>
 
           {hasProgress && (

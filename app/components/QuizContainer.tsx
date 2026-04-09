@@ -8,7 +8,7 @@ import FormulaModal from './FormulaModal';
 import QuizCalculator from './QuizCalculator'; // New Component
 import { useTimer } from '../hooks/useTimer';
 import { questions as originalQuestions } from '../lib/questions';
-import { shuffleArray } from '../lib/utils';
+import { shuffleArray, shuffleQuestionOptions } from '../lib/utils';
 import { Calculator, BookOpen } from 'lucide-react';
 
 export default function QuizContainer() {
@@ -47,15 +47,34 @@ export default function QuizContainer() {
     if (saved) setHasSavedProgress(true);
   }, []);
 
-  const handleNewQuiz = () => {
-    const randomized = shuffleArray(originalQuestions);
+  const handleNewQuiz = (category: string = "All Categories") => {
+    // 1. Filter by category first
+    let filtered = originalQuestions;
+    if (category !== "All Categories") {
+      filtered = originalQuestions.filter(q => q.cat === category);
+    }
+
+    // 2. Shuffle the order of the filtered questions
+    const shuffledQuestions = shuffleArray(filtered);
+
+    // 3. Shuffle the A, B, C, D options for each question
+    const randomized = shuffledQuestions.map(q => shuffleQuestionOptions(q));
+
+    // 4. Update state
     setActiveQuestions(randomized);
     setScore(0);
     setCurrentIdx(0);
     setMissedCategories([]);
+
+    // 5. Update localStorage with the specific filtered set
     localStorage.setItem('fl_quiz_progress', JSON.stringify({
-      idx: 0, scr: 0, orderedQuestions: randomized, time: 0
+      idx: 0,
+      scr: 0,
+      orderedQuestions: randomized,
+      time: 0,
+      category: category // Store category for context if needed
     }));
+
     setView('quiz');
   };
 
@@ -63,23 +82,32 @@ export default function QuizContainer() {
     const saved = localStorage.getItem('fl_quiz_progress');
     if (saved) {
       const { idx, scr, orderedQuestions } = JSON.parse(saved);
-      if (orderedQuestions) setActiveQuestions(orderedQuestions);
-      setCurrentIdx(idx);
-      setScore(scr);
-      setView('quiz');
+      if (orderedQuestions && orderedQuestions.length > 0) {
+        setActiveQuestions(orderedQuestions);
+        setScore(scr);
+        setCurrentIdx(idx);
+        setView('quiz');
+      }
     }
   };
 
   const handleNext = (isCorrect: boolean) => {
-    if (!isCorrect) {
+    let newScore = score;
+    if (isCorrect) {
+      newScore = score + 1;
+      setScore(newScore);
+    } else {
       const currentCat = activeQuestions[currentIdx].cat;
       setMissedCategories(prev => [...prev, currentCat]);
     }
-    if (isCorrect) {
-      setScore(prev => prev + 1);
-    }
     const nextIndex = currentIdx + 1;
     setCurrentIdx(nextIndex);
+    localStorage.setItem('fl_quiz_progress', JSON.stringify({
+      idx: nextIndex,
+      scr: newScore,
+      orderedQuestions: activeQuestions,
+      time: seconds
+    }));
   };
 
   return (

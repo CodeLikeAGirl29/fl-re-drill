@@ -8,6 +8,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        // This maps the Tailwind class 'font-calculator' to our Google Font
+        calculator: ['var(--font-anon-pro)', 'monospace'],
+      },
       colors: {
         'blue-ish': {
           '50': '#ebf3fe',
