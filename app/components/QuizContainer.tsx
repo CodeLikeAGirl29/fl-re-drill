@@ -32,6 +32,7 @@ export default function QuizContainer() {
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
   const [missedCategories, setMissedCategories] = useState<string[]>([]);
   const [markedQuestions, setMarkedQuestions] = useState<Set<number>>(new Set());
+  const [isReviewMode, setIsReviewMode] = useState(false);
 
   const { formatTime, seconds } = useTimer();
 
@@ -57,6 +58,14 @@ export default function QuizContainer() {
     if (saved) setHasSavedProgress(true);
   }, []);
 
+  // Scroll to top whenever the question index or view changes
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // 'smooth' for the sliding effect, 'auto' for instant
+    });
+  }, [currentIdx, view]);
+
   const handleNewQuiz = (category: string = "All Categories") => {
     let filtered = originalQuestions;
     if (category !== "All Categories") {
@@ -81,6 +90,7 @@ export default function QuizContainer() {
       category: category
     }));
 
+    setIsReviewMode(false);
     setView('quiz');
   };
 
@@ -116,6 +126,7 @@ export default function QuizContainer() {
   };
 
   const handleNext = (isCorrect: boolean) => {
+    // 1. Calculate Score & Categories
     let newScore = score;
     if (isCorrect) {
       newScore = score + 1;
@@ -125,19 +136,41 @@ export default function QuizContainer() {
       setMissedCategories(prev => [...prev, currentCat]);
     }
 
+    // 2. NEW: Automatically remove the flag/mark since the question is now answered
+    const updatedMarks = new Set(markedQuestions);
+    updatedMarks.delete(currentIdx);
+    setMarkedQuestions(updatedMarks);
+
+    // 3. Handle Review Mode Return
+    if (isReviewMode) {
+      // Update storage even in review mode so marks stay cleared
+      const saved = localStorage.getItem('fl_quiz_progress');
+      if (saved) {
+        const data = JSON.parse(saved);
+        data.scr = newScore;
+        data.markedQuestions = Array.from(updatedMarks);
+        localStorage.setItem('fl_quiz_progress', JSON.stringify(data));
+      }
+
+      setView('review');
+      setIsReviewMode(false);
+      return;
+    }
+
+    // 4. Standard Linear Progression
     const nextIndex = currentIdx + 1;
 
     if (nextIndex >= activeQuestions.length) {
       localStorage.removeItem('fl_quiz_progress');
       setHasSavedProgress(false);
-      setView('review');
+      setView('results'); // Or 'review' if you want one final check before results
     } else {
       setCurrentIdx(nextIndex);
       localStorage.setItem('fl_quiz_progress', JSON.stringify({
         idx: nextIndex,
         scr: newScore,
         orderedQuestions: activeQuestions,
-        markedQuestions: Array.from(markedQuestions),
+        markedQuestions: Array.from(updatedMarks), // Save the cleared marks
         time: seconds
       }));
     }
@@ -149,30 +182,26 @@ export default function QuizContainer() {
       {/* 1. PROGRESS BAR */}
       {view === 'quiz' && currentIdx < activeQuestions.length && (
         <div className="w-full mb-10 animate-in fade-in duration-700">
-          {/* Label for clarity above the bar */}
           <div className="flex justify-between items-end mb-2 px-1">
             <span className="text-[10px] font-black uppercase tracking-widest text-[#817a8e]">
-              Exam Progress
+              Exam Progress: {currentIdx + 1} of {activeQuestions.length}
             </span>
           </div>
 
-          <div className="w-full bg-white/5 h-6 rounded-full overflow-hidden relative border border-white/10 shadow-inner">
+          {/* Requested Progress Bar Design */}
+          <div className="bg-gray-300 rounded-full w-full h-2.5 max-w-4xl mx-auto mt-4 overflow-hidden">
             {(() => {
               const progress = (currentIdx / activeQuestions.length) * 100;
-              const currentPassRate = currentIdx > 0 ? (score / currentIdx) * 100 : 0;
-
-              // Color logic
-              let barColor = "bg-[#1d4ed8]";
-              if (currentPassRate >= 75) barColor = "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]";
-              else if (currentPassRate < 70 && currentIdx > 5) barColor = "bg-rose-500";
 
               return (
                 <div
-                  className={`${barColor} h-full transition-all duration-700 ease-out flex items-center justify-center text-[0.625rem] font-black text-white uppercase tracking-widest`}
+                  className="h-full rounded-full bg-blue-600 flex items-center relative transition-all duration-500 ease-out"
                   style={{ width: `${progress}%` }}
                 >
-                  {/* Percentage text inside the bar, only if there is room */}
-                  {progress > 15 && <span>{Math.round(progress)}%</span>}
+                  {/* The White Pip (Indicator) */}
+                  {progress > 0 && (
+                    <span className="absolute text-xs right-0.5 bg-white w-2 h-2 rounded-full shadow-sm"></span>
+                  )}
                 </div>
               );
             })()}
@@ -207,6 +236,7 @@ export default function QuizContainer() {
                 key={i}
                 onClick={() => {
                   setCurrentIdx(i);
+                  setIsReviewMode(true);
                   setView('quiz');
                 }}
                 className={`h-14 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${markedQuestions.has(i)
