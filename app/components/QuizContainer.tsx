@@ -154,9 +154,6 @@ export default function QuizContainer() {
             <span className="text-[10px] font-black uppercase tracking-widest text-[#817a8e]">
               Exam Progress
             </span>
-            <span className="text-xs font-bold text-[#06b6d4]">
-              {Math.round((currentIdx / activeQuestions.length) * 100)}% Complete
-            </span>
           </div>
 
           <div className="w-full bg-white/5 h-6 rounded-full overflow-hidden relative border border-white/10 shadow-inner">
