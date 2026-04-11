@@ -1,5 +1,3 @@
-// components/ProgressBar.tsx
-
 interface ProgressBarProps {
   current: number; // Number of questions answered
   total: number;   // Total number of questions
@@ -21,7 +19,6 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
         className="flex flex-col justify-center rounded-full overflow-hidden bg-primary text-[0.625rem] font-bold text-primary-foreground text-center whitespace-nowrap transition-all duration-500 ease-out"
         style={{ width: `${percentage}%` }}
       >
-        {/* Only show the text if the bar is wide enough to contain it (> 10%) */}
         {percentage > 10 && `${percentage}%`}
       </div>
     </div>

@@ -1,44 +1,45 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useMemo } from 'react';
-import WelcomeScreen from './WelcomeScreen';
-import QuestionCard from './quiz/QuestionCard';
-import ResultsView from './quiz/ResultsView';
-import FormulaModal from './FormulaModal';
-import QuizCalculator from './QuizCalculator';
-import { useTimer } from '../hooks/useTimer';
-import { questions as originalQuestions } from '../lib/questions';
-import { shuffleArray, shuffleQuestionOptions } from '../lib/utils';
+import { useState, useEffect, useMemo } from "react";
+import WelcomeScreen from "./WelcomeScreen";
+import QuestionCard from "./quiz/QuestionCard";
+import ResultsView from "./quiz/ResultsView";
+import FormulaModal from "./FormulaModal";
+import QuizCalculator from "./QuizCalculator";
+import { useTimer } from "../hooks/useTimer";
+import { questions as originalQuestions } from "../lib/questions";
+import { shuffleArray, shuffleQuestionOptions } from "../lib/utils";
 
 import {
   IoTimerOutline,
   IoBookmark,
   IoCalculatorOutline,
   IoBookOutline,
-  IoCheckmarkDoneCircleOutline
+  IoCheckmarkDoneCircleOutline,
 } from "react-icons/io5";
-import {
-  FaChevronRight,
-  FaFlag
-} from "react-icons/fa6";
+import { FaChevronRight, FaFlag } from "react-icons/fa6";
 
 export default function QuizContainer() {
   const [activeQuestions, setActiveQuestions] = useState(originalQuestions);
-  const [view, setView] = useState<'welcome' | 'quiz' | 'review' | 'results'>('welcome');
+  const [view, setView] = useState<"welcome" | "quiz" | "review" | "results">(
+    "welcome"
+  );
   const [currentIdx, setCurrentIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
   const [missedCategories, setMissedCategories] = useState<string[]>([]);
-  const [markedQuestions, setMarkedQuestions] = useState<Set<number>>(new Set());
+  const [markedQuestions, setMarkedQuestions] = useState<Set<number>>(
+    new Set()
+  );
   const [isReviewMode, setIsReviewMode] = useState(false);
 
-  const { formatTime, seconds } = useTimer();
+  const { formatTime, seconds, resetTimer } = useTimer();
 
   const topMissed = useMemo(() => {
     const counts: Record<string, number> = {};
-    missedCategories.forEach(cat => counts[cat] = (counts[cat] || 0) + 1);
+    missedCategories.forEach((cat) => (counts[cat] = (counts[cat] || 0) + 1));
     return Object.entries(counts)
       .sort(([, a], [, b]) => b - a)
       .slice(0, 3);
@@ -46,15 +47,25 @@ export default function QuizContainer() {
 
   const getRank = (finalScore: number, total: number) => {
     const percentage = (finalScore / total) * 100;
-    if (percentage >= 95) return { name: "Emerald Coast Legend", sub: "Ready for Sundance." };
-    if (percentage >= 85) return { name: "Luxury Broker", sub: "Destin listings await." };
-    if (percentage >= 75) return { name: "Licensed Professional", sub: "You passed the State Exam!" };
-    if (percentage >= 60) return { name: "Probationary Associate", sub: "Almost there. Drill F.S. 475." };
+    if (percentage >= 95)
+      return { name: "Emerald Coast Legend", sub: "Ready for Sundance." };
+    if (percentage >= 85)
+      return { name: "Luxury Broker", sub: "Destin listings await." };
+    if (percentage >= 75)
+      return {
+        name: "Licensed Professional",
+        sub: "You passed the State Exam!",
+      };
+    if (percentage >= 60)
+      return {
+        name: "Probationary Associate",
+        sub: "Almost there. Drill F.S. 475.",
+      };
     return { name: "The Anchor", sub: "Stuck in the sand. Back to the books!" };
   };
 
   useEffect(() => {
-    const saved = localStorage.getItem('fl_quiz_progress');
+    const saved = localStorage.getItem("fl_quiz_progress");
     if (saved) setHasSavedProgress(true);
   }, []);
 
@@ -62,18 +73,18 @@ export default function QuizContainer() {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth', // 'smooth' for the sliding effect, 'auto' for instant
+      behavior: "smooth", // 'smooth' for the sliding effect, 'auto' for instant
     });
   }, [currentIdx, view]);
 
   const handleNewQuiz = (category: string = "All Categories") => {
     let filtered = originalQuestions;
     if (category !== "All Categories") {
-      filtered = originalQuestions.filter(q => q.cat === category);
+      filtered = originalQuestions.filter((q) => q.cat === category);
     }
 
     const shuffledQuestions = shuffleArray(filtered);
-    const randomized = shuffledQuestions.map(q => shuffleQuestionOptions(q));
+    const randomized = shuffledQuestions.map((q) => shuffleQuestionOptions(q));
 
     setActiveQuestions(randomized);
     setScore(0);
@@ -81,29 +92,44 @@ export default function QuizContainer() {
     setMissedCategories([]);
     setMarkedQuestions(new Set());
 
-    localStorage.setItem('fl_quiz_progress', JSON.stringify({
-      idx: 0,
-      scr: 0,
-      orderedQuestions: randomized,
-      markedQuestions: [],
-      time: 0,
-      category: category
-    }));
+    localStorage.setItem(
+      "fl_quiz_progress",
+      JSON.stringify({
+        idx: 0,
+        scr: 0,
+        orderedQuestions: randomized,
+        markedQuestions: [],
+        time: 0,
+        category: category,
+      })
+    );
 
+    resetTimer(0);
     setIsReviewMode(false);
-    setView('quiz');
+    setView("quiz");
   };
 
   const handleResume = () => {
-    const saved = localStorage.getItem('fl_quiz_progress');
+    const saved = localStorage.getItem("fl_quiz_progress");
     if (saved) {
-      const { idx, scr, orderedQuestions, markedQuestions: savedMarks } = JSON.parse(saved);
+      const {
+        idx,
+        scr,
+        orderedQuestions,
+        markedQuestions: savedMarks,
+        time,
+      } = JSON.parse(saved);
+
       if (orderedQuestions && orderedQuestions.length > 0) {
         setActiveQuestions(orderedQuestions);
         setScore(scr);
         setCurrentIdx(idx);
+
+        // Update the timer with the saved seconds
+        if (time) resetTimer(time);
+
         if (savedMarks) setMarkedQuestions(new Set(savedMarks));
-        setView('quiz');
+        setView("quiz");
       }
     }
   };
@@ -117,11 +143,11 @@ export default function QuizContainer() {
     }
     setMarkedQuestions(newMarked);
 
-    const saved = localStorage.getItem('fl_quiz_progress');
+    const saved = localStorage.getItem("fl_quiz_progress");
     if (saved) {
       const data = JSON.parse(saved);
       data.markedQuestions = Array.from(newMarked);
-      localStorage.setItem('fl_quiz_progress', JSON.stringify(data));
+      localStorage.setItem("fl_quiz_progress", JSON.stringify(data));
     }
   };
 
@@ -133,10 +159,10 @@ export default function QuizContainer() {
       setScore(newScore);
     } else {
       const currentCat = activeQuestions[currentIdx].cat;
-      setMissedCategories(prev => [...prev, currentCat]);
+      setMissedCategories((prev) => [...prev, currentCat]);
     }
 
-    // 2. NEW: Automatically remove the flag/mark since the question is now answered
+    // 2. Automatically remove the flag/mark since the question is now answered
     const updatedMarks = new Set(markedQuestions);
     updatedMarks.delete(currentIdx);
     setMarkedQuestions(updatedMarks);
@@ -144,15 +170,14 @@ export default function QuizContainer() {
     // 3. Handle Review Mode Return
     if (isReviewMode) {
       // Update storage even in review mode so marks stay cleared
-      const saved = localStorage.getItem('fl_quiz_progress');
+      const saved = localStorage.getItem("fl_quiz_progress");
       if (saved) {
         const data = JSON.parse(saved);
         data.scr = newScore;
         data.markedQuestions = Array.from(updatedMarks);
-        localStorage.setItem('fl_quiz_progress', JSON.stringify(data));
+        localStorage.setItem("fl_quiz_progress", JSON.stringify(data));
       }
-
-      setView('review');
+      setView("review");
       setIsReviewMode(false);
       return;
     }
@@ -161,26 +186,28 @@ export default function QuizContainer() {
     const nextIndex = currentIdx + 1;
 
     if (nextIndex >= activeQuestions.length) {
-      localStorage.removeItem('fl_quiz_progress');
+      localStorage.removeItem("fl_quiz_progress");
       setHasSavedProgress(false);
-      setView('results'); // Or 'review' if you want one final check before results
+      setView("results"); // Or 'review' if you want one final check before results
     } else {
       setCurrentIdx(nextIndex);
-      localStorage.setItem('fl_quiz_progress', JSON.stringify({
-        idx: nextIndex,
-        scr: newScore,
-        orderedQuestions: activeQuestions,
-        markedQuestions: Array.from(updatedMarks), // Save the cleared marks
-        time: seconds
-      }));
+      localStorage.setItem(
+        "fl_quiz_progress",
+        JSON.stringify({
+          idx: nextIndex,
+          scr: newScore,
+          orderedQuestions: activeQuestions,
+          markedQuestions: Array.from(updatedMarks), // Save the cleared marks
+          time: seconds,
+        })
+      );
     }
   };
 
   return (
     <div className="w-full max-w-3xl mx-auto py-10 relative z-10 px-4 font-sans">
-
       {/* 1. PROGRESS BAR */}
-      {view === 'quiz' && currentIdx < activeQuestions.length && (
+      {view === "quiz" && currentIdx < activeQuestions.length && (
         <div className="w-full mb-10 animate-in fade-in duration-700">
           <div className="flex justify-between items-end mb-2 px-1">
             <span className="text-[10px] font-black uppercase tracking-widest text-[#817a8e]">
@@ -195,7 +222,7 @@ export default function QuizContainer() {
 
               return (
                 <div
-                  className="h-full rounded-full bg-blue-600 flex items-center relative transition-all duration-500 ease-out"
+                  className="h-full rounded-full bg-cyan-500 flex items-center relative transition-all duration-500 ease-out"
                   style={{ width: `${progress}%` }}
                 >
                   {/* The White Pip (Indicator) */}
@@ -210,9 +237,13 @@ export default function QuizContainer() {
       )}
 
       {/* 2. VIEW SWITCHER */}
-      {view === 'welcome' ? (
-        <WelcomeScreen onNew={handleNewQuiz} onResume={handleResume} hasProgress={hasSavedProgress} />
-      ) : view === 'quiz' ? (
+      {view === "welcome" ? (
+        <WelcomeScreen
+          onNew={handleNewQuiz}
+          onResume={handleResume}
+          hasProgress={hasSavedProgress}
+        />
+      ) : view === "quiz" ? (
         <QuestionCard
           questionsList={activeQuestions}
           index={currentIdx}
@@ -222,12 +253,19 @@ export default function QuizContainer() {
           isMarked={markedQuestions.has(currentIdx)}
           onToggleMark={handleToggleMark}
         />
-      ) : view === 'review' ? (
+      ) : view === "review" ? (
         <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-xl border border-[#444444] shadow-2xl animate-in fade-in zoom-in duration-500">
           <div className="text-center mb-8">
-            <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
-            <h2 className="text-3xl font-bold text-white mb-2">Review Session</h2>
-            <p className="text-[#817a8e] text-sm italic">Review flagged items before final submission.</p>
+            <IoCheckmarkDoneCircleOutline
+              size={48}
+              className="mx-auto text-emerald-400 mb-4"
+            />
+            <h2 className="text-3xl font-bold text-white mb-2">
+              Review Session
+            </h2>
+            <p className="text-[#817a8e] text-sm italic">
+              Review flagged items before final submission.
+            </p>
           </div>
 
           <div className="grid grid-cols-6 sm:grid-cols-8 gap-3 mb-10 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
@@ -237,25 +275,30 @@ export default function QuizContainer() {
                 onClick={() => {
                   setCurrentIdx(i);
                   setIsReviewMode(true);
-                  setView('quiz');
+                  setView("quiz");
                 }}
                 className={`h-14 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${markedQuestions.has(i)
-                  ? 'border-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.2)]'
-                  : 'border-white/10 bg-white/5 text-[#817a8e] hover:border-[#06b6d4] hover:text-white'
+                  ? "border-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.2)]"
+                  : "border-white/10 bg-white/5 text-[#817a8e] hover:border-[#06b6d4] hover:text-white"
                   }`}
               >
                 <span className="text-xs font-bold">{i + 1}</span>
-                {markedQuestions.has(i) && <FaFlag size={10} className="mt-1" />}
+                {markedQuestions.has(i) && (
+                  <FaFlag size={10} className="mt-1" />
+                )}
               </button>
             ))}
           </div>
 
           <button
-            onClick={() => setView('results')}
+            onClick={() => setView("results")}
             className="group w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2"
           >
             Submit Final Exam
-            <FaChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            <FaChevronRight
+              size={16}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </button>
         </div>
       ) : (
@@ -268,14 +311,19 @@ export default function QuizContainer() {
       )}
 
       {/* 3. TOOLKIT */}
-      {(view === 'quiz' || view === 'review') && (
+      {(view === "quiz" || view === "review") && (
         <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-[60]">
           <button
             onClick={() => setIsCalcOpen(!isCalcOpen)}
-            className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen ? 'bg-emerald-600 scale-110' : 'bg-slate-700 hover:bg-slate-600'
+            className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen
+              ? "bg-emerald-600 scale-110"
+              : "bg-slate-700 hover:bg-slate-600"
               }`}
           >
-            <IoCalculatorOutline size={24} className="text-white group-hover:rotate-12 transition-transform" />
+            <IoCalculatorOutline
+              size={24}
+              className="text-white group-hover:rotate-12 transition-transform"
+            />
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
@@ -286,8 +334,14 @@ export default function QuizContainer() {
         </div>
       )}
 
-      <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-      <QuizCalculator isOpen={isCalcOpen} onClose={() => setIsCalcOpen(false)} />
+      <FormulaModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+      <QuizCalculator
+        isOpen={isCalcOpen}
+        onClose={() => setIsCalcOpen(false)}
+      />
     </div>
   );
 }

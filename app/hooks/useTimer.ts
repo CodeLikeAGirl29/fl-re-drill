@@ -1,11 +1,14 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function useTimer(initialSeconds: number = 0) {
   const [seconds, setSeconds] = useState(initialSeconds);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
+    // Clear any existing interval to prevent double-timers
+    if (timerRef.current) clearInterval(timerRef.current);
+
     timerRef.current = setInterval(() => {
       setSeconds((prev) => prev + 1);
     }, 1000);
@@ -13,6 +16,11 @@ export function useTimer(initialSeconds: number = 0) {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
+  }, []);
+
+  // We use useCallback so this function is stable when passed to other components
+  const resetTimer = useCallback((newSeconds: number) => {
+    setSeconds(newSeconds);
   }, []);
 
   const formatTime = () => {
@@ -23,7 +31,6 @@ export function useTimer(initialSeconds: number = 0) {
     const paddedMins = mins.toString().padStart(2, '0');
     const paddedSecs = secs.toString().padStart(2, '0');
 
-    // If hours exist, show H:MM:SS, otherwise just MM:SS
     if (hrs > 0) {
       return `${hrs}:${paddedMins}:${paddedSecs}`;
     }
@@ -31,5 +38,5 @@ export function useTimer(initialSeconds: number = 0) {
     return `${paddedMins}:${paddedSecs}`;
   };
 
-  return { seconds, formatTime };
+  return { seconds, formatTime, resetTimer };
 }

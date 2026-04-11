@@ -1,14 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { X } from 'lucide-react'; // Keeping X for consistency with your other modals
+import { X } from 'lucide-react';
+import { FiX } from "react-icons/fi";
 import {
-  BsBackspace,
-  BsPlusLg,
-  BsDashLg,
   BsXLg,
   BsSlashLg
 } from 'react-icons/bs';
+import { IoBackspaceOutline } from "react-icons/io5";
+import { FaPlus, FaMinus } from "react-icons/fa6";
+
 import { FaEquals } from 'react-icons/fa';
 
 export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -51,7 +52,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
       <div className="bg-slate-800 px-4 py-2 flex justify-between items-center border-b border-white/10">
         <span className="text-[0.625rem] font-bold text-slate-400 uppercase tracking-widest">Exam Calculator</span>
         <button onClick={onClose} className="text-slate-400 hover:text-white transition">
-          <X size={16} />
+          <FiX size={16} />
         </button>
       </div>
 
@@ -76,7 +77,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
           onClick={() => setDisplay(display.slice(0, -1) || '0')}
           className="p-3 bg-white/5 text-white rounded-lg hover:bg-white/10 flex justify-center items-center"
         >
-          <BsBackspace size={18} />
+          <IoBackspaceOutline size={18} />
         </button>
         <button
           onClick={() => handleOperator('/')}
@@ -116,7 +117,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
           onClick={() => handleOperator('-')}
           className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex justify-center items-center"
         >
-          <BsDashLg size={18} />
+          <FaMinus size={18} />
         </button>
 
         {/* Row 4 */}
@@ -133,7 +134,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
           onClick={() => handleOperator('+')}
           className="p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex justify-center items-center"
         >
-          <BsPlusLg size={16} />
+          <FaPlus size={16} />
         </button>
 
         {/* Row 5 */}
