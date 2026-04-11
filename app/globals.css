@@ -2,6 +2,7 @@
 
 @theme {
   --color-glass: rgba(255, 255, 255, 0.97);
+  --font-mono-calc: var(--font-source-code), monospace;
 }
 
 /* Base styles without using @apply for complex utilities */
@@ -38,6 +39,23 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #334155;
   border-radius: 0.625rem;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #444444;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #06b6d4;
 }
 
 /* Animations for the cards */

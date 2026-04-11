@@ -54,7 +54,7 @@ export const questions: Question[] = [
       "Assessed Value / Millage Rate = Taxable Value",
     ],
     correct: 1,
-    explanation: "Key Point: Taxable value is the amount used to calculate property taxes. Formula: Assessed Value (Just Value minus Save Our Homes cap) minus all qualifying exemptions.",
+    explanation: "Key Point: 'Just' minus 'Cap' = Assessed. Assessed minus Exemptions = Taxable. The taxable value is the final figure used to calculate property taxes.",
   },
   {
     cat: "Property Rights and Ownership",

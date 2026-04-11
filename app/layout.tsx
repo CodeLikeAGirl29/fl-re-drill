@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anonymous_Pro } from 'next/font/google';
+import { Anonymous_Pro, Source_Code_Pro } from 'next/font/google';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,7 +11,12 @@ export const metadata: Metadata = {
 const anonPro = Anonymous_Pro({
   weight: ['400', '700'],
   subsets: ['latin'],
-  variable: '--font-anon-pro', // Define a CSS variable name
+  variable: '--font-anon-pro',
+});
+
+const sourceCodePro = Source_Code_Pro({
+  subsets: ['latin'],
+  variable: '--font-source-code',
 });
 
 export default function RootLayout({
@@ -20,9 +25,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${anonPro.variable}`}>
+    <html lang="en" className={`${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
       <head>
-        {/* FontAwesome for your icons */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"

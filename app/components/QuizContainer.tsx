@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import WelcomeScreen from './WelcomeScreen';
 import QuestionCard from './quiz/QuestionCard';
 import ResultsView from './quiz/ResultsView';
@@ -9,7 +9,18 @@ import QuizCalculator from './QuizCalculator';
 import { useTimer } from '../hooks/useTimer';
 import { questions as originalQuestions } from '../lib/questions';
 import { shuffleArray, shuffleQuestionOptions } from '../lib/utils';
-import { Calculator, BookOpen, Bookmark, ChevronRight } from 'lucide-react';
+
+import {
+  IoTimerOutline,
+  IoBookmark,
+  IoCalculatorOutline,
+  IoBookOutline,
+  IoCheckmarkDoneCircleOutline
+} from "react-icons/io5";
+import {
+  FaChevronRight,
+  FaFlag
+} from "react-icons/fa6";
 
 export default function QuizContainer() {
   const [activeQuestions, setActiveQuestions] = useState(originalQuestions);
@@ -119,7 +130,7 @@ export default function QuizContainer() {
     if (nextIndex >= activeQuestions.length) {
       localStorage.removeItem('fl_quiz_progress');
       setHasSavedProgress(false);
-      setView('review'); // Trigger Review Screen
+      setView('review');
     } else {
       setCurrentIdx(nextIndex);
       localStorage.setItem('fl_quiz_progress', JSON.stringify({
@@ -138,10 +149,22 @@ export default function QuizContainer() {
       {/* 1. PROGRESS BAR */}
       {view === 'quiz' && currentIdx < activeQuestions.length && (
         <div className="w-full mb-10 animate-in fade-in duration-700">
+          {/* Label for clarity above the bar */}
+          <div className="flex justify-between items-end mb-2 px-1">
+            <span className="text-[10px] font-black uppercase tracking-widest text-[#817a8e]">
+              Exam Progress
+            </span>
+            <span className="text-xs font-bold text-[#06b6d4]">
+              {Math.round((currentIdx / activeQuestions.length) * 100)}% Complete
+            </span>
+          </div>
+
           <div className="w-full bg-white/5 h-6 rounded-full overflow-hidden relative border border-white/10 shadow-inner">
             {(() => {
               const progress = (currentIdx / activeQuestions.length) * 100;
               const currentPassRate = currentIdx > 0 ? (score / currentIdx) * 100 : 0;
+
+              // Color logic
               let barColor = "bg-[#1d4ed8]";
               if (currentPassRate >= 75) barColor = "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]";
               else if (currentPassRate < 70 && currentIdx > 5) barColor = "bg-rose-500";
@@ -151,7 +174,8 @@ export default function QuizContainer() {
                   className={`${barColor} h-full transition-all duration-700 ease-out flex items-center justify-center text-[0.625rem] font-black text-white uppercase tracking-widest`}
                   style={{ width: `${progress}%` }}
                 >
-                  {progress > 10 && <span>{Math.round(progress)}% Complete</span>}
+                  {/* Percentage text inside the bar, only if there is room */}
+                  {progress > 15 && <span>{Math.round(progress)}%</span>}
                 </div>
               );
             })()}
@@ -175,6 +199,7 @@ export default function QuizContainer() {
       ) : view === 'review' ? (
         <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-xl border border-[#444444] shadow-2xl animate-in fade-in zoom-in duration-500">
           <div className="text-center mb-8">
+            <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
             <h2 className="text-3xl font-bold text-white mb-2">Review Session</h2>
             <p className="text-[#817a8e] text-sm italic">Review flagged items before final submission.</p>
           </div>
@@ -193,7 +218,7 @@ export default function QuizContainer() {
                   }`}
               >
                 <span className="text-xs font-bold">{i + 1}</span>
-                {markedQuestions.has(i) && <Bookmark size={12} fill="currentColor" className="mt-1" />}
+                {markedQuestions.has(i) && <FaFlag size={10} className="mt-1" />}
               </button>
             ))}
           </div>
@@ -203,7 +228,7 @@ export default function QuizContainer() {
             className="group w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2"
           >
             Submit Final Exam
-            <ChevronRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <FaChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       ) : (
@@ -223,13 +248,13 @@ export default function QuizContainer() {
             className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen ? 'bg-emerald-600 scale-110' : 'bg-slate-700 hover:bg-slate-600'
               }`}
           >
-            <Calculator size={24} className="text-white group-hover:rotate-12 transition-transform" />
+            <IoCalculatorOutline size={24} className="text-white group-hover:rotate-12 transition-transform" />
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
             className="w-14 h-14 bg-[#1d4ed8] hover:bg-[#1e40af] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] hover:scale-110"
           >
-            <BookOpen size={24} />
+            <IoBookOutline size={24} />
           </button>
         </div>
       )}
