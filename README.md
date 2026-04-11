@@ -4,7 +4,7 @@ A high-performance, interactive exam preparation engine built for Florida Real E
 
 > view the project [here](https://fl-re-drill.vercel.app/)
 
-![screenshot](https://res.cloudinary.com/dhw9dl4gm/image/upload/v1775938851/Florida_Real_Estate_Exam_Prep___Master_Drill_hla4es.gif)
+<img src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1775939262/Florida_Real_Estate_Exam_Prep___Master_Drill_2_c4dsvm.gif" width="100%" alt="Florida Real Estate Drill Demo">
 
 -----
 
