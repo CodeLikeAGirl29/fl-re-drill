@@ -21,7 +21,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
       {/* 1. THE GRADIENT */}
-      <div className="h-32 w-full bg-gradient-to-r from-cyan-700 via-blue-500 to-indigo-600" />
+      <div className="h-32 w-full bg-linear-to-r from-cyan-700 via-blue-500 to-indigo-600" />
 
       {/* 2. THE CONTENT WRAPPER */}
       <div className="p-8 -mt-12">
@@ -34,13 +34,13 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
             Drill the Concepts. Master the Exam.
           </p>
           <p className="text-[#817a8e] text-sm mt-1">
-            Mastering F.S. 475 & the Emerald Coast Market
+            Your Blueprint for State Approval.
           </p>
         </div>
 
         {/* App Features */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-colors">
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors">
             <IoFlash className="text-yellow-400 mt-1 shrink-0" size={20} />
             <div>
               <h4 className="font-semibold text-sm">Smart Shuffle</h4>
@@ -50,7 +50,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
             </div>
           </div>
 
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-colors">
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors">
             <FiTarget className="text-rose-400 mt-1 shrink-0" size={20} />
             <div>
               <h4 className="font-semibold text-sm">Weak Point Tracking</h4>
@@ -60,7 +60,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
             </div>
           </div>
 
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-colors">
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors">
             <IoBook className="text-[#06b6d4] mt-1 shrink-0" size={20} />
             <div>
               <h4 className="font-semibold text-sm">Legal Explanations</h4>
@@ -70,7 +70,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
             </div>
           </div>
 
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/[0.08] transition-colors">
+          <div className="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/8 transition-colors">
             <IoTimerOutline
               className="text-emerald-400 mt-1 shrink-0"
               size={20}
@@ -111,7 +111,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
         <div className="flex flex-col gap-3">
           <button
             onClick={() => onNew(selectedCategory)}
-            className="group w-full py-4 bg-[#06b6d4] hover:bg-[#0ea5e9] text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.01] shadow-lg flex items-center justify-center gap-2"
+            className="group w-full py-4 bg-[#06b6d4] text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] active:scale-95 flex items-center justify-center gap-2"
           >
             {selectedCategory === "All Categories"
               ? hasProgress
