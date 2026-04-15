@@ -69,7 +69,7 @@ export default function QuestionCard({
 
     // We only want to restart this listener when the core state changes. 
     // Do NOT put q.options directly in here if it's being shuffled on every render.
-  }, [isAnswered, isMarked, q?.q, handleNextClick, onToggleMark]);
+  }, [isAnswered, isMarked, q?.q, q?.options, handleNextClick, onToggleMark]);
 
   const addLeadingZero = (number: number) => (number > 9 ? number : `0${number}`);
 

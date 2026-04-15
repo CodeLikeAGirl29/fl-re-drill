@@ -3,7 +3,13 @@
 import { useState } from 'react';
 import { questions } from '@/app/lib/questions';
 
-export default function QuestionCard({ index, score, onNext }: any) {
+interface QuizCardProps {
+  index: number;
+  score: number;
+  onNext: (correct: boolean) => void;
+}
+
+export default function QuestionCard({ index, score, onNext }: QuizCardProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const q = questions[index]; //

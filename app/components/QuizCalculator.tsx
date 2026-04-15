@@ -22,7 +22,6 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
   };
 
   const handleOperator = (op: string) => {
-    const jsOp = op === '×' ? '*' : op;
     setEquation(display + ' ' + op + ' ');
     setDisplay('0');
   };

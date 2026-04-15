@@ -12,7 +12,13 @@ import { FiTarget } from "react-icons/fi";
 import { questions } from "../lib/questions";
 import { getUniqueCategories } from "../lib/utils";
 
-export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
+interface WelcomeScreenProps {
+  onNew: (category: string) => void;
+  onResume: () => void;
+  hasProgress: boolean;
+}
+
+export default function WelcomeScreen({ onNew, onResume, hasProgress }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
   // Dynamically get categories from your question data
@@ -45,7 +51,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
             <div>
               <h4 className="font-semibold text-sm">Smart Shuffle</h4>
               <p className="text-xs text-[#817a8e] leading-relaxed">
-                Every session is unique to prevent "memorizing the order."
+                Every session is unique to prevent &quot;memorizing the order.&quot;
               </p>
             </div>
           </div>

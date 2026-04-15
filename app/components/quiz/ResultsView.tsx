@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Trophy, Target, AlertCircle, RefreshCcw } from 'lucide-react';
+import { Trophy, Target, RefreshCcw } from 'lucide-react';
 import {
   Chart as ChartJS,
   ArcElement,
@@ -12,7 +12,14 @@ import {
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function ResultsView({ score, total, missed, rank }: any) {
+interface ResultsViewProps {
+  score: number;
+  total: number;
+  missed: [string, number][];
+  rank: { name: string; sub: string };
+}
+
+export default function ResultsView({ score, total, missed, rank }: ResultsViewProps) {
   const percentage = Math.round((score / total) * 100);
   const topMissed = missed;
 
@@ -82,7 +89,7 @@ export default function ResultsView({ score, total, missed, rank }: any) {
 
           {topMissed.length > 0 ? (
             <div className="grid gap-3">
-              {topMissed.map(([cat, count]: any) => (
+              {topMissed.map(([cat, count]: [string, number]) => (
                 <div key={cat} className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 group hover:border-rose-500/50 transition-colors">
                   <div className="flex flex-col">
                     <span className="text-[0.65rem] text-[#817a8e] uppercase font-bold tracking-tighter">Needs Review</span>
@@ -98,7 +105,7 @@ export default function ResultsView({ score, total, missed, rank }: any) {
           ) : (
             <div className="bg-emerald-500/10 p-6 rounded-xl border border-emerald-500/20 text-center">
               <p className="text-emerald-400 font-bold mb-1">Perfect Score! 🚀</p>
-              <p className="text-[0.625rem] text-[#817a8e] uppercase font-black">You've mastered these concepts.</p>
+              <p className="text-[0.625rem] text-[#817a8e] uppercase font-black">You&apos;ve mastered these concepts.</p>
             </div>
           )}
         </div>
