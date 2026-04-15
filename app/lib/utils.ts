@@ -1,5 +1,5 @@
 // ./lib/utils.ts
-import { Question, Category } from './questions';
+import { Question } from './questions';
 
 export function shuffleArray<T>(array: T[]): T[] {
   const shuffled = [...array];
