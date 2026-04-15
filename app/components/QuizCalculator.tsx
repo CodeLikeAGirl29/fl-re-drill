@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { X } from 'lucide-react';
 import { FiX } from "react-icons/fi";
 import {
   BsXLg,
@@ -75,6 +74,7 @@ export default function Calculator({ isOpen, onClose }: { isOpen: boolean; onClo
         </button>
         <button
           onClick={() => setDisplay(display.slice(0, -1) || '0')}
+          aria-label="Backspace"
           className="p-3 bg-white/5 text-white rounded-lg hover:bg-white/10 flex justify-center items-center"
         >
           <IoBackspaceOutline size={18} />

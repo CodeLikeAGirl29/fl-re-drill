@@ -86,11 +86,12 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: any) {
 
         {/* Category Selection Section */}
         <div className="mb-6">
-          <label className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3">
+          <label htmlFor="category-select" className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3">
             <IoFilter size={14} className="text-[#06b6d4]" /> Select Focus Area
           </label>
           <div className="relative">
             <select
+              id="category-select"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full p-4 bg-white/5 border border-white/10 rounded-xl text-white appearance-none focus:outline-none focus:ring-2 focus:ring-[#06b6d4] transition-all cursor-pointer pr-10"

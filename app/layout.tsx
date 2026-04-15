@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anonymous_Pro, Source_Code_Pro } from 'next/font/google';
+import { Anonymous_Pro, Source_Code_Pro, Inter } from 'next/font/google';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,14 +8,22 @@ export const metadata: Metadata = {
   keywords: ["Florida Real Estate Exam", "FREC", "Real Estate Math", "Sales Associate Practice Test"],
 };
 
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
 const anonPro = Anonymous_Pro({
   weight: ['400', '700'],
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-anon-pro',
 });
 
 const sourceCodePro = Source_Code_Pro({
   subsets: ['latin'],
+  display: 'swap',
   variable: '--font-source-code',
 });
 
@@ -25,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
