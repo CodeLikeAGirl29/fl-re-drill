@@ -75,13 +75,16 @@ export default function QuizContainer() {
     });
   }, [currentIdx, view]);
 
-  const handleNewQuiz = (category: string = "All Categories") => {
+  const handleNewQuiz = (category: string = "All Categories", limit?: number) => {
     let filtered = originalQuestions;
     if (category !== "All Categories") {
       filtered = originalQuestions.filter((q) => q.cat === category);
     }
 
-    const shuffledQuestions = shuffleArray(filtered);
+    let shuffledQuestions = shuffleArray(filtered);
+    if (limit) {
+      shuffledQuestions = shuffledQuestions.slice(0, limit);
+    }
     const randomized = shuffledQuestions.map((q) => shuffleQuestionOptions(q));
 
     setActiveQuestions(randomized);
@@ -99,6 +102,7 @@ export default function QuizContainer() {
         markedQuestions: [],
         time: 0,
         category: category,
+        limit: limit,
       })
     );
 
@@ -311,7 +315,7 @@ export default function QuizContainer() {
 
       {/* 3. TOOLKIT */}
       {(view === "quiz" || view === "review") && (
-        <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-[60]">
+        <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-60">
           <button
             onClick={() => setIsCalcOpen(!isCalcOpen)}
             className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen
