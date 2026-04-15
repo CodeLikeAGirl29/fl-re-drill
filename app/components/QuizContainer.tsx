@@ -11,8 +11,6 @@ import { questions as originalQuestions } from "../lib/questions";
 import { shuffleArray, shuffleQuestionOptions } from "../lib/utils";
 
 import {
-  IoTimerOutline,
-  IoBookmark,
   IoCalculatorOutline,
   IoBookOutline,
   IoCheckmarkDoneCircleOutline,
@@ -28,7 +26,12 @@ export default function QuizContainer() {
   const [score, setScore] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
-  const [hasSavedProgress, setHasSavedProgress] = useState(false);
+  const [hasSavedProgress, setHasSavedProgress] = useState(() => {
+    if (typeof window !== "undefined") {
+      return !!localStorage.getItem("fl_quiz_progress");
+    }
+    return false;
+  });
   const [missedCategories, setMissedCategories] = useState<string[]>([]);
   const [markedQuestions, setMarkedQuestions] = useState<Set<number>>(
     new Set()
@@ -64,16 +67,11 @@ export default function QuizContainer() {
     return { name: "The Anchor", sub: "Stuck in the sand. Back to the books!" };
   };
 
-  useEffect(() => {
-    const saved = localStorage.getItem("fl_quiz_progress");
-    if (saved) setHasSavedProgress(true);
-  }, []);
-
   // Scroll to top whenever the question index or view changes
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth", // 'smooth' for the sliding effect, 'auto' for instant
+      behavior: "smooth",
     });
   }, [currentIdx, view]);
 
@@ -245,6 +243,7 @@ export default function QuizContainer() {
         />
       ) : view === "quiz" ? (
         <QuestionCard
+          key={currentIdx}
           questionsList={activeQuestions}
           index={currentIdx}
           totalQuestions={activeQuestions.length}

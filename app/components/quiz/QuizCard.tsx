@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { questions } from '@/app/lib/questions'; //
+import { questions } from '@/app/lib/questions';
 
 export default function QuestionCard({ index, score, onNext }: any) {
   const [selected, setSelected] = useState<number | null>(null);

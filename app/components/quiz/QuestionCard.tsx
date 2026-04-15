@@ -4,6 +4,26 @@ import { useState, useEffect, useCallback } from 'react';
 import { Timer, Bookmark, BookmarkCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+// 1. Define the shape of a single Question
+interface Question {
+  q: string;
+  options: string[];
+  correct: number;
+  explanation: string;
+  cat: string;
+}
+
+// 2. Define the props for this component
+interface QuestionCardProps {
+  index: number;
+  onNext: (isCorrect: boolean) => void;
+  questionsList: Question[];
+  totalQuestions: number;
+  currentTime: string;
+  isMarked: boolean;
+  onToggleMark: () => void;
+}
+
 export default function QuestionCard({
   index,
   onNext,
@@ -12,18 +32,11 @@ export default function QuestionCard({
   currentTime,
   isMarked,
   onToggleMark
-}: any) {
+}: QuestionCardProps) {
   const [selected, setSelected] = useState<number | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
 
   const q = questionsList ? questionsList[index] : null;
-
-  // Reset internal state when the question index changes
-  useEffect(() => {
-    setSelected(null);
-    setIsAnswered(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [index]);
 
   const handleNextClick = useCallback(() => {
     const isCorrect = selected === q?.correct;

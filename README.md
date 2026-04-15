@@ -85,7 +85,9 @@ The integrated **FormulaModal** provides instant access to:
 
 -----
 
-## 🤝 Support & Contribution
+## -ˋˏ✄┈┈┈┈────⋆⋅☆⋅⋆──┈──┈──┈──
+
+### 🤝 Support & Contribution
 
 If you're a Florida Real Estate instructor or student and want to contribute more questions or improve the logic:
 

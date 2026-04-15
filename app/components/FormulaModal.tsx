@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import {
   IoClose,
   IoCalculatorOutline,
@@ -12,7 +12,6 @@ import {
   IoReceiptOutline,
   IoBook,
 } from "react-icons/io5";
-import { BsBank } from "react-icons/bs";
 import { MdGavel } from "react-icons/md";
 import { FaBalanceScale } from "react-icons/fa";
 
@@ -293,14 +292,28 @@ export default function FormulaModal({
   );
 }
 
-function FormulaSection({ title, icon, color, formulas, formatter }: any) {
+interface FormulaItem {
+  label: string;
+  math: string;
+  note?: string;
+}
+
+interface FormulaSectionProps {
+  title: string;
+  icon: ReactNode;
+  color: string;
+  formulas: FormulaItem[];
+  formatter: (text: string) => ReactNode;
+}
+
+function FormulaSection({ title, icon, color, formulas, formatter }: FormulaSectionProps) {
   return (
     <div className="mb-8">
       <h4 className={`text-[0.625rem] font-black uppercase tracking-[0.25em] mb-4 flex items-center gap-2 ${color}`}>
         {icon} {title}
       </h4>
       <div className="space-y-3">
-        {formulas.map((f: any, i: number) => (
+        {formulas.map((f: FormulaItem, i: number) => (
           <div key={i} className="bg-white/5 border border-white/10 p-4 rounded-2xl hover:bg-white/[0.07] transition-all">
             <p className="text-[0.625rem] font-bold text-slate-500 uppercase mb-1">
               {f.label}
