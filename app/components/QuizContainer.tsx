@@ -227,7 +227,7 @@ export default function QuizContainer() {
                 >
                   {/* The White Pip (Indicator) */}
                   {progress > 0 && (
-                    <span className="absolute text-xs right-0.5 bg-white w-2 h-2 rounded-full shadow-sm"></span>
+                    <span className="absolute text-xs right-0.5 bg-white w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
                   )}
                 </div>
               );
