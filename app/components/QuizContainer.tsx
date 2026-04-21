@@ -17,8 +17,15 @@ import {
 } from "react-icons/io5";
 import { FaChevronRight, FaFlag } from "react-icons/fa6";
 
+// 1. Add IDs to the questions right at the start
+const questionsWithIds = originalQuestions.map((q, index) => ({
+  ...q,
+  id: `q-${index}` // Creates "q-0", "q-1", etc.
+}));
+
 export default function QuizContainer() {
-  const [activeQuestions, setActiveQuestions] = useState(originalQuestions);
+  // 2. Use the new list with IDs as your source
+  const [activeQuestions, setActiveQuestions] = useState(questionsWithIds);
   const [view, setView] = useState<"welcome" | "quiz" | "review" | "results">(
     "welcome"
   );
@@ -75,40 +82,43 @@ export default function QuizContainer() {
     });
   }, [currentIdx, view]);
 
-  const handleNewQuiz = (category: string = "All Categories", limit?: number) => {
-    let filtered = originalQuestions;
+  const handleNewQuiz = (category: string = "All Categories") => {
+    // 1. USE the list that actually has IDs injected
+    let filtered = questionsWithIds;
+
+    // 2. Filter by category using the ID-injected list
     if (category !== "All Categories") {
-      filtered = originalQuestions.filter((q) => q.cat === category);
+      filtered = questionsWithIds.filter(q => q.cat === category);
     }
 
-    let shuffledQuestions = shuffleArray(filtered);
-    if (limit) {
-      shuffledQuestions = shuffledQuestions.slice(0, limit);
-    }
-    const randomized = shuffledQuestions.map((q) => shuffleQuestionOptions(q));
+    // 3. Deduplicate questions using the reliable 'id' we created
+    const uniqueQuestions = Array.from(
+      new Map(filtered.map((q) => [q.id, q])).values()
+    );
 
+    // 4. Shuffle and randomize options
+    const shuffledQuestions = shuffleArray(uniqueQuestions);
+    const randomized = shuffledQuestions.map(q => shuffleQuestionOptions(q));
+
+    // 5. Update State
     setActiveQuestions(randomized);
     setScore(0);
     setCurrentIdx(0);
     setMissedCategories([]);
     setMarkedQuestions(new Set());
-
-    localStorage.setItem(
-      "fl_quiz_progress",
-      JSON.stringify({
-        idx: 0,
-        scr: 0,
-        orderedQuestions: randomized,
-        markedQuestions: [],
-        time: 0,
-        category: category,
-        limit: limit,
-      })
-    );
-
     resetTimer(0);
-    setIsReviewMode(false);
-    setView("quiz");
+
+    // 6. Save sanitized list to storage
+    localStorage.setItem('fl_quiz_progress', JSON.stringify({
+      idx: 0,
+      scr: 0,
+      orderedQuestions: randomized,
+      markedQuestions: [],
+      time: 0,
+      category: category
+    }));
+
+    setView('quiz');
   };
 
   const handleResume = () => {
