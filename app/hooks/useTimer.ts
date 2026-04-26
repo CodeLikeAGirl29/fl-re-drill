@@ -3,7 +3,9 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 export function useTimer(initialSeconds: number = 0) {
   const [seconds, setSeconds] = useState(initialSeconds);
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Use ReturnType<typeof setInterval> to avoid the NodeJS namespace error
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     // Clear any existing interval to prevent double-timers
@@ -18,7 +20,6 @@ export function useTimer(initialSeconds: number = 0) {
     };
   }, []);
 
-  // We use useCallback so this function is stable when passed to other components
   const resetTimer = useCallback((newSeconds: number) => {
     setSeconds(newSeconds);
   }, []);
@@ -31,11 +32,12 @@ export function useTimer(initialSeconds: number = 0) {
     const paddedMins = mins.toString().padStart(2, '0');
     const paddedSecs = secs.toString().padStart(2, '0');
 
+    // Updated format to include "s" for seconds as requested
     if (hrs > 0) {
-      return `${hrs}:${paddedMins}:${paddedSecs}`;
+      return `${hrs}h ${paddedMins}m ${paddedSecs}s`;
     }
 
-    return `${paddedMins}:${paddedSecs}`;
+    return `${paddedMins}m ${paddedSecs}s`;
   };
 
   return { seconds, formatTime, resetTimer };
