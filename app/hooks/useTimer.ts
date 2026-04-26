@@ -29,15 +29,17 @@ export function useTimer(initialSeconds: number = 0) {
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
 
-    const paddedMins = mins.toString().padStart(2, '0');
-    const paddedSecs = secs.toString().padStart(2, '0');
+    // Pad with leading zeros for a cleaner look (e.g., 05 instead of 5)
+    const pMins = mins.toString().padStart(2, '0');
+    const pSecs = secs.toString().padStart(2, '0');
 
-    // Updated format to include "s" for seconds as requested
     if (hrs > 0) {
-      return `${hrs}h ${paddedMins}m ${paddedSecs}s`;
+      // If there is at least 1 hour, show the H:MM:SS format
+      return `${hrs}h ${pMins}m ${pSecs}s`;
     }
 
-    return `${paddedMins}m ${paddedSecs}s`;
+    // Otherwise, just show MM:SS
+    return `${pMins}m ${pSecs}s`;
   };
 
   return { seconds, formatTime, resetTimer };
