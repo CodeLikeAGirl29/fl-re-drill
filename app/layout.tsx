@@ -6,15 +6,6 @@ export const metadata: Metadata = {
   title: "Florida Real Estate Exam Prep | Master Drill",
   description: "Free interactive practice exam for the Florida Real Estate Sales Associate license. Math formulas, law updates, and instant feedback.",
   keywords: ["Florida Real Estate Exam", "FREC", "Real Estate Math", "Sales Associate Practice Test"],
-  icons: {
-    // This is where you inject your external stylesheets
-    other: [
-      {
-        rel: 'stylesheet',
-        url: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
-      },
-    ],
-  },
 };
 
 const inter = Inter({
@@ -43,12 +34,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        />
-      </head>
       <body>{children}</body>
     </html>
   );
