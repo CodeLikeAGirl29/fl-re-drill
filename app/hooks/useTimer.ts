@@ -24,7 +24,7 @@ export function useTimer(initialSeconds: number = 0) {
     setSeconds(newSeconds);
   }, []);
 
-  const formatTime = () => {
+  const formatTime = useCallback(() => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
@@ -40,7 +40,7 @@ export function useTimer(initialSeconds: number = 0) {
 
     // Otherwise, just show MM:SS
     return `${pMins}m ${pSecs}s`;
-  };
+  }, [seconds]);
 
   return { seconds, formatTime, resetTimer };
 }

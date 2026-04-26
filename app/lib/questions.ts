@@ -428,7 +428,7 @@ export const questions: Question[] = [
     q: "How many total acres are contained in the following description: The N 1/2 of the SW 1/4 of the SE 1/4 of Section 10 contains how many acres?",
     options: ["20 acres", "40 acres", "80 acres", "10 acres"],
     correct: 0,
-    explanation: "<strong>Calculation:</strong> <br>Parcel A: 640 / 2 / 4 / 4 = 20 acres. <br>Parcel B: 640 / 2 / 2 / 4 / 4 = 10 acres. <br>Total: 20 + 10 = 30 acres. <br><strong>Key Point:</strong> The word 'AND' requires you to calculate two separate areas and sum them.",
+    explanation: "<strong>Calculation:</strong> 640 / 4 (SE) / 4 (SW) / 2 (N) = 20 acres.",
   },
   {
     id: "q38",
@@ -502,7 +502,7 @@ export const questions: Question[] = [
   {
     id: "q46",
     cat: "Math Calculations",
-    q: "Determine the total acreage and square footage for the following description: The S 1/4 of the N 1/4 of the E 1/4 of the SW 1/2 AND the S 1/2 of the E 1/2 of Section 11.",
+    q: "Determine the total acreage and square footage for the following description: The S 1/4 of the N 1/4 of the E 1/4 of the S 1/2 AND the S 1/2 of the E 1/2 of Section 11.",
     options: [
       "165 acres and 2,052,000 sq. ft.",
       "165 acres and 7,187,400 sq. ft.",
@@ -510,7 +510,7 @@ export const questions: Question[] = [
       "125 acres and 7,000,000 sq. ft.",
     ],
     correct: 1,
-    explanation: "<strong>Calculation:</strong> <br>Parcel A: 640 / 4 / 4 / 4 / 2 = 5 acres. <br>Parcel B: 640 / 2 / 2 = 160 acres. <br>Total: 165 acres. <br>Sq Ft: 165 × 43,560 = 7,187,400 sq. ft.",
+    explanation: "<strong>Calculation:</strong> <br>Parcel A: 640 / 2 (S 1/2) / 4 / 4 / 4 = 5 acres. <br>Parcel B: 640 / 2 / 2 = 160 acres. <br>Total: 165 acres. <br>Sq Ft: 165 × 43,560 = 7,187,400 sq. ft.",
   },
   {
     id: "q47",
