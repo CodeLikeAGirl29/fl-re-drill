@@ -1,6 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+import { FaLaptopHouse } from "react-icons/fa";
+import { IoCalculatorOutline } from "react-icons/io5";
+
 
 interface HeaderProps {
   onOpenFormulas: () => void;
@@ -19,7 +22,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20">
-            <i className="fa-solid fa-house-laptop text-white text-lg"></i>
+            <FaLaptopHouse className="text-white text-lg" />
           </div>
           <div>
             <h1 className="text-white font-black text-xs tracking-tight leading-none uppercase">
@@ -37,7 +40,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
         onClick={onOpenFormulas}
         className="flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 px-4 py-2 rounded-full text-[0.625rem] font-black uppercase tracking-tighter hover:bg-cyan-500/30 transition-all active:scale-95"
       >
-        <i className="fa-solid fa-calculator text-[0.625rem]"></i>
+        <IoCalculatorOutline className="text-[0.625rem]" />
         <span className="hidden sm:inline">Formulas</span>
       </button>
     </header>

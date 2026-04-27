@@ -23,14 +23,14 @@ interface ResultsViewProps {
 }
 
 export default function ResultsView({ score, total, rank, onRestart, missed }: ResultsViewProps) {
-  const percentage = Math.round((score / total) * 100);
+  const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const isPass = percentage >= 75;
 
   // Chart Data Configuration
   const chartData = {
     datasets: [
       {
-        data: [score, total - score],
+        data: [score, Math.max(0, total - score)],
         backgroundColor: [
           isPass ? '#10b981' : '#f43f5e', // Emerald-500 or Rose-500
           'rgba(255, 255, 255, 0.05)',
@@ -96,6 +96,24 @@ export default function ResultsView({ score, total, rank, onRestart, missed }: R
           </div>
         </div>
       </div>
+
+      {/* MISSED QUESTIONS / REVIEW SECTION */}
+      {!isPass && missed.length > 0 && (
+        <div className="mt-2 mb-10 text-left">
+          <div className="flex items-center gap-2 mb-4 text-rose-400">
+            <AlertCircle className="w-4 h-4" />
+            <h3 className="text-[10px] font-black uppercase tracking-widest">Topics to Review</h3>
+          </div>
+          <div className="grid gap-2">
+            {missed.map(([topic, count], index) => (
+              <div key={index} className="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5">
+                <span className="text-slate-300 text-xs font-medium">{topic}</span>
+                <span className="text-rose-400 font-bold text-xs">{count} missed</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* ACTION BUTTONS */}
       <div className="flex flex-col sm:flex-row gap-4">
