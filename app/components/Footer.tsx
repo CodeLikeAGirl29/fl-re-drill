@@ -44,7 +44,7 @@ export default function Footer() {
         </p>
 
         {/* Decorative Divider */}
-        <div className="h-px w-8 bg-blue-500/30 mb-4 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
+        <div className="h-px w-8 bg-blue-500/30 mb-4 shadow-[0_0_8px_rgba(147, 221, 255, 0.726)]"></div>
 
         <p className="text-[0.69rem] text-slate-500 leading-relaxed max-w-[250px] italic">
           Designed for high-retention learning and Florida State Exam excellence.

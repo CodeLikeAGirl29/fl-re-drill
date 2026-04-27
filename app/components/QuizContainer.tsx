@@ -1,360 +1,168 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import WelcomeScreen from "./WelcomeScreen";
 import QuestionCard from "./quiz/QuestionCard";
 import ResultsView from "./quiz/ResultsView";
 import FormulaModal from "./FormulaModal";
 import QuizCalculator from "./QuizCalculator";
+import BreathingDivider from "./quiz/BreathingDivider";
+
+import { useQuiz } from "../hooks/useQuiz";
 import { useTimer } from "../hooks/useTimer";
-import { questions as originalQuestions } from "../lib/questions";
-import { shuffleArray, shuffleQuestionOptions } from "../lib/utils";
 
 import {
   IoCalculatorOutline,
   IoBookOutline,
   IoCheckmarkDoneCircleOutline,
+  IoArrowForward
 } from "react-icons/io5";
-import { FaChevronRight, FaFlag } from "react-icons/fa6";
-
-// 1. Add IDs to the questions right at the start
-const questionsWithIds = originalQuestions.map((q, index) => ({
-  ...q,
-  id: `q-${index}` // Creates "q-0", "q-1", etc.
-}));
 
 export default function QuizContainer() {
-  // 2. Use the new list with IDs as your source
-  const [activeQuestions, setActiveQuestions] = useState(questionsWithIds);
-  const [view, setView] = useState<"welcome" | "quiz" | "review" | "results">(
-    "welcome"
-  );
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const [score, setScore] = useState(0);
+  // 1. Initialize Hooks
+  const tm = useTimer();
+  const qz = useQuiz(tm.seconds, tm.resetTimer);
+
+  // 2. Local UI State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
-  const [hasSavedProgress, setHasSavedProgress] = useState(() => {
-    if (typeof window !== "undefined") {
-      return !!localStorage.getItem("fl_quiz_progress");
-    }
-    return false;
-  });
-  const [missedCategories, setMissedCategories] = useState<string[]>([]);
-  const [markedQuestions, setMarkedQuestions] = useState<Set<number>>(
-    new Set()
-  );
-  const [isReviewMode, setIsReviewMode] = useState(false);
 
-  const { formatTime, seconds, resetTimer } = useTimer();
-
-  const topMissed = useMemo(() => {
-    const counts: Record<string, number> = {};
-    missedCategories.forEach((cat) => (counts[cat] = (counts[cat] || 0) + 1));
-    return Object.entries(counts)
-      .sort(([, a], [, b]) => b - a)
-      .slice(0, 3);
-  }, [missedCategories]);
-
-  const getRank = (finalScore: number, total: number) => {
-    const percentage = (finalScore / total) * 100;
-    if (percentage >= 95)
-      return { name: "Emerald Coast Legend", sub: "Ready for Sundance." };
-    if (percentage >= 85)
-      return { name: "Luxury Broker", sub: "Destin listings await." };
-    if (percentage >= 75)
-      return {
-        name: "Licensed Professional",
-        sub: "You passed the State Exam!",
-      };
-    if (percentage >= 60)
-      return {
-        name: "Probationary Associate",
-        sub: "Almost there. Drill F.S. 475.",
-      };
-    return { name: "The Anchor", sub: "Stuck in the sand. Back to the books!" };
+  // 3. Strict Florida Ranking Logic
+  const getRank = (score: number, total: number) => {
+    const percentage = (score / total) * 100;
+    if (percentage >= 94) return { name: "Exam Master", sub: "Absolute mastery. You're ready to dominate.", color: "text-emerald-400" };
+    if (percentage >= 85) return { name: "High Achiever", sub: "Strong safety margin for the state exam.", color: "text-cyan-400" };
+    if (percentage >= 75) return { name: "Licensed Associate", sub: "You passed! Stay sharp to keep that lead.", color: "text-blue-400" };
+    if (percentage >= 65) return { name: "Non-Pass (Near Miss)", sub: "Close, but the state requires 75% to pass.", color: "text-orange-400" };
+    return { name: "Below Standards", sub: "Significant study required in Law and Math.", color: "text-rose-400" };
   };
 
-  // Scroll to top whenever the question index or view changes
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [currentIdx, view]);
-
-  const handleNewQuiz = (category: string = "All Categories") => {
-    // 1. USE the list that actually has IDs injected
-    let filtered = questionsWithIds;
-
-    // 2. Filter by category using the ID-injected list
-    if (category !== "All Categories") {
-      filtered = questionsWithIds.filter(q => q.cat === category);
-    }
-
-    // 3. Deduplicate questions using the reliable 'id' we created
-    const uniqueQuestions = Array.from(
-      new Map(filtered.map((q) => [q.id, q])).values()
-    );
-
-    // 4. Shuffle and randomize options
-    const shuffledQuestions = shuffleArray(uniqueQuestions);
-    const randomized = shuffledQuestions.map(q => shuffleQuestionOptions(q));
-
-    // 5. Update State
-    setActiveQuestions(randomized);
-    setScore(0);
-    setCurrentIdx(0);
-    setMissedCategories([]);
-    setMarkedQuestions(new Set());
-    resetTimer(0);
-
-    // 6. Save sanitized list to storage
-    localStorage.setItem('fl_quiz_progress', JSON.stringify({
-      idx: 0,
-      scr: 0,
-      orderedQuestions: randomized,
-      markedQuestions: [],
-      time: 0,
-      category: category
-    }));
-
-    setView('quiz');
-  };
-
-  const handleResume = () => {
-    const saved = localStorage.getItem("fl_quiz_progress");
-    if (saved) {
-      const {
-        idx,
-        scr,
-        orderedQuestions,
-        markedQuestions: savedMarks,
-        time,
-      } = JSON.parse(saved);
-
-      if (orderedQuestions && orderedQuestions.length > 0) {
-        setActiveQuestions(orderedQuestions);
-        setScore(scr);
-        setCurrentIdx(idx);
-
-        // Update the timer with the saved seconds
-        if (time) resetTimer(time);
-
-        if (savedMarks) setMarkedQuestions(new Set(savedMarks));
-        setView("quiz");
-      }
-    }
-  };
-
-  const handleToggleMark = () => {
-    const newMarked = new Set(markedQuestions);
-    if (newMarked.has(currentIdx)) {
-      newMarked.delete(currentIdx);
-    } else {
-      newMarked.add(currentIdx);
-    }
-    setMarkedQuestions(newMarked);
-
-    const saved = localStorage.getItem("fl_quiz_progress");
-    if (saved) {
-      const data = JSON.parse(saved);
-      data.markedQuestions = Array.from(newMarked);
-      localStorage.setItem("fl_quiz_progress", JSON.stringify(data));
-    }
-  };
-
-  const handleNext = (isCorrect: boolean) => {
-    // 1. Calculate Score & Categories
-    let newScore = score;
-    if (isCorrect) {
-      newScore = score + 1;
-      setScore(newScore);
-    } else {
-      const currentCat = activeQuestions[currentIdx].cat;
-      setMissedCategories((prev) => [...prev, currentCat]);
-    }
-
-    // 2. Automatically remove the flag/mark since the question is now answered
-    const updatedMarks = new Set(markedQuestions);
-    updatedMarks.delete(currentIdx);
-    setMarkedQuestions(updatedMarks);
-
-    // 3. Handle Review Mode Return
-    if (isReviewMode) {
-      // Update storage even in review mode so marks stay cleared
-      const saved = localStorage.getItem("fl_quiz_progress");
-      if (saved) {
-        const data = JSON.parse(saved);
-        data.scr = newScore;
-        data.markedQuestions = Array.from(updatedMarks);
-        localStorage.setItem("fl_quiz_progress", JSON.stringify(data));
-      }
-      setView("review");
-      setIsReviewMode(false);
-      return;
-    }
-
-    // 4. Standard Linear Progression
-    const nextIndex = currentIdx + 1;
-
-    if (nextIndex >= activeQuestions.length) {
-      localStorage.removeItem("fl_quiz_progress");
-      setHasSavedProgress(false);
-      setView("results"); // Or 'review' if you want one final check before results
-    } else {
-      setCurrentIdx(nextIndex);
-      localStorage.setItem(
-        "fl_quiz_progress",
-        JSON.stringify({
-          idx: nextIndex,
-          scr: newScore,
-          orderedQuestions: activeQuestions,
-          markedQuestions: Array.from(updatedMarks), // Save the cleared marks
-          time: seconds,
-        })
-      );
-    }
-  };
+  // 4. Hydration Guard
+  if (!qz.isMounted) return <div className="min-h-screen bg-[#0f172a]" />;
 
   return (
     <div className="w-full max-w-3xl mx-auto py-10 relative z-10 px-4 font-sans">
-      {/* 1. PROGRESS BAR */}
-      {view === "quiz" && currentIdx < activeQuestions.length && (
-        <div className="w-full mb-10 animate-in fade-in duration-700">
+
+      {/* PROGRESS BAR (Only in Quiz/Review) */}
+      {(qz.view === "quiz" || qz.view === "review") && (
+        <div className="w-full mb-10 group">
           <div className="flex justify-between items-end mb-2 px-1">
-            <span className="text-[10px] font-black uppercase tracking-widest text-[#817a8e]">
-              Exam Progress: {currentIdx + 1} of {activeQuestions.length}
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+              Session Progress
+            </span>
+            <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">
+              {qz.currentIdx + 1} / {qz.activeQuestions.length}
             </span>
           </div>
-
-          {/* Requested Progress Bar Design */}
-          <div className="bg-gray-300 rounded-full w-full h-2.5 max-w-4xl mx-auto mt-4 overflow-hidden">
-            {(() => {
-              const progress = (currentIdx / activeQuestions.length) * 100;
-
-              return (
-                <div
-                  className="h-full rounded-full bg-cyan-500 flex items-center relative transition-all duration-500 ease-out"
-                  style={{ width: `${progress}%` }}
-                >
-                  {/* The White Pip (Indicator) */}
-                  {progress > 0 && (
-                    <span className="absolute text-xs right-0.5 bg-white w-2 h-2 rounded-full shadow-[0_0_8px_rgba(255,255,255,0.8)]"></span>
-                  )}
-                </div>
-              );
-            })()}
+          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+            <div
+              className="h-full bg-cyan-500 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(6,182,212,0.4)]"
+              style={{ width: `${((qz.currentIdx + 1) / qz.activeQuestions.length) * 100}%` }}
+            />
           </div>
         </div>
       )}
 
-      {/* 2. VIEW SWITCHER */}
-      {view === "welcome" ? (
+      {/* VIEW ENGINE */}
+      {qz.view === "welcome" ? (
         <WelcomeScreen
-          onNew={handleNewQuiz}
-          onResume={handleResume}
-          hasProgress={hasSavedProgress}
+          onNew={qz.handleNewQuiz}
+          onResume={qz.handleResume}
+          hasProgress={qz.hasSavedProgress}
         />
-      ) : view === "quiz" ? (
+      ) : qz.view === "quiz" ? (
         <QuestionCard
-          key={currentIdx}
-          questionsList={activeQuestions}
-          index={currentIdx}
-          totalQuestions={activeQuestions.length}
-          currentTime={formatTime()}
-          onNext={handleNext}
-          isMarked={markedQuestions.has(currentIdx)}
-          onToggleMark={handleToggleMark}
+          key={qz.currentIdx} // Ensures state resets for every new question
+          index={qz.currentIdx}
+          questionsList={qz.activeQuestions}
+          totalQuestions={qz.activeQuestions.length}
+          currentTime={tm.formatTime()}
+          isMarked={qz.markedQuestions.has(qz.currentIdx)}
+          onToggleMark={() => qz.toggleMark(qz.currentIdx)}
+          onNext={(correct) => {
+            if (correct) qz.setScore(s => s + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(() => {
+              window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+              });
+            }, 10);
+            if (qz.isReviewJump) {
+              qz.setIsReviewJump(false);
+              qz.setView("review");
+              return;
+            }
+            if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
+              qz.setView("review");
+            } else {
+              qz.setCurrentIdx(i => i + 1);
+            }
+          }}
         />
-      ) : view === "review" ? (
-        <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-xl border border-[#444444] shadow-2xl animate-in fade-in zoom-in duration-500">
+      ) : qz.view === "review" ? (
+        <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-500">
           <div className="text-center mb-8">
-            <IoCheckmarkDoneCircleOutline
-              size={48}
-              className="mx-auto text-emerald-400 mb-4"
-            />
-            <h2 className="text-3xl font-bold text-white mb-2">
-              Review Session
-            </h2>
-            <p className="text-[#817a8e] text-sm italic">
-              Review flagged items before final submission.
+            <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
+            <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">Final Audit</h2>
+            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest italic">
+              Review flagged items before state submission.
             </p>
           </div>
 
-          <div className="grid grid-cols-6 sm:grid-cols-8 gap-3 mb-10 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
-            {activeQuestions.map((_, i) => (
+          <div className="grid grid-cols-6 sm:grid-cols-8 gap-3 mb-10 max-h-80 overflow-y-auto pr-2">
+            {qz.activeQuestions.map((_, i) => (
               <button
                 key={i}
-                onClick={() => {
-                  setCurrentIdx(i);
-                  setIsReviewMode(true);
-                  setView("quiz");
-                }}
-                className={`h-14 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${markedQuestions.has(i)
-                  ? "border-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.2)]"
-                  : "border-white/10 bg-white/5 text-[#817a8e] hover:border-[#06b6d4] hover:text-white"
+                onClick={() => { qz.setCurrentIdx(i); qz.setIsReviewJump(true); qz.setView("quiz"); }}
+                className={`h-12 flex flex-col items-center justify-center rounded-xl border transition-all duration-300 ${qz.markedQuestions.has(i)
+                  ? "border-rose-500 bg-rose-500/20 text-rose-400"
+                  : "border-white/5 bg-white/5 text-slate-500 hover:border-cyan-500 hover:text-white"
                   }`}
               >
-                <span className="text-xs font-bold">{i + 1}</span>
-                {markedQuestions.has(i) && (
-                  <FaFlag size={10} className="mt-1" />
-                )}
+                <span className="text-xs font-black">{i + 1}</span>
               </button>
             ))}
           </div>
 
           <button
-            onClick={() => setView("results")}
-            className="group w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg shadow-lg transition-all flex items-center justify-center gap-2"
+            onClick={() => qz.setView("results")}
+            className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
           >
-            Submit Final Exam
-            <FaChevronRight
-              size={16}
-              className="group-hover:translate-x-1 transition-transform"
-            />
+            Submit for Grading <IoArrowForward />
           </button>
         </div>
       ) : (
         <ResultsView
-          score={score}
-          total={activeQuestions.length}
-          missed={topMissed}
-          rank={getRank(score, activeQuestions.length)}
+          score={qz.score}
+          total={qz.activeQuestions.length}
+          missed={[]}
+          rank={getRank(qz.score, qz.activeQuestions.length)}
+          onRestart={qz.handleRestart}
         />
       )}
 
-      {/* 3. TOOLKIT */}
-      {(view === "quiz" || view === "review") && (
-        <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-60">
+      {/* FLOATING TOOLKIT */}
+      {qz.view === "quiz" && (
+        <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-50">
           <button
-            onClick={() => setIsCalcOpen(!isCalcOpen)}
-            className={`w-14 h-14 rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] group ${isCalcOpen
-              ? "bg-emerald-600 scale-110"
-              : "bg-slate-700 hover:bg-slate-600"
-              }`}
+            onClick={() => setIsCalcOpen(true)}
+            className="w-14 h-14 bg-slate-800 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform"
           >
-            <IoCalculatorOutline
-              size={24}
-              className="text-white group-hover:rotate-12 transition-transform"
-            />
+            <IoCalculatorOutline size={24} />
           </button>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="w-14 h-14 bg-[#1d4ed8] hover:bg-[#1e40af] text-white rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 border-4 border-[#1e293b] hover:scale-110"
+            className="w-14 h-14 bg-blue-600 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform"
           >
             <IoBookOutline size={24} />
           </button>
         </div>
       )}
 
-      <FormulaModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-      <QuizCalculator
-        isOpen={isCalcOpen}
-        onClose={() => setIsCalcOpen(false)}
-      />
+      {/* MODALS */}
+      <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <QuizCalculator isOpen={isCalcOpen} onClose={() => setIsCalcOpen(false)} />
     </div>
   );
 }

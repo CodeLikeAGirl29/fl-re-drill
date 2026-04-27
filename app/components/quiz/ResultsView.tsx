@@ -2,7 +2,8 @@
 
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Trophy, Target, RefreshCcw } from 'lucide-react';
+import { Trophy, Target, RefreshCcw, AlertCircle } from 'lucide-react';
+import { IoArrowForward } from "react-icons/io5";
 import {
   Chart as ChartJS,
   ArcElement,
@@ -10,125 +11,115 @@ import {
   Legend,
 } from 'chart.js';
 
+// Register ChartJS components
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface ResultsViewProps {
   score: number;
   total: number;
   missed: [string, number][];
-  rank: { name: string; sub: string };
+  rank: { name: string; sub: string; color: string };
+  onRestart: () => void;
 }
 
-export default function ResultsView({ score, total, missed, rank }: ResultsViewProps) {
+export default function ResultsView({ score, total, rank, onRestart, missed }: ResultsViewProps) {
   const percentage = Math.round((score / total) * 100);
-  const topMissed = missed;
+  const isPass = percentage >= 75;
 
-  const data = {
-    labels: ['Correct', 'Incorrect'],
+  // Chart Data Configuration
+  const chartData = {
     datasets: [
       {
         data: [score, total - score],
-        backgroundColor: ['#06b6d4', 'rgba(255, 255, 255, 0.05)'],
-        hoverBackgroundColor: ['#0ea5e9', 'rgba(255, 255, 255, 0.1)'],
+        backgroundColor: [
+          isPass ? '#10b981' : '#f43f5e', // Emerald-500 or Rose-500
+          'rgba(255, 255, 255, 0.05)',
+        ],
         borderWidth: 0,
-        circumference: 360,
-        rotation: 0,
-        cutout: '82%',
+        circumference: 180,
+        rotation: 270,
+        cutout: '85%',
         borderRadius: 10,
       },
     ],
   };
 
-  const options = {
+  const chartOptions = {
     plugins: {
       tooltip: { enabled: false },
       legend: { display: false },
     },
+    maintainAspectRatio: false,
     responsive: true,
-    maintainAspectRatio: true,
-    animation: {
-      duration: 2000,
-      easing: 'easeOutQuart' as const,
-    },
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden animate-in fade-in zoom-in duration-500">
+    <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-10 rounded-3xl border border-white/10 shadow-2xl text-center">
 
-      {/* Header Gradient Area */}
-      <div className="h-24 w-full bg-linear-to-r from-cyan-700 via-blue-500 to-indigo-600 flex items-center justify-center">
-        <Trophy className="text-white drop-shadow-lg" size={40} />
+      {/* STATUS BADGE */}
+      <div className={`inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 border ${isPass ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400' : 'bg-rose-500/10 border-rose-500/50 text-rose-400'
+        }`}>
+        {isPass ? "OFFICIAL PASS" : "DID NOT PASS"}
       </div>
 
-      <div className="p-8 -mt-8">
-        <div className="text-center mb-8">
-          <div className="inline-block relative w-48 h-48 mb-4 bg-[#1e293b] rounded-full p-2 shadow-inner border border-white/5">
-            <Doughnut data={data} options={options} />
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-4xl font-black text-white tracking-tighter">
-                {percentage}%
-              </span>
-              <span className="text-[0.625rem] font-bold text-[#817a8e] uppercase tracking-widest">
-                {score} / {total} Correct
-              </span>
-            </div>
-          </div>
-
-          <h2 className="text-3xl font-bold text-white mb-1">{rank?.name || "Drill Complete"}</h2>
-          <p className="text-cyan-400 italic font-medium text-sm">{rank?.sub || "Keep studying FS 475!"}</p>
+      {/* SEMI-CIRCLE CHART AREA */}
+      <div className="relative h-[200px] w-[300px] mx-auto mb-4">
+        <Doughnut data={chartData} options={chartOptions} />
+        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
+          <h2 className={`text-6xl font-black tracking-tighter ${rank.color}`}>
+            {percentage}%
+          </h2>
         </div>
+      </div>
 
-        {/* Focus Areas Section */}
-        <div className="space-y-4 mb-8">
-          <div className="flex items-center gap-2 mb-2">
-            <Target size={16} className="text-rose-400" />
-            <h3 className="text-[0.75rem] font-black uppercase tracking-[0.2em] text-[#817a8e]">
-              Performance Breakdown
-            </h3>
+      <p className="text-white text-xl font-bold uppercase tracking-tight mb-1">{rank.name}</p>
+      <p className="text-slate-400 text-sm italic mb-10">{rank.sub}</p>
+
+      {/* SCORE BREAKDOWN */}
+      <div className="grid grid-cols-2 gap-4 mb-10">
+        <div className="bg-white/5 p-4 rounded-2xl border border-white/5 flex items-center gap-4 text-left">
+          <div className="p-2 bg-emerald-500/10 rounded-lg">
+            <Trophy className="w-5 h-5 text-emerald-400" />
           </div>
-
-          {topMissed.length > 0 ? (
-            <div className="grid gap-3">
-              {topMissed.map(([cat, count]: [string, number]) => (
-                <div key={cat} className="flex justify-between items-center bg-white/5 p-4 rounded-xl border border-white/10 group hover:border-rose-500/50 transition-colors">
-                  <div className="flex flex-col">
-                    <span className="text-[0.65rem] text-[#817a8e] uppercase font-bold tracking-tighter">Needs Review</span>
-                    <span className="text-sm font-bold text-white leading-tight">{cat}</span>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <span className="text-xs font-black text-rose-400">{count}</span>
-                    <span className="text-[0.5rem] text-[#817a8e] uppercase">Missed</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="bg-emerald-500/10 p-6 rounded-xl border border-emerald-500/20 text-center">
-              <p className="text-emerald-400 font-bold mb-1">Perfect Score! 🚀</p>
-              <p className="text-[0.625rem] text-[#817a8e] uppercase font-black">You&apos;ve mastered these concepts.</p>
-            </div>
-          )}
+          <div>
+            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Correct</p>
+            <p className="text-2xl font-bold text-white">{score}</p>
+          </div>
         </div>
+        <div className="bg-white/5 p-4 rounded-2xl border border-white/5 flex items-center gap-4 text-left">
+          <div className="p-2 bg-blue-500/10 rounded-lg">
+            <Target className="w-5 h-5 text-blue-400" />
+          </div>
+          <div>
+            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Total Items</p>
+            <p className="text-2xl font-bold text-white">{total}</p>
+          </div>
+        </div>
+      </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col gap-3">
-          <button
-            onClick={() => window.location.reload()}
-            className="group flex items-center justify-center gap-2 w-full py-4 bg-[#06b6d4] hover:bg-[#0ea5e9] text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-[1.01] shadow-lg"
+      {/* ACTION BUTTONS */}
+      <div className="flex flex-col sm:flex-row gap-4">
+        <button
+          onClick={onRestart}
+          className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl border border-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+        >
+          <RefreshCcw className="w-4 h-4" />
+          Try Again
+        </button>
+        {isPass ? (
+          <a
+            href="https://home.pearsonvue.com/fl/realestate"
+            target="_blank"
+            className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
           >
-            <RefreshCcw size={18} className="group-hover:rotate-180 transition-transform duration-500" />
-            Restart Master Drill
+            Schedule Exam
+            <IoArrowForward className="w-4 h-4" />
+          </a>
+        ) : (
+          <button className="flex-1 py-4 bg-rose-600/20 text-rose-400 font-black rounded-2xl border border-rose-500/30 uppercase tracking-widest text-xs cursor-default">
+            Study More
           </button>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 pt-6 border-t border-[#444444] text-center">
-          <p className="text-[0.625rem] text-[#817a8e] uppercase tracking-[0.2em]">
-            Status: <span className={percentage >= 75 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>
-              {percentage >= 75 ? "EXAM READY" : "ADDITIONAL STUDY REQUIRED"}
-            </span>
-          </p>
-        </div>
+        )}
       </div>
     </div>
   );

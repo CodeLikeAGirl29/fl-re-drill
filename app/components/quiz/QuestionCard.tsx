@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Timer, Bookmark, BookmarkCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import BreathingDivider from './BreathingDivider';
 
 // 1. Define the shape of a single Question
 interface Question {
@@ -124,19 +125,7 @@ export default function QuestionCard({
       <h3 className="mb-6 text-lg font-medium text-white leading-tight">
         {q.q}
       </h3>
-
-      {/* --- NEW DECORATIVE DIVIDER START --- */}
-      <div className="relative flex items-center mb-8">
-        <div className="flex-grow h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-        <div className="mx-4 flex gap-1">
-          <div className="w-1 h-1 rounded-full bg-cyan-500/40"></div>
-          <div className="w-1 h-1 rounded-full bg-cyan-500/20"></div>
-          <div className="w-1 h-1 rounded-full bg-cyan-500/10"></div>
-        </div>
-        <div className="flex-grow h-[1px] bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent"></div>
-      </div>
-      {/* --- NEW DECORATIVE DIVIDER END --- */}
-
+      <BreathingDivider />
       <div className="space-y-3">
         {q.options.map((opt: string, i: number) => {
           const isSelected = selected === i;
