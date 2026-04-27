@@ -34,7 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
-      <body>{children}</body>
+      <body className="text-[15px] sm:text-base">{children}</body>
     </html>
   );
 }

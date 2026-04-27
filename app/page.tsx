@@ -11,13 +11,10 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header onOpenFormulas={() => setIsModalOpen(true)} />
-
-      <main className="flex-grow flex items-center justify-center p-4">
+      <main className="flex-grow flex items-center justify-center p-4 pt-8">
         <QuizContainer />
       </main>
-
       <Footer />
-
       {/* The Modal lives here so it can be triggered from the Header */}
       <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>

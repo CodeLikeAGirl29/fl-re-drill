@@ -41,20 +41,20 @@ export default function QuizContainer() {
   if (!qz.isMounted) return <div className="min-h-screen bg-[#0f172a]" />;
 
   return (
-    <div className="w-full max-w-3xl mx-auto py-10 relative z-10 px-4 font-sans">
+    <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
 
       {/* PROGRESS BAR (Only in Quiz/Review) */}
       {(qz.view === "quiz" || qz.view === "review") && (
-        <div className="w-full mb-10 group">
-          <div className="flex justify-between items-end mb-2 px-1">
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">
+        <div className="w-full mb-6 group">
+          <div className="flex justify-between items-end mb-1.5 px-1">
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
               Session Progress
             </span>
-            <span className="text-[10px] font-black text-cyan-500 uppercase tracking-widest">
+            <span className="text-[9px] font-black text-cyan-500 uppercase tracking-widest">
               {qz.currentIdx + 1} / {qz.activeQuestions.length}
             </span>
           </div>
-          <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+          <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
             <div
               className="h-full bg-cyan-500 transition-all duration-700 ease-out shadow-[0_0_10px_rgba(6,182,212,0.4)]"
               style={{ width: `${((qz.currentIdx + 1) / qz.activeQuestions.length) * 100}%` }}
@@ -66,13 +66,14 @@ export default function QuizContainer() {
       {/* VIEW ENGINE */}
       {qz.view === "welcome" ? (
         <WelcomeScreen
+          key="welcome"
           onNew={qz.handleNewQuiz}
           onResume={qz.handleResume}
           hasProgress={qz.hasSavedProgress}
         />
       ) : qz.view === "quiz" ? (
         <QuestionCard
-          key={qz.currentIdx} // Ensures state resets for every new question
+          key={`quiz-${qz.currentIdx}`} // Ensures state resets for every new question
           index={qz.currentIdx}
           questionsList={qz.activeQuestions}
           totalQuestions={qz.activeQuestions.length}
@@ -101,7 +102,7 @@ export default function QuizContainer() {
           }}
         />
       ) : qz.view === "review" ? (
-        <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-500">
+        <div key="review" className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-500">
           <div className="text-center mb-8">
             <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
             <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">Final Audit</h2>
@@ -109,18 +110,18 @@ export default function QuizContainer() {
               Review flagged items before state submission.
             </p>
           </div>
-
-          <div className="grid grid-cols-6 sm:grid-cols-8 gap-3 mb-10 max-h-80 overflow-y-auto pr-2">
+          <BreathingDivider />
+          <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 mb-8 max-h-64 overflow-y-auto pr-2">
             {qz.activeQuestions.map((_, i) => (
               <button
                 key={i}
                 onClick={() => { qz.setCurrentIdx(i); qz.setIsReviewJump(true); qz.setView("quiz"); }}
-                className={`h-12 flex flex-col items-center justify-center rounded-xl border transition-all duration-300 ${qz.markedQuestions.has(i)
+                className={`h-10 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${qz.markedQuestions.has(i)
                   ? "border-rose-500 bg-rose-500/20 text-rose-400"
                   : "border-white/5 bg-white/5 text-slate-500 hover:border-cyan-500 hover:text-white"
                   }`}
               >
-                <span className="text-xs font-black">{i + 1}</span>
+                <span className="text-[10px] font-black">{i + 1}</span>
               </button>
             ))}
           </div>
@@ -134,6 +135,7 @@ export default function QuizContainer() {
         </div>
       ) : (
         <ResultsView
+          key="results"
           score={qz.score}
           total={qz.activeQuestions.length}
           missed={[]}
