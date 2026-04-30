@@ -71,9 +71,11 @@ export default function QuizContainer() {
         {qz.view === "welcome" && (
           <motion.div key="welcome" {...slideUp}>
             <WelcomeScreen
+              key="welcome"
               onNew={qz.handleNewQuiz}
-              onResume={qz.handleResume}
-              hasProgress={qz.hasSavedProgress}
+              onResume={qz.handleResume} // Pass the resume function
+              onWeakestDrill={qz.handleWeakestLinkDrill} // Pass the weakest link function
+              hasProgress={qz.hasSavedProgress} // Pass the boolean check
             />
           </motion.div>
         )}

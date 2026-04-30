@@ -1,23 +1,14 @@
 'use client';
 
 import React from 'react';
-import { Doughnut } from 'react-chartjs-2';
-import { Trophy, Target, RefreshCcw, AlertCircle } from 'lucide-react';
+import { Trophy, Target, RefreshCcw, AlertCircle, ExternalLink } from 'lucide-react';
 import { IoArrowForward } from "react-icons/io5";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-
-// Register ChartJS components
-ChartJS.register(ArcElement, Tooltip, Legend);
+import ScoreChart from './ScoreChart'; // Import your component
 
 interface ResultsViewProps {
   score: number;
   total: number;
-  missed: [string, number][];
+  missed: string[]; // Updated to match your latest useQuiz hook
   rank: { name: string; sub: string; color: string };
   onRestart: () => void;
 }
@@ -26,54 +17,35 @@ export default function ResultsView({ score, total, rank, onRestart, missed }: R
   const percentage = total > 0 ? Math.round((score / total) * 100) : 0;
   const isPass = percentage >= 75;
 
-  // Chart Data Configuration
-  const chartData = {
-    datasets: [
-      {
-        data: [score, Math.max(0, total - score)],
-        backgroundColor: [
-          isPass ? '#10b981' : '#f43f5e', // Emerald-500 or Rose-500
-          'rgba(255, 255, 255, 0.05)',
-        ],
-        borderWidth: 0,
-        circumference: 180,
-        rotation: 270,
-        cutout: '85%',
-        borderRadius: 10,
-      },
-    ],
-  };
-
-  const chartOptions = {
-    plugins: {
-      tooltip: { enabled: false },
-      legend: { display: false },
-    },
-    maintainAspectRatio: false,
-    responsive: true,
+  // Map the rank color strings to hex for the Chart component
+  const getHexColor = () => {
+    if (rank.color.includes('emerald')) return '#10b981';
+    if (rank.color.includes('cyan')) return '#06b6d4';
+    if (rank.color.includes('blue')) return '#3b82f6';
+    if (rank.color.includes('orange')) return '#f59e0b';
+    return '#f43f5e'; // Default Rose
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl bg-[#1e293b] p-10 rounded-3xl border border-white/10 shadow-2xl text-center">
+    <div className="mx-auto w-full max-w-2xl bg-[#1e293b]/80 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/10 shadow-2xl text-center font-space">
 
       {/* STATUS BADGE */}
-      <div className={`inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-6 border ${isPass ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400' : 'bg-rose-500/10 border-rose-500/50 text-rose-400'
+      <div className={`inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border ${isPass ? 'bg-emerald-500/10 border-emerald-500/50 text-emerald-400' : 'bg-rose-500/10 border-rose-500/50 text-rose-400'
         }`}>
         {isPass ? "OFFICIAL PASS" : "DID NOT PASS"}
       </div>
 
-      {/* SEMI-CIRCLE CHART AREA */}
-      <div className="relative h-[200px] w-[300px] mx-auto mb-4">
-        <Doughnut data={chartData} options={chartOptions} />
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-4">
-          <h2 className={`text-6xl font-black tracking-tighter ${rank.color}`}>
-            {percentage}%
-          </h2>
-        </div>
+      {/* REPLACED WITH SCORECHART COMPONENT */}
+      <div className="mb-8">
+        <ScoreChart score={score} total={total} color={getHexColor()} />
       </div>
 
-      <p className="text-white text-xl font-bold uppercase tracking-tight mb-1">{rank.name}</p>
-      <p className="text-slate-400 text-sm italic mb-10">{rank.sub}</p>
+      <div className="mb-10">
+        <h2 className={`text-2xl font-black uppercase tracking-tight mb-1 ${rank.color}`}>
+          {rank.name}
+        </h2>
+        <p className="text-slate-400 text-sm italic font-medium">{rank.sub}</p>
+      </div>
 
       {/* SCORE BREAKDOWN */}
       <div className="grid grid-cols-2 gap-4 mb-10">
@@ -97,45 +69,49 @@ export default function ResultsView({ score, total, rank, onRestart, missed }: R
         </div>
       </div>
 
-      {/* MISSED QUESTIONS / REVIEW SECTION */}
+      {/* MISSED TOPICS: Updated for string array from useQuiz */}
       {!isPass && missed.length > 0 && (
         <div className="mt-2 mb-10 text-left">
           <div className="flex items-center gap-2 mb-4 text-rose-400">
-            <AlertCircle className="w-4 h-4" />
-            <h3 className="text-[10px] font-black uppercase tracking-widest">Topics to Review</h3>
+            <AlertCircle size={16} />
+            <h3 className="text-[10px] font-black uppercase tracking-widest">Critical Review Areas</h3>
           </div>
-          <div className="grid gap-2">
-            {missed.map(([topic, count], index) => (
-              <div key={index} className="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/5">
-                <span className="text-slate-300 text-xs font-medium">{topic}</span>
-                <span className="text-rose-400 font-bold text-xs">{count} missed</span>
-              </div>
+          <div className="flex flex-wrap gap-2">
+            {Array.from(new Set(missed)).map((topic, index) => (
+              <span key={index} className="px-3 py-1.5 bg-rose-500/10 border border-rose-500/20 rounded-lg text-rose-400 text-[10px] font-bold uppercase tracking-tight">
+                {topic}
+              </span>
             ))}
           </div>
         </div>
       )}
 
       {/* ACTION BUTTONS */}
-      <div className="flex flex-col sm:flex-row gap-4">
+      <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-white/5">
         <button
           onClick={onRestart}
-          className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl border border-white/10 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+          className="flex-1 py-4 bg-white/5 hover:bg-white/10 text-white font-black rounded-2xl border border-white/10 transition-all uppercase tracking-widest text-[10px] flex items-center justify-center gap-2"
         >
-          <RefreshCcw className="w-4 h-4" />
-          Try Again
+          <RefreshCcw size={14} />
+          Reset Protocol
         </button>
         {isPass ? (
           <a
             href="https://home.pearsonvue.com/fl/realestate"
             target="_blank"
-            className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+            rel="noopener noreferrer"
+            className="flex-1 py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(16,182,129,0.3)]"
           >
-            Schedule Exam
-            <IoArrowForward className="w-4 h-4" />
+            Schedule State Exam
+            <ExternalLink size={14} />
           </a>
         ) : (
-          <button className="flex-1 py-4 bg-rose-600/20 text-rose-400 font-black rounded-2xl border border-rose-500/30 uppercase tracking-widest text-xs cursor-default">
-            Study More
+          <button
+            onClick={onRestart}
+            className="flex-1 py-4 bg-rose-600/20 hover:bg-rose-600/30 text-rose-400 font-black rounded-2xl border border-rose-500/30 uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 transition-all"
+          >
+            Review Coursework
+            <IoArrowForward size={14} />
           </button>
         )}
       </div>

@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { questions as originalQuestions } from '../lib/questions';
+import { questions as originalQuestions, Category } from '../lib/questions';
 import { shuffleArray, shuffleQuestionOptions } from '../lib/utils';
 
-// Inject unique IDs to ensure deduplication works perfectly
 const questionsWithIds = originalQuestions.map((q, i) => ({ ...q, id: `q-${i}` }));
 
 export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
@@ -23,25 +22,34 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
   const [isMounted, setIsMounted] = useState(false);
   const [hasSavedProgress, setHasSavedProgress] = useState(false);
 
-  // 1. Initial Mount: Check for saved data
+  // --- 1. Category Stats Tracking (Long-term Data) ---
+  const updateCategoryStats = useCallback((category: Category, isCorrect: boolean) => {
+    const savedStats = localStorage.getItem('fl_category_stats');
+    const stats = savedStats ? JSON.parse(savedStats) : {};
+
+    if (!stats[category]) stats[category] = { correct: 0, total: 0 };
+    stats[category].total += 1;
+    if (isCorrect) stats[category].correct += 1;
+
+    localStorage.setItem('fl_category_stats', JSON.stringify(stats));
+  }, []);
+
+  // --- 2. Initial Mount Check ---
   useEffect(() => {
     setIsMounted(true);
     const saved = localStorage.getItem('fl_quiz_progress');
     if (saved) setHasSavedProgress(true);
   }, []);
 
-  // 2. Start a Fresh Quiz
+  // --- 3. Start Fresh Quiz ---
   const handleNewQuiz = useCallback((category: string = "All Categories", limit?: number) => {
     let filtered = category === "All Categories"
       ? questionsWithIds
       : questionsWithIds.filter(q => q.cat === category);
 
-    // Deduplicate and Shuffle
-    const unique = Array.from(new Map(filtered.map(q => [q.id, q])).values());
-    const randomized = shuffleArray(unique).map(q => shuffleQuestionOptions(q));
+    const randomized = shuffleArray(filtered).map(q => shuffleQuestionOptions(q));
     const finalSelection = limit ? randomized.slice(0, limit) : randomized;
 
-    // Reset all states
     setActiveQuestions(finalSelection);
     setScore(0);
     setCurrentIdx(0);
@@ -50,7 +58,6 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     setMissedCategories([]);
     resetTimer(0);
 
-    // Initial Save to LocalStorage
     localStorage.setItem('fl_quiz_progress', JSON.stringify({
       idx: 0,
       scr: 0,
@@ -64,7 +71,38 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     setView('quiz');
   }, [resetTimer]);
 
-  // 3. Resume from Storage
+  // --- 4. Weakest Link Drill ---
+  const handleWeakestLinkDrill = useCallback((limit: number = 20) => {
+    const savedStats = localStorage.getItem('fl_category_stats');
+    if (!savedStats) {
+      // Fallback if no data exists yet
+      return handleNewQuiz("All Categories", limit);
+    }
+
+    const stats = JSON.parse(savedStats);
+
+    // Identify categories with < 75% accuracy
+    const weakestCategories = Object.keys(stats).filter(cat => {
+      const { correct, total } = stats[cat];
+      return (correct / total) < 0.75;
+    });
+
+    let filtered = weakestCategories.length > 0
+      ? questionsWithIds.filter(q => weakestCategories.includes(q.cat))
+      : questionsWithIds; // If they are doing great everywhere, just give them a mix
+
+    const randomized = shuffleArray(filtered).slice(0, limit).map(q => shuffleQuestionOptions(q));
+
+    setActiveQuestions(randomized);
+    setScore(0);
+    setCurrentIdx(0);
+    setUserAnswers({});
+    setMarkedQuestions(new Set());
+    resetTimer(0);
+    setView('quiz');
+  }, [handleNewQuiz, resetTimer]);
+
+  // --- 5. Resume ---
   const handleResume = useCallback(() => {
     const saved = localStorage.getItem('fl_quiz_progress');
     if (saved) {
@@ -79,38 +117,43 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     }
   }, [resetTimer]);
 
-  // 4. Save Answer & Sync Progress
-  // This is the CRITICAL function that keeps your choices alive during review jumps
+  // --- 6. Save Answer & Sync ---
   const saveAnswer = useCallback((questionIdx: number, answerIdx: number, isCorrect: boolean) => {
     const newAnswers = { ...userAnswers, [questionIdx]: answerIdx };
     setUserAnswers(newAnswers);
 
-    // Update missed categories for the final report
+    const question = activeQuestions[questionIdx];
+
+    // Update Long-term Stats
+    updateCategoryStats(question.cat, isCorrect);
+
+    // Update Session missed categories
     if (!isCorrect) {
-      const cat = activeQuestions[questionIdx].cat;
-      setMissedCategories(prev => [...prev, cat]);
+      setMissedCategories(prev => Array.from(new Set([...prev, question.cat])));
     }
 
-    // Sync everything to LocalStorage
+    // Sync Session
     const saved = localStorage.getItem('fl_quiz_progress');
     if (saved) {
       const data = JSON.parse(saved);
       data.idx = questionIdx;
       data.userAnswers = newAnswers;
-      data.scr = isCorrect ? score + 1 : score;
+      // Recalculate score based on all answers to prevent score drift during review jumps
+      const newScore = Object.entries(newAnswers).reduce((acc, [idx, ans]) => {
+        return ans === activeQuestions[parseInt(idx)].correct ? acc + 1 : acc;
+      }, 0);
+
+      setScore(newScore);
+      data.scr = newScore;
       data.time = seconds;
       localStorage.setItem('fl_quiz_progress', JSON.stringify(data));
     }
-  }, [userAnswers, activeQuestions, score, seconds]);
+  }, [userAnswers, activeQuestions, seconds, updateCategoryStats]);
 
-  // 5. Toggle Review Mark
+  // --- 7. UI Helpers ---
   const toggleMark = useCallback((idx: number) => {
     const newMarks = new Set(markedQuestions);
-    if (newMarks.has(idx)) {
-      newMarks.delete(idx);
-    } else {
-      newMarks.add(idx);
-    }
+    newMarks.has(idx) ? newMarks.delete(idx) : newMarks.add(idx);
     setMarkedQuestions(newMarks);
 
     const saved = localStorage.getItem('fl_quiz_progress');
@@ -121,7 +164,6 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     }
   }, [markedQuestions]);
 
-  // 6. Global Reset
   const handleRestart = useCallback(() => {
     localStorage.removeItem('fl_quiz_progress');
     setHasSavedProgress(false);
@@ -130,7 +172,8 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     setScore(0);
     setUserAnswers({});
     setMarkedQuestions(new Set());
-  }, []);
+    resetTimer(0);
+  }, [resetTimer]);
 
   return {
     view,
@@ -148,6 +191,7 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     isMounted,
     hasSavedProgress,
     handleNewQuiz,
+    handleWeakestLinkDrill, // NEW
     handleResume,
     handleRestart,
     isReviewJump,

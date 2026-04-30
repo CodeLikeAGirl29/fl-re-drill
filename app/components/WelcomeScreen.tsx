@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from 'framer-motion';
 import {
   IoFlash,
   IoBook,
@@ -9,6 +10,7 @@ import {
   IoArrowForward,
 } from "react-icons/io5";
 import { FiTarget } from "react-icons/fi";
+import { RotateCcw, Play } from "lucide-react";
 import { questions } from "../lib/questions";
 import { getUniqueCategories } from "../lib/utils";
 
@@ -16,9 +18,10 @@ interface WelcomeScreenProps {
   onNew: (category: string, limit?: number) => void;
   onResume: () => void;
   hasProgress: boolean;
+  onWeakestDrill: (limit?: number) => void;
 }
 
-export default function WelcomeScreen({ onNew, onResume, hasProgress }: WelcomeScreenProps) {
+export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestDrill }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
   // Dynamically get categories from your question data
@@ -90,6 +93,27 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: WelcomeS
           </div>
         </div>
 
+        <motion.button
+          whileHover={{ scale: 1.02, skewX: -2 }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => onWeakestDrill(20)}
+          className="w-full mb-6 p-4 bg-rose-500/10 border border-rose-500/30 rounded-2xl flex items-center justify-between group transition-colors hover:bg-rose-500/20"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 bg-rose-500/20 border border-rose-500/40 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(244,63,94,0.2)] group-hover:shadow-[0_0_20px_rgba(244,63,94,0.4)] transition-all">
+              <FiTarget className="text-rose-400" size={24} />
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black text-rose-400 uppercase tracking-[0.2em]">Targeted Protocol</p>
+              <h4 className="text-white font-black uppercase tracking-tight italic text-lg">
+                Weakest <span className="text-rose-400">Link Drill</span>
+              </h4>
+              <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Focus on concepts needing reinforcement</p>
+            </div>
+          </div>
+          <IoArrowForward className="text-rose-400 group-hover:translate-x-1 transition-transform" size={20} />
+        </motion.button>
+
         {/* Category Selection Section */}
         <div className="mb-6">
           <label htmlFor="category-select" className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3">
@@ -139,12 +163,24 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress }: WelcomeS
 
           {/* Resume button stays full width below if progress exists */}
           {hasProgress && (
-            <button
+            <motion.button
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ x: 5 }}
               onClick={onResume}
-              className="w-full py-4 bg-white/5 hover:bg-white/10 text-[#817a8e] hover:text-white font-bold rounded-xl border border-white/10 transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full p-4 bg-cyan-500/10 border border-cyan-400/30 rounded-2xl flex items-center justify-between group"
             >
-              Resume Previous Session
-            </button>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                  <RotateCcw className="text-white" size={20} />
+                </div>
+                <div className="text-left">
+                  <p className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em]">Active Session Detected</p>
+                  <h4 className="text-white font-bold uppercase tracking-tight">Resume Previous Drill</h4>
+                </div>
+              </div>
+              <Play className="text-cyan-400 group-hover:translate-x-1 transition-transform" size={20} />
+            </motion.button>
           )}
         </div>
 
