@@ -25,6 +25,21 @@ interface QuestionCardProps {
   onToggleMark: () => void;
 }
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1, // This creates the 0.1s delay between each button
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 10 }, // Start slightly lower and invisible
+  show: { opacity: 1, y: 0 },    // Slide up to original position
+}
+
 export default function QuestionCard({
   index,
   onNext,
@@ -85,7 +100,12 @@ export default function QuestionCard({
   };
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-md border border-[#444444] bg-[#1e293b] px-6 md:px-[40px] py-[25px] shadow-2xl relative">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="mx-auto w-full max-w-2xl bg-[#1e293b]/80 backdrop-blur-xl border border-white/10 rounded-3xl px-6 md:px-[40px] py-[25px] shadow-2xl relative z-10"
+    >
 
       {/* HEADER */}
       <div className="flex items-center justify-between mb-6">
@@ -126,14 +146,27 @@ export default function QuestionCard({
         {q.q}
       </h3>
       <BreathingDivider />
-      <div className="space-y-3">
+      {/* 1. Wrap the list in a motion.div and apply containerVariants */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="space-y-3"
+      >
         {q.options.map((opt: string, i: number) => {
           const isSelected = selected === i;
           const isCorrect = i === q.correct;
 
           return (
-            <button
-              key={`${index}-${i}`} // Stable key using index
+            <motion.button
+              key={`${index}-${i}`}
+              variants={itemVariants} // 2. Apply itemVariants to each button
+              whileHover={{
+                scale: 1.01,
+                x: 4,
+                backgroundColor: "#ffffff1a"
+              }} // Subtle "Cyberpunk" slide-out
+              whileTap={{ scale: 0.98 }}
               disabled={isAnswered}
               onClick={() => { setSelected(i); setIsAnswered(true); }}
               className={`w-full block text-left rounded-lg border px-4 py-3 text-lg transition-all duration-300 ease-in-out ${isAnswered
@@ -154,10 +187,10 @@ export default function QuestionCard({
                 </span>
                 {opt}
               </div>
-            </button>
+            </motion.button>
           );
         })}
-      </div>
+      </motion.div>
 
       <AnimatePresence>
         {isAnswered && (
@@ -183,6 +216,6 @@ export default function QuestionCard({
           {index + 1 === totalQuestions ? 'Finish' : 'Next'}
         </button>
       </div>
-    </div>
+    </motion.div >
   );
 }

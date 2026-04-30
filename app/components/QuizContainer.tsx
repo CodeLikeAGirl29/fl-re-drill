@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import { AnimatePresence, motion } from 'framer-motion';
 import WelcomeScreen from "./WelcomeScreen";
 import QuestionCard from "./quiz/QuestionCard";
 import ResultsView from "./quiz/ResultsView";
@@ -19,15 +20,12 @@ import {
 } from "react-icons/io5";
 
 export default function QuizContainer() {
-  // 1. Initialize Hooks
   const tm = useTimer();
   const qz = useQuiz(tm.seconds, tm.resetTimer);
 
-  // 2. Local UI State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
 
-  // 3. Strict Florida Ranking Logic
   const getRank = (score: number, total: number) => {
     const percentage = (score / total) * 100;
     if (percentage >= 94) return { name: "Exam Master", sub: "Absolute mastery. You're ready to dominate.", color: "text-emerald-400" };
@@ -37,19 +35,24 @@ export default function QuizContainer() {
     return { name: "Below Standards", sub: "Significant study required in Law and Math.", color: "text-rose-400" };
   };
 
-  // 4. Hydration Guard
   if (!qz.isMounted) return <div className="min-h-screen bg-[#0f172a]" />;
+
+  // Common animation variants for the "Slide Up" effect
+  const slideUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
+    transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
 
-      {/* PROGRESS BAR (Only in Quiz/Review) */}
+      {/* PROGRESS BAR (Static above the animated content) */}
       {(qz.view === "quiz" || qz.view === "review") && (
         <div className="w-full mb-6 group">
           <div className="flex justify-between items-end mb-1.5 px-1">
-            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-              Session Progress
-            </span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">Session Progress</span>
             <span className="text-[9px] font-black text-cyan-500 uppercase tracking-widest">
               {qz.currentIdx + 1} / {qz.activeQuestions.length}
             </span>
@@ -63,106 +66,107 @@ export default function QuizContainer() {
         </div>
       )}
 
-      {/* VIEW ENGINE */}
-      {qz.view === "welcome" ? (
-        <WelcomeScreen
-          key="welcome"
-          onNew={qz.handleNewQuiz}
-          onResume={qz.handleResume}
-          hasProgress={qz.hasSavedProgress}
-        />
-      ) : qz.view === "quiz" ? (
-        <QuestionCard
-          key={`quiz-${qz.currentIdx}`} // Ensures state resets for every new question
-          index={qz.currentIdx}
-          questionsList={qz.activeQuestions}
-          totalQuestions={qz.activeQuestions.length}
-          currentTime={tm.formatTime()}
-          isMarked={qz.markedQuestions.has(qz.currentIdx)}
-          onToggleMark={() => qz.toggleMark(qz.currentIdx)}
-          onNext={(correct) => {
-            if (correct) qz.setScore(s => s + 1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            setTimeout(() => {
-              window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-              });
-            }, 10);
-            if (qz.isReviewJump) {
-              qz.setIsReviewJump(false);
-              qz.setView("review");
-              return;
-            }
-            if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
-              qz.setView("review");
-            } else {
-              qz.setCurrentIdx(i => i + 1);
-            }
-          }}
-        />
-      ) : qz.view === "review" ? (
-        <div key="review" className="mx-auto w-full max-w-2xl bg-[#1e293b] p-8 rounded-3xl border border-white/10 shadow-2xl animate-in fade-in zoom-in duration-500">
-          <div className="text-center mb-8">
-            <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
-            <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">Final Audit</h2>
-            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest italic">
-              Review flagged items before state submission.
-            </p>
-          </div>
-          <BreathingDivider />
-          <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 mb-8 max-h-64 overflow-y-auto pr-2">
-            {qz.activeQuestions.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => { qz.setCurrentIdx(i); qz.setIsReviewJump(true); qz.setView("quiz"); }}
-                className={`h-10 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${qz.markedQuestions.has(i)
-                  ? "border-rose-500 bg-rose-500/20 text-rose-400"
-                  : "border-white/5 bg-white/5 text-slate-500 hover:border-cyan-500 hover:text-white"
-                  }`}
-              >
-                <span className="text-[10px] font-black">{i + 1}</span>
-              </button>
-            ))}
-          </div>
+      {/* VIEW ENGINE WITH ANIMATION */}
+      <AnimatePresence mode="wait">
+        {qz.view === "welcome" && (
+          <motion.div key="welcome" {...slideUp}>
+            <WelcomeScreen
+              onNew={qz.handleNewQuiz}
+              onResume={qz.handleResume}
+              hasProgress={qz.hasSavedProgress}
+            />
+          </motion.div>
+        )}
 
-          <button
-            onClick={() => qz.setView("results")}
-            className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
-          >
-            Submit for Grading <IoArrowForward />
-          </button>
-        </div>
-      ) : (
-        <ResultsView
-          key="results"
-          score={qz.score}
-          total={qz.activeQuestions.length}
-          missed={[]}
-          rank={getRank(qz.score, qz.activeQuestions.length)}
-          onRestart={qz.handleRestart}
-        />
-      )}
+        {qz.view === "quiz" && (
+          <motion.div key={`quiz-${qz.currentIdx}`} {...slideUp}>
+            <QuestionCard
+              index={qz.currentIdx}
+              questionsList={qz.activeQuestions}
+              totalQuestions={qz.activeQuestions.length}
+              currentTime={tm.formatTime()}
+              isMarked={qz.markedQuestions.has(qz.currentIdx)}
+              onToggleMark={() => qz.toggleMark(qz.currentIdx)}
+              onNext={(correct) => {
+                if (correct) qz.setScore(s => s + 1);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (qz.isReviewJump) {
+                  qz.setIsReviewJump(false);
+                  qz.setView("review");
+                  return;
+                }
+                if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
+                  qz.setView("review");
+                } else {
+                  qz.setCurrentIdx(i => i + 1);
+                }
+              }}
+            />
+          </motion.div>
+        )}
 
-      {/* FLOATING TOOLKIT */}
+        {qz.view === "review" && (
+          <motion.div key="review" {...slideUp} className="mx-auto w-full max-w-2xl bg-[#1e293b]/80 backdrop-blur-xl p-8 rounded-3xl border border-white/10 shadow-2xl">
+            <div className="text-center mb-8">
+              <IoCheckmarkDoneCircleOutline size={48} className="mx-auto text-emerald-400 mb-4" />
+              <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">Final Audit</h2>
+              <p className="text-slate-400 text-xs font-bold uppercase tracking-widest italic">Review flagged items before state submission.</p>
+            </div>
+            <BreathingDivider />
+            <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 mb-10 max-h-64 overflow-y-auto pr-2">
+              {qz.activeQuestions.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => { qz.setCurrentIdx(i); qz.setIsReviewJump(true); qz.setView("quiz"); }}
+                  className={`h-10 flex flex-col items-center justify-center rounded-lg border transition-all duration-300 ${qz.markedQuestions.has(i) ? "border-rose-500 bg-rose-500/20 text-rose-400" : "border-white/5 bg-white/5 text-slate-500 hover:border-cyan-500 hover:text-white"
+                    }`}
+                >
+                  <span className="text-[10px] font-black">{i + 1}</span>
+                </button>
+              ))}
+            </div>
+            <button
+              onClick={() => qz.setView("results")}
+              className="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-black rounded-2xl transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2"
+            >
+              Submit for Grading <IoArrowForward />
+            </button>
+          </motion.div>
+        )}
+
+        {qz.view === "results" && (
+          <motion.div key="results" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
+            <ResultsView
+              score={qz.score}
+              total={qz.activeQuestions.length}
+              missed={[]}
+              rank={getRank(qz.score, qz.activeQuestions.length)}
+              onRestart={qz.handleRestart}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* FLOATING TOOLKIT (Static) */}
       {qz.view === "quiz" && (
         <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-50">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
             onClick={() => setIsCalcOpen(true)}
-            className="w-14 h-14 bg-slate-800 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform"
+            className="w-14 h-14 bg-slate-800 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl"
           >
             <IoCalculatorOutline size={24} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}
             onClick={() => setIsModalOpen(true)}
-            className="w-14 h-14 bg-blue-600 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl hover:scale-110 transition-transform"
+            className="w-14 h-14 bg-blue-600 rounded-full border border-white/10 flex items-center justify-center text-white shadow-2xl"
           >
             <IoBookOutline size={24} />
-          </button>
+          </motion.button>
         </div>
       )}
 
-      {/* MODALS */}
       <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       <QuizCalculator isOpen={isCalcOpen} onClose={() => setIsCalcOpen(false)} />
     </div>

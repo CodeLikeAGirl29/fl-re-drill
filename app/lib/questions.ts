@@ -45,7 +45,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Drafting a contract between two parties is considered the practice of law; sales associates may only fill in blanks on forms drafted by attorneys.",
+      "Key Point: Drafting a contract between two parties is considered the practice of law; sales associates may only fill in blanks on forms drafted by attorneys.",
   },
   {
     id: "q3",
@@ -77,7 +77,7 @@ export const questions: Question[] = [
     options: ["5% to 10%", "10% to 15%", "20% to 25%", "30% to 40%"],
     correct: 1,
     explanation:
-      "It is common practice to allocate between 10% and 15% of the purchase price to the land, as land cannot be depreciated.",
+      "Key Point: It is common practice to allocate between 10% and 15% of the purchase price to the land, as land cannot be depreciated.",
   },
   {
     id: "q6",
@@ -86,7 +86,7 @@ export const questions: Question[] = [
     options: ["12 months", "18 months", "24 months", "36 months"],
     correct: 2,
     explanation:
-      "Applicants must show proof of being registered as an active sales associate for at least 24 months during the preceding five years.",
+      "Key Point: Applicants must show proof of being registered as an active sales associate for at least 24 months during the preceding five years.",
   },
   {
     id: "q7",
@@ -100,7 +100,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Legal descriptions appear in deeds of conveyance, mortgages, and title insurance policies.",
+      "Key Point: Legal descriptions appear in deeds of conveyance, mortgages, and title insurance policies.",
   },
   {
     id: "q8",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Hypothecation is the pledging of property as collateral for a loan.",
+      "Key Point: Hypothecation is the pledging of property as collateral for a loan.",
   },
   {
     id: "q10",
@@ -136,7 +136,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Not receiving the homeowner's disclosure summary makes the contract voidable by the buyer.",
+      "Key Point: Not receiving the homeowner's disclosure summary makes the contract voidable by the buyer.",
   },
   {
     id: "q11",
@@ -145,7 +145,7 @@ export const questions: Question[] = [
     options: ["10 days", "15 days", "30 days", "60 days"],
     correct: 2,
     explanation:
-      "A licensee must report a conviction or plea of nolo contendere of any crime in any jurisdiction within 30 days.",
+      "Key Point: A licensee must report a conviction or plea of nolo contendere of any crime in any jurisdiction within 30 days.",
   },
   {
     id: "q12",
@@ -159,7 +159,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Special Assessment Liens are second in priority to property taxes.",
+      "Key Point: Special Assessment Liens are second in priority to property taxes.",
   },
   {
     id: "q13",
@@ -173,7 +173,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Applicants must be at least 18 years old and have a high school diploma or equivalent. Florida residency and U.S. citizenship are not requirements.",
+      "Key Point: Applicants must be at least 18 years old and have a high school diploma or equivalent. Florida residency and U.S. citizenship are not requirements.",
   },
   {
     id: "q14",
@@ -182,7 +182,7 @@ export const questions: Question[] = [
     options: ["Two", "Three", "Four", "Five"],
     correct: 2,
     explanation:
-      "The Commission is comprised of four brokers (active for 5 years), one broker or sales associate (active for 2 years), and two consumer members.",
+      "Key Point: The Commission is comprised of four brokers (active for 5 years), one broker or sales associate (active for 2 years), and two consumer members.",
   },
   {
     id: "q15",
@@ -196,7 +196,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A transaction broker provides limited representation to a buyer, a seller, or both, which includes the duty of limited confidentiality.",
+      "Key Point: A transaction broker provides limited representation to a buyer, a seller, or both, which includes the duty of limited confidentiality.",
   },
   {
     id: "q16",
@@ -205,7 +205,7 @@ export const questions: Question[] = [
     options: ["Tuesday", "Wednesday", "Thursday", "Friday"],
     correct: 3,
     explanation:
-      "The sales associate must deliver the deposit to the broker by the end of the next business day (Tuesday). The broker must deposit it by the end of the third business day after receipt (Thursday).",
+      "Key Point: The sales associate must deliver the deposit to the broker by the end of the next business day (Tuesday). The broker must deposit it by the end of the third business day after receipt (Thursday).",
   },
   {
     id: "q17",
@@ -219,7 +219,7 @@ export const questions: Question[] = [
     ],
     correct: 3,
     explanation:
-      "Unlicensed activity, filing false applications, and theft of an exam are all classified as third-degree felonies.",
+      "Key Point: Unlicensed activity, filing false applications, and theft of an exam are all classified as third-degree felonies.",
   },
   {
     id: "q18",
@@ -233,7 +233,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Joint tenancy includes the right of survivorship, meaning if one owner dies, their interest passes to the surviving owner(s).",
+      "Key Point: Joint tenancy includes the right of survivorship, meaning if one owner dies, their interest passes to the surviving owner(s).",
   },
   {
     id: "q19",
@@ -247,7 +247,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The Habendum clause begins with 'to have and to hold' and defines the bundle of legal rights being transferred.",
+      "Key Point: The Habendum clause begins with 'to have and to hold' and defines the bundle of legal rights being transferred.",
   },
   {
     id: "q20",
@@ -261,7 +261,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The Statute of Frauds requires purchase and sale contracts, option contracts, and leases for more than one year to be in writing.",
+      "Key Point: The Statute of Frauds requires purchase and sale contracts, option contracts, and leases for more than one year to be in writing.",
   },
   {
     id: "q21",
@@ -275,7 +275,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The defeasance clause 'defeats' the prior right of the lender to the property once the mortgage is paid.",
+      "Key Point: The defeasance clause 'defeats' the prior right of the lender to the property once the mortgage is paid.",
   },
   {
     id: "q22",
@@ -289,7 +289,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The Sales Comparison Approach relies on the principle of substitution: a prudent buyer will pay no more for a property than the cost of an equally desirable substitute.",
+      "Key Point: The Sales Comparison Approach relies on the principle of substitution: a prudent buyer will pay no more for a property than the cost of an equally desirable substitute.",
   },
   {
     id: "q23",
@@ -298,7 +298,7 @@ export const questions: Question[] = [
     options: ["$25, 000", "$50, 000", "$75, 000", "$100, 000"],
     correct: 1,
     explanation:
-      "The first $25, 000 applies to all taxes; the second $25, 000 applies to city and county taxes (but not school taxes) for properties valued over $75, 000.",
+      "Key Point: The first $25, 000 applies to all taxes; the second $25, 000 applies to city and county taxes (but not school taxes) for properties valued over $75, 000.",
   },
   {
     id: "q24",
@@ -312,7 +312,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A variance is granted when a property owner can prove that strict enforcement of zoning creates an undue hardship.",
+      "Key Point: A variance is granted when a property owner can prove that strict enforcement of zoning creates an undue hardship.",
   },
   {
     id: "q25",
@@ -335,7 +335,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The General Warranty deed is the most common type of deed and provides the most comprehensive protection to the buyer.",
+      "Key Point: The General Warranty deed is the most common type of deed and provides the most comprehensive protection to the buyer.",
   },
   {
     id: "q27",
@@ -349,7 +349,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "An option contract is unilateral because only one party (the optionor) is legally bound to perform if the other party chooses to exercise the option.",
+      "Key Point: An option contract is unilateral because only one party (the optionor) is legally bound to perform if the other party chooses to exercise the option.",
   },
   {
     id: "q28",
@@ -372,7 +372,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "FHA (Federal Housing Administration) insures loans, whereas the VA (Department of Veterans Affairs) guarantees loans for eligible veterans.",
+      "Key Point: FHA (Federal Housing Administration) insures loans, whereas the VA (Department of Veterans Affairs) guarantees loans for eligible veterans.",
   },
   {
     id: "q30",
@@ -386,7 +386,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "If property taxes are not paid, a tax certificate is issued and auctioned off. Bidders compete by offering the lowest interest rate they will accept.",
+      "Key Point: If property taxes are not paid, a tax certificate is issued and auctioned off. Bidders compete by offering the lowest interest rate they will accept.",
   },
   {
     id: "q31",
@@ -395,7 +395,7 @@ export const questions: Question[] = [
     options: ["Setback", "Easement", "Buffer zone", "Encroachment"],
     correct: 2,
     explanation:
-      "A buffer zone is a neutral space, like a park or greenbelt, used to separate conflicting land uses.",
+      "Key Point: A buffer zone is a neutral space, like a park or greenbelt, used to separate conflicting land uses.",
   },
   {
     id: "q32",
@@ -409,7 +409,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A life estate is a freehold estate limited in duration to the life of the owner or another designated person.",
+      "Key Point: A life estate is a freehold estate limited in duration to the life of the owner or another designated person.",
   },
   {
     id: "q33",
@@ -423,7 +423,7 @@ export const questions: Question[] = [
     ],
     correct: 0,
     explanation:
-      "The sign must contain the name of the broker, the trade name (if any), and the words 'Licensed Real Estate Broker' or 'Lic. Real Estate Broker'.",
+      "Key Point: The sign must contain the name of the broker, the trade name (if any), and the words 'Licensed Real Estate Broker' or 'Lic. Real Estate Broker'.",
   },
   {
     id: "q34",
@@ -437,7 +437,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "In non-residential transactions where both parties have assets of $1 million or more, the broker may designate separate sales associates to act as single agents for each party.",
+      "Key Point: In non-residential transactions where both parties have assets of $1 million or more, the broker may designate separate sales associates to act as single agents for each party.",
   },
   {
     id: "q35",
@@ -446,7 +446,7 @@ export const questions: Question[] = [
     options: ["$1, 000", "$2, 500", "$5, 000", "$10, 000"],
     correct: 2,
     explanation:
-      "The Florida Real Estate Commission may impose an administrative fine of up to $5, 000 per violation.",
+      "Key Point: The Florida Real Estate Commission may impose an administrative fine of up to $5, 000 per violation.",
   },
   {
     id: "q36",
@@ -469,7 +469,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Functional obsolescence refers to a loss in value due to factors within the property, such as an outdated design or poor layout.",
+      "Key Point: Functional obsolescence refers to a loss in value due to factors within the property, such as an outdated design or poor layout.",
   },
   {
     id: "q38",
@@ -483,7 +483,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "While many contracts are notarized for recording purposes, notarization is not a requirement for a contract to be legally valid and binding.",
+      "Key Point: While many contracts are notarized for recording purposes, notarization is not a requirement for a contract to be legally valid and binding.",
   },
   {
     id: "q39",
@@ -497,7 +497,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The Florida Constitution protects a homestead from forced sale for the payment of most personal debts, such as credit card debt or medical bills.",
+      "Key Point: The Florida Constitution protects a homestead from forced sale for the payment of most personal debts, such as credit card debt or medical bills.",
   },
   {
     id: "q40",
@@ -534,7 +534,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Recording a deed provides constructive notice to the world that the grantee has a legal interest in the property.",
+      "Key Point: Recording a deed provides constructive notice to the world that the grantee has a legal interest in the property.",
   },
   {
     id: "q43",
@@ -548,7 +548,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "LTV is the percentage of the property value that the lender is willing to finance; it measures the risk of the loan.",
+      "Key Point: LTV is the percentage of the property value that the lender is willing to finance; it measures the risk of the loan.",
   },
   {
     id: "q44",
@@ -562,7 +562,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Ad Valorem means 'according to value.' Real estate property taxes are based on the assessed value of the property.",
+      "Key Point: Ad Valorem means 'according to value.' Real estate property taxes are based on the assessed value of the property.",
   },
   {
     id: "q45",
@@ -576,7 +576,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Sellers and landlords of residential dwellings built before 1978 must disclose the presence of known lead-based paint.",
+      "Key Point: Sellers and landlords of residential dwellings built before 1978 must disclose the presence of known lead-based paint.",
   },
   {
     id: "q46",
@@ -599,7 +599,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Misrepresentation is the act of making a false or misleading statement that can lead to a violation of license law.",
+      "Key Point: Misrepresentation is the act of making a false or misleading statement that can lead to a violation of license law.",
   },
   {
     id: "q48",
@@ -608,7 +608,7 @@ export const questions: Question[] = [
     options: ["$500", "$1, 000", "$5, 000", "$10, 000"],
     correct: 1,
     explanation:
-      "A broker is permitted to keep up to $1, 000 of personal or business funds in a sales escrow account to cover bank service charges.",
+      "Key Point: A broker is permitted to keep up to $1, 000 of personal or business funds in a sales escrow account to cover bank service charges.",
   },
   {
     id: "q49",
@@ -622,7 +622,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Replacement cost is the current cost to construct a building with the same utility, whereas reproduction cost is for an exact replica.",
+      "Key Point: Replacement cost is the current cost to construct a building with the same utility, whereas reproduction cost is for an exact replica.",
   },
   {
     id: "q50",
@@ -636,7 +636,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Failure to renew a license results in it becoming involuntary inactive for up to two years.",
+      "Key Point: Failure to renew a license results in it becoming involuntary inactive for up to two years.",
   },
   {
     id: "q51",
@@ -650,7 +650,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A real estate license is considered prima facie evidence that the person named on the license is entitled to the rights and privileges of a licensee.",
+      "Key Point: A real estate license is considered prima facie evidence that the person named on the license is entitled to the rights and privileges of a licensee.",
   },
   {
     id: "q52",
@@ -664,7 +664,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Quasi-legislative power gives the FREC the authority to adopt rules and regulations that interpret or apply the license law.",
+      "Key Point: Quasi-legislative power gives the FREC the authority to adopt rules and regulations that interpret or apply the license law.",
   },
   {
     id: "q53",
@@ -673,7 +673,7 @@ export const questions: Question[] = [
     options: ["Two", "Three", "Four", "Five"],
     correct: 2,
     explanation:
-      "Florida law defines residential sales as property of four or fewer units, or agricultural property of 10 or fewer acres.",
+      "Key Point: Florida law defines residential sales as property of four or fewer units, or agricultural property of 10 or fewer acres.",
   },
   {
     id: "q54",
@@ -687,7 +687,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The broker must notify the FREC in writing within 15 business days of receiving conflicting demands for escrowed funds.",
+      "Key Point: The broker must notify the FREC in writing within 15 business days of receiving conflicting demands for escrowed funds.",
   },
   {
     id: "q55",
@@ -696,7 +696,7 @@ export const questions: Question[] = [
     options: ["$10, 000", "$25, 000", "$50, 000", "$150, 000"],
     correct: 2,
     explanation:
-      "The maximum payment from the Recovery Fund for a single judgment is $50, 000 (or the unsatisfied portion of the judgment, whichever is less).",
+      "Key Point: The maximum payment from the Recovery Fund for a single judgment is $50, 000 (or the unsatisfied portion of the judgment, whichever is less).",
   },
   {
     id: "q56",
@@ -705,7 +705,7 @@ export const questions: Question[] = [
     options: ["Condominium", "Cooperative", "Time-share", "Fee Simple"],
     correct: 1,
     explanation:
-      "In a cooperative, a corporation holds title to the land/improvements, and owners buy shares and receive a proprietary lease.",
+      "Key Point: In a cooperative, a corporation holds title to the land/improvements, and owners buy shares and receive a proprietary lease.",
   },
   {
     id: "q57",
@@ -714,7 +714,7 @@ export const questions: Question[] = [
     options: ["Eminent domain", "Adverse possession", "Deed", "Escheat"],
     correct: 2,
     explanation:
-      "Alienation by deed or will is voluntary. Eminent domain, escheat, and adverse possession are involuntary.",
+      "Key Point: Alienation by deed or will is voluntary. Eminent domain, escheat, and adverse possession are involuntary.",
   },
   {
     id: "q58",
@@ -723,7 +723,7 @@ export const questions: Question[] = [
     options: ["Executory", "Executed", "Voidable", "Unenforceable"],
     correct: 1,
     explanation:
-      "An executed contract is one where all parties have fulfilled their promises and performed all duties.",
+      "Key Point: An executed contract is one where all parties have fulfilled their promises and performed all duties.",
   },
   {
     id: "q59",
@@ -737,7 +737,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A partially amortized mortgage includes a larger final payment (balloon payment) because the monthly payments don't fully pay off the principal.",
+      "Key Point: A partially amortized mortgage includes a larger final payment (balloon payment) because the monthly payments don't fully pay off the principal.",
   },
   {
     id: "q60",
@@ -751,7 +751,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The Cost Approach is best for special-purpose properties where comparable sales or income data are limited.",
+      "Key Point: The Cost Approach is best for special-purpose properties where comparable sales or income data are limited.",
   },
   {
     id: "q61",
@@ -760,7 +760,7 @@ export const questions: Question[] = [
     options: ["15 years", "27.5 years", "39 years", "50 years"],
     correct: 1,
     explanation:
-      "Residential rental property is depreciated over a useful life of 27.5 years.",
+      "Key Point: Residential rental property is depreciated over a useful life of 27.5 years.",
   },
   {
     id: "q62",
@@ -769,7 +769,7 @@ export const questions: Question[] = [
     options: ["Eminent domain", "Police power", "Condemnation", "Right of way"],
     correct: 1,
     explanation:
-      "Police power is the constitutional authority of state and local governments to regulate land use.",
+      "Key Point: Police power is the constitutional authority of state and local governments to regulate land use.",
   },
   {
     id: "q63",
@@ -786,7 +786,7 @@ export const questions: Question[] = [
     options: ["5 days", "10 days", "15 days", "30 days"],
     correct: 1,
     explanation:
-      "Licensees must notify the DBPR of a change in residential mailing address within 10 days.",
+      "Key Point: Licensees must notify the DBPR of a change in residential mailing address within 10 days.",
   },
   {
     id: "q65",
@@ -800,7 +800,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Conversion is the unauthorized use or retention of money or property that belongs to another party.",
+      "Key Point: Conversion is the unauthorized use or retention of money or property that belongs to another party.",
   },
   {
     id: "q66",
@@ -814,7 +814,7 @@ export const questions: Question[] = [
     ],
     correct: 0,
     explanation:
-      "The FREC has the authority to suspend a license for a period not exceeding 10 years. They cannot impose jail time, as that is a criminal penalty.",
+      "Key Point: The FREC has the authority to suspend a license for a period not exceeding 10 years. They cannot impose jail time, as that is a criminal penalty.",
   },
   {
     id: "q67",
@@ -828,7 +828,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Accounting for all funds and dealing honestly and fairly are duties required in all brokerage relationships in Florida.",
+      "Key Point: Accounting for all funds and dealing honestly and fairly are duties required in all brokerage relationships in Florida.",
   },
   {
     id: "q68",
@@ -842,7 +842,7 @@ export const questions: Question[] = [
     ],
     correct: 0,
     explanation:
-      "A blind advertisement is any real estate advertisement that does not reveal the licensed name of the brokerage firm.",
+      "Key Point: A blind advertisement is any real estate advertisement that does not reveal the licensed name of the brokerage firm.",
   },
   {
     id: "q69",
@@ -851,7 +851,7 @@ export const questions: Question[] = [
     options: ["25%", "50%", "75%", "100%"],
     correct: 3,
     explanation:
-      "If the rental information provided is not current or is inaccurate in any material respect, the full 100% fee must be repaid to the prospective tenant upon demand.",
+      "Key Point: If the rental information provided is not current or is inaccurate in any material respect, the full 100% fee must be repaid to the prospective tenant upon demand.",
   },
   {
     id: "q70",
@@ -865,7 +865,7 @@ export const questions: Question[] = [
     ],
     correct: 0,
     explanation:
-      "Escheat is the reversion of property to the state when an owner dies intestate and without heirs.",
+      "Key Point: Escheat is the reversion of property to the state when an owner dies intestate and without heirs.",
   },
   {
     id: "q71",
@@ -874,7 +874,7 @@ export const questions: Question[] = [
     options: ["A mortgage", "A property tax lien", "An easement", "A judgment"],
     correct: 2,
     explanation:
-      "An easement is an encumbrance that affects the physical use or condition of the land, whereas liens and judgments are financial encumbrances.",
+      "Key Point: An easement is an encumbrance that affects the physical use or condition of the land, whereas liens and judgments are financial encumbrances.",
   },
   {
     id: "q72",
@@ -888,7 +888,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Offer and acceptance, or mutual assent, is often referred to as a meeting of the minds between the parties.",
+      "Key Point: Offer and acceptance, or mutual assent, is often referred to as a meeting of the minds between the parties.",
   },
   {
     id: "q73",
@@ -902,7 +902,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The acceleration clause gives the lender the right to 'accelerate' the maturity of the debt if the borrower defaults on the mortgage terms.",
+      "Key Point: The acceleration clause gives the lender the right to 'accelerate' the maturity of the debt if the borrower defaults on the mortgage terms.",
   },
   {
     id: "q74",
@@ -916,7 +916,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Defining the problem (identifying the property, the rights to be appraised, and the purpose of the appraisal) is the essential first step.",
+      "Key Point: Defining the problem (identifying the property, the rights to be appraised, and the purpose of the appraisal) is the essential first step.",
   },
   {
     id: "q75",
@@ -930,7 +930,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Special assessments are taxes levied against specific properties to pay for public improvements that increase the value of those properties.",
+      "Key Point: Special assessments are taxes levied against specific properties to pay for public improvements that increase the value of those properties.",
   },
   {
     id: "q76",
@@ -944,7 +944,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "A nonconforming use is a 'grandfathered' use that is allowed to continue even though it doesn't meet current zoning requirements.",
+      "Key Point: A nonconforming use is a 'grandfathered' use that is allowed to continue even though it doesn't meet current zoning requirements.",
   },
   {
     id: "q77",
@@ -966,7 +966,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Applicants must disclose criminal history and disciplinary actions, but minor traffic violations like speeding tickets generally do not need to be disclosed.",
+      "Key Point: Applicants must disclose criminal history and disciplinary actions, but minor traffic violations like speeding tickets generally do not need to be disclosed.",
   },
   {
     id: "q79",
@@ -980,7 +980,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "One of the four settlement procedures for conflicting demands is requesting an EDO from the Commission.",
+      "Key Point: One of the four settlement procedures for conflicting demands is requesting an EDO from the Commission.",
   },
   {
     id: "q80",
@@ -997,7 +997,7 @@ export const questions: Question[] = [
     options: ["10 days", "30 days", "60 days", "90 days"],
     correct: 2,
     explanation:
-      "A licensee who moves out of state must notify the Commission of their change in residency within 60 days.",
+      "Key Point: A licensee who moves out of state must notify the Commission of their change in residency within 60 days.",
   },
   {
     id: "q82",
@@ -1011,7 +1011,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The quasi-judicial power involves the power to hear complaints, evaluate evidence, and impose punishments for violations of license law.",
+      "Key Point: The quasi-judicial power involves the power to hear complaints, evaluate evidence, and impose punishments for violations of license law.",
   },
   {
     id: "q83",
@@ -1025,7 +1025,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "A universal agent is authorized by the principal to perform all acts that the principal can personally perform and that may be lawfully delegated.",
+      "Key Point: A universal agent is authorized by the principal to perform all acts that the principal can personally perform and that may be lawfully delegated.",
   },
   {
     id: "q84",
@@ -1039,7 +1039,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Florida law requires a broker's office to consist of at least one enclosed room in a building of stationary construction that will provide privacy to conduct negotiations and close transactions.",
+      "Key Point: Florida law requires a broker's office to consist of at least one enclosed room in a building of stationary construction that will provide privacy to conduct negotiations and close transactions.",
   },
   {
     id: "q85",
@@ -1053,7 +1053,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A first-degree misdemeanor is punishable by a fine of up to $1, 000 and/or imprisonment for up to one year.",
+      "Key Point: A first-degree misdemeanor is punishable by a fine of up to $1, 000 and/or imprisonment for up to one year.",
   },
   {
     id: "q86",
@@ -1062,7 +1062,7 @@ export const questions: Question[] = [
     options: ["A building", "A fence", "An easement", "A tree"],
     correct: 2,
     explanation:
-      "Incorporeal interests are non-physical rights in real property, such as an easement; physical things like buildings are corporeal.",
+      "Key Point: Incorporeal interests are non-physical rights in real property, such as an easement; physical things like buildings are corporeal.",
   },
   {
     id: "q87",
@@ -1076,7 +1076,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Testate refers to dying with a valid will, whereas intestate refers to dying without one.",
+      "Key Point: Testate refers to dying with a valid will, whereas intestate refers to dying without one.",
   },
   {
     id: "q88",
@@ -1085,7 +1085,7 @@ export const questions: Question[] = [
     options: ["Void", "Voidable", "Unenforceable", "Valid"],
     correct: 0,
     explanation:
-      "A void contract lacks one or more of the essential elements required by law and has no legal force or effect.",
+      "Key Point: A void contract lacks one or more of the essential elements required by law and has no legal force or effect.",
   },
   {
     id: "q89",
@@ -1099,7 +1099,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Equity of redemption is the right of a mortgagor to prevent foreclosure by paying the full amount of the debt before the foreclosure sale.",
+      "Key Point: Equity of redemption is the right of a mortgagor to prevent foreclosure by paying the full amount of the debt before the foreclosure sale.",
   },
   {
     id: "q90",
@@ -1113,7 +1113,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The GRM is calculated by dividing the sales price by the monthly gross rent of a property.",
+      "Key Point: The GRM is calculated by dividing the sales price by the monthly gross rent of a property.",
   },
   {
     id: "q91",
@@ -1127,7 +1127,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "While mortgage interest and property taxes are generally deductible for a primary residence, homeowner's insurance premiums are not.",
+      "Key Point: While mortgage interest and property taxes are generally deductible for a primary residence, homeowner's insurance premiums are not.",
   },
   {
     id: "q92",
@@ -1141,7 +1141,7 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "PUD zoning allows for a variety of land uses and higher densities than traditional zoning.",
+      "Key Point: PUD zoning allows for a variety of land uses and higher densities than traditional zoning.",
   },
   {
     id: "q93",
@@ -1150,7 +1150,7 @@ export const questions: Question[] = [
     options: ["15%", "20%", "25%", "30%"],
     correct: 1,
     explanation:
-      "Profit = $216, 000 - $180, 000 = $36, 000. Profit % = $36, 000 / $180, 000 = 0.20 or 20%.",
+      "Key Point: Profit = $216, 000 - $180, 000 = $36, 000. Profit % = $36, 000 / $180, 000 = 0.20 or 20%.",
   },
   {
     id: "q94",
@@ -1159,7 +1159,7 @@ export const questions: Question[] = [
     options: ["$500", "$2, 500", "$5, 000", "$7, 500"],
     correct: 2,
     explanation:
-      "A mill is $1 per $1, 000. Calculation: ($200, 000 / 1, 000) * 25 = 200 * 25 = $5, 000.",
+      "Key Point: A mill is $1 per $1, 000. Calculation: ($200, 000 / 1, 000) * 25 = 200 * 25 = $5, 000.",
   },
   {
     id: "q95",
@@ -1173,7 +1173,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "When a broker's license is suspended or revoked, all licenses of associates under them are placed on involuntary inactive status until they find a new employer.",
+      "Key Point: When a broker's license is suspended or revoked, all licenses of associates under them are placed on involuntary inactive status until they find a new employer.",
   },
   {
     id: "q96",
@@ -1182,7 +1182,7 @@ export const questions: Question[] = [
     options: ["2 years", "3 years", "5 years", "10 years"],
     correct: 2,
     explanation:
-      "Brokers must retain all documents related to real estate transactions for at least five years.",
+      "Key Point: Brokers must retain all documents related to real estate transactions for at least five years.",
   },
   {
     id: "q97",
@@ -1196,7 +1196,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "A contingency clause makes the enforcement of the contract dependent on the completion of a certain event, such as securing a loan.",
+      "Key Point: A contingency clause makes the enforcement of the contract dependent on the completion of a certain event, such as securing a loan.",
   },
   {
     id: "q98",
@@ -1210,7 +1210,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Negative amortization occurs when the loan balance grows because the payments don't cover the full interest charge.",
+      "Key Point: Negative amortization occurs when the loan balance grows because the payments don't cover the full interest charge.",
   },
   {
     id: "q99",
@@ -1224,7 +1224,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Going-concern value is the value of an income-producing property that includes the value of the business operation itself.",
+      "Key Point: Going-concern value is the value of an income-producing property that includes the value of the business operation itself.",
   },
   {
     id: "q100",

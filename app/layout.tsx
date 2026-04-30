@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anonymous_Pro, Source_Code_Pro, Inter } from 'next/font/google';
+import { Space_Grotesk, Inter, Anonymous_Pro } from 'next/font/google';
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,10 +21,9 @@ const anonPro = Anonymous_Pro({
   variable: '--font-anon-pro',
 });
 
-const sourceCodePro = Source_Code_Pro({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-source-code',
+  variable: '--font-space', // Creating a CSS variable
 });
 
 export default function RootLayout({
@@ -33,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${anonPro.variable} ${sourceCodePro.variable}`} suppressHydrationWarning>
-      <body className="text-[15px] sm:text-base">{children}</body>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${anonPro.variable}`}>
+      <body className="text-[16px] sm:text-base">{children}</body>
     </html>
   );
 }

@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header onOpenFormulas={() => setIsModalOpen(true)} />
-      <main className="flex-grow flex items-center justify-center p-4 pt-8">
+      <main className="flex-grow flex items-center justify-center p-4 pt-6">
         <QuizContainer />
       </main>
       <Footer />
