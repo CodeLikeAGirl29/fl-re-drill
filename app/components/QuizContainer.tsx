@@ -76,6 +76,7 @@ export default function QuizContainer() {
               onResume={qz.handleResume} // Pass the resume function
               onWeakestDrill={qz.handleWeakestLinkDrill} // Pass the weakest link function
               hasProgress={qz.hasSavedProgress} // Pass the boolean check
+              onStart={() => {}}
             />
           </motion.div>
         )}

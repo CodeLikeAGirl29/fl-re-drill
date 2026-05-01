@@ -19,7 +19,7 @@ interface WelcomeScreenProps {
   onResume: () => void;
   hasProgress: boolean;
   onWeakestDrill: (limit?: number) => void;
-  onStart: () => void;
+  onStart?: () => void;
 }
 
 export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestDrill, onStart }: WelcomeScreenProps) {
