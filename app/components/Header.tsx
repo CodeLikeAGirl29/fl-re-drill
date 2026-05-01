@@ -24,7 +24,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
           className="w-10 h-10 bg-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:bg-cyan-400 transition-colors"
         >
-          <FaLaptopHouse className="text-white text-lg" />
+          <FaLaptopHouse size={17} className="text-white text-lg" />
         </motion.div>
 
         <div className="font-space">
@@ -44,7 +44,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
         onClick={onOpenFormulas}
         className="flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-cyan-500/20 hover:text-white transition-all font-space"
       >
-        <IoCalculatorOutline className="w-3.5 h-3.5" />
+        <IoCalculatorOutline size={17} className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Formulas</span>
       </motion.button>
     </header >

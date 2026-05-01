@@ -19,26 +19,44 @@ interface WelcomeScreenProps {
   onResume: () => void;
   hasProgress: boolean;
   onWeakestDrill: (limit?: number) => void;
+  onStart: () => void;
 }
 
-export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestDrill }: WelcomeScreenProps) {
+export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestDrill, onStart }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
   // Dynamically get categories from your question data
   const categories = ["All Categories", ...getUniqueCategories(questions)];
 
   return (
-    <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
-      {/* 1. THE GRADIENT */}
-      <div className="h-32 w-full bg-linear-to-r from-cyan-700 via-blue-500 to-indigo-600" />
+<div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
+      
+      {/* 1. THE IMAGE HEADER */}
+      <div className="relative h-64 w-full border-b border-[#444444]">
+        <img 
+          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777591992/reddit_lbckmz.jpg"
+          alt="Florida Real Estate"
+          className="w-full h-full object-cover"
+        />
+        
+        {/* 2. THE FLOATING BANNER (Left Aligned) */}
+        <div className="absolute bottom-6 left-6 max-w-[80%]">
+          <div className="bg-slate-900/95 backdrop-blur-md text-white px-5 py-3 rounded-xl shadow-2xl border border-white/10">
+            <h1 className="text-xl md:text-2xl font-black tracking-tight uppercase italic">
+              Florida Real Estate <span className="text-[#06b6d4]">Drill</span>
+            </h1>
+            <div className="flex items-center gap-2 mt-1">
+              <div className="h-1 w-8 bg-[#06b6d4] rounded-full" />
+              <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-300">
+               Drill. Pass. Repeat.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* 2. THE CONTENT WRAPPER */}
-      <div className="p-8 -mt-12">
-        {/* Title Section */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-md">
-            Florida Real Estate Drill
-          </h1>
+          <div className="p-6 md:p-8">
+<div className="mb-8">
           <p className="text-blue-400 text-md italic font-medium">
             Drill the Concepts. Master the Exam.
           </p>
