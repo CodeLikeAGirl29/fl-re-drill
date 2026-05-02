@@ -2,7 +2,7 @@
 
 A high-performance, interactive exam preparation engine built for Florida Real Estate candidates. This application transforms dry state exam material into a fast, fluid, and high-retention learning experience specifically aligned with the **Pearson VUE Florida State Exam** requirements.
 
-> **View the Live Project:** [redrill.netlify.app](https://redrill.netlify.app/)
+> **View the Live Project:** [redrill.netlify.app](https://fl-re-drill.netlify.app/)
 
 <img src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777312428/Florida-Real-Estate-Exam-Prep-Master-Drill-04-27-2026_12_52_PM_gwzkqo.png" width="100%" alt="Florida Real Estate Drill Demo" />
 
@@ -81,5 +81,5 @@ If you're a Florida Real Estate instructor or student and want to contribute mor
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Open a Pull Request
 
-**Author:** [Lindsey Howard](http://linkedin.com/in/lindseykdev)  
+**Author:** [Lindsey Howard](http://linkedin.com/in/lindsey-howard)  
 **License:** © 2026 RE Master Drill - Proprietary Study Tool
