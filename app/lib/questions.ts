@@ -64,11 +64,11 @@ export const questions: Question[] = [
   {
     id: "q4",
     cat: "Math Calculations",
-    q: "If a buyer has a loan of $275, 000 and the lender charges a 2% loan origination fee, what is the dollar amount of the fee?",
-    options: ["$2, 750", "$5, 500", "$4, 125", "$6, 000"],
+    q: "If a buyer has a loan of $275,000 and the lender charges a 2% loan origination fee, what is the dollar amount of the fee?",
+    options: ["$2,750", "$5,500", "$4,125", "$6,000"],
     correct: 1,
     explanation:
-      "The loan origination fee is calculated by multiplying the loan amount by the percentage: $275, 000 x 0.02 = $5, 500.",
+      "The loan origination fee is calculated by multiplying the loan amount by the percentage: $275,000 x 0.02 = $5,500.",
   },
   {
     id: "q5",
@@ -294,11 +294,11 @@ export const questions: Question[] = [
   {
     id: "q23",
     cat: "Real Estate Taxes and Investment",
-    q: "For a primary residence, what is the maximum standard Homestead exemption amount for a property valued over $75, 000?",
-    options: ["$25, 000", "$50, 000", "$75, 000", "$100, 000"],
+    q: "For a primary residence, what is the maximum standard Homestead exemption amount for a property valued over $75,000?",
+    options: ["$25,000", "$50,000", "$75,000", "$100,000"],
     correct: 1,
     explanation:
-      "Key Point: The first $25, 000 applies to all taxes; the second $25, 000 applies to city and county taxes (but not school taxes) for properties valued over $75, 000.",
+      "Key Point: The first $25,000 applies to all taxes; the second $25,000 applies to city and county taxes (but not school taxes) for properties valued over $75,000.",
   },
   {
     id: "q24",
@@ -317,11 +317,11 @@ export const questions: Question[] = [
   {
     id: "q25",
     cat: "Math Calculations",
-    q: "A property is sold for $200, 000. How much are the documentary stamp taxes on the deed? (Rate: $0.70 per $100)",
-    options: ["$700", "$1, 400", "$2, 000", "$14, 000"],
+    q: "A property is sold for $200,000. How much are the documentary stamp taxes on the deed? (Rate: $0.70 per $100)",
+    options: ["$700", "$1,400", "$2,000", "$14,000"],
     correct: 1,
     explanation:
-      "Calculation: ($200, 000 / 100) * 0.70 = 2, 000 * 0.70 = $1, 400.",
+      "Calculation: ($200,000 / 100) * 0.70 = 2,000 * 0.70 = $1,400.",
   },
   {
     id: "q26",
@@ -443,19 +443,19 @@ export const questions: Question[] = [
     id: "q35",
     cat: "Violations and Penalties",
     q: "What is the maximum administrative fine the FREC can impose for a single violation of Chapter 475?",
-    options: ["$1, 000", "$2, 500", "$5, 000", "$10, 000"],
+    options: ["$1,000", "$2,500", "$5,000", "$10,000"],
     correct: 2,
     explanation:
-      "Key Point: The Florida Real Estate Commission may impose an administrative fine of up to $5, 000 per violation.",
+      "Key Point: The Florida Real Estate Commission may impose an administrative fine of up to $5,000 per violation.",
   },
   {
     id: "q36",
     cat: "Math Calculations",
-    q: "A seller wants to net $150, 000 after paying a 6% commission. What must the property sell for?",
-    options: ["$159, 000", "$159, 574", "$160, 000", "$162, 340"],
+    q: "A seller wants to net $150,000 after paying a 6% commission. What must the property sell for?",
+    options: ["$159,000", "$159,574", "$160,000", "$162,340"],
     correct: 1,
     explanation:
-      "Calculation: Net Amount / (100% - Commission %) = $150, 000 / 0.94 = $159, 574.47.",
+      "Calculation: Net Amount / (100% - Commission %) = $150,000 / 0.94 = $159,574.47.",
   },
   {
     id: "q37",
@@ -502,11 +502,11 @@ export const questions: Question[] = [
   {
     id: "q40",
     cat: "Math Calculations",
-    q: "A lender is charging 3 discount points on a $250, 000 loan. What is the cost of the points to the borrower?",
-    options: ["$2, 500", "$5, 000", "$7, 500", "$10, 000"],
+    q: "A lender is charging 3 discount points on a $250,000 loan. What is the cost of the points to the borrower?",
+    options: ["$2,500", "$5,000", "$7,500", "$10,000"],
     correct: 2,
     explanation:
-      "Each point is 1% of the loan amount. $250, 000 x 0.03 = $7, 500.",
+      "Each point is 1% of the loan amount. $250,000 x 0.03 = $7,500.",
   },
   {
     id: "q41",
@@ -605,10 +605,10 @@ export const questions: Question[] = [
     id: "q48",
     cat: "Brokerage Activities and Procedures",
     q: "What is the maximum amount of personal or business funds a broker can maintain in a sales escrow account?",
-    options: ["$500", "$1, 000", "$5, 000", "$10, 000"],
+    options: ["$500", "$1,000", "$5,000", "$10,000"],
     correct: 1,
     explanation:
-      "Key Point: A broker is permitted to keep up to $1, 000 of personal or business funds in a sales escrow account to cover bank service charges.",
+      "Key Point: A broker is permitted to keep up to $1,000 of personal or business funds in a sales escrow account to cover bank service charges.",
   },
   {
     id: "q49",
@@ -693,10 +693,10 @@ export const questions: Question[] = [
     id: "q55",
     cat: "Violations and Penalties",
     q: "The Real Estate Recovery Fund is maintained by fees and fines paid by licensees. What is the maximum payment allowed for a single judgment?",
-    options: ["$10, 000", "$25, 000", "$50, 000", "$150, 000"],
+    options: ["$10,000", "$25,000", "$50,000", "$150,000"],
     correct: 2,
     explanation:
-      "Key Point: The maximum payment from the Recovery Fund for a single judgment is $50, 000 (or the unsatisfied portion of the judgment, whichever is less).",
+      "Key Point: The maximum payment from the Recovery Fund for a single judgment is $50,000 (or the unsatisfied portion of the judgment, whichever is less).",
   },
   {
     id: "q56",
@@ -795,7 +795,7 @@ export const questions: Question[] = [
     options: [
       "Placing deposit money in an interest-bearing account",
       "Using escrow funds for personal or business expenses",
-      "Maintaining $1, 000 of personal funds in the escrow account",
+      "Maintaining $1,000 of personal funds in the escrow account",
       "Transferring funds to a title company",
     ],
     correct: 1,
@@ -809,8 +809,8 @@ export const questions: Question[] = [
     options: [
       "Suspend a license for up to 10 years",
       "Sentence a licensee to 1 year in jail",
-      "Impose a fine of up to $25, 000",
-      "Require the licensee to perform 1, 000 hours of community service",
+      "Impose a fine of up to $25,000",
+      "Require the licensee to perform 1,000 hours of community service",
     ],
     correct: 0,
     explanation:
@@ -949,10 +949,10 @@ export const questions: Question[] = [
   {
     id: "q77",
     cat: "Math Calculations",
-    q: "A property has a net operating income (NOI) of $40, 000 and the market capitalization rate is 8%. What is the estimated value of the property?",
-    options: ["$320, 000", "$400, 000", "$500, 000", "$600, 000"],
+    q: "A property has a net operating income (NOI) of $40,000 and the market capitalization rate is 8%. What is the estimated value of the property?",
+    options: ["$320,000", "$400,000", "$500,000", "$600,000"],
     correct: 2,
-    explanation: "Value = Income / Rate. $40, 000 / 0.08 = $500, 000.",
+    explanation: "Value = Income / Rate. $40,000 / 0.08 = $500,000.",
   },
   {
     id: "q78",
@@ -985,10 +985,10 @@ export const questions: Question[] = [
   {
     id: "q80",
     cat: "Math Calculations",
-    q: "What are the documentary stamp taxes on a $150, 000 mortgage note in Florida? (Rate: $0.35 per $100)",
-    options: ["$350", "$525", "$750", "$1, 050"],
+    q: "What are the documentary stamp taxes on a $150,000 mortgage note in Florida? (Rate: $0.35 per $100)",
+    options: ["$350", "$525", "$750", "$1,050"],
     correct: 1,
-    explanation: "Calculation: ($150, 000 / 100) * 0.35 = 1, 500 * 0.35 = $525.",
+    explanation: "Calculation: ($150,000 / 100) * 0.35 = 1,500 * 0.35 = $525.",
   },
   {
     id: "q81",
@@ -1047,13 +1047,13 @@ export const questions: Question[] = [
     q: "What is the maximum penalty for a first-degree misdemeanor under Florida real estate law (such as providing inaccurate rental lists)?",
     options: [
       "$500 fine and/or 30 days in jail",
-      "$1, 000 fine and/or one year in jail",
-      "$5, 000 fine and/or five years in jail",
-      "License revocation and a $10, 000 fine",
+      "$1,000 fine and/or one year in jail",
+      "$5,000 fine and/or five years in jail",
+      "License revocation and a $10,000 fine",
     ],
     correct: 1,
     explanation:
-      "Key Point: A first-degree misdemeanor is punishable by a fine of up to $1, 000 and/or imprisonment for up to one year.",
+      "Key Point: A first-degree misdemeanor is punishable by a fine of up to $1,000 and/or imprisonment for up to one year.",
   },
   {
     id: "q86",
@@ -1146,20 +1146,20 @@ export const questions: Question[] = [
   {
     id: "q93",
     cat: "Math Calculations",
-    q: "A property was purchased for $180, 000 and sold for $216, 000. What was the percentage of profit?",
+    q: "A property was purchased for $180,000 and sold for $216,000. What was the percentage of profit?",
     options: ["15%", "20%", "25%", "30%"],
     correct: 1,
     explanation:
-      "Key Point: Profit = $216, 000 - $180, 000 = $36, 000. Profit % = $36, 000 / $180, 000 = 0.20 or 20%.",
+      "Key Point: Profit = $216,000 - $180,000 = $36,000. Profit % = $36,000 / $180,000 = 0.20 or 20%.",
   },
   {
     id: "q94",
     cat: "Math Calculations",
-    q: "If a property's assessed value is $200, 000 and the tax rate is 25 mills, what is the annual property tax bill?",
-    options: ["$500", "$2, 500", "$5, 000", "$7, 500"],
+    q: "If a property's assessed value is $200,000 and the tax rate is 25 mills, what is the annual property tax bill?",
+    options: ["$500", "$2,500", "$5,000", "$7,500"],
     correct: 2,
     explanation:
-      "Key Point: A mill is $1 per $1, 000. Calculation: ($200, 000 / 1, 000) * 25 = 200 * 25 = $5, 000.",
+      "Key Point: A mill is $1 per $1,000. Calculation: ($200,000 / 1,000) * 25 = 200 * 25 = $5,000.",
   },
   {
     id: "q95",
