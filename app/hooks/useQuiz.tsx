@@ -41,6 +41,23 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     if (saved) setHasSavedProgress(true);
   }, []);
 
+  useEffect(() => {
+    if (view === 'quiz' || view === 'review') {
+      const saved = localStorage.getItem('fl_quiz_progress');
+      if (saved) {
+        const data = JSON.parse(saved);
+        data.idx = currentIdx;
+        data.time = seconds;
+        data.scr = score;
+        data.userAnswers = userAnswers;
+        data.markedQuestions = Array.from(markedQuestions);
+        data.orderedQuestions = activeQuestions; // Keep the randomized set
+        localStorage.setItem('fl_quiz_progress', JSON.stringify(data));
+        setHasSavedProgress(true); // Ensure button stays visible
+      }
+    }
+  }, [currentIdx, seconds, score, userAnswers, markedQuestions, view, activeQuestions]);
+
   // --- 3. Start Fresh Quiz ---
   const handleNewQuiz = useCallback((category: string = "All Categories", limit?: number) => {
     let filtered = category === "All Categories"
@@ -57,6 +74,7 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     setMarkedQuestions(new Set());
     setMissedCategories([]);
     resetTimer(0);
+    setHasSavedProgress(true);
 
     localStorage.setItem('fl_quiz_progress', JSON.stringify({
       idx: 0,

@@ -34,7 +34,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
       {/* 1. THE IMAGE HEADER */}
       <div className="relative h-64 w-full border-b border-[#444444]">
         <img
-          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777591992/reddit_lbckmz.jpg"
+          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777850611/fl-hero-img_tkgg0y.png"
           alt="Florida Real Estate"
           className="w-full h-full object-cover"
         />

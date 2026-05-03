@@ -203,7 +203,7 @@ export const questions: Question[] = [
     cat: "Brokerage Activities and Procedures",
     q: "A sales associate receives an earnest money deposit on Monday. By what day must the broker deposit the funds into an escrow account?",
     options: ["Tuesday", "Wednesday", "Thursday", "Friday"],
-    correct: 3,
+    correct: 2,
     explanation:
       "Key Point: The sales associate must deliver the deposit to the broker by the end of the next business day (Tuesday). The broker must deposit it by the end of the third business day after receipt (Thursday).",
   },

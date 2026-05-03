@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Timer, Bookmark, BookmarkCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import BreathingDivider from './BreathingDivider';
+import DiamondDivider from './DiamondDivider';
 
 // 1. Define the shape of a single Question
 interface Question {
@@ -145,7 +145,7 @@ export default function QuestionCard({
       <h3 className="mb-6 text-lg font-medium text-white leading-tight">
         {q.q}
       </h3>
-      <BreathingDivider />
+      <DiamondDivider />
       {/* 1. Wrap the list in a motion.div and apply containerVariants */}
       <motion.div
         variants={containerVariants}

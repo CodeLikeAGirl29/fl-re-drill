@@ -7,7 +7,7 @@ import QuestionCard from "./quiz/QuestionCard";
 import ResultsView from "./quiz/ResultsView";
 import FormulaModal from "./FormulaModal";
 import QuizCalculator from "./QuizCalculator";
-import BreathingDivider from "./quiz/BreathingDivider";
+import DiamondDivider from "./quiz/DiamondDivider";
 
 import { useQuiz } from "../hooks/useQuiz";
 import { useTimer } from "../hooks/useTimer";
@@ -115,7 +115,7 @@ export default function QuizContainer() {
               <h2 className="text-3xl font-black text-white mb-2 uppercase tracking-tight">Final Audit</h2>
               <p className="text-slate-400 text-xs font-bold uppercase tracking-widest italic">Review flagged items before state submission.</p>
             </div>
-            <BreathingDivider />
+            <DiamondDivider />
             <div className="grid grid-cols-6 sm:grid-cols-10 gap-2 mb-10 max-h-64 overflow-y-auto pr-2">
               {qz.activeQuestions.map((_, i) => (
                 <button
