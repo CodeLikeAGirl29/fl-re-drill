@@ -164,8 +164,7 @@ export default function QuestionCard({
               whileHover={{
                 scale: 1.01,
                 x: 4,
-                backgroundColor: "#ffffff1a"
-              }} // Subtle "Cyberpunk" slide-out
+              }}
               whileTap={{ scale: 0.98 }}
               disabled={isAnswered}
               onClick={() => { setSelected(i); setIsAnswered(true); }}

@@ -53,8 +53,8 @@ export default function QuizContainer() {
         <div className="w-full mb-6 group">
           <div className="flex justify-between items-end mb-1.5 px-1">
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">Session Progress</span>
-            <span className="text-[9px] font-black text-cyan-500 uppercase tracking-widest">
-              {qz.currentIdx + 1} / {qz.activeQuestions.length}
+            <span className="text-[9.5px] font-black text-cyan-500 uppercase tracking-widest">
+              {Math.round(((qz.currentIdx + 1) / qz.activeQuestions.length) * 100)}%
             </span>
           </div>
           <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
@@ -76,7 +76,7 @@ export default function QuizContainer() {
               onResume={qz.handleResume} // Pass the resume function
               onWeakestDrill={qz.handleWeakestLinkDrill} // Pass the weakest link function
               hasProgress={qz.hasSavedProgress} // Pass the boolean check
-              onStart={() => {}}
+              onStart={() => { }}
             />
           </motion.div>
         )}

@@ -29,16 +29,16 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
   const categories = ["All Categories", ...getUniqueCategories(questions)];
 
   return (
-<div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
-      
+    <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
+
       {/* 1. THE IMAGE HEADER */}
       <div className="relative h-64 w-full border-b border-[#444444]">
-        <img 
+        <img
           src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777591992/reddit_lbckmz.jpg"
           alt="Florida Real Estate"
           className="w-full h-full object-cover"
         />
-        
+
         {/* 2. THE FLOATING BANNER (Left Aligned) */}
         <div className="absolute bottom-6 left-6 max-w-[80%]">
           <div className="bg-slate-900/95 backdrop-blur-md text-white px-5 py-3 rounded-xl shadow-2xl border border-white/10">
@@ -48,15 +48,15 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
             <div className="flex items-center gap-2 mt-1">
               <div className="h-1 w-8 bg-[#06b6d4] rounded-full" />
               <p className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-300">
-               Drill. Pass. Repeat.
+                Drill. Pass. Repeat.
               </p>
             </div>
           </div>
         </div>
       </div>
 
-          <div className="p-6 md:p-8">
-<div className="mb-8">
+      <div className="p-6 md:p-8">
+        <div className="mb-8">
           <p className="text-blue-400 text-md italic font-medium">
             Drill the Concepts. Master the Exam.
           </p>
@@ -115,7 +115,7 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
           whileHover={{ scale: 1.02, skewX: -2 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => onWeakestDrill(20)}
-          className="w-full mb-6 p-4 bg-rose-500/10 border border-rose-500/30 rounded-2xl flex items-center justify-between group transition-colors hover:bg-rose-500/20"
+          className="w-full mb-6 p-4 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 rounded-2xl flex items-center justify-between group transition-colors"
         >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-rose-500/20 border border-rose-500/40 rounded-xl flex items-center justify-center shadow-[0_0_15px_rgba(244,63,94,0.2)] group-hover:shadow-[0_0_20px_rgba(244,63,94,0.4)] transition-all">

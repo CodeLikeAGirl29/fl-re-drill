@@ -196,8 +196,8 @@ function MathHUDCard({ label, formula, tips }: { label: string, formula: string,
   return (
     <motion.div
       variants={itemVariants}
-      whileHover={{ x: 5, backgroundColor: "#ffffff14" }}
-      className="bg-white/5 border border-white/10 rounded-2xl p-5 group transition-colors"
+      whileHover={{ x: 5 }}
+      className="bg-white/5 border border-white/10 rounded-2xl p-5 group transition-colors hover:bg-white/10"
     >
       <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em] mb-1">{label}</p>
       <p className="text-lg font-black text-white mb-4 tracking-tighter italic">{formula}</p>

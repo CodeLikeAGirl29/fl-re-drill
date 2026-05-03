@@ -68,7 +68,7 @@ export const questions: Question[] = [
     options: ["$2,750", "$5,500", "$4,125", "$6,000"],
     correct: 1,
     explanation:
-      "The loan origination fee is calculated by multiplying the loan amount by the percentage: $275,000 x 0.02 = $5,500.",
+      "Calculation: The loan origination fee is calculated by multiplying the loan amount by the percentage: $275,000 x 0.02 = $5,500.",
   },
   {
     id: "q5",
@@ -106,9 +106,9 @@ export const questions: Question[] = [
     id: "q8",
     cat: "Math Calculations",
     q: "An acre of land contains how many square feet?",
-    options: ["40, 000", "43, 560", "45, 000", "48, 200"],
+    options: ["40,000", "43,560", "45,000", "48,200"],
     correct: 1,
-    explanation: "An acre of land contains 43, 560 square feet.",
+    explanation: "Calculation: An acre of land contains 43,560 square feet.",
   },
   {
     id: "q9",
@@ -358,7 +358,7 @@ export const questions: Question[] = [
     options: ["5 acres", "10 acres", "20 acres", "40 acres"],
     correct: 1,
     explanation:
-      "To calculate: Start with 640 acres (a full section) and divide by the denominators: 640 / 4 / 4 / 4 = 10 acres.",
+      "Calculation: : Start with 640 acres (a full section) and divide by the denominators: 640 / 4 / 4 / 4 = 10 acres.",
   },
   {
     id: "q29",
@@ -506,7 +506,7 @@ export const questions: Question[] = [
     options: ["$2,500", "$5,000", "$7,500", "$10,000"],
     correct: 2,
     explanation:
-      "Each point is 1% of the loan amount. $250,000 x 0.03 = $7,500.",
+      "Calculation: Each point is 1% of the loan amount. $250,000 x 0.03 = $7,500.",
   },
   {
     id: "q41",
@@ -520,7 +520,7 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Full disclosure is a fiduciary duty required of a Single Agent; a Transaction Broker provides limited confidentiality and does not have the duty of full disclosure.",
+      "Key Point: Full disclosure is a fiduciary duty required of a Single Agent; a Transaction Broker provides limited confidentiality and does not have the duty of full disclosure.",
   },
   {
     id: "q42",
@@ -777,7 +777,7 @@ export const questions: Question[] = [
     q: "How many total square feet are in a property that is 200 feet wide and 400 feet deep?",
     options: ["60, 000", "80, 000", "100, 000", "120, 000"],
     correct: 1,
-    explanation: "Area = Width x Depth. 200 x 400 = 80, 000 square feet.",
+    explanation: "Calculation: Area = Width x Depth. 200 x 400 = 80, 000 square feet.",
   },
   {
     id: "q64",
@@ -952,7 +952,7 @@ export const questions: Question[] = [
     q: "A property has a net operating income (NOI) of $40,000 and the market capitalization rate is 8%. What is the estimated value of the property?",
     options: ["$320,000", "$400,000", "$500,000", "$600,000"],
     correct: 2,
-    explanation: "Value = Income / Rate. $40,000 / 0.08 = $500,000.",
+    explanation: "Calculation: Value = Income / Rate. $40,000 / 0.08 = $500,000.",
   },
   {
     id: "q78",
@@ -1230,9 +1230,9 @@ export const questions: Question[] = [
     id: "q100",
     cat: "Math Calculations",
     q: "A developer purchased 4 acres of land. If the developer wants to create 8 equal lots, how many square feet will each lot be (ignoring roads/setbacks)?",
-    options: ["20, 000 sq ft", "21, 780 sq ft", "43, 560 sq ft", "87, 120 sq ft"],
+    options: ["20,000 sq ft", "21,780 sq ft", "43,560 sq ft", "87,120 sq ft"],
     correct: 1,
     explanation:
-      "Total sq ft = 4 acres * 43, 560 sq ft/acre = 174, 240 sq ft. Each lot = 174, 240 / 8 = 21, 780 sq ft.",
+      "Calculation: Total sq ft = 4 acres * 43,560 sq ft/acre = 174,240 sq ft. Each lot = 174,240 / 8 = 21,780 sq ft.",
   },
 ];
