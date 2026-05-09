@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import {
   IoFlash,
   IoBook,
@@ -15,14 +15,20 @@ import { questions } from "../lib/questions";
 import { getUniqueCategories } from "../lib/utils";
 
 interface WelcomeScreenProps {
-  onNew: (category: string, limit?: number) => void;
+  onNew: (category: string, count: number) => void;
+  onStart: () => void;
   onResume: () => void;
+  onWeakestDrill: () => void;
   hasProgress: boolean;
-  onWeakestDrill: (limit?: number) => void;
-  onStart?: () => void;
 }
 
-export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestDrill, onStart }: WelcomeScreenProps) {
+export default function WelcomeScreen({
+  onNew,
+  onResume,
+  hasProgress,
+  onWeakestDrill,
+  onStart,
+}: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
   // Dynamically get categories from your question data
@@ -30,7 +36,6 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
 
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
-
       {/* 1. THE IMAGE HEADER */}
       <div className="relative h-64 w-full border-b border-[#444444]">
         <img
@@ -72,7 +77,8 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
             <div>
               <h4 className="font-semibold text-sm">Smart Shuffle</h4>
               <p className="text-xs text-[#817a8e] leading-relaxed">
-                Every session is unique to prevent &quot;memorizing the order.&quot;
+                Every session is unique to prevent &quot;memorizing the
+                order.&quot;
               </p>
             </div>
           </div>
@@ -122,19 +128,29 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
               <FiTarget className="text-rose-400" size={24} />
             </div>
             <div className="text-left">
-              <p className="text-[10px] font-black text-rose-400 uppercase tracking-[0.2em]">Targeted Protocol</p>
+              <p className="text-[10px] font-black text-rose-400 uppercase tracking-[0.2em]">
+                Targeted Protocol
+              </p>
               <h4 className="text-white font-black uppercase tracking-tight italic text-lg">
                 Weakest <span className="text-rose-400">Link Drill</span>
               </h4>
-              <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Focus on concepts needing reinforcement</p>
+              <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">
+                Focus on concepts needing reinforcement
+              </p>
             </div>
           </div>
-          <IoArrowForward className="text-rose-400 group-hover:translate-x-1 transition-transform" size={20} />
+          <IoArrowForward
+            className="text-rose-400 group-hover:translate-x-1 transition-transform"
+            size={20}
+          />
         </motion.button>
 
         {/* Category Selection Section */}
         <div className="mb-6">
-          <label htmlFor="category-select" className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3">
+          <label
+            htmlFor="category-select"
+            className="flex items-center gap-2 text-[#817a8e] text-xs uppercase tracking-widest font-bold mb-3"
+          >
             <IoFilter size={14} className="text-[#06b6d4]" /> Select Focus Area
           </label>
           <div className="relative">
@@ -164,7 +180,9 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
               onClick={() => onNew(selectedCategory)}
               className="flex-1 group py-4 bg-[#06b6d4] text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] active:scale-95 flex items-center justify-center gap-2"
             >
-              {selectedCategory === "All Categories" ? "Full Master Drill" : `Full Drill`}
+              {selectedCategory === "All Categories"
+                ? "Full Master Drill"
+                : `Full Drill`}
               <IoArrowForward className="group-hover:translate-x-1 transition-transform" />
             </button>
 
@@ -193,11 +211,18 @@ export default function WelcomeScreen({ onNew, onResume, hasProgress, onWeakestD
                   <RotateCcw className="text-white" size={20} />
                 </div>
                 <div className="text-left">
-                  <p className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em]">Active Session Detected</p>
-                  <h4 className="text-white font-bold uppercase tracking-tight">Resume Previous Drill</h4>
+                  <p className="text-[10px] font-black text-cyan-400 uppercase tracking-[0.2em]">
+                    Active Session Detected
+                  </p>
+                  <h4 className="text-white font-bold uppercase tracking-tight">
+                    Resume Previous Drill
+                  </h4>
                 </div>
               </div>
-              <Play className="text-cyan-400 group-hover:translate-x-1 transition-transform" size={20} />
+              <Play
+                className="text-cyan-400 group-hover:translate-x-1 transition-transform"
+                size={20}
+              />
             </motion.button>
           )}
         </div>
