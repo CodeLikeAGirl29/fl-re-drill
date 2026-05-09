@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
+import Link from "next/link";
+import { motion } from "framer-motion";
 import { FaLaptopHouse } from "react-icons/fa";
 import { IoCalculatorOutline } from "react-icons/io5";
-
 
 interface HeaderProps {
   onOpenFormulas: () => void;
@@ -47,6 +46,6 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
         <IoCalculatorOutline size={17} className="w-3.5 h-3.5" />
         <span className="hidden sm:inline">Formulas</span>
       </motion.button>
-    </header >
+    </header>
   );
 }

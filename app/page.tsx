@@ -1,9 +1,10 @@
-'use client';
-import { useState } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import QuizContainer from './components/QuizContainer';
-import FormulaModal from './components/FormulaModal';
+"use client";
+
+import { useState } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import QuizContainer from "./components/QuizContainer";
+import FormulaModal from "./components/FormulaModal";
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,7 +17,10 @@ export default function Home() {
       </main>
       <Footer />
       {/* The Modal lives here so it can be triggered from the Header */}
-      <FormulaModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <FormulaModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
