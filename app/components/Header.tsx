@@ -1,9 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaLaptopHouse } from "react-icons/fa";
+import { FaLaptopHouse, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoCalculatorOutline } from "react-icons/io5";
+import { createClient } from "@/app/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   onOpenFormulas: () => void;
@@ -11,6 +14,34 @@ interface HeaderProps {
 }
 
 export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
+  const [user, setUser] = useState<any>(null);
+  const supabase = createClient();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Check initial session
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      setUser(user);
+    };
+    getUser();
+
+    // Listen for auth changes (sign in/out)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [supabase]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.refresh();
+  };
   return (
     <header className="w-full py-4 px-6 flex justify-between items-center bg-slate-900/60 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
       <Link
@@ -36,16 +67,42 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
         </div>
       </Link>
 
-      {/* NEW: Formula Button Integrated into Header */}
-      <motion.button
-        whileHover={{ skewX: -12 }}
-        whileTap={{ scale: 0.95 }}
-        onClick={onOpenFormulas}
-        className="flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-cyan-500/20 hover:text-white transition-all font-space"
-      >
-        <IoCalculatorOutline size={17} className="w-3.5 h-3.5" />
-        <span className="hidden sm:inline">Formulas</span>
-      </motion.button>
+      <div className="flex items-center gap-3">
+        {/* NEW: Formula Button Integrated into Header */}
+        <motion.button
+          whileHover={{ skewX: -12 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={onOpenFormulas}
+          className="flex items-center gap-2 bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-cyan-500/20 hover:text-white transition-all font-space"
+        >
+          <IoCalculatorOutline size={17} className="w-3.5 h-3.5" />
+          <span className="hidden sm:inline">Formulas</span>
+        </motion.button>
+
+        {/* Auth Button */}
+        {user ? (
+          <motion.button
+            whileHover={{ skewX: -12 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleSignOut}
+            className="flex items-center gap-2 bg-rose-500/10 border border-rose-400/20 text-rose-300 px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-rose-500/20 hover:text-white transition-all font-space"
+          >
+            <FaSignOutAlt size={14} />
+            <span className="hidden sm:inline">Sign Out</span>
+          </motion.button>
+        ) : (
+          <Link href="/login">
+            <motion.button
+              whileHover={{ skewX: -12 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 bg-slate-500/10 border border-slate-400/20 text-slate-300 px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-slate-500/20 hover:text-white transition-all font-space"
+            >
+              <FaUserCircle size={14} />
+              <span className="hidden sm:inline">Sign In</span>
+            </motion.button>
+          </Link>
+        )}
+      </div>
     </header>
   );
 }
