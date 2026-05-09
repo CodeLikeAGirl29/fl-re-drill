@@ -26,9 +26,14 @@ import {
 interface QuizContainerProps {
   mode: "standard" | "quick20" | "flashcards";
   onExit: () => void;
+  isAuthenticated: boolean;
 }
 
-export default function QuizContainer({ mode, onExit }: QuizContainerProps) {
+export default function QuizContainer({
+  mode,
+  onExit,
+  isAuthenticated,
+}: QuizContainerProps) {
   const tm = useTimer();
   const qz = useQuiz(tm.seconds, tm.resetTimer);
 
@@ -105,7 +110,10 @@ export default function QuizContainer({ mode, onExit }: QuizContainerProps) {
               </span>
             </div>
           </div>
-          <FlashcardContainer questions={preparedFlashcards} />
+          <FlashcardContainer
+            questions={preparedFlashcards}
+            isAuthenticated={isAuthenticated}
+          />
         </motion.div>
       </div>
     );
