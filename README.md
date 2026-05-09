@@ -8,78 +8,126 @@ A high-performance, interactive exam preparation engine built for Florida Real E
 
 -----
 
-## 🚀 Key Features
+🚀 Key Features
+🎴 Swipe-to-Master Flashcards: A Framer Motion-powered 3D flashcard engine. Swipe Right to mark as Mastered or Left for Review—perfect for tactile, rapid-fire learning.
 
-* **⚡ Quick 20 Session:** High-impact "flash" study mode that shuffles and slices the bank into 20 random questions—perfect for rapid review on the go.
-* **🎯 Pearson VUE Alignment:** 100+ precision-engineered questions categorized into official state exam sections (License Law, Agency, Appraisal, etc.).
-* **🖱️ Neobrutalist UI:** A sharp, "Cyberpunk" aesthetic featuring tactile 3D hover effects, glowing progress indicators, and a responsive layout.
-* **⌨️ Keyboard-First Navigation:** Optimized for speed-running drills:
-    * **[1, 2, 3, 4]**: Select answer.
-    * **[M]**: Toggle "Mark for Review" status.
-    * **[Enter]**: Advance to next question.
-* **🚩 Non-Linear Review & Final Audit:** Skip difficult items and flag them. The **Review Engine** allows users to jump directly to flagged items and return to the audit screen instantly after correction—mimicking official Pearson VUE testing software.
-* **🔁 Intelligent Persistence:** Robust `localStorage` synchronization using **Lazy Initialization**. Resuming a session perfectly restores your score, timer, marked flags, and question subset.
+📊 Performance Analytics: Real-time data visualization of your mastery across four key domains: Law, Principles, Brokerage, and Finance.
 
------
+⚡ Quick 20 Session: High-impact "flash" study mode that shuffles and slices the bank into 20 random questions.
 
-## 🛠️ Technical Upgrades & Optimization
+⌨️ Keyboard-First Navigation: Optimized for speed-running multiple-choice drills:
 
-* **Next.js 15 & React 19:** Fully compatible with the latest Next.js 15 standards, including asynchronous `searchParams` and the new React `use` patterns.
-* **Zero "Cascading Renders":** Optimized state management using the `key` prop strategy and `useCallback` memoization to ensure UI transitions are sub-16ms.
-* **Modernizr Integration:** Implemented custom browser feature detection to ensure "Cyberpunk" clip-path dividers and CSS-grid layouts degrade gracefully on older devices.
-* **Lighthouse Optimized:**
-    * **FCP/LCP:** Leveraging Next.js `Script` strategy (`beforeInteractive`) for critical utilities.
-    * **CLS Mitigation:** Sized-adjusted Google Font configurations to prevent content jumping during hydration.
-* **Full Type Safety:** 100% TypeScript coverage with strict interfaces for the `Question` and `Category` types, eliminating runtime crashes during complex math calculations.
+[1, 2, 3, 4]: Select answer | [M]: Toggle Flag | [Enter]: Advance.
 
------
+🎖️ Dynamic Candidate Ranking: Gamified progression system that promotes you from Novice to Master based on your live database stats.
 
-## 📁 Architecture (Colocation Pattern)
+🔁 Full-Stack Persistence: Integrated with Supabase & Next.js Server Actions. Your progress, marked items, and domain mastery are synced to your account in real-time.
 
-```text
-app/
-├── components/       
-│   ├── quiz/        # QuestionCard, ResultsView, ScoreChart (Chart.js 2)
-│   ├── Welcome/     # Category selection & "Quick 20" logic
-│   └── tools/       # QuizCalculator, FormulaModal (Math-heavy logic)
-├── hooks/           # useQuiz (State Machine), useTimer (Precision tracking)
-├── lib/             
-│   ├── questions.ts # The Pearson VUE Bank (JSON-formatted)
-│   └── utils.ts     # Double-Shuffle & Linear-to-Review navigation logic
-├── globals.css      # Tailwind v4 & Neobrutalist Utility Classes
-└── layout.tsx       # Modernizr injection & Metadata API
+🛠️ Technical Upgrades & Optimization
+Next.js 15 (Server Actions): Leveraging 'use server' for secure database upserts and revalidatePath for instant UI cache purging.
+
+Supabase & RLS: Secure user data architecture using PostgreSQL and Row Level Security to ensure candidate progress is private and persistent.
+
+Framer Motion 12: High-fidelity animations including 3D card flips, spring-physics dragging, and SVG drawing for the mastery progress rings.
+
+Lighthouse Optimized: * CLS Mitigation: Size-adjusted font configurations and skeleton-loading states for data-heavy dashboard views.
+
+Full Type Safety: 100% TypeScript coverage with strict interfaces for MasteryRecord, FlashcardData, and User contexts.
+
+📁 Architecture (Colocation Pattern)
+```
+fl-re-drill/
+├── .gitignore
+├── AGENTS.md
+├── CLAUDE.md
+├── README.md
+├── app/
+│   ├── (auth)/
+│   │   ├── auth-code-error/
+│   │   │   └── page.tsx
+│   │   └── login/
+│   │       └── page.tsx
+│   ├── api/
+│   │   └── auth/
+│   │       └── callback/
+│   │           └── route.ts
+│   ├── components/
+│   │   ├── Dashboard.tsx
+│   │   ├── Flashcard.tsx
+│   │   ├── FlashcardContainer.tsx
+│   │   ├── Footer.tsx
+│   │   ├── FormulaModal.tsx
+│   │   ├── Header.tsx
+│   │   ├── ProgressBar.tsx
+│   │   ├── QuizCalculator.tsx
+│   │   ├── QuizContainer.tsx
+│   │   ├── WelcomeScreen.tsx
+│   │   ├── dashboard/
+│   │   │   ├── AnalyticsView.tsx
+│   │   │   └── ChecklistView.tsx
+│   │   └── quiz/
+│   │       ├── DiamondDivider.tsx
+│   │       ├── QuestionCard.tsx
+│   │       ├── QuizCard.tsx
+│   │       ├── ResultsView.tsx
+│   │       └── ScoreChart.tsx
+│   ├── globals.css
+│   ├── hooks/
+│   │   ├── useQuiz.tsx
+│   │   └── useTimer.ts
+│   ├── icon.svg
+│   ├── layout.tsx
+│   ├── lib/
+│   │   ├── actions/
+│   │   │   └── mastery.ts
+│   │   ├── flashcards.ts
+│   │   ├── formula-data.tsx
+│   │   ├── questions.ts
+│   │   ├── supabase/
+│   │   │   ├── client.ts
+│   │   │   ├── middleware.ts
+│   │   │   └── server.ts
+│   │   └── utils.ts
+│   ├── middleware.ts
+│   └── page.tsx
+├── eslint.config.mjs
+├── next.config.js
+├── package-lock.json
+├── package.json
+├── postcss.config.mjs
+├── public/
+│   ├── file.svg
+│   ├── globe.svg
+│   ├── next.svg
+│   ├── vercel.svg
+│   └── window.svg
+├── tailwind.config.js
+└── tsconfig.json
 ```
 
------
+📐 Mathematical Formulas Included
+The integrated FormulaModal provides instant access to:
 
-## 📐 Mathematical Formulas Included
+Deed Stamps: (Price / 100) * $0.70
 
-The integrated **FormulaModal** provides instant access to:
+Intangible Tax: New Mortgage * $0.002
 
-* **Deed Stamps:** `(Price / 100) * $0.70` (Automatic rounding logic)
-* **Note Stamps:** `(Debt / 100) * $0.35`
-* **Intangible Tax:** `New Mortgage * $0.002`
-* **Acreage:** `43,560` Square Feet
-* **The IRV Circle:** `Income = Rate × Value`
+The IRV Circle: Income = Rate × Value
 
------
+Acreage: 43,560 Square Feet
 
-## 🗺️ Roadmap
+🗺️ Roadmap
+[x] Flashcard Mode: Tactile 3D swipe interface.
 
-- [x] **Quick 20 Mode:** Randomized mini-sessions.
-- [x] **Review Jump Logic:** Non-linear navigation for flagged items.
-- [ ] **Timed Mock Exam:** 3.5-hour simulation with zero feedback until completion.
-- [ ] **Supabase Sync:** Cross-device progress saving via user accounts.
+[x] Supabase Sync: Persistent cross-device mastery tracking.
 
------
+[x] Analytics Suite: Live domain performance charts.
 
-### 🤝 Support & Contribution
+[ ] Timed Mock Exam: 3.5-hour simulation with zero feedback until completion.
 
-If you're a Florida Real Estate instructor or student and want to contribute more questions:
+[ ] Voice-to-Term: AI-powered term definitions for hands-free study.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Open a Pull Request
+🤝 Support & Contribution
+Author: Lindsey Howard
 
-**Author:** [Lindsey Howard](http://linkedin.com/in/lindsey-howard)  
-**License:** © 2026 RE Master Drill - Proprietary Study Tool
+License: © 2026 RE Master Drill - Proprietary Study Tool
