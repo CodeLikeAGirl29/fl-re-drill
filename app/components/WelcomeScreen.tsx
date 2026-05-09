@@ -13,6 +13,7 @@ import { FiTarget } from "react-icons/fi";
 import { RotateCcw, Play } from "lucide-react";
 import { questions } from "../lib/questions";
 import { getUniqueCategories } from "../lib/utils";
+import Image from "next/image";
 
 interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
@@ -44,13 +45,15 @@ export default function WelcomeScreen({
   return (
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
       {/* 1. THE IMAGE HEADER */}
-      <div className="relative h-64 w-full border-b border-[#444444]">
-        <img
-          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777850611/fl-hero-img_tkgg0y.png"
+      <div className="relative w-full aspect-video mb-8 overflow-hidden border-2 border-white/20">
+        <Image
+          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1778350680/hero_yt1pfh.png"
           alt="Florida Real Estate"
+          fill
+          priority
           className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100vw, 800px"
         />
-
         {/* 2. THE FLOATING BANNER (Left Aligned) */}
         <div className="absolute bottom-6 left-6 max-w-[80%]">
           <div className="bg-slate-900/95 backdrop-blur-md text-white px-5 py-3 rounded-xl shadow-2xl border border-white/10">

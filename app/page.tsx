@@ -41,7 +41,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-slate-950 font-sans">
+    <div className="flex flex-col min-h-screen font-sans">
       <Header onOpenFormulas={() => setIsModalOpen(true)} onHome={handleExit} />
 
       <main className="flex-grow flex items-center justify-center p-4">
