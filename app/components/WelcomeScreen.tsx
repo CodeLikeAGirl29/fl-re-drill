@@ -18,7 +18,7 @@ interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
   onStart: () => void;
   onResume: () => void;
-  onWeakestDrill: () => void;
+  onWeakestDrill: (limit?: number) => void;
   hasProgress: boolean;
 }
 
