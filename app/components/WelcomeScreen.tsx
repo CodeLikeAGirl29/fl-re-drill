@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   IoFlash,
@@ -18,7 +18,7 @@ interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
   onStart: () => void;
   onResume: () => void;
-  onWeakestDrill: (limit?: number) => void;
+  onWeakestDrill: (limit: number) => void;
   hasProgress: boolean;
 }
 
@@ -30,6 +30,13 @@ export default function WelcomeScreen({
   onStart,
 }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+
+  const categoryCount = useMemo(() => {
+    if (selectedCategory === "All Categories") {
+      return questions.length;
+    }
+    return questions.filter((q) => q.cat === selectedCategory).length;
+  }, [selectedCategory]);
 
   // Dynamically get categories from your question data
   const categories = ["All Categories", ...getUniqueCategories(questions)];
@@ -177,7 +184,7 @@ export default function WelcomeScreen({
           {/* Primary Actions side-by-side */}
           <div className="flex flex-col md:flex-row gap-3">
             <button
-              onClick={() => onNew(selectedCategory)}
+              onClick={() => onNew(selectedCategory, categoryCount)}
               className="flex-1 group py-4 bg-[#06b6d4] text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] active:scale-95 flex items-center justify-center gap-2"
             >
               {selectedCategory === "All Categories"
