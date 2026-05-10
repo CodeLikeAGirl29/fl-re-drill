@@ -9,6 +9,7 @@ import {
   FaChartLine,
   FaFire,
   FaGraduationCap,
+  FaChevronRight,
 } from "react-icons/fa";
 import cn from "classnames";
 
@@ -36,7 +37,6 @@ export default function Dashboard({
     "main" | "analytics" | "checklist"
   >("main");
 
-  // Mastery Logic
   const masteredCount = masteryStats.filter(
     (s) => s.status === "mastered",
   ).length;
@@ -44,88 +44,79 @@ export default function Dashboard({
   const progressPercent = Math.round((masteredCount / totalQuestions) * 100);
 
   const getRankInfo = (pct: number) => {
-    if (pct >= 90) return { name: "Master", color: "text-yellow-500" };
-    if (pct >= 75) return { name: "Expert", color: "text-cyan-400" };
-    if (pct >= 50) return { name: "Senior", color: "text-purple-400" };
-    if (pct >= 20) return { name: "Associate", color: "text-blue-400" };
-    return { name: "Novice", color: "text-slate-500" };
+    if (pct >= 90)
+      return {
+        name: "Master",
+        color: "text-yellow-400",
+        glow: "shadow-yellow-500/20",
+      };
+    if (pct >= 75)
+      return {
+        name: "Expert",
+        color: "text-cyan-400",
+        glow: "shadow-cyan-500/20",
+      };
+    if (pct >= 50)
+      return {
+        name: "Senior",
+        color: "text-purple-400",
+        glow: "shadow-purple-500/20",
+      };
+    if (pct >= 20)
+      return {
+        name: "Associate",
+        color: "text-blue-400",
+        glow: "shadow-blue-500/20",
+      };
+    return {
+      name: "Novice",
+      color: "text-slate-400",
+      glow: "shadow-slate-500/10",
+    };
   };
 
   const rank = getRankInfo(progressPercent);
 
-  // Animation variants
-  const containerVars = {
-    initial: { opacity: 0, y: 10 },
-    animate: { opacity: 1, y: 0, transition: { staggerChildren: 0.1 } },
-  };
-
-  const itemVars = {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-  };
-
   return (
-    <div className="w-full max-w-5xl p-6 font-space">
+    <div className="w-full max-w-6xl p-6">
       <AnimatePresence mode="wait">
         {activeSubView === "main" ? (
           <motion.div
             key="main"
-            variants={containerVars}
-            initial="initial"
-            animate="animate"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -20 }}
-            className="space-y-10"
+            className="space-y-8"
           >
             {/* --- HERO SECTION --- */}
-            <motion.div
-              variants={itemVars}
-              className="relative bg-slate-900 border-4 border-white p-8 shadow-[12px_12px_0px_0px_rgba(255,255,255,0.05)]"
-            >
-              <div className="relative z-10">
-                <p className="text-slate-500 font-black uppercase tracking-[0.3em] text-[10px] mb-2">
-                  Active Candidate Session
-                </p>
-
-                <h2 className="text-5xl font-black uppercase italic text-white leading-tight [text-shadow:2px_2px_0px_rgba(0,0,0,0.4)]">
-                  Hello, <br />
-                  <span className="text-cyan-400">
-                    {user.email?.split("@")[0]}
-                  </span>
-                </h2>
-
-                <div className="mt-8 flex flex-col md:flex-row items-end gap-6">
-                  <div className="flex-grow w-full max-w-md">
-                    <div className="flex justify-between mb-2">
-                      <span className="text-[10px] font-black uppercase text-slate-500 tracking-widest">
-                        Mastery
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+              <div className="relative bg-slate-900/60 backdrop-blur-2xl border border-white/10 rounded-3xl p-10 shadow-2xl">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                  <div>
+                    <p className="text-cyan-500 font-black uppercase tracking-[0.4em] text-[10px] mb-3">
+                      Candidate Data Stream / Active
+                    </p>
+                    <h2 className="text-5xl font-black uppercase italic text-white tracking-tighter">
+                      Welcome,{" "}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                        {user.email?.split("@")[0]}
                       </span>
-                      <span className="text-[10px] font-black uppercase text-white">
-                        {progressPercent}%
-                      </span>
-                    </div>
-                    <div className="h-2 w-full bg-white/5 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${progressPercent}%` }}
-                        className="h-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-                      />
-                    </div>
+                    </h2>
                   </div>
 
                   <div
                     className={cn(
-                      "border-2 px-6 py-3 text-center min-w-[140px] transition-all duration-700",
-                      progressPercent >= 75
-                        ? "border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
-                        : "border-white/10",
+                      "bg-slate-950/50 border border-white/10 px-8 py-4 rounded-2xl text-center backdrop-blur-md shadow-xl",
+                      rank.glow,
                     )}
                   >
-                    <p className="text-[9px] font-black text-slate-500 uppercase tracking-tighter mb-1">
-                      Current Rank
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">
+                      Rank Status
                     </p>
                     <p
                       className={cn(
-                        "text-xl font-black uppercase italic",
+                        "text-2xl font-black uppercase italic tracking-tighter",
                         rank.color,
                       )}
                     >
@@ -133,73 +124,74 @@ export default function Dashboard({
                     </p>
                   </div>
                 </div>
+
+                <div className="mt-10 max-w-2xl">
+                  <div className="flex justify-between items-end mb-3">
+                    <span className="text-[11px] font-black uppercase text-slate-400 tracking-widest">
+                      Mastery Progress
+                    </span>
+                    <span className="text-2xl font-black text-white">
+                      {progressPercent}%
+                    </span>
+                  </div>
+                  <div className="h-3 w-full bg-slate-950 rounded-full border border-white/5 p-[2px] overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progressPercent}%` }}
+                      className="h-full bg-gradient-to-r from-cyan-600 to-cyan-400 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.4)]"
+                    />
+                  </div>
+                </div>
               </div>
-            </motion.div>
+            </div>
 
             {/* --- DRILL MODULES GRID --- */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <DrillCard
                 title="The Standard"
-                subtitle="100 Question Full Audit"
+                subtitle="Full 100-Question Exam Simulation"
                 icon={<FaPlay />}
-                color="bg-cyan-500"
+                color="from-cyan-500 to-blue-600"
+                glow="group-hover:shadow-cyan-500/20"
                 onClick={() => onStartQuiz("standard")}
               />
               <DrillCard
-                title="Rapid Drill"
-                subtitle="Quick 20 Performance Hit"
+                title="Rapid Fire"
+                subtitle="High-Intensity 20 Question Hit"
                 icon={<FaFire />}
-                color="bg-rose-500"
+                color="from-rose-500 to-orange-600"
+                glow="group-hover:shadow-rose-500/20"
                 onClick={() => onStartQuiz("quick20")}
               />
               <DrillCard
                 title="Flashcards"
-                subtitle="Swipe to Master Terms"
+                subtitle="Swipe & Memorize Core Principles"
                 icon={<FaSwatchbook />}
-                color="bg-purple-500"
+                color="from-purple-500 to-indigo-600"
+                glow="group-hover:shadow-purple-500/20"
                 onClick={() => onStartQuiz("flashcards")}
               />
             </div>
 
             {/* --- SUB-VIEW TOGGLES --- */}
-            <motion.div
-              variants={itemVars}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-            >
-              <button
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <SubViewButton
                 onClick={() => setActiveSubView("analytics")}
-                className="flex items-center gap-6 bg-slate-900/50 border-2 border-white/5 p-6 hover:border-cyan-500/50 hover:bg-slate-900 transition-all group text-left"
-              >
-                <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-slate-400 group-hover:text-cyan-400 transition-colors">
-                  <FaChartLine size={20} />
-                </div>
-                <div>
-                  <h4 className="text-sm font-black uppercase text-white tracking-widest">
-                    Performance Analytics
-                  </h4>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase">
-                    Visualize your weakest domains
-                  </p>
-                </div>
-              </button>
-
-              <button
+                icon={<FaChartLine size={22} />}
+                title="Performance Analytics"
+                desc="Deep dive into your domain strengths"
+                hoverColor="hover:border-cyan-500/50"
+                iconColor="group-hover:text-cyan-400"
+              />
+              <SubViewButton
                 onClick={() => setActiveSubView("checklist")}
-                className="flex items-center gap-6 bg-slate-900/50 border-2 border-white/5 p-6 hover:border-purple-500/50 hover:bg-slate-900 transition-all group text-left"
-              >
-                <div className="w-12 h-12 bg-white/5 rounded-full flex items-center justify-center text-slate-400 group-hover:text-purple-400 transition-colors">
-                  <FaGraduationCap size={20} />
-                </div>
-                <div>
-                  <h4 className="text-sm font-black uppercase text-white tracking-widest">
-                    Exam Checklist
-                  </h4>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase">
-                    Track Florida DBPR requirements
-                  </p>
-                </div>
-              </button>
-            </motion.div>
+                icon={<FaGraduationCap size={22} />}
+                title="Compliance Tracker"
+                desc="Monitor Florida DBPR requirements"
+                hoverColor="hover:border-purple-500/50"
+                iconColor="group-hover:text-purple-400"
+              />
+            </div>
           </motion.div>
         ) : activeSubView === "analytics" ? (
           <AnalyticsView
@@ -218,36 +210,95 @@ export default function Dashboard({
   );
 }
 
-function DrillCard({ title, subtitle, icon, color, onClick }: any) {
+interface DrillCardProps {
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  color: string;
+  glow: string;
+  onClick: () => void;
+}
+
+interface SubViewButtonProps {
+  onClick: () => void;
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+  hoverColor: string;
+  iconColor: string;
+}
+
+function DrillCard({
+  title,
+  subtitle,
+  icon,
+  color,
+  glow,
+  onClick,
+}: DrillCardProps) {
   return (
     <motion.button
-      variants={{
-        initial: { opacity: 0, y: 20 },
-        animate: { opacity: 1, y: 0 },
-      }}
-      whileHover={{
-        y: -8,
-        x: -4,
-        skewX: -2,
-        transition: { duration: 0.2, ease: "easeOut" },
-      }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ y: -5, scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="relative group bg-slate-900 border-4 border-white p-8 text-left shadow-[8px_8px_0px_0px_rgba(255,255,255,0.05)] hover:shadow-[9px_10px_0px_0px_rgba(34,211,238,0.2)] transition-all duration-200"
+      className={cn(
+        "relative group bg-slate-900/40 backdrop-blur-xl border border-white/10 p-8 text-left rounded-3xl transition-all duration-300",
+        glow,
+      )}
     >
       <div
-        className={`w-10 h-10 ${color} text-slate-950 flex items-center justify-center mb-6 
-                 text-lg shadow-[3px_3px_0px_0px_rgba(0,0,0,0.3)]
-                 group-hover:rotate-12 group-hover:scale-110 transition-transform duration-200`}
+        className={cn(
+          "w-12 h-12 bg-gradient-to-br rounded-2xl text-slate-950 flex items-center justify-center mb-6 text-xl shadow-lg",
+          color,
+        )}
       >
         {icon}
       </div>
-      <h3 className="text-xl font-black uppercase italic text-white leading-none mb-2 [text-shadow:1px_1px_0px_rgba(0,0,0,0.5)]">
+      <h3 className="text-2xl font-black uppercase italic text-white mb-2">
         {title}
       </h3>
-      <p className="text-[9px] font-black text-slate-500 uppercase tracking-[0.2em]">
+      <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
         {subtitle}
       </p>
+      <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity">
+        <FaChevronRight className="text-white/20" />
+      </div>
     </motion.button>
+  );
+}
+
+function SubViewButton({
+  onClick,
+  icon,
+  title,
+  desc,
+  hoverColor,
+  iconColor,
+}: SubViewButtonProps) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "flex items-center gap-6 bg-slate-900/40 backdrop-blur-md border border-white/5 p-8 rounded-3xl transition-all group text-left",
+        hoverColor,
+      )}
+    >
+      <div
+        className={cn(
+          "w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-slate-500 transition-all",
+          iconColor,
+        )}
+      >
+        {icon}
+      </div>
+      <div>
+        <h4 className="text-sm font-black uppercase text-white tracking-widest">
+          {title}
+        </h4>
+        <p className="text-[11px] text-slate-500 font-bold uppercase mt-1">
+          {desc}
+        </p>
+      </div>
+    </button>
   );
 }

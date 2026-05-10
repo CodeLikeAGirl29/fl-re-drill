@@ -190,7 +190,10 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
         <p className="text-[12px] font-bold text-slate-300 leading-relaxed uppercase tracking-tight relative z-10">
           {weakest.score < PASSING_THRESHOLD ? (
             <>
-              Your <span className="text-white italic">"{weakest.label}"</span>{" "}
+              Your{" "}
+              <span className="text-white italic">
+                &quot;{weakest.label}&quot;
+              </span>{" "}
               domain is underperforming at{" "}
               <span className="text-rose-500 font-black">{weakest.score}%</span>
               . Florida state standards require{" "}
@@ -200,7 +203,10 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
           ) : (
             <>
               All domains meeting state standards. Weakest link is{" "}
-              <span className="text-white italic">"{weakest.label}"</span> at
+              <span className="text-white italic">
+                &quot;{weakest.label}&quot;
+              </span>{" "}
+              at
               <span className="text-emerald-400 font-black">
                 {" "}
                 {weakest.score}%
@@ -219,15 +225,38 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
 }
 
 // --- SUB-COMPONENTS ---
+interface StatRingCardProps {
+  label: string;
+  value: string;
+  sub: string;
+  color: string;
+  icon: React.ReactNode;
+}
 
-function StatRingCard({ label, value, sub, color, icon }: any) {
+function StatRingCard({ label, value, sub, color, icon }: StatRingCardProps) {
   return (
-    <div className="bg-slate-900 border-2 border-white/5 p-6 flex items-center gap-5 group hover:border-white/20 transition-all">
-      <div
-        className={`text-2xl ${color} opacity-40 group-hover:opacity-100 transition-opacity`}
+    <motion.div
+      whileHover={{ y: -2 }}
+      className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6 flex items-center gap-5 group hover:border-cyan-500/30 transition-all rounded-2xl shadow-xl"
+    >
+      {/* The Skewing Icon Container */}
+      <motion.div
+        whileHover={{
+          skewX: -12,
+          rotate: -5,
+          scale: 1.1,
+        }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+        className={cn(
+          "text-3xl p-3 rounded-xl bg-white/5 transition-colors group-hover:bg-white/10",
+          color,
+        )}
       >
-        {icon}
-      </div>
+        <div className="opacity-40 group-hover:opacity-100 transition-opacity">
+          {icon}
+        </div>
+      </motion.div>
+
       <div>
         <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">
           {label}
@@ -239,11 +268,17 @@ function StatRingCard({ label, value, sub, color, icon }: any) {
           {sub}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
-function ChartBar({ label, percentage, color }: any) {
+interface ChartBarProps {
+  label: string;
+  percentage: number;
+  color: string;
+}
+
+function ChartBar({ label, percentage, color }: ChartBarProps) {
   return (
     <div className="group">
       <div className="flex justify-between mb-2 items-end">

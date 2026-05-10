@@ -151,7 +151,7 @@ export default function QuizContainer({
         <div className="w-full mb-6 group">
           <div className="flex justify-between items-end mb-1.5 px-1">
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-              Session Progress
+              Progress
             </span>
             <span className="text-[9.5px] font-black text-cyan-500 uppercase tracking-widest">
               {Math.round(
@@ -185,67 +185,40 @@ export default function QuizContainer({
         )}
 
         {qz.view === "quiz" && (
-          <motion.div key={`quiz-${qz.currentIdx}`} {...slideUp}>
-            {/* PROGRESS BAR FOR STANDARD QUIZ */}
-            <div className="w-full mb-8 group">
-              <div className="flex justify-between items-end mb-1.5 px-1">
-                <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-                  Drill Progress
-                </span>
-                <span className="text-[9.5px] font-black text-cyan-500 uppercase tracking-widest">
-                  {Math.round(
-                    ((qz.currentIdx + 1) / qz.activeQuestions.length) * 100,
-                  )}
-                  %
-                </span>
-              </div>
-              <div className="h-1.5 w-full bg-white/5 rounded-none overflow-hidden border border-white/5">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{
-                    width: `${((qz.currentIdx + 1) / qz.activeQuestions.length) * 100}%`,
-                  }}
-                  className="h-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.4)]"
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                />
-              </div>
-            </div>
+          <QuestionCard
+            key={qz.currentIdx}
+            index={qz.currentIdx}
+            questionsList={qz.activeQuestions}
+            totalQuestions={qz.activeQuestions.length}
+            currentTime={tm.formatTime()}
+            isMarked={qz.markedQuestions.has(qz.currentIdx)}
+            onToggleMark={() => qz.toggleMark(qz.currentIdx)}
+            onNext={(correct) => {
+              // --- DYNAMIC MASTERY SYNC ---
+              const currentQuestion = qz.activeQuestions[qz.currentIdx];
+              if (currentQuestion && onAnswer) {
+                // This call triggers updateMastery in your server actions
+                onAnswer(currentQuestion.id, correct);
+              }
 
-            {/* QUESTION CARD WITH MASTERY UPDATES */}
-            <QuestionCard
-              index={qz.currentIdx}
-              questionsList={qz.activeQuestions}
-              totalQuestions={qz.activeQuestions.length}
-              currentTime={tm.formatTime()}
-              isMarked={qz.markedQuestions.has(qz.currentIdx)}
-              onToggleMark={() => qz.toggleMark(qz.currentIdx)}
-              onNext={(correct) => {
-                // --- DYNAMIC MASTERY SYNC ---
-                const currentQuestion = qz.activeQuestions[qz.currentIdx];
-                if (currentQuestion && onAnswer) {
-                  // This call triggers updateMastery in your server actions
-                  onAnswer(currentQuestion.id, correct);
-                }
+              // --- NAVIGATION LOGIC ---
+              if (correct) qz.setScore((s) => s + 1);
 
-                // --- NAVIGATION LOGIC ---
-                if (correct) qz.setScore((s) => s + 1);
+              window.scrollTo({ top: 0, behavior: "smooth" });
 
-                window.scrollTo({ top: 0, behavior: "smooth" });
+              if (qz.isReviewJump) {
+                qz.setIsReviewJump(false);
+                qz.setView("review");
+                return;
+              }
 
-                if (qz.isReviewJump) {
-                  qz.setIsReviewJump(false);
-                  qz.setView("review");
-                  return;
-                }
-
-                if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
-                  qz.setView("review");
-                } else {
-                  qz.setCurrentIdx((i) => i + 1);
-                }
-              }}
-            />
-          </motion.div>
+              if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
+                qz.setView("review");
+              } else {
+                qz.setCurrentIdx((i) => i + 1);
+              }
+            }}
+          />
         )}
 
         {qz.view === "review" && (

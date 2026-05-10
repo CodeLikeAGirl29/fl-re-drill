@@ -17,7 +17,6 @@ import Image from "next/image";
 
 interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
-  onStart: () => void;
   onResume: () => void;
   onWeakestDrill: (limit: number) => void;
   hasProgress: boolean;
@@ -28,7 +27,6 @@ export default function WelcomeScreen({
   onResume,
   hasProgress,
   onWeakestDrill,
-  onStart,
 }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
@@ -186,7 +184,9 @@ export default function WelcomeScreen({
         <div className="flex flex-col gap-3">
           {/* Primary Actions side-by-side */}
           <div className="flex flex-col md:flex-row gap-3">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onNew(selectedCategory, categoryCount)}
               className="flex-1 group py-4 bg-[#06b6d4] text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-[1.03] hover:shadow-[0_0_20px_rgba(6,182,212,0.5)] active:scale-95 flex items-center justify-center gap-2"
             >
@@ -194,9 +194,11 @@ export default function WelcomeScreen({
                 ? "Full Master Drill"
                 : `Full Drill`}
               <IoArrowForward className="group-hover:translate-x-1 transition-transform" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => onNew(selectedCategory, 20)}
               className="flex-1 group relative inline-flex items-center justify-center h-14 overflow-hidden rounded-xl border border-indigo-500/50 bg-transparent px-6 font-bold text-indigo-400 transition-all duration-100 [box-shadow:4px_4px_0px_0px_rgba(99,102,241,0.3)] hover:translate-x-[2px] hover:translate-y-[2px] hover:[box-shadow:0px_0px_0px_0px_rgba(99,102,241,0.3)] active:scale-95"
             >
@@ -204,7 +206,7 @@ export default function WelcomeScreen({
                 <IoFlash className="text-yellow-400" />
                 Quick 20
               </span>
-            </button>
+            </motion.button>
           </div>
 
           {/* Resume button stays full width below if progress exists */}
