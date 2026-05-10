@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
-import { Anonymous_Pro, Source_Code_Pro, Montserrat } from "next/font/google";
+import { Anonymous_Pro, Source_Code_Pro, Montserrat, Oxanium, Raleway } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
+
+const ralewayHeading = Raleway({subsets:['latin'],variable:'--font-heading'});
+
+const oxanium = Oxanium({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
   title: "Florida Real Estate Exam Prep | Master Drill",
@@ -41,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${montserrat.variable} ${anonPro.variable} ${sourceCodePro.variable}`}
+      className={cn(montserrat.variable, anonPro.variable, sourceCodePro.variable, "font-sans", oxanium.variable, ralewayHeading.variable)}
       suppressHydrationWarning
     >
       <body className="text-[16px] sm:text-base">{children}</body>

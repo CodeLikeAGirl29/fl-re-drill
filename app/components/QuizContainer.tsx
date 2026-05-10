@@ -25,14 +25,18 @@ import {
 
 interface QuizContainerProps {
   mode: "standard" | "quick20" | "flashcards";
+  onAnswer: (id: string, isCorrect: boolean) => void;
   onExit: () => void;
   isAuthenticated: boolean;
+  masteryStats: MasteryRecord[];
 }
 
 export default function QuizContainer({
   mode,
   onExit,
+  onAnswer,
   isAuthenticated,
+  masteryStats,
 }: QuizContainerProps) {
   const tm = useTimer();
   const qz = useQuiz(tm.seconds, tm.resetTimer);
@@ -93,26 +97,46 @@ export default function QuizContainer({
 
   // --- BRANCH: FLASHCARD MODE ---
   if (mode === "flashcards") {
+    // Use a local state or qz hook to track current index if needed,
+    // or use the length of your masteryStats relative to flashcards.length
     return (
       <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
         <motion.div initial="initial" animate="animate" variants={slideUp}>
-          <div className="w-full flex justify-between items-center mb-12 border-b border-white/10 pb-6">
-            <button
-              onClick={onExit}
-              className="flex items-center gap-2 text-slate-500 hover:text-cyan-400 font-black uppercase text-[10px] tracking-widest transition-colors"
-            >
-              <FaChevronLeft /> End Session
-            </button>
-            <div className="flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full">
-              <FaLayerGroup className="text-purple-400 text-[10px]" />
-              <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">
-                Flashcard Drill
-              </span>
+          {/* HEADER & PROGRESS */}
+          <div className="w-full mb-12 border-b border-white/10 pb-6">
+            <div className="flex justify-between items-center mb-6">
+              <button
+                onClick={onExit}
+                className="flex items-center gap-2 text-slate-500 hover:text-cyan-400 font-black uppercase text-[10px] tracking-widest transition-colors"
+              >
+                <FaChevronLeft /> End Session
+              </button>
+              <div className="flex items-center gap-2 px-3 py-1 bg-purple-500/10 border border-purple-500/20 rounded-full">
+                <FaLayerGroup className="text-purple-400 text-[10px]" />
+                <span className="text-[9px] font-black uppercase tracking-widest text-purple-400">
+                  Flashcard Drill
+                </span>
+              </div>
+            </div>
+
+            {/* NEW PROGRESS BAR */}
+            <div className="w-full group">
+              <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: `${(masteryStats.length / flashcards.length) * 100}%`,
+                  }}
+                  className="h-full bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.4)]"
+                />
+              </div>
             </div>
           </div>
+
           <FlashcardContainer
             questions={preparedFlashcards}
             isAuthenticated={isAuthenticated}
+            onAnswer={onAnswer} // Ensure FlashcardContainer calls this!
           />
         </motion.div>
       </div>
@@ -162,6 +186,32 @@ export default function QuizContainer({
 
         {qz.view === "quiz" && (
           <motion.div key={`quiz-${qz.currentIdx}`} {...slideUp}>
+            {/* PROGRESS BAR FOR STANDARD QUIZ */}
+            <div className="w-full mb-8 group">
+              <div className="flex justify-between items-end mb-1.5 px-1">
+                <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
+                  Drill Progress
+                </span>
+                <span className="text-[9.5px] font-black text-cyan-500 uppercase tracking-widest">
+                  {Math.round(
+                    ((qz.currentIdx + 1) / qz.activeQuestions.length) * 100,
+                  )}
+                  %
+                </span>
+              </div>
+              <div className="h-1.5 w-full bg-white/5 rounded-none overflow-hidden border border-white/5">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{
+                    width: `${((qz.currentIdx + 1) / qz.activeQuestions.length) * 100}%`,
+                  }}
+                  className="h-full bg-cyan-500 shadow-[0_0_15px_rgba(6,182,212,0.4)]"
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                />
+              </div>
+            </div>
+
+            {/* QUESTION CARD WITH MASTERY UPDATES */}
             <QuestionCard
               index={qz.currentIdx}
               questionsList={qz.activeQuestions}
@@ -170,13 +220,24 @@ export default function QuizContainer({
               isMarked={qz.markedQuestions.has(qz.currentIdx)}
               onToggleMark={() => qz.toggleMark(qz.currentIdx)}
               onNext={(correct) => {
+                // --- DYNAMIC MASTERY SYNC ---
+                const currentQuestion = qz.activeQuestions[qz.currentIdx];
+                if (currentQuestion && onAnswer) {
+                  // This call triggers updateMastery in your server actions
+                  onAnswer(currentQuestion.id, correct);
+                }
+
+                // --- NAVIGATION LOGIC ---
                 if (correct) qz.setScore((s) => s + 1);
+
                 window.scrollTo({ top: 0, behavior: "smooth" });
+
                 if (qz.isReviewJump) {
                   qz.setIsReviewJump(false);
                   qz.setView("review");
                   return;
                 }
+
                 if (qz.currentIdx + 1 >= qz.activeQuestions.length) {
                   qz.setView("review");
                 } else {

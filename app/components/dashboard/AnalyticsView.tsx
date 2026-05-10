@@ -1,11 +1,15 @@
 "use client";
 
+import { useMemo } from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import {
   FaArrowLeft,
   FaBolt,
   FaCircleCheck,
   FaClockRotateLeft,
+  FaTriangleExclamation,
+  FaShield,
 } from "react-icons/fa6";
 import { flashcards } from "@/app/lib/flashcards";
 
@@ -20,38 +24,62 @@ interface AnalyticsViewProps {
 }
 
 export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
-  // --- LIVE DATA CALCULATIONS ---
-  const totalCards = flashcards.length;
-  const totalMastered = stats.filter((s) => s.status === "mastered").length;
-  const overallAccuracy =
-    totalCards > 0 ? Math.round((totalMastered / totalCards) * 100) : 0;
+  // --- DYNAMIC LOGIC ENGINE ---
+  const { domainScores, weakest, overallAccuracy, totalMastered } =
+    useMemo(() => {
+      const masteredIds = stats
+        .filter((s) => s.status === "mastered")
+        .map((s) => s.question_id);
 
-  const calculateMastery = (
-    cat: "Law" | "Principles" | "Brokerage" | "Finance",
-  ) => {
-    const categoryCards = flashcards.filter((f) => f.category === cat);
-    if (categoryCards.length === 0) return 0;
+      const calculateMastery = (cat: string) => {
+        const categoryCards = flashcards.filter((f) => f.category === cat);
+        if (categoryCards.length === 0) return 0;
+        const count = categoryCards.filter((f) =>
+          masteredIds.includes(f.id),
+        ).length;
+        return Math.round((count / categoryCards.length) * 100);
+      };
 
-    const masteredIds = stats
-      .filter((s) => s.status === "mastered")
-      .map((s) => s.question_id);
+      const domains = [
+        {
+          name: "Principles",
+          label: "Principles & Practices",
+          color: "bg-cyan-500",
+        },
+        { name: "Law", label: "Real Estate Law", color: "bg-rose-500" },
+        {
+          name: "Brokerage",
+          label: "Brokerage Operations",
+          color: "bg-purple-500",
+        },
+        { name: "Finance", label: "Escrow & Finance", color: "bg-amber-500" },
+      ];
 
-    const count = categoryCards.filter((f) =>
-      masteredIds.includes(f.id),
-    ).length;
-    return Math.round((count / categoryCards.length) * 100);
-  };
+      const scores = domains.map((d) => ({
+        ...d,
+        score: calculateMastery(d.name),
+      }));
 
-  // Determine "Weakest Domain" for the Pro Insight
-  const domainScores = [
-    { name: "Principles", score: calculateMastery("Principles") },
-    { name: "Law", score: calculateMastery("Law") },
-    { name: "Brokerage", score: calculateMastery("Brokerage") },
-    { name: "Finance", score: calculateMastery("Finance") },
-  ];
-  const weakest = domainScores.reduce((prev, curr) =>
-    prev.score < curr.score ? prev : curr,
-  );
+      const weakestDomain = scores.reduce(
+        (prev, curr) => (curr.score < prev.score ? curr : prev),
+        scores[0],
+      );
+
+      const totalCards = flashcards.length;
+      const accuracy =
+        totalCards > 0
+          ? Math.round((masteredIds.length / totalCards) * 100)
+          : 0;
+
+      return {
+        domainScores: scores,
+        weakest: weakestDomain,
+        overallAccuracy: accuracy,
+        totalMastered: masteredIds.length,
+      };
+    }, [stats]);
+
+  const PASSING_THRESHOLD = 75;
 
   return (
     <motion.div
@@ -113,52 +141,84 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
         </div>
 
         <div className="space-y-8">
-          <ChartBar
-            label="Principles & Practices"
-            percentage={calculateMastery("Principles")}
-            color="bg-cyan-500"
-          />
-          <ChartBar
-            label="Real Estate Law"
-            percentage={calculateMastery("Law")}
-            color="bg-rose-500"
-          />
-          <ChartBar
-            label="Brokerage Operations"
-            percentage={calculateMastery("Brokerage")}
-            color="bg-purple-500"
-          />
-          <ChartBar
-            label="Escrow & Finance"
-            percentage={calculateMastery("Finance")}
-            color="bg-amber-500"
-          />
+          {domainScores.map((domain) => (
+            <ChartBar
+              key={domain.name}
+              label={domain.label}
+              percentage={domain.score}
+              color={domain.color}
+            />
+          ))}
         </div>
       </div>
 
-      {/* ACTIONABLE INSIGHT */}
+      {/* DYNAMIC INTELLIGENCE REPORT */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="p-6 bg-white/5 border-l-4 border-cyan-500 flex flex-col gap-2 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.02)]"
+        className={cn(
+          "p-6 bg-slate-900 border-l-4 flex flex-col gap-2 relative overflow-hidden transition-all duration-500",
+          weakest.score < PASSING_THRESHOLD
+            ? "border-rose-500 shadow-[0_0_20px_rgba(244,63,94,0.15)]"
+            : "border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.15)]",
+        )}
       >
-        <h5 className="text-[10px] font-black text-cyan-400 uppercase tracking-widest">
-          Intelligence Report
-        </h5>
-        <p className="text-[12px] font-bold text-slate-300 leading-relaxed uppercase tracking-tight">
-          Your <span className="text-white">"{weakest.name}"</span> score is
-          currently the lowest at{" "}
-          <span className="text-rose-500">{weakest.score}%</span>. We recommend
-          a focused Flashcard Drill on this domain to ensure you meet the 75%
-          state requirement.
+        {/* Decorative scanline for that Cyberpunk feel */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]" />
+
+        <div className="flex items-center gap-2 mb-1">
+          {weakest.score < PASSING_THRESHOLD ? (
+            <FaTriangleExclamation className="text-rose-500 text-xs" />
+          ) : (
+            <FaShield className="text-emerald-500 text-xs" />
+          )}
+          <h5
+            className={cn(
+              "text-[10px] font-black uppercase tracking-widest",
+              weakest.score < PASSING_THRESHOLD
+                ? "text-rose-400"
+                : "text-emerald-400",
+            )}
+          >
+            {weakest.score < PASSING_THRESHOLD
+              ? "Critical Domain Warning"
+              : "System Readiness Report"}
+          </h5>
+        </div>
+
+        <p className="text-[12px] font-bold text-slate-300 leading-relaxed uppercase tracking-tight relative z-10">
+          {weakest.score < PASSING_THRESHOLD ? (
+            <>
+              Your <span className="text-white italic">"{weakest.label}"</span>{" "}
+              domain is underperforming at{" "}
+              <span className="text-rose-500 font-black">{weakest.score}%</span>
+              . Florida state standards require{" "}
+              <span className="text-white">{PASSING_THRESHOLD}%</span>.
+              Immediate focused drill recommended.
+            </>
+          ) : (
+            <>
+              All domains meeting state standards. Weakest link is{" "}
+              <span className="text-white italic">"{weakest.label}"</span> at
+              <span className="text-emerald-400 font-black">
+                {" "}
+                {weakest.score}%
+              </span>
+              . Continue standard rotation to maintain readiness.
+            </>
+          )}
+        </p>
+
+        <p className="text-[9px] text-slate-600 font-black uppercase italic mt-1">
+          Calculation based on {stats.length} mastery data points.
         </p>
       </motion.div>
     </motion.div>
   );
 }
 
-// --- SUB-COMPONENTS (Scoped to this file) ---
+// --- SUB-COMPONENTS ---
 
 function StatRingCard({ label, value, sub, color, icon }: any) {
   return (
@@ -172,7 +232,9 @@ function StatRingCard({ label, value, sub, color, icon }: any) {
         <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1">
           {label}
         </p>
-        <h4 className="text-3xl font-black text-white">{value}</h4>
+        <h4 className="text-3xl font-black text-white tracking-tighter">
+          {value}
+        </h4>
         <p className="text-[8px] font-bold text-slate-600 uppercase tracking-tighter">
           {sub}
         </p>
@@ -190,12 +252,15 @@ function ChartBar({ label, percentage, color }: any) {
         </span>
         <span className="text-[11px] font-black text-white">{percentage}%</span>
       </div>
-      <div className="h-4 w-full bg-white/5 border border-white/10 p-1 rounded-sm">
+      <div className="h-4 w-full bg-slate-950/50 border border-white/10 p-[2px] rounded-none">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 1.2, ease: "circOut" }}
-          className={`h-full ${color} shadow-[0_0_12px_rgba(255,255,255,0.05)]`}
+          className={cn(
+            "h-full shadow-[0_0_12px_rgba(255,255,255,0.05)]",
+            color,
+          )}
         />
       </div>
     </div>

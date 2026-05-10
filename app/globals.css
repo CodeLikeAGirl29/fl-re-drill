@@ -1,93 +1,99 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
 
-@theme {
-  --color-glass: rgba(255, 255, 255, 0.97);
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* Design System Variables */
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
   --font-mono-calc: var(--font-source-code), monospace;
-}
 
-/* Base styles without using @apply for complex utilities */
-:root {
-  font-family: var(--font-montserrat), system-ui, sans-serif;
-}
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
 
-html {
-  scroll-behavior: smooth;
+  /* Color Palette - Defaulting to Dark/Space Mode values */
+  --color-background: oklch(0.141 0.005 285.823);
+  --color-foreground: oklch(0.985 0 0);
+
+  --color-primary: oklch(0.21 0.006 285.885);
+  --color-primary-foreground: oklch(0.985 0 0);
+
+  --color-card: oklch(0.21 0.006 285.885);
+  --color-card-foreground: oklch(0.985 0 0);
+
+  --color-popover: oklch(0.21 0.006 285.885);
+  --color-popover-foreground: oklch(0.985 0 0);
+
+  --color-muted: oklch(0.274 0.006 286.033);
+  --color-muted-foreground: oklch(0.705 0.015 286.067);
+
+  --color-accent: oklch(0.92 0.004 286.32);
+  --color-accent-foreground: oklch(0.21 0.006 285.885);
+
+  --color-destructive: oklch(0.704 0.191 22.216);
+
+  --color-border: oklch(1 0 0 / 10%);
+  --color-input: oklch(1 0 0 / 15%);
+  --color-ring: oklch(0.552 0.016 285.938);
+
+  --radius: 0.625rem;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 @layer base {
-
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
+  html {
+    scroll-behavior: smooth;
+    /* Use the variable directly instead of @apply */
+    font-family: var(--font-sans);
   }
 
   body {
     margin: 0;
     min-height: 100vh;
-    color: #1e293b;
-    background-color: #0f172a;
-    /* Your "Cool" Star Pattern Background */
+    color: var(--color-foreground);
+    background-color: #020617;
+
+    /* "Space" Background */
     background-image:
       radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%236366f1' fill-opacity='0.1'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
-    background-attachment: fixed !important;
+    background-attachment: fixed;
     background-repeat: repeat;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-}
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 0.5rem;
-}
-
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 0.625rem;
-}
-
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #444444;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4;
-}
-
-/* Animations for the cards */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(0.625rem);
+  * {
+    /* FIX: Changed @apply border-border to direct variable use */
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
   }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
   }
-}
-
-.animate-in {
-  animation: fadeIn 0.4s ease forwards;
 }
 
 @layer utilities {
+  .animate-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
   .perspective-1000 {
     perspective: 1000px;
   }
@@ -101,7 +107,20 @@ html {
   }
 }
 
-.question,
-.answer {
-  text-shadow: 2px_2px_0px_rgba(0, 0, 0, 0.5);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 0.625rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaLaptopHouse, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoCalculatorOutline } from "react-icons/io5";
+import { User } from "@supabase/supabase-js";
 import { createClient } from "@/app/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -13,9 +14,10 @@ interface HeaderProps {
   onHome?: () => void;
 }
 
+const supabase = createClient();
+
 export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
-  const [user, setUser] = useState<any>(null);
-  const supabase = createClient();
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,7 +30,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
     };
     getUser();
 
-    // Listen for auth changes (sign in/out)
+    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
@@ -36,10 +38,12 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
     });
 
     return () => subscription.unsubscribe();
-  }, [supabase]);
+  }, [router]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
+    setUser(null); // Force local UI update immediately
+    router.push("/"); // Redirect to home if they were on a protected sub-page
     router.refresh();
   };
   return (

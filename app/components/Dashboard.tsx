@@ -10,6 +10,7 @@ import {
   FaFire,
   FaGraduationCap,
 } from "react-icons/fa";
+import cn from "classnames";
 
 // Sub-components
 import AnalyticsView from "./dashboard/AnalyticsView";
@@ -111,12 +112,22 @@ export default function Dashboard({
                     </div>
                   </div>
 
-                  <div className="bg-white/5 border border-white/10 px-6 py-3 text-center min-w-[140px]">
+                  <div
+                    className={cn(
+                      "border-2 px-6 py-3 text-center min-w-[140px] transition-all duration-700",
+                      progressPercent >= 75
+                        ? "border-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.2)]"
+                        : "border-white/10",
+                    )}
+                  >
                     <p className="text-[9px] font-black text-slate-500 uppercase tracking-tighter mb-1">
                       Current Rank
                     </p>
                     <p
-                      className={`text-xl font-black uppercase italic ${rank.color}`}
+                      className={cn(
+                        "text-xl font-black uppercase italic",
+                        rank.color,
+                      )}
                     >
                       {rank.name}
                     </p>
@@ -216,7 +227,8 @@ function DrillCard({ title, subtitle, icon, color, onClick }: any) {
       }}
       whileHover={{
         y: -8,
-        x: -8,
+        x: -4,
+        skewX: -2,
         transition: { duration: 0.2, ease: "easeOut" },
       }}
       whileTap={{ scale: 0.95 }}
