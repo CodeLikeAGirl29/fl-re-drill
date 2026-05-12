@@ -13,24 +13,33 @@ interface Question {
 
 interface FlashcardContainerProps {
   questions: Question[];
-  isAuthenticated: boolean; // Add this to resolve the build error
+  isAuthenticated: boolean;
+  onAnswer?: (id: string, isCorrect: boolean) => void;
 }
 
 export default function FlashcardContainer({
   questions,
   isAuthenticated,
+  onAnswer,
 }: FlashcardContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  // This handles the user action (swipe or button click)
   const handleSwipe = async (direction: "left" | "right") => {
     if (currentIndex >= questions.length) return;
 
     const currentQuestion = questions[currentIndex];
+    const isCorrect = direction === "right";
 
-    // 1. Only attempt to sync with Supabase if the user is logged in
+    // 1. Call the prop function (passed from QuizContainer/Parent)
+    // This satisfies the TypeScript requirement and updates the parent state
+    if (onAnswer) {
+      onAnswer(currentQuestion.id, isCorrect);
+    }
+
+    // 2. Only attempt to sync with Supabase if the user is logged in
     if (isAuthenticated) {
-      const status = direction === "right" ? "mastered" : "review";
-      // Silently update the database via Server Action
+      const status = isCorrect ? "mastered" : "review";
       try {
         await updateMastery(currentQuestion.id, status);
       } catch (error) {
@@ -38,7 +47,7 @@ export default function FlashcardContainer({
       }
     }
 
-    // 2. Always move to the next card for the UI experience
+    // 3. Move to the next card
     setCurrentIndex((prev) => prev + 1);
   };
 
@@ -58,19 +67,35 @@ export default function FlashcardContainer({
   }
 
   return (
-    <div className="flex items-center justify-center w-full min-h-[500px] relative">
+    <div className="flex flex-col items-center justify-center w-full min-h-[500px] relative">
       <AnimatePresence mode="wait">
         <Flashcard
           key={questions[currentIndex].id}
           question={questions[currentIndex].question}
           answer={questions[currentIndex].answer}
+          // The swipe logic now triggers everything!
           onSwipe={handleSwipe}
         />
       </AnimatePresence>
 
-      {/* Visual indicator for Guest Mode */}
+      {/* Optional: Add manual buttons that trigger handleSwipe */}
+      <div className="flex gap-10 mt-8">
+        <button
+          onClick={() => handleSwipe("left")}
+          className="px-6 py-2 bg-rose-500/20 border border-rose-500/50 text-rose-400 rounded-xl font-bold uppercase text-xs hover:bg-rose-500/30 transition-colors"
+        >
+          Need Review (Left)
+        </button>
+        <button
+          onClick={() => handleSwipe("right")}
+          className="px-6 py-2 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 rounded-xl font-bold uppercase text-xs hover:bg-emerald-500/30 transition-colors"
+        >
+          Mastered (Right)
+        </button>
+      </div>
+
       {!isAuthenticated && (
-        <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap">
+        <div className="mt-6">
           <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-600 italic">
             Guest Mode: Progress not syncing
           </span>

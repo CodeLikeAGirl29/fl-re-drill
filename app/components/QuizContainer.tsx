@@ -137,7 +137,7 @@ export default function QuizContainer({
           <FlashcardContainer
             questions={preparedFlashcards}
             isAuthenticated={isAuthenticated}
-            onAnswer={onAnswer} // Ensure FlashcardContainer calls this!
+            onAnswer={onAnswer}
           />
         </motion.div>
       </div>
@@ -176,6 +176,7 @@ export default function QuizContainer({
         {qz.view === "welcome" && (
           <motion.div key="welcome" {...slideUp}>
             <WelcomeScreen
+              key="welcome"
               onNew={(category, count) => qz.handleNewQuiz(category, count)}
               onResume={qz.handleResume}
               onWeakestDrill={qz.handleWeakestLinkDrill}

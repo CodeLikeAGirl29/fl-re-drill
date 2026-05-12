@@ -79,7 +79,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen font-sans">
       <Header
         onOpenFormulas={() => setIsFormulaOpen(true)}
-        onHome={() => setView("dashboard")}
+        onHome={() => setActiveMode(null)}
       />
       <main className="flex-grow flex items-center justify-center p-4">
         {/* 1. If a quiz mode is active, show the container */}

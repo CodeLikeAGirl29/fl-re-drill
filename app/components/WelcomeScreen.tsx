@@ -18,8 +18,9 @@ import Image from "next/image";
 interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
   onResume: () => void;
-  onWeakestDrill: (limit: number) => void;
+  onWeakestDrill: (limit?: number) => void; // Added '?' to make limit optional
   hasProgress: boolean;
+  onStart: () => void; // Added this line
 }
 
 export default function WelcomeScreen({
@@ -27,6 +28,7 @@ export default function WelcomeScreen({
   onResume,
   hasProgress,
   onWeakestDrill,
+  onStart,
 }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
