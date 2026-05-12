@@ -15,6 +15,7 @@ import { flashcards } from "@/app/lib/flashcards";
 
 import { useQuiz } from "../hooks/useQuiz";
 import { useTimer } from "../hooks/useTimer";
+import { MasteryRecord } from "../lib/actions/mastery";
 
 import {
   IoCalculatorOutline,
