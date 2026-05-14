@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaChevronLeft, FaLayerGroup } from "react-icons/fa6";
 import WelcomeScreen from "./WelcomeScreen";
@@ -44,6 +44,20 @@ export default function QuizContainer({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+
+  useEffect(() => {
+    // Only auto-start if we are at the initial welcome screen inside the quiz container
+    if (qz.view === "welcome") {
+      if (mode === "standard") {
+        // Starts a fresh 100-question session
+        qz.handleNewQuiz("All Categories");
+      } else if (mode === "quick20") {
+        // Starts a fresh 20-question session
+        qz.handleNewQuiz("All Categories", 20);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Common animation variants for the "Slide Up" effect
   const slideUp = {

@@ -24,9 +24,15 @@ export default function Flashcard({
   const checkOpacity = useTransform(x, [50, 150], [0, 1]);
   const undoOpacity = useTransform(x, [-50, -150], [0, 1]);
 
-  const handleDragEnd = (_: any, info: PanInfo) => {
-    if (info.offset.x > 150) onSwipe("right");
-    else if (info.offset.x < -150) onSwipe("left");
+  const handleDragEnd = (
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+  ) => {
+    if (info.offset.x > 150) {
+      onSwipe("right");
+    } else if (info.offset.x < -150) {
+      onSwipe("left");
+    }
   };
 
   return (
@@ -51,9 +57,27 @@ export default function Flashcard({
         style={{ x, rotate, opacity }}
         onDragEnd={handleDragEnd}
         onClick={() => setIsFlipped(!isFlipped)}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
-        className="relative w-full h-full shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] border-4 border-white preserve-3d"
+        // --- SNAPPY ENTRY (Removed y: 20) ---
+        initial={{ scale: 0.9, opacity: 0 }}
+        animate={{
+          scale: 1,
+          opacity: 1,
+          rotateY: isFlipped ? 180 : 0,
+        }}
+        // --- CLEAN EXIT (Fly off screen) ---
+        exit={{
+          x: x.get() > 0 ? 800 : -800,
+          opacity: 0,
+          scale: 0.8,
+          transition: { duration: 0.3 },
+        }}
+        // --- BALANCED PHYSICS ---
+        transition={{
+          type: "spring",
+          stiffness: 250,
+          damping: 25,
+        }}
+        className="relative w-full h-full shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] border-4 border-white preserve-3d will-change-transform bg-slate-900"
       >
         {/* Front Side: Question */}
         <div className="absolute inset-0 backface-hidden bg-slate-900 p-8 flex flex-col items-center justify-center text-center">

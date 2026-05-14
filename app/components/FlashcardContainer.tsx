@@ -24,31 +24,23 @@ export default function FlashcardContainer({
 }: FlashcardContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // This handles the user action (swipe or button click)
-  const handleSwipe = async (direction: "left" | "right") => {
+  const handleSwipe = (direction: "left" | "right") => {
     if (currentIndex >= questions.length) return;
 
     const currentQuestion = questions[currentIndex];
     const isCorrect = direction === "right";
 
-    // 1. Call the prop function (passed from QuizContainer/Parent)
-    // This satisfies the TypeScript requirement and updates the parent state
-    if (onAnswer) {
-      onAnswer(currentQuestion.id, isCorrect);
-    }
-
-    // 2. Only attempt to sync with Supabase if the user is logged in
-    if (isAuthenticated) {
-      const status = isCorrect ? "mastered" : "review";
-      try {
-        await updateMastery(currentQuestion.id, status);
-      } catch (error) {
-        console.error("Mastery sync failed:", error);
-      }
-    }
-
-    // 3. Move to the next card
+    // CHANGE: Make this instant or very short (10ms)
     setCurrentIndex((prev) => prev + 1);
+
+    // Background updates...
+    if (onAnswer) onAnswer(currentQuestion.id, isCorrect);
+    if (isAuthenticated) {
+      updateMastery(
+        currentQuestion.id,
+        isCorrect ? "mastered" : "review",
+      ).catch(console.error);
+    }
   };
 
   if (currentIndex >= questions.length) {
@@ -68,17 +60,15 @@ export default function FlashcardContainer({
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-[500px] relative">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="popLayout">
         <Flashcard
           key={questions[currentIndex].id}
           question={questions[currentIndex].question}
           answer={questions[currentIndex].answer}
-          // The swipe logic now triggers everything!
           onSwipe={handleSwipe}
         />
       </AnimatePresence>
 
-      {/* Optional: Add manual buttons that trigger handleSwipe */}
       <div className="flex gap-10 mt-8">
         <button
           onClick={() => handleSwipe("left")}

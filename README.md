@@ -4,7 +4,7 @@ A high-performance, interactive exam preparation engine built for Florida Real E
 
 [![CodeFactor](https://www.codefactor.io/repository/github/codelikeagirl29/fl-re-drill/badge)](https://www.codefactor.io/repository/github/codelikeagirl29/fl-re-drill)
 
-> **View the Live Project:** [redrill.netlify.app](https://fl-re-drill.netlify.app/)
+> **View the Live Project:** [fl-re-drill.netlify.app](https://fl-re-drill.netlify.app/)
 
 <img src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1777312428/Florida-Real-Estate-Exam-Prep-Master-Drill-04-27-2026_12_52_PM_gwzkqo.png" width="100%" alt="Florida Real Estate Drill Demo" />
 
