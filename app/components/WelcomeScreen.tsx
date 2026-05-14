@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   IoFlash,
@@ -18,9 +18,8 @@ import Image from "next/image";
 interface WelcomeScreenProps {
   onNew: (category: string, count: number) => void;
   onResume: () => void;
-  onWeakestDrill: (limit?: number) => void; // Added '?' to make limit optional
+  onWeakestDrill: (limit?: number) => void;
   hasProgress: boolean;
-  onStart: () => void; // Added this line
 }
 
 export default function WelcomeScreen({
@@ -28,9 +27,13 @@ export default function WelcomeScreen({
   onResume,
   hasProgress,
   onWeakestDrill,
-  onStart,
 }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const categoryCount = useMemo(() => {
     if (selectedCategory === "All Categories") {
@@ -46,14 +49,16 @@ export default function WelcomeScreen({
     <div className="mx-auto w-full max-w-2xl rounded-xl border border-[#444444] bg-[#1e293b] shadow-2xl text-white overflow-hidden">
       {/* 1. THE IMAGE HEADER */}
       <div className="relative w-full aspect-video mb-8 overflow-hidden border-2 border-white/20">
-        <Image
-          src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1778350680/hero_yt1pfh.png"
-          alt="Florida Real Estate"
-          fill
-          priority
-          className="w-full h-full object-cover"
-          sizes="(max-width: 768px) 100vw, 800px"
-        />
+        {mounted && (
+          <Image
+            src="https://res.cloudinary.com/dhw9dl4gm/image/upload/v1778767168/header-img_oxttwx.png"
+            alt="Florida Real Estate"
+            fill
+            priority
+            className="w-full h-full object-cover"
+            sizes="(max-width: 768px) 100vw, 800px"
+          />
+        )}
         {/* 2. THE FLOATING BANNER (Left Aligned) */}
         <div className="absolute bottom-6 left-6 max-w-[80%]">
           <div className="bg-slate-900/95 backdrop-blur-md text-white px-5 py-3 rounded-xl shadow-2xl border border-white/10">

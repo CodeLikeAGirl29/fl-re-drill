@@ -25,7 +25,8 @@ import {
 } from "react-icons/io5";
 
 interface QuizContainerProps {
-  mode: "standard" | "quick20" | "flashcards";
+  mode: "standard" | "quick20" | "flashcards" | "weakest";
+  category: string;
   onAnswer: (id: string, isCorrect: boolean) => void;
   onExit: () => void;
   isAuthenticated: boolean;
@@ -34,6 +35,7 @@ interface QuizContainerProps {
 
 export default function QuizContainer({
   mode,
+  category,
   onExit,
   onAnswer,
   isAuthenticated,
@@ -46,18 +48,18 @@ export default function QuizContainer({
   const [isCalcOpen, setIsCalcOpen] = useState(false);
 
   useEffect(() => {
-    // Only auto-start if we are at the initial welcome screen inside the quiz container
     if (qz.view === "welcome") {
       if (mode === "standard") {
-        // Starts a fresh 100-question session
-        qz.handleNewQuiz("All Categories");
+        qz.handleNewQuiz(category);
       } else if (mode === "quick20") {
-        // Starts a fresh 20-question session
-        qz.handleNewQuiz("All Categories", 20);
+        qz.handleNewQuiz(category, 20);
+      } else if (mode === "weakest") {
+        // Triggers the specific logic to filter for low-mastery questions
+        qz.handleWeakestLinkDrill(20);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [mode, category]);
 
   // Common animation variants for the "Slide Up" effect
   const slideUp = {

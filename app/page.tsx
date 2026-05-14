@@ -20,8 +20,9 @@ export default function Home() {
   const [user, setUser] = useState<User | null>(null);
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
   const [activeMode, setActiveMode] = useState<
-    "standard" | "quick20" | "flashcards" | null
+    "standard" | "quick20" | "flashcards" | "weakest" | null
   >(null);
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFormulaOpen, setIsFormulaOpen] = useState(false);
 
@@ -43,13 +44,10 @@ export default function Home() {
 
   const handleAnswerUpdate = async (questionId: string, isCorrect: boolean) => {
     if (!user) return;
-
     try {
       const newStatus = isCorrect ? "mastered" : "review";
-
       // 2. Update Supabase
       await updateMastery(questionId, newStatus);
-
       // 3. Pull fresh data to sync the Intelligence Report locally
       const freshStats = await getMasteryStats();
       setMasteryStats(freshStats);
@@ -60,14 +58,11 @@ export default function Home() {
 
   const handleExit = async () => {
     setActiveMode(null);
-
     if (user) {
       // 1. Fetch fresh stats from the DB
       const freshStats = await getMasteryStats();
-
       // 2. Update state to trigger the Analytics recalculation
       setMasteryStats([...freshStats]);
-
       console.log(
         "Syncing Intelligence Report with fresh data:",
         freshStats.length,
@@ -86,6 +81,7 @@ export default function Home() {
         {activeMode ? (
           <QuizContainer
             mode={activeMode}
+            category={selectedCategory}
             onExit={handleExit}
             onAnswer={handleAnswerUpdate}
             isAuthenticated={!!user}
@@ -101,10 +97,14 @@ export default function Home() {
           <div className="w-full max-w-2xl">
             {/* WelcomeScreen expects handlers that set the activeMode */}
             <WelcomeScreen
-              onNew={(category, count) => setActiveMode("quick20")}
-              onStart={() => setActiveMode("standard")}
-              onResume={() => {}} // Guest can't resume
-              onWeakestDrill={() => {}} // Guest doesn't have weak links
+              onNew={(category, count) => {
+                setSelectedCategory(category);
+                if (count === 20) setActiveMode("quick20");
+                else setActiveMode("standard");
+              }}
+              // 3. Connect the Weakest Link handler
+              onWeakestDrill={() => setActiveMode("weakest")}
+              onResume={() => {}}
               hasProgress={false}
             />
             <p className="mt-6 text-center text-slate-600 text-[10px] uppercase font-black tracking-widest">
