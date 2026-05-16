@@ -6,9 +6,19 @@ export function createClient() {
 
   if (!url || !anonKey) {
     console.error(
-      "CRITICAL ERROR: Supabase environment variables are missing! Check your root .env.local file.",
+      "🚨 CRITICAL ERROR: Supabase environment variables are missing!\n" +
+        "Make sure your .env.local file is in the root project directory (not inside the app folder) " +
+        "and contains NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.",
+    );
+
+    // Return a dummy client with placeholder strings.
+    // This allows the layout to load safely so Guest Mode can be used without a white screen of death.
+    return createBrowserClient(
+      "https://missing-env-vars.supabase.co",
+      "missing-anon-key-placeholder",
     );
   }
 
-  return createBrowserClient(url!, anonKey!);
+  // If variables exist, initialize the real browser client normally
+  return createBrowserClient(url, anonKey);
 }

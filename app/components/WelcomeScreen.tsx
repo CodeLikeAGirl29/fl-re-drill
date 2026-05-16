@@ -20,6 +20,7 @@ interface WelcomeScreenProps {
   onResume: () => void;
   onWeakestDrill: (limit?: number) => void;
   hasProgress: boolean;
+  onStart: () => void;
 }
 
 export default function WelcomeScreen({
@@ -27,6 +28,7 @@ export default function WelcomeScreen({
   onResume,
   hasProgress,
   onWeakestDrill,
+  onStart,
 }: WelcomeScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
 
