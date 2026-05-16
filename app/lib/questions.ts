@@ -1237,11 +1237,9 @@ export const questions: Question[] = [
     explanation:
       "Calculation: Total sq ft = 4 acres * 43,560 sq ft/acre = 174,240 sq ft. Each lot = 174,240 / 8 = 21,780 sq ft.",
   },
-  // Add these to your questions array inside app/lib/questions.ts
-
   {
-    id: "eb_oree_rule",
-    cat: "Real Estate Principles",
+    id: "q101",
+    cat: "Residential Mortgages and Finance",
     q: "According to the real estate '-OR / -EE' rule, the suffix '-OR' generally denotes the party who performs the action, while '-EE' denotes the recipient. Under this rule, who is the Mortgagor?",
     options: [
       "The lender who receives the mortgage document",
@@ -1251,11 +1249,11 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "The Mortgagor is the borrower because they give (-OR) the mortgage pledge to the bank. The bank is the Mortgagee because they receive (-EE) the pledge as security for the loan.",
+      "Key Point: The Mortgagor is the borrower because they give (-OR) the mortgage pledge to the bank. The bank is the Mortgagee because they receive (-EE) the pledge as security for the loan.",
   },
   {
-    id: "eb_bundle_rights",
-    cat: "Real Estate Principles",
+    id: "q102",
+    cat: "Property Rights and Ownership",
     q: "Which of the following describes the 'Bundle of Rights' inherent in real property ownership?",
     options: [
       "The absolute right to use property without regard to local zoning ordinances",
@@ -1265,20 +1263,20 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The 'Bundle of Rights' represents the fundamental legal rights that accompany real property ownership: the rights of Possession, Control, Exclusion, Enjoyment, and Disposition.",
+      "Key Point: The 'Bundle of Rights' represents the fundamental legal rights that accompany real property ownership: the rights of Possession, Control, Exclusion, Enjoyment, and Disposition.",
   },
   {
-    id: "eb_real_personal",
-    cat: "Real Estate Principles",
+    id: "q103",
+    cat: "Property Rights and Ownership",
     q: "An item of personal property that has been permanently attached to land or a building in such a manner that it legally becomes part of the real property is known as a:",
     options: ["Trade fixture", "Fixture", "Emblement", "Chattel property"],
     correct: 1,
     explanation:
-      "A fixture is an item that was originally personal property (chattel) but has become real property through permanent installation or physical attachment.",
+      "Key Point: A fixture is an item that was originally personal property (chattel) but has become real property through permanent installation or physical attachment.",
   },
   {
-    id: "eb_trade_fixture",
-    cat: "Real Estate Principles",
+    id: "q104",
+    cat: "Property Rights and Ownership",
     q: "A commercial tenant installs heavy display cases and pizza ovens into a leased storefront. Legally, these items are considered:",
     options: [
       "Permanent fixtures that belong to the landlord upon installation",
@@ -1288,10 +1286,10 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Trade fixtures are items installed by a commercial tenant for business operations. Unlike residential fixtures, trade fixtures remain personal property and may be removed by the tenant before the lease expires.",
+      "Key Point: Trade fixtures are items installed by a commercial tenant for business operations. Unlike residential fixtures, trade fixtures remain personal property and may be removed by the tenant before the lease expires.",
   },
   {
-    id: "eb_encroachment",
+    id: "q105",
     cat: "Real Estate Law",
     q: "A neighbor builds a decorative brick driveway that accidentally extends two feet across the property boundary line onto an owner's land. This is legally classified as an:",
     options: [
@@ -1302,11 +1300,11 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "An encroachment occurs when a structure, building, or improvement physically extends past a legal property line onto an adjoining neighbor's land without consent.",
+      "Key Point: An encroachment occurs when a structure, building, or improvement physically extends past a legal property line onto an adjoining neighbor's land without consent.",
   },
   {
-    id: "eb_emblements",
-    cat: "Real Estate Principles",
+    id: "q106",
+    cat: "Property Rights and Ownership",
     q: "Annual cultivated crops such as corn, wheat, and vegetables that require regular labor and care are classified as:",
     options: [
       "Fixtures that stay with the land",
@@ -1316,11 +1314,11 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Emblements (fructus industriales) are annual cultivated crops. They are treated as personal property, meaning a tenant farmer retains the right to return and harvest them after a lease ends.",
+      "Key Point: Emblements (fructus industriales) are annual cultivated crops. They are treated as personal property, meaning a tenant farmer retains the right to return and harvest them after a lease ends.",
   },
   {
-    id: "eb_fee_simple_abs",
-    cat: "Real Estate Principles",
+    id: "q107",
+    cat: "Property Rights and Ownership",
     q: "What is the highest, most complete, and unrestricted estate of ownership recognized in real property law?",
     options: [
       "Fee simple defeasible",
@@ -1330,11 +1328,11 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "A fee simple absolute estate is the highest interest in real estate recognized by law, giving the owner an absolute right to the land with infinite duration and complete transferability.",
+      "Key Point: A fee simple absolute estate is the highest interest in real estate recognized by law, giving the owner an absolute right to the land with infinite duration and complete transferability.",
   },
   {
-    id: "eb_life_estate",
-    cat: "Real Estate Principles",
+    id: "q108",
+    cat: "Property Rights and Ownership",
     q: "An owner conveys a residential property 'to my mother for the duration of her natural life, and upon her death, ownership shall pass entirely to my son.' The son holds what type of legal interest?",
     options: [
       "A reversionary interest",
@@ -1344,11 +1342,11 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "Because ownership transfers to a specified third party (the son) instead of returning to the original grantor upon the life tenant's death, the son holds a remainder interest.",
+      "Key Point: Because ownership transfers to a specified third party (the son) instead of returning to the original grantor upon the life tenant's death, the son holds a remainder interest.",
   },
   {
-    id: "eb_estate_for_years",
-    cat: "Real Estate Principles",
+    id: "q109",
+    cat: "Property Rights and Ownership",
     q: "A leasehold agreement that establishes a tenancy for a definite and fixed period of time—such as six months, one year, or a specific five-week lease—is legally known as an:",
     options: [
       "Estate at will",
@@ -1358,11 +1356,11 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "An estate for years is a leasehold estate with a specific, pre-determined start and end date. No termination notice is required because the expiration date is designated in the lease.",
+      "Key Point: An estate for years is a leasehold estate with a specific, pre-determined start and end date. No termination notice is required because the expiration date is designated in the lease.",
   },
   {
-    id: "eb_estate_at_will",
-    cat: "Real Estate Principles",
+    id: "q110",
+    cat: "Property Rights and Ownership",
     q: "A tenant occupies an apartment with the landlord's permission without a specified end date or regular recurring period. Either party can cancel the arrangement at any time. This constitutes an:",
     options: [
       "Estate for years",
@@ -1372,11 +1370,11 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "An estate at will is a tenancy of indefinite duration that can be terminated at any time by either the landlord or tenant giving proper statutory notice.",
+      "Key Point: An estate at will is a tenancy of indefinite duration that can be terminated at any time by either the landlord or tenant giving proper statutory notice.",
   },
   {
-    id: "eb_estate_sufferance",
-    cat: "Real Estate Principles",
+    id: "q111",
+    cat: "Property Rights and Ownership",
     q: "An estate at sufferance occurs when a tenant:",
     options: [
       "Occupies a property under a severe lease agreement with rising rates",
@@ -1386,11 +1384,11 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "An estate at sufferance is created when a tenant lawfully takes possession under a valid lease but wrongfully holds over after the lease terminates without the landlord's explicit approval.",
+      "Key Point:An estate at sufferance is created when a tenant lawfully takes possession under a valid lease but wrongfully holds over after the lease terminates without the landlord's explicit approval.",
   },
   {
-    id: "eb_gross_lease",
-    cat: "Real Estate Principles",
+    id: "q112",
+    cat: "Real Estate Contracts",
     q: "Under a standard residential Gross Lease, what expenses is the tenant responsible for paying?",
     options: [
       "A fixed rental amount, while the landlord handles property taxes, insurance, and maintenance",
@@ -1400,11 +1398,11 @@ export const questions: Question[] = [
     ],
     correct: 0,
     explanation:
-      "In a gross lease, the tenant pays a flat, fixed monthly rent. The landlord assumes responsibility for property operating expenses, including taxes, property insurance, and utilities/maintenance.",
+      "Key Point: In a gross lease, the tenant pays a flat, fixed monthly rent. The landlord assumes responsibility for property operating expenses, including taxes, property insurance, and utilities/maintenance.",
   },
   {
-    id: "eb_percentage_lease",
-    cat: "Real Estate Principles",
+    id: "q113",
+    cat: "Real Estate Contracts",
     q: "Which type of lease agreement is standard for retail spaces in shopping malls where the tenant pays a base monthly rent plus a percentage of their retail sales volume?",
     options: [
       "Net lease",
@@ -1414,10 +1412,10 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "A percentage lease is typical for commercial retail properties. It establishes a fixed minimum base rent plus an additional percentage of gross sales generated within the storefront.",
+      "Key Point: A percentage lease is typical for commercial retail properties. It establishes a fixed minimum base rent plus an additional percentage of gross sales generated within the storefront.",
   },
   {
-    id: "eb_sherman_antitrust",
+    id: "q114",
     cat: "Real Estate Law",
     q: "Two competing real estate brokerage corporations meet and agree to fix standard commission rates at 6% across the county to restrict discount brokers. This collusion violates which federal legislation?",
     options: [
@@ -1428,10 +1426,10 @@ export const questions: Question[] = [
     ],
     correct: 2,
     explanation:
-      "The Sherman Antitrust Act strictly prohibits price-fixing, group boycotting, and market allocation schemes among competing businesses to preserve market competition.",
+      "Key Point: The Sherman Antitrust Act strictly prohibits price-fixing, group boycotting, and market allocation schemes among competing businesses to preserve market competition.",
   },
   {
-    id: "eb_antitrust_civil",
+    id: "q115",
     cat: "Real Estate Law",
     q: "An aggrieved business successfully sues an individual or corporation for damages under the Sherman Antitrust laws in a civil court. By federal statute, the injured party is entitled to recover:",
     options: [
@@ -1442,6 +1440,6 @@ export const questions: Question[] = [
     ],
     correct: 1,
     explanation:
-      "Under civil enforcement of the Sherman Antitrust Act, a plaintiff can recover up to triple (treble) the actual financial damages incurred, plus full reimbursement for reasonable attorney's fees and court costs.",
+      "Key Point: Under civil enforcement of the Sherman Antitrust Act, a plaintiff can recover up to triple (treble) the actual financial damages incurred, plus full reimbursement for reasonable attorney's fees and court costs.",
   },
 ];
