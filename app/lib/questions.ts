@@ -1290,7 +1290,7 @@ export const questions: Question[] = [
   },
   {
     id: "q105",
-    cat: "Real Estate Law",
+    cat: "Titles, Deeds, and Restrictions",
     q: "A neighbor builds a decorative brick driveway that accidentally extends two feet across the property boundary line onto an owner's land. This is legally classified as an:",
     options: [
       "Easement by prescription",
@@ -1416,7 +1416,7 @@ export const questions: Question[] = [
   },
   {
     id: "q114",
-    cat: "Real Estate Law",
+    cat: "Titles, Deeds, and Restrictions",
     q: "Two competing real estate brokerage corporations meet and agree to fix standard commission rates at 6% across the county to restrict discount brokers. This collusion violates which federal legislation?",
     options: [
       "The Fair Housing Act",
@@ -1430,7 +1430,7 @@ export const questions: Question[] = [
   },
   {
     id: "q115",
-    cat: "Real Estate Law",
+    cat: "Titles, Deeds, and Restrictions",
     q: "An aggrieved business successfully sues an individual or corporation for damages under the Sherman Antitrust laws in a civil court. By federal statute, the injured party is entitled to recover:",
     options: [
       "Up to double the actual damages sustained",
