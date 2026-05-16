@@ -83,17 +83,30 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
   // --- 3. Action Handlers ---
 
   const handleNewQuiz = useCallback(
-    (category: string = "All Categories", limit?: number) => {
+    (category: string, limit?: number) => {
+      // 1. Filter by specific category if requested
       const filtered =
         category === "All Categories"
           ? questionsWithIds
           : questionsWithIds.filter((q) => q.cat === category);
 
+      // 2. Fully randomize the questions and the multiple choice options order
       const randomized = shuffleArray(filtered).map((q) =>
         shuffleQuestionOptions(q),
       );
-      const finalSelection = limit ? randomized.slice(0, limit) : randomized;
 
+      // 3. Determine the final question selection limit
+      let finalLimit = randomized.length;
+      if (limit) {
+        finalLimit = limit;
+      } else if (category === "All Categories") {
+        finalLimit = Math.min(100, randomized.length); // Caps at 100 to simulate the Florida state exam
+      }
+
+      // 4. Slice out our selection pool
+      const finalSelection = randomized.slice(0, finalLimit);
+
+      // 5. Initialize active state parameters
       setActiveQuestions(finalSelection);
       setScore(0);
       setCurrentIdx(0);

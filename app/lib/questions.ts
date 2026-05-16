@@ -777,7 +777,8 @@ export const questions: Question[] = [
     q: "How many total square feet are in a property that is 200 feet wide and 400 feet deep?",
     options: ["60, 000", "80, 000", "100, 000", "120, 000"],
     correct: 1,
-    explanation: "Calculation: Area = Width x Depth. 200 x 400 = 80, 000 square feet.",
+    explanation:
+      "Calculation: Area = Width x Depth. 200 x 400 = 80, 000 square feet.",
   },
   {
     id: "q64",
@@ -952,7 +953,8 @@ export const questions: Question[] = [
     q: "A property has a net operating income (NOI) of $40,000 and the market capitalization rate is 8%. What is the estimated value of the property?",
     options: ["$320,000", "$400,000", "$500,000", "$600,000"],
     correct: 2,
-    explanation: "Calculation: Value = Income / Rate. $40,000 / 0.08 = $500,000.",
+    explanation:
+      "Calculation: Value = Income / Rate. $40,000 / 0.08 = $500,000.",
   },
   {
     id: "q78",
@@ -1234,5 +1236,212 @@ export const questions: Question[] = [
     correct: 1,
     explanation:
       "Calculation: Total sq ft = 4 acres * 43,560 sq ft/acre = 174,240 sq ft. Each lot = 174,240 / 8 = 21,780 sq ft.",
+  },
+  // Add these to your questions array inside app/lib/questions.ts
+
+  {
+    id: "eb_oree_rule",
+    cat: "Real Estate Principles",
+    q: "According to the real estate '-OR / -EE' rule, the suffix '-OR' generally denotes the party who performs the action, while '-EE' denotes the recipient. Under this rule, who is the Mortgagor?",
+    options: [
+      "The lender who receives the mortgage document",
+      "The borrower who gives the mortgage to the lender as security",
+      "The trustee who holds bare legal title",
+      "The real estate broker representing the lender",
+    ],
+    correct: 1,
+    explanation:
+      "The Mortgagor is the borrower because they give (-OR) the mortgage pledge to the bank. The bank is the Mortgagee because they receive (-EE) the pledge as security for the loan.",
+  },
+  {
+    id: "eb_bundle_rights",
+    cat: "Real Estate Principles",
+    q: "Which of the following describes the 'Bundle of Rights' inherent in real property ownership?",
+    options: [
+      "The absolute right to use property without regard to local zoning ordinances",
+      "The right to fish, hunt, and build docks on navigable waterways",
+      "The legal rights of ownership, including possession, control, exclusion, enjoyment, and disposition",
+      "The set of guarantees provided exclusively by title insurance policies",
+    ],
+    correct: 2,
+    explanation:
+      "The 'Bundle of Rights' represents the fundamental legal rights that accompany real property ownership: the rights of Possession, Control, Exclusion, Enjoyment, and Disposition.",
+  },
+  {
+    id: "eb_real_personal",
+    cat: "Real Estate Principles",
+    q: "An item of personal property that has been permanently attached to land or a building in such a manner that it legally becomes part of the real property is known as a:",
+    options: ["Trade fixture", "Fixture", "Emblement", "Chattel property"],
+    correct: 1,
+    explanation:
+      "A fixture is an item that was originally personal property (chattel) but has become real property through permanent installation or physical attachment.",
+  },
+  {
+    id: "eb_trade_fixture",
+    cat: "Real Estate Principles",
+    q: "A commercial tenant installs heavy display cases and pizza ovens into a leased storefront. Legally, these items are considered:",
+    options: [
+      "Permanent fixtures that belong to the landlord upon installation",
+      "Trade fixtures, which remain the personal property of the tenant and can be removed prior to lease expiration",
+      "Appurtenances that automatically transfer with the real property",
+      "Emblements that must be harvested by the landlord",
+    ],
+    correct: 1,
+    explanation:
+      "Trade fixtures are items installed by a commercial tenant for business operations. Unlike residential fixtures, trade fixtures remain personal property and may be removed by the tenant before the lease expires.",
+  },
+  {
+    id: "eb_encroachment",
+    cat: "Real Estate Law",
+    q: "A neighbor builds a decorative brick driveway that accidentally extends two feet across the property boundary line onto an owner's land. This is legally classified as an:",
+    options: [
+      "Easement by prescription",
+      "Appurtenance",
+      "Encroachment",
+      "Emblement",
+    ],
+    correct: 2,
+    explanation:
+      "An encroachment occurs when a structure, building, or improvement physically extends past a legal property line onto an adjoining neighbor's land without consent.",
+  },
+  {
+    id: "eb_emblements",
+    cat: "Real Estate Principles",
+    q: "Annual cultivated crops such as corn, wheat, and vegetables that require regular labor and care are classified as:",
+    options: [
+      "Fixtures that stay with the land",
+      "Emblements, which are treated as personal property belonging to the cultivator",
+      "Appurtenances that cannot be legally separated from the real estate",
+      "Riparian rights attached directly to the parcel",
+    ],
+    correct: 1,
+    explanation:
+      "Emblements (fructus industriales) are annual cultivated crops. They are treated as personal property, meaning a tenant farmer retains the right to return and harvest them after a lease ends.",
+  },
+  {
+    id: "eb_fee_simple_abs",
+    cat: "Real Estate Principles",
+    q: "What is the highest, most complete, and unrestricted estate of ownership recognized in real property law?",
+    options: [
+      "Fee simple defeasible",
+      "Life estate",
+      "Fee simple absolute",
+      "Estate for years",
+    ],
+    correct: 2,
+    explanation:
+      "A fee simple absolute estate is the highest interest in real estate recognized by law, giving the owner an absolute right to the land with infinite duration and complete transferability.",
+  },
+  {
+    id: "eb_life_estate",
+    cat: "Real Estate Principles",
+    q: "An owner conveys a residential property 'to my mother for the duration of her natural life, and upon her death, ownership shall pass entirely to my son.' The son holds what type of legal interest?",
+    options: [
+      "A reversionary interest",
+      "A leasehold interest",
+      "A remainder interest",
+      "A fee simple defeasible estate",
+    ],
+    correct: 2,
+    explanation:
+      "Because ownership transfers to a specified third party (the son) instead of returning to the original grantor upon the life tenant's death, the son holds a remainder interest.",
+  },
+  {
+    id: "eb_estate_for_years",
+    cat: "Real Estate Principles",
+    q: "A leasehold agreement that establishes a tenancy for a definite and fixed period of time—such as six months, one year, or a specific five-week lease—is legally known as an:",
+    options: [
+      "Estate at will",
+      "Estate for years",
+      "Periodic tenancy",
+      "Estate at sufferance",
+    ],
+    correct: 1,
+    explanation:
+      "An estate for years is a leasehold estate with a specific, pre-determined start and end date. No termination notice is required because the expiration date is designated in the lease.",
+  },
+  {
+    id: "eb_estate_at_will",
+    cat: "Real Estate Principles",
+    q: "A tenant occupies an apartment with the landlord's permission without a specified end date or regular recurring period. Either party can cancel the arrangement at any time. This constitutes an:",
+    options: [
+      "Estate for years",
+      "Estate at sufferance",
+      "Estate at will",
+      "Tenancy by the entireties",
+    ],
+    correct: 2,
+    explanation:
+      "An estate at will is a tenancy of indefinite duration that can be terminated at any time by either the landlord or tenant giving proper statutory notice.",
+  },
+  {
+    id: "eb_estate_sufferance",
+    cat: "Real Estate Principles",
+    q: "An estate at sufferance occurs when a tenant:",
+    options: [
+      "Occupies a property under a severe lease agreement with rising rates",
+      "Remains in possession of a property after their lawful lease has expired without the landlord's consent",
+      "Leases real estate to an unauthorized sub-lessee",
+      "Fails to pay property taxes under a triple net lease agreement",
+    ],
+    correct: 1,
+    explanation:
+      "An estate at sufferance is created when a tenant lawfully takes possession under a valid lease but wrongfully holds over after the lease terminates without the landlord's explicit approval.",
+  },
+  {
+    id: "eb_gross_lease",
+    cat: "Real Estate Principles",
+    q: "Under a standard residential Gross Lease, what expenses is the tenant responsible for paying?",
+    options: [
+      "A fixed rental amount, while the landlord handles property taxes, insurance, and maintenance",
+      "Rent plus a pro-rata share of the landlord's real estate taxes",
+      "Property management fees and exterior structural repairs only",
+      "A base rent plus a variable percentage of the property's gross business profits",
+    ],
+    correct: 0,
+    explanation:
+      "In a gross lease, the tenant pays a flat, fixed monthly rent. The landlord assumes responsibility for property operating expenses, including taxes, property insurance, and utilities/maintenance.",
+  },
+  {
+    id: "eb_percentage_lease",
+    cat: "Real Estate Principles",
+    q: "Which type of lease agreement is standard for retail spaces in shopping malls where the tenant pays a base monthly rent plus a percentage of their retail sales volume?",
+    options: [
+      "Net lease",
+      "Gross lease",
+      "Percentage lease",
+      "Graduated lease",
+    ],
+    correct: 2,
+    explanation:
+      "A percentage lease is typical for commercial retail properties. It establishes a fixed minimum base rent plus an additional percentage of gross sales generated within the storefront.",
+  },
+  {
+    id: "eb_sherman_antitrust",
+    cat: "Real Estate Law",
+    q: "Two competing real estate brokerage corporations meet and agree to fix standard commission rates at 6% across the county to restrict discount brokers. This collusion violates which federal legislation?",
+    options: [
+      "The Fair Housing Act",
+      "The Real Estate Settlement Procedures Act (RESPA)",
+      "The Sherman Antitrust Law",
+      "The Truth in Lending Act (TILA)",
+    ],
+    correct: 2,
+    explanation:
+      "The Sherman Antitrust Act strictly prohibits price-fixing, group boycotting, and market allocation schemes among competing businesses to preserve market competition.",
+  },
+  {
+    id: "eb_antitrust_civil",
+    cat: "Real Estate Law",
+    q: "An aggrieved business successfully sues an individual or corporation for damages under the Sherman Antitrust laws in a civil court. By federal statute, the injured party is entitled to recover:",
+    options: [
+      "Up to double the actual damages sustained",
+      "Up to triple the value of actual damages, plus reasonable attorney's fees and court costs",
+      "A flat regulatory statutory fine capped at $5,000",
+      "Only the specific commission amounts lost during the dispute period",
+    ],
+    correct: 1,
+    explanation:
+      "Under civil enforcement of the Sherman Antitrust Act, a plaintiff can recover up to triple (treble) the actual financial damages incurred, plus full reimbursement for reasonable attorney's fees and court costs.",
   },
 ];
