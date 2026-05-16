@@ -97,13 +97,14 @@ export default function Home() {
           <div className="w-full max-w-2xl">
             {/* WelcomeScreen expects handlers that set the activeMode */}
             <WelcomeScreen
+              onStart={() => setActiveMode("standard")}
               onNew={(category, count) => {
                 setSelectedCategory(category);
                 if (count === 20) setActiveMode("quick20");
                 else setActiveMode("standard");
               }}
               // 3. Connect the Weakest Link handler
-              onWeakestDrill={() => setActiveMode("weakest")}
+              onWeakestDrill={() => {}}
               onResume={() => {}}
               hasProgress={false}
             />
