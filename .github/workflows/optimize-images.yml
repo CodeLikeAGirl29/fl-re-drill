@@ -1,29 +1,33 @@
 name: Optimize Project Images
 
+# 1. Trigger the workflow when a Pull Request is opened or updated
 on:
-  push:
+  pull_request:
     branches:
       - main
+    # Only trigger if files in the images folder change
+    paths:
+      - 'images/**.jpg'
+      - 'images/**.jpeg'
+      - 'images/**.png'
+      - 'images/**.gif'
 
-# Give the workflow permission to write changes back to the repository
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
-  shrink-images:
+  crush:
     runs-on: ubuntu-latest
 
     steps:
+      # 2. Checkout the repository code
       - name: Checkout Repo Code
         uses: actions/checkout@v4
 
-      - name: Image Optimizer
+      # 3. Run the Crush Pics optimization with correct, expected parameters
+      - name: Crush images
         uses: crush-pics/crush-pics-github-action@v1.0
         with:
-          # The exact input name required by this action
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Commit Optimized Images
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "chore: optimize images via CrushPics [skip ci]"
+          api-key: ${{ secrets.CRUSH_API_KEY }}
