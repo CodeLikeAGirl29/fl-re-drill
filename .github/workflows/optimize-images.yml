@@ -1,15 +1,13 @@
 name: Optimize Project Images
 
-# Trigger on direct pushes to main or pull requests
+# This action strictly requires a Pull Request context to run
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
+    paths:
+      - 'images/**'
 
-# Give the workflow permission to write the smaller images back to your repo
 permissions:
   contents: write
   pull-requests: write
@@ -20,17 +18,14 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # 1. Download your repository files
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      # 2. Compress the images automatically
       - name: Compress Images
         uses: calibreapp/image-actions@main
         with:
-          # Uses the automatic, built-in GitHub token to handle authentication
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          # Optional: You can set the compression quality (0-100)
+          # Fixed casing: must be upper-case
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           jpegQuality: '80'
           pngQuality: '80'
           webpQuality: '80'
