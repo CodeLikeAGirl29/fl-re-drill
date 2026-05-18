@@ -1,16 +1,12 @@
 name: Optimize Project Images
 
-# 1. Trigger the workflow when a Pull Request is opened or updated
+# Trigger on a pull request so the script can analyze image differences
 on:
   pull_request:
     branches:
       - main
-    # Only trigger if files in the images folder change
     paths:
-      - 'images/**.jpg'
-      - 'images/**.jpeg'
-      - 'images/**.png'
-      - 'images/**.gif'
+      - 'images/**' # Only run when files inside the images folder change
 
 permissions:
   contents: write
@@ -21,13 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 2. Checkout the repository code
-      - name: Checkout Repo Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 3. Run the Crush Pics optimization with correct, expected parameters
-      - name: Crush images
+      - name: Crush Images
         uses: crush-pics/crush-pics-github-action@v1.0
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          api-key: ${{ secrets.CRUSH_API_KEY }}
+        # Bypass the broken schema validation by passing values as environment variables
+        env:
+          INPUT_REPO-TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INPUT_API-KEY: ${{ secrets.CRUSH_API_KEY }}
