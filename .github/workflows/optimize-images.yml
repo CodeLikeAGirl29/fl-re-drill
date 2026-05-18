@@ -1,30 +1,28 @@
 name: Optimize Project Images
 
-# 1. Trigger the workflow on pushes to the main branch
 on:
   push:
     branches:
       - main
+
+# Give the workflow permission to write changes back to the repository
+permissions:
+  contents: write
 
 jobs:
   shrink-images:
     runs-on: ubuntu-latest
 
     steps:
-      # 2. Checkout the repository code so the action can see your images
       - name: Checkout Repo Code
         uses: actions/checkout@v4
 
-      # 3. Run the Crush Pics optimization on your specific images folder
       - name: Image Optimizer
         uses: crush-pics/crush-pics-github-action@v1.0
         with:
-          # This references the secret token you will set up in GitHub
-          api_token: ${{ secrets.CRUSHPICS_TOKEN }}
-          # Points directly to your images folder
-          path: 'images'
+          # The exact input name required by this action
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 4. Automatically commit and push the optimized images back to your repo
       - name: Commit Optimized Images
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
