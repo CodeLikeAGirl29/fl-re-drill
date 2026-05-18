@@ -1,28 +1,36 @@
 name: Optimize Project Images
 
-# Trigger on a pull request so the script can analyze image differences
+# Trigger on direct pushes to main or pull requests
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
       - main
-    paths:
-      - 'images/**' # Only run when files inside the images folder change
 
+# Give the workflow permission to write the smaller images back to your repo
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  crush:
+  build:
+    name: Calibre Image Actions
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout Code
+      # 1. Download your repository files
+      - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Crush Images
-        uses: crush-pics/crush-pics-github-action@v1.0
-        # Bypass the broken schema validation by passing values as environment variables
-        env:
-          INPUT_REPO-TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          INPUT_API-KEY: ${{ secrets.CRUSH_API_KEY }}
+      # 2. Compress the images automatically
+      - name: Compress Images
+        uses: calibreapp/image-actions@main
+        with:
+          # Uses the automatic, built-in GitHub token to handle authentication
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: You can set the compression quality (0-100)
+          jpegQuality: '80'
+          pngQuality: '80'
+          webpQuality: '80'
