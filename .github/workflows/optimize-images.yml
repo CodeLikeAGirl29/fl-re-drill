@@ -1,0 +1,31 @@
+name: Optimize Project Images
+
+# This action strictly requires a Pull Request context to run
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'images/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  build:
+    name: Calibre Image Actions
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Compress Images
+        uses: calibreapp/image-actions@main
+        with:
+          # Fixed casing: must be upper-case
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          jpegQuality: '80'
+          pngQuality: '80'
+          webpQuality: '80'
