@@ -50,7 +50,6 @@ export default function Footer() {
   return (
     <footer className="w-full mt-auto py-10 px-4 border-t border-white/5 bg-slate-950/80 backdrop-blur-xl">
       <div className="max-w-md mx-auto flex flex-col items-center text-center">
-        
         {/* Animated Social Icon Row */}
         <motion.div
           variants={containerVariants}
@@ -80,8 +79,8 @@ export default function Footer() {
         </motion.div>
 
         {/* Branding & Copyright */}
-        <p className="text-[0.625rem] font-black uppercase tracking-[0.3em] text-slate-400 mb-4">
-          © 2026 FL Real Estate Master Drill
+        <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">
+          © {new Date().getFullYear()} FL Real Estate Master Drill
         </p>
 
         {/* Neon Divider Line */}
@@ -96,7 +95,6 @@ export default function Footer() {
 
         {/* Status Indicators Pill Container */}
         <div className="flex flex-wrap items-center justify-center gap-4 bg-slate-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
-          
           {/* Netlify Production Cloud Link Status Indicator */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
@@ -133,9 +131,23 @@ export default function Footer() {
               Node 24 Active
             </span>
           </div>
-
         </div>
 
+        <div className="flex items-center justify-center p-3 pt-4">
+          <a
+            href="https://readmecodegen.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-fit hover:opacity-80 transition-opacity"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://readmecode-pdf.onrender.com/api/badge/user_mpez5xv7_tg0738?style=style1&bg=gradient-green"
+              alt="Visitor Badge"
+              className="block h-auto max-w-full"
+            />
+          </a>
+        </div>
       </div>
     </footer>
   );
