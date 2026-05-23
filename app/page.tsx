@@ -9,7 +9,6 @@ import Dashboard from "./components/Dashboard";
 import QuizContainer from "./components/QuizContainer";
 import WelcomeScreen from "./components/WelcomeScreen";
 import FormulaModal from "./components/FormulaModal";
-import FormulaSheet from "./components/FormulaSheet";
 import {
   updateMastery,
   getMasteryStats,
@@ -23,8 +22,9 @@ export default function Home() {
     "standard" | "quick20" | "flashcards" | "weakest" | null
   >(null);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  
+  // Single consolidated state variable for managing your modal window
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFormulaOpen, setIsFormulaOpen] = useState(false);
 
   const supabase = createClient();
 
@@ -46,9 +46,9 @@ export default function Home() {
     if (!user) return;
     try {
       const newStatus = isCorrect ? "mastered" : "review";
-      // 2. Update Supabase
+      // Update Supabase
       await updateMastery(questionId, newStatus);
-      // 3. Pull fresh data to sync the Intelligence Report locally
+      // Pull fresh data to sync the Intelligence Report locally
       const freshStats = await getMasteryStats();
       setMasteryStats(freshStats);
     } catch (err) {
@@ -72,12 +72,16 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen font-sans">
+      {/* Perfectly mapped the Header trigger callback to toggle 
+        the centered FormulaModal visibility state 
+      */}
       <Header
-        onOpenFormulas={() => setIsFormulaOpen(true)}
+        onOpenFormulas={() => setIsModalOpen(true)}
         onHome={() => setActiveMode(null)}
       />
+      
       <main className="flex-grow flex items-center justify-center p-4">
-        {/* 1. If a quiz mode is active, show the container */}
+        {/* If a quiz mode is active, show the container */}
         {activeMode ? (
           <QuizContainer
             mode={activeMode}
@@ -103,7 +107,7 @@ export default function Home() {
                 if (count === 20) setActiveMode("quick20");
                 else setActiveMode("standard");
               }}
-              // 3. Connect the Weakest Link handler
+              // Connect the Weakest Link handler
               onWeakestDrill={() => {}}
               onResume={() => {}}
               hasProgress={false}
@@ -117,11 +121,11 @@ export default function Home() {
 
       <Footer />
 
+      {/* Your centered Formula Modal with full screen frosted glass blur background */}
       <FormulaModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
-      <FormulaSheet isOpen={isFormulaOpen} onOpenChange={setIsFormulaOpen} />
     </div>
   );
 }

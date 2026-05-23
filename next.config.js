@@ -1,4 +1,4 @@
-/** @type {import('next').Next.config} */
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   devIndicators: false,
   images: {
@@ -9,6 +9,15 @@ const nextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  // Maps a secure backend proxy to bypass browser-level "Failed to fetch" blocks
+  async rewrites() {
+    return [
+      {
+        source: '/api/cloudinary/:path*',
+        destination: 'https://api.cloudinary.com/v1_1/:path*',
+      },
+    ];
   },
 };
 
