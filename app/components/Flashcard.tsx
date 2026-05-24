@@ -16,13 +16,13 @@ export default function Flashcard({
   onSwipe,
 }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
-  const x = useMotionValue(0);
+  const dragX = useMotionValue(0);
 
   // Dynamic styling based on drag distance
-  const rotate = useTransform(x, [-200, 200], [-25, 25]);
-  const opacity = useTransform(x, [-200, -150, 0, 150, 200], [0, 1, 1, 1, 0]);
-  const checkOpacity = useTransform(x, [50, 150], [0, 1]);
-  const undoOpacity = useTransform(x, [-50, -150], [0, 1]);
+  const rotate = useTransform(dragX, [-200, 200], [-25, 25]);
+  const opacityTransform = useTransform(dragX, [-200, -150, 0, 150, 200], [0, 1, 1, 1, 0]);
+  const checkOpacity = useTransform(dragX, [50, 150], [0, 1]);
+  const undoOpacity = useTransform(dragX, [-50, -150], [0, 1]);
 
   const handleDragEnd = (
     _: MouseEvent | TouchEvent | PointerEvent,
@@ -32,6 +32,26 @@ export default function Flashcard({
       onSwipe("right");
     } else if (info.offset.x < -150) {
       onSwipe("left");
+    }
+  };
+
+  // Define structured animation variants to prevent style overrides
+  const cardVariants = {
+    initial: {
+      x: 350,
+      opacity: 0,
+      scale: 0.95,
+    },
+    animate: (flipped: boolean) => ({
+      x: 0,
+      opacity: 1,
+      scale: 1,
+      rotateY: flipped ? 180 : 0,
+    }),
+    exit: {
+      x: dragX.get() >= 0 ? 600 : -600,
+      opacity: 0,
+      scale: 0.9,
     }
   };
 
@@ -54,28 +74,23 @@ export default function Flashcard({
       <motion.div
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
-        style={{ x, rotate, opacity }}
+        // Pass dragX to track drag, but allow Framer variants to handle x animation positioning
+        style={{ x: dragX, rotate, opacity: opacityTransform }}
         onDragEnd={handleDragEnd}
         onClick={() => setIsFlipped(!isFlipped)}
-        // --- SNAPPY ENTRY (Removed y: 20) ---
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{
-          scale: 1,
-          opacity: 1,
-          rotateY: isFlipped ? 180 : 0,
-        }}
-        // --- CLEAN EXIT (Fly off screen) ---
-        exit={{
-          x: x.get() > 0 ? 800 : -800,
-          opacity: 0,
-          scale: 0.8,
-          transition: { duration: 0.3 },
-        }}
-        // --- BALANCED PHYSICS ---
+        
+        // Connect variants configuration
+        variants={cardVariants}
+        custom={isFlipped}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        
+        // Crisp transition timeline settings
         transition={{
           type: "spring",
-          stiffness: 250,
-          damping: 25,
+          stiffness: 350,
+          damping: 28,
         }}
         className="relative w-full h-full shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] border-4 border-white preserve-3d will-change-transform bg-slate-900"
       >
@@ -97,7 +112,7 @@ export default function Flashcard({
           <span className="text-white/60 font-black text-xs uppercase tracking-[0.3em] mb-4">
             Answer
           </span>
-          <h3 className="text-2xl font-black text-zinc-600/900 leading-tight answer">
+          <h3 className="text-2xl font-black text-zinc-900 leading-tight answer">
             {answer}
           </h3>
         </div>

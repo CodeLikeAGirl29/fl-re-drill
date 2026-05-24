@@ -18,7 +18,11 @@ export async function updateMastery(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthorized");
+
+  // Return a safe status instead of crashing unauthenticated guest loops
+  if (!user) {
+    return { success: false, error: "Unauthorized" };
+  }
 
   const { error } = await supabase.from("user_mastery").upsert(
     {
@@ -30,10 +34,16 @@ export async function updateMastery(
     { onConflict: "user_id,question_id" },
   );
 
-  if (error) throw error;
+  // Return a graceful error payload instead of a hard application crash
+  if (error) {
+    console.error("Database telemetry sync failed:", error);
+    return { success: false, error: error.message };
+  }
 
   // Revalidates the cache so the Dashboard stats update immediately
   revalidatePath("/");
+
+  return { success: true };
 }
 
 export async function getMasteryStats(): Promise<MasteryRecord[]> {

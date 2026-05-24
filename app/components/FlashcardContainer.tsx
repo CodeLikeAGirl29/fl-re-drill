@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Flashcard from "./Flashcard";
 import { updateMastery } from "@/app/lib/actions/mastery";
@@ -23,36 +23,67 @@ export default function FlashcardContainer({
   onAnswer,
 }: FlashcardContainerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [activeDeck, setActiveDeck] = useState<Question[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  const handleSwipe = (direction: "left" | "right") => {
-    if (currentIndex >= questions.length) return;
+  // Randomize and slice exactly 25 cards on load
+  useEffect(() => {
+    if (questions && questions.length > 0) {
+      const randomized = [...questions]
+        .sort(() => Math.random() - 0.5) // Quick array shuffle
+        .slice(0, 25);                  // Limit round capacity to 25 items
+      
+      setActiveDeck(randomized);
+      setIsInitialized(true);
+    }
+  }, [questions]);
 
-    const currentQuestion = questions[currentIndex];
+const handleSwipe = async (direction: "left" | "right") => {
+    if (currentIndex >= activeDeck.length) return;
+
+    const currentQuestion = activeDeck[currentIndex];
     const isCorrect = direction === "right";
 
-    // CHANGE: Make this instant or very short (10ms)
+    // Instantly advance UI state so card transitions feel smooth and snappy
     setCurrentIndex((prev) => prev + 1);
 
-    // Background updates...
     if (onAnswer) onAnswer(currentQuestion.id, isCorrect);
+
     if (isAuthenticated) {
-      updateMastery(
-        currentQuestion.id,
-        isCorrect ? "mastered" : "review",
-      ).catch(console.error);
+      try {
+        const result = await updateMastery(
+          currentQuestion.id,
+          isCorrect ? "mastered" : "review",
+        );
+
+        if (result && !result.success) {
+          console.warn(`Telemetry sync deferred: ${result.error}`);
+        }
+      } catch (err) {
+        console.warn("Network transaction failed silently to preserve UX flow.", err);
+      }
     }
   };
 
-  if (currentIndex >= questions.length) {
+  // Prevent flash content jumps before array slicing is prepared
+  if (!isInitialized || activeDeck.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="h-5 w-5 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto" />
+      </div>
+    );
+  }
+
+  if (currentIndex >= activeDeck.length) {
     return (
       <div className="text-center font-space py-10">
-        <h2 className="text-4xl font-black italic uppercase text-white">
+        <h2 className="text-4xl font-black italic uppercase text-white tracking-tight">
           Drill Complete
         </h2>
         <p className="text-cyan-400 font-bold mt-2 uppercase tracking-widest text-xs">
           {isAuthenticated
-            ? "Stats updated in your dashboard."
-            : "Sign in to save your progress permanently."}
+            ? "Telemetry stats synchronized to your dashboard."
+            : "Sign in to save your structural progress loops."}
         </p>
       </div>
     );
@@ -60,34 +91,39 @@ export default function FlashcardContainer({
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-[500px] relative">
+      {/* Structural Round Counter */}
+      <div className="mb-4 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">
+        Card <span className="text-white font-black">{currentIndex + 1}</span> of {activeDeck.length}
+      </div>
+
       <AnimatePresence mode="popLayout">
         <Flashcard
-          key={questions[currentIndex].id}
-          question={questions[currentIndex].question}
-          answer={questions[currentIndex].answer}
+          key={activeDeck[currentIndex].id}
+          question={activeDeck[currentIndex].question}
+          answer={activeDeck[currentIndex].answer}
           onSwipe={handleSwipe}
         />
       </AnimatePresence>
 
-      <div className="flex gap-10 mt-8">
+      <div className="flex gap-6 mt-8 w-full max-w-sm">
         <button
           onClick={() => handleSwipe("left")}
-          className="px-6 py-2 bg-rose-500/20 border border-rose-500/50 text-rose-400 rounded-xl font-bold uppercase text-xs hover:bg-rose-500/30 transition-colors"
+          className="flex-1 py-3 bg-rose-500/10 border border-rose-500/30 text-rose-400 rounded-xl font-bold uppercase text-[11px] font-mono tracking-wider hover:bg-rose-500/20 active:scale-[0.98] transition-all"
         >
-          Need Review (Left)
+          Need Review (←)
         </button>
         <button
           onClick={() => handleSwipe("right")}
-          className="px-6 py-2 bg-emerald-500/20 border border-emerald-500/50 text-emerald-400 rounded-xl font-bold uppercase text-xs hover:bg-emerald-500/30 transition-colors"
+          className="flex-1 py-3 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl font-bold uppercase text-[11px] font-mono tracking-wider hover:bg-emerald-500/20 active:scale-[0.98] transition-all"
         >
-          Mastered (Right)
+          Mastered (→)
         </button>
       </div>
 
       {!isAuthenticated && (
         <div className="mt-6">
-          <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-600 italic">
-            Guest Mode: Progress not syncing
+          <span className="text-[9px] font-mono font-bold uppercase tracking-[0.2em] text-slate-600 italic">
+            // Guest Mode: Progress data bound locally
           </span>
         </div>
       )}
