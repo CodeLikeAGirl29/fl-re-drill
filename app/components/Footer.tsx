@@ -133,21 +133,6 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="flex items-center justify-center p-3 pt-4">
-          <a
-            href="https://readmecodegen.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block w-fit hover:opacity-80 transition-opacity"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://readmecode-pdf.onrender.com/api/badge/user_mpez5xv7_tg0738?style=style1&bg=gradient-green"
-              alt="Visitor Badge"
-              className="block h-auto max-w-full"
-            />
-          </a>
-        </div>
       </div>
     </footer>
   );
