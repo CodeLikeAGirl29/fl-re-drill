@@ -278,7 +278,7 @@ function DrillCard({
 }: DrillCardProps) {
   return (
     <motion.button
-      whileHover={{ y: -3, bg: "rgba(15, 23, 42, 0.6)" }}
+     whileHover={{ y: -3, backgroundColor: "rgba(15, 23, 42, 0.6)" }}
       whileTap={{ scale: 0.99 }}
       onClick={onClick}
       className={cn(

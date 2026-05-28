@@ -1,10 +1,82 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { FiGithub, FiFacebook } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { motion } from "framer-motion";
 
+type NetlifyStatus = "success" | "building" | "failed" | "loading";
+
 export default function Footer() {
+  const [deployStatus, setDeployStatus] = useState<NetlifyStatus>("loading");
+
+  const NETLIFY_SITE_DOMAIN = "fl-re-drill.netlify.app"; 
+
+  useEffect(() => {
+    async function fetchNetlifyStatus() {
+      try {
+        // Fetch the most recent deploys for the site
+        const response = await fetch(
+          `https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_DOMAIN}/deploys`
+        );
+        
+        if (!response.ok) throw new Error("Failed to fetch status");
+        
+        const deploys = await response.json();
+        
+        if (deploys && deploys.length > 0) {
+          const latestDeploy = deploys[0];
+          // Netlify deploy states: 'ready', 'building', 'enqueued', 'error'
+          const state = latestDeploy.state;
+
+          if (state === "ready") {
+            setDeployStatus("success");
+          } else if (state === "building" || state === "enqueued") {
+            setDeployStatus("building");
+          } else if (state === "error") {
+            setDeployStatus("failed");
+          } else {
+            setDeployStatus("success"); // Fallback
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching Netlify deploy status:", error);
+        setDeployStatus("success"); // Fallback gracefully to live/success indicator
+      }
+    }
+
+    fetchNetlifyStatus();
+    // Optional: Poll every 30 seconds if you want it real-time during a build
+    const interval = setInterval(fetchNetlifyStatus, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Helper config to change dots and text visually based on state
+  const statusConfig = {
+    loading: {
+      pingColor: "bg-slate-400",
+      dotColor: "bg-slate-500",
+      text: "Checking...",
+    },
+    success: {
+      pingColor: "bg-emerald-400",
+      dotColor: "bg-emerald-500",
+      text: "Netlify Live",
+    },
+    building: {
+      pingColor: "bg-amber-400",
+      dotColor: "bg-amber-500",
+      text: "Netlify Building",
+    },
+    failed: {
+      pingColor: "bg-rose-400",
+      dotColor: "bg-rose-500",
+      text: "Deploy Failed",
+    },
+  };
+
+  const currentStatus = statusConfig[deployStatus];
+  
   const socialLinks = [
     {
       icon: <FiGithub size={20} />,
@@ -98,11 +170,13 @@ export default function Footer() {
           {/* Netlify Production Cloud Link Status Indicator */}
           <div className="flex items-center gap-2">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              {deployStatus !== "failed" && (
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${currentStatus.pingColor} opacity-75`}></span>
+              )}
+              <span className={`relative inline-flex rounded-full h-2 w-2 ${currentStatus.dotColor}`}></span>
             </span>
             <span className="font-bold tracking-widest text-[9px] uppercase text-slate-400">
-              Netlify Live
+              {currentStatus.text}
             </span>
           </div>
 
