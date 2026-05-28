@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/app/lib/supabase/client";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGoogle, FaEnvelope, FaLock, FaArrowRight } from "react-icons/fa";
+import { FaGoogle, FaEnvelope, FaLock, FaArrowRight, FaGithub } from "react-icons/fa";
 
 export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
@@ -36,9 +36,9 @@ export default function LoginPage() {
     setLoading(false);
   };
 
-  const handleGoogleLogin = async () => {
+  const handleOAuthLogin = async (provider: "google" | "github") => {
     await supabase.auth.signInWithOAuth({
-      provider: "google",
+      provider,
       options: { redirectTo: `${window.location.origin}/api/auth/callback` },
     });
   };
@@ -75,13 +75,24 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-6">
-            {/* Social Login */}
-            <button
-              onClick={handleGoogleLogin}
-              className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 py-3.5 px-4 rounded-xl font-bold uppercase text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-white/5"
-            >
-              <FaGoogle className="text-lg" /> Continue with Google
-            </button>
+            {/* Social Logins Container */}
+            <div className="flex flex-col gap-3">
+              {/* Google Login */}
+              <button
+                onClick={() => handleOAuthLogin("google")}
+                className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 py-3.5 px-4 rounded-xl font-bold uppercase text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-white/5"
+              >
+                <FaGoogle className="text-lg" /> Continue with Google
+              </button>
+
+              {/* GitHub Login */}
+              <button
+                onClick={() => handleOAuthLogin("github")}
+                className="w-full flex items-center justify-center gap-3 bg-slate-950 border border-white/10 hover:bg-slate-900 text-white py-3.5 px-4 rounded-xl font-bold uppercase text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-black/40"
+              >
+                <FaGithub className="text-lg" /> Continue with GitHub
+              </button>
+            </div>
 
             <div className="flex items-center gap-4">
               <div className="h-px bg-slate-800 flex-grow" />
