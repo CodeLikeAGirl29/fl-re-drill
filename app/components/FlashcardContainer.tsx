@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
-import Flashcard from "./Flashcard";
+import { Flashcard } from "./Flashcard";
 import { updateMastery } from "@/app/lib/actions/mastery";
 
 interface Question {
