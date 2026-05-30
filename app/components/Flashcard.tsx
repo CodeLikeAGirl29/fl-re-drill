@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 interface FlashcardProps {
@@ -9,11 +9,21 @@ interface FlashcardProps {
   onSwipe: (direction: "left" | "right") => void;
 }
 
-export function Flashcard({ question, answer, onSwipe }: FlashcardProps) {
+export function Flashcard({ question, answer }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
+  // Automatically reset to the front face whenever a new question arrives
+  useEffect(() => {
+    setIsFlipped(false);
+  }, [question]);
+
   return (
-    <div className="w-full max-w-sm h-64 [perspective:1000px] cursor-pointer">
+    <motion.div 
+      className="w-full max-w-sm h-64 [perspective:1000px] cursor-pointer"
+      initial={{ opacity: 0, scale: 0.95, y: 15 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9, y: -25, transition: { duration: 0.2, ease: "easeIn" } }}
+    >
       <motion.div
         className="relative w-full h-full [transform-style:preserve-3d] transition-all duration-500"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
@@ -32,6 +42,6 @@ export function Flashcard({ question, answer, onSwipe }: FlashcardProps) {
           <p className="text-slate-200 text-base leading-relaxed">{answer}</p>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
