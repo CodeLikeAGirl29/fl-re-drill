@@ -26,6 +26,9 @@ export default function FlashcardContainer({
   const [activeDeck, setActiveDeck] = useState<Question[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   
+  // Track swipe direction state so the exiting card knows which path to fly out towards
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
+  
   // Guard reference to ensure initialization code executes exactly once
   const deckBuiltRef = useRef(false);
 
@@ -53,6 +56,9 @@ export default function FlashcardContainer({
 
     const currentQuestion = activeDeck[currentIndex];
     const isCorrect = direction === "right";
+
+    // Set directional state context before advancing index
+    setSwipeDirection(direction);
 
     // Advance index instantly to force AnimatePresence to transition properly
     setCurrentIndex((prev) => prev + 1);
@@ -112,23 +118,30 @@ export default function FlashcardContainer({
     );
   }
 
+  // Safe question boundary resolution fallback for components caught mid-unmount lifecycle phase
+  const safeCurrentCard = activeDeck[currentIndex] || activeDeck[activeDeck.length - 1];
+
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-[500px] relative">
       {/* Structural Round Counter */}
       <div className="mb-4 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">
-        Card <span className="text-white font-black">{currentIndex + 1}</span>{" "}
+        Card <span className="text-white font-black">{Math.min(currentIndex + 1, activeDeck.length)}</span>{" "}
         of {activeDeck.length}
       </div>
 
-      {/* Mode set to "wait" ensures old indicators are unmounted cleanly before next card slides */}
-      <AnimatePresence mode="wait" initial={false}>
-        <Flashcard
-          key={activeDeck[currentIndex].id}
-          question={activeDeck[currentIndex].question}
-          answer={activeDeck[currentIndex].answer}
-          onSwipe={handleSwipe}
-        />
-      </AnimatePresence>
+      {/* Changing mode to "popLayout" allows the incoming card to step into place 
+        simultaneously while the old card flies out, eliminating layout shifts.
+      */}
+      <div className="relative w-full max-w-sm h-64 flex items-center justify-center">
+        <AnimatePresence mode="popLayout" initial={false}>
+          <Flashcard
+            key={safeCurrentCard.id}
+            question={safeCurrentCard.question}
+            answer={safeCurrentCard.answer}
+            direction={swipeDirection}
+          />
+        </AnimatePresence>
+      </div>
 
       <div className="flex gap-6 mt-8 w-full max-w-sm">
         <button
