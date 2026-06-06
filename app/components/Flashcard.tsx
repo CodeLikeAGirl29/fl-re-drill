@@ -7,7 +7,6 @@ interface FlashcardProps {
   question: string;
   answer: string;
   direction: "left" | "right" | null;
-  onSwipe: (direction: "left" | "right") => void;
 }
 
 export function Flashcard({ question, answer, direction }: FlashcardProps) {

@@ -1,3 +1,4 @@
+/* app/globals.css */
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 
@@ -13,30 +14,30 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
 
-  /* Color Palette - Defaulting to Dark/Space Mode values */
-  --color-background: oklch(0.141 0.005 285.823);
-  --color-foreground: oklch(0.985 0 0);
+  /* Color Palette - Converted to Hex/RGBA to fix browser animation warnings */
+  --color-background: #020617;
+  --color-foreground: #f8fafc;
 
-  --color-primary: oklch(0.21 0.006 285.885);
-  --color-primary-foreground: oklch(0.985 0 0);
+  --color-primary: #0f172a;
+  --color-primary-foreground: #f8fafc;
 
-  --color-card: oklch(0.21 0.006 285.885);
-  --color-card-foreground: oklch(0.985 0 0);
+  --color-card: #0f172a;
+  --color-card-foreground: #f8fafc;
 
-  --color-popover: oklch(0.21 0.006 285.885);
-  --color-popover-foreground: oklch(0.985 0 0);
+  --color-popover: #0f172a;
+  --color-popover-foreground: #f8fafc;
 
-  --color-muted: oklch(0.274 0.006 286.033);
-  --color-muted-foreground: oklch(0.705 0.015 286.067);
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
 
-  --color-accent: oklch(0.92 0.004 286.32);
-  --color-accent-foreground: oklch(0.21 0.006 285.885);
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
 
-  --color-destructive: oklch(0.704 0.191 22.216);
+  --color-destructive: #ef4444;
 
-  --color-border: oklch(1 0 0 / 10%);
-  --color-input: oklch(1 0 0 / 15%);
-  --color-ring: oklch(0.552 0.016 285.938);
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-input: rgba(255, 255, 255, 0.15);
+  --color-ring: #6366f1;
 
   --radius: 0.625rem;
 
@@ -56,7 +57,6 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* Use the variable directly instead of @apply */
     font-family: var(--font-sans);
   }
 
@@ -64,7 +64,7 @@
     margin: 0;
     min-height: 100vh;
     color: var(--color-foreground);
-    background-color: #020617;
+    background-color: var(--color-background);
 
     /* "Space" Background */
     background-image:
@@ -78,7 +78,6 @@
   }
 
   * {
-    /* FIX: Changed @apply border-border to direct variable use */
     border-color: var(--color-border);
     outline-color: var(--color-ring);
   }
