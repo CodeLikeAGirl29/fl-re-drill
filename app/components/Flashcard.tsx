@@ -10,12 +10,7 @@ interface FlashcardProps {
   onSwipe: (direction: "left" | "right") => void;
 }
 
-export function Flashcard({
-  question,
-  answer,
-  direction,
-  onSwipe,
-}: FlashcardProps) {
+export function Flashcard({ question, answer, direction }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   // Automatically reset to the front face whenever a new question arrives
