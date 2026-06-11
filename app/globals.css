@@ -1,161 +1,125 @@
-@import url("swiper/css");
-@import url("swiper/css/navigation");
-@import url("swiper/css/pagination");
-@import url("swiper/css/scrollbar");
+/* app/globals.css */
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
 
-html {
-  scroll-behavior: smooth;
-}
+@custom-variant dark (&:is(.dark *));
 
-::-webkit-scrollbar-track {
-  box-shadow: none;
-  background-color: transparent;
-}
+@theme inline {
+  /* Design System Variables */
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  --font-mono-calc: var(--font-source-code), monospace;
 
-::-webkit-scrollbar {
-  width: 6px;
-  background-color: transparent;
-}
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
 
-::-webkit-scrollbar-thumb {
-  background-color: rgb(0 0 0 / 50%);
-  border-radius: 6px;
-}
+  /* Color Palette - Converted to Hex/RGBA to fix browser animation warnings */
+  --color-background: #020617;
+  --color-foreground: #f8fafc;
 
-/* image popup */
-img.mfp-img {
-  box-shadow: 0 0 8px rgb(0 0 0 / 60%);
-  position: absolute;
+  --color-primary: #0f172a;
+  --color-primary-foreground: #f8fafc;
 
-  /* max-height: 392px; */
-  width: 100%;
-  padding: 0 !important;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+  --color-card: #0f172a;
+  --color-card-foreground: #f8fafc;
 
-.mfp-img-container .mfp-content {
-  max-width: 400px !important;
-}
+  --color-popover: #0f172a;
+  --color-popover-foreground: #f8fafc;
 
-.mfp-img-container .mfp-close {
-  top: -110px;
-  right: -24px;
-}
+  --color-muted: #1e293b;
+  --color-muted-foreground: #94a3b8;
 
-/* .mfp-content {
-  height: 100%;
-} */
-.mfp-bottom-bar {
-  top: unset;
-  bottom: 14px;
-  right: 0;
-}
+  --color-accent: #f1f5f9;
+  --color-accent-foreground: #0f172a;
 
-.mfp-wrap {
-  position: unset;
-}
+  --color-destructive: #ef4444;
 
-.content_popup_warp.mfp-wrap.popup-box-inline {
-  margin: auto;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-input: rgba(255, 255, 255, 0.15);
+  --color-ring: #6366f1;
 
-.modal-wrapper {
-  width: 500px;
-  height: 600px;
-}
+  --radius: 0.625rem;
 
-.modal {
-  background: white;
-  height: 100%;
-  width: 100%;
-  border-radius: 15px;
-  padding: 15px;
-}
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
 
-.modal-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(0 0 0 / 50%);
-}
-
-.modal-body {
-  padding-top: 10px;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: flex-end;
-  font-size: 25px;
-}
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-.modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
-}
-
-.close-btn {
-  border: none;
-  background: transparent;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-/* ------------------------------------------------------------------ */
-/* Project grid spacing                                                */
-/* The template's new-skin.css / layout.css load AFTER globals.css and */
-/* zero out padding on .col (same element as .grid-item), often with   */
-/* !important. So we use higher specificity + !important to win the    */
-/* cascade. box-sizing keeps each tile at 50% width so the masonry     */
-/* layout still resolves to two columns; the padding becomes the gap.  */
-/* ------------------------------------------------------------------ */
-.content.works .grid-items .grid-item {
-  box-sizing: border-box !important;
-  padding: 18px !important;
-}
-
-@media (max-width: 600px) {
-  .content.works .grid-items .grid-item {
-    padding: 10px !important;
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }
 
-/* Make each tile read as its own card (optional, remove if unwanted) */
-.content.works .grid-items .grid-item .box-item {
-  height: 100%;
-  border-radius: 10px;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--color-foreground);
+    background-color: var(--color-background);
+
+    /* "Space" Background */
+    background-image:
+      radial-gradient(circle at center, rgba(99, 102, 241, 0.15) 0%, transparent 70%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='%236366f1' fill-opacity='0.1'%3E%3Cpolygon fill-rule='evenodd' points='8 4 12 6 8 8 6 12 4 8 0 6 4 4 6 0 8 4'/%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
+    background-repeat: repeat;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--color-ring);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
-.content.works .grid-items .grid-item .box-item:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 24px rgb(0 0 0 / 18%);
+@layer utilities {
+  .animate-in {
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 0.625rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
 }
