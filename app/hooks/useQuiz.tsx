@@ -4,10 +4,14 @@ import { useState, useEffect, useCallback } from "react";
 import { questions as originalQuestions, Category } from "../lib/questions";
 import { shuffleArray, shuffleQuestionOptions } from "../lib/utils";
 
-// Initialize with IDs once to prevent mismatching during re-shuffles
+// BUGFIX: previously every question's id was overwritten with `q-${i}`, which
+// (a) discarded the stable ids defined in questions.ts (q1..q115) and
+// (b) meant mastery records saved during a quiz were keyed differently from the
+// ids the analytics dashboard reads. We now keep the existing id and only
+// synthesize one as a last-resort fallback.
 const questionsWithIds = originalQuestions.map((q, i) => ({
   ...q,
-  id: `q-${i}`,
+  id: q.id || `q-${i}`,
 }));
 
 export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
@@ -129,7 +133,7 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
       // Target categories under 75% mastery
       const weakestCategories = Object.keys(stats).filter((cat) => {
         const { correct, total } = stats[cat];
-        return correct / total < 0.75;
+        return total > 0 && correct / total < 0.75;
       });
 
       const pool =
@@ -146,6 +150,7 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
       setCurrentIdx(0);
       setUserAnswers({});
       setMarkedQuestions(new Set());
+      setMissedCategories([]);
       resetTimer(0);
       setView("quiz");
     },
@@ -191,10 +196,28 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     [userAnswers, activeQuestions, updateCategoryStats],
   );
 
+  // Records the result of a single question into the long-term category stats
+  // (used by the Weakest Link Drill) and the missed-topics list shown on the
+  // results screen. This was previously only reachable via `saveAnswer`, which
+  // the UI never called, so neither feature ever received data.
+  const recordOutcome = useCallback(
+    (category: Category, isCorrect: boolean) => {
+      updateCategoryStats(category, isCorrect);
+      if (!isCorrect) {
+        setMissedCategories((prev) => Array.from(new Set([...prev, category])));
+      }
+    },
+    [updateCategoryStats],
+  );
+
   const toggleMark = useCallback((idx: number) => {
     setMarkedQuestions((prev) => {
       const next = new Set(prev);
-      next.has(idx) ? next.delete(idx) : next.add(idx);
+      if (next.has(idx)) {
+        next.delete(idx);
+      } else {
+        next.add(idx);
+      }
       return next;
     });
   }, []);
@@ -223,6 +246,7 @@ export function useQuiz(seconds: number, resetTimer: (s: number) => void) {
     markedQuestions,
     toggleMark,
     missedCategories,
+    recordOutcome,
     isMounted,
     hasSavedProgress,
     handleNewQuiz,

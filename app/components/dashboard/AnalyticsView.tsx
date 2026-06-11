@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import {
   FaArrowLeft,
-  FaBolt,
+  FaLayerGroup,
   FaCircleCheck,
   FaClockRotateLeft,
   FaTriangleExclamation,
   FaShield,
 } from "react-icons/fa6";
 import { flashcards } from "@/app/lib/flashcards";
+import { questions } from "@/app/lib/questions";
 
 interface MasteryRecord {
   question_id: string;
@@ -23,59 +24,82 @@ interface AnalyticsViewProps {
   onBack: () => void;
 }
 
+type Domain = "Principles" | "Law" | "Brokerage" | "Finance";
+
+// The quiz bank (questions.ts) and the flashcard deck (flashcards.ts) use
+// completely different category vocabularies. Flashcards already speak in the
+// four exam domains; quiz questions use granular FREC categories that we map
+// down to those same four domains here so a single dashboard can reflect
+// mastery earned from EITHER study mode.
+const QUIZ_CAT_TO_DOMAIN: Record<string, Domain> = {
+  "License Law and Qualifications": "Law",
+  "Real Estate Commission Rules": "Law",
+  "Violations and Penalties": "Law",
+  "Real Estate Contracts": "Law",
+  "Authorized Relationships and Disclosures": "Brokerage",
+  "Brokerage Activities and Procedures": "Brokerage",
+  "Property Rights and Ownership": "Principles",
+  "Titles, Deeds, and Restrictions": "Principles",
+  "Appraisal and Property Value": "Principles",
+  "Planning, Zoning, and Hazards": "Principles",
+  "Residential Mortgages and Finance": "Finance",
+  "Real Estate Taxes and Investment": "Finance",
+  "Math Calculations": "Finance",
+};
+
+// A flat catalogue of every trackable item with the domain it belongs to.
+// Built once at module scope since neither source list changes at runtime.
+const ALL_ITEMS: { id: string; domain: Domain }[] = [
+  ...flashcards.map((f) => ({ id: f.id, domain: f.category as Domain })),
+  ...questions.map((q) => ({
+    id: q.id,
+    domain: QUIZ_CAT_TO_DOMAIN[q.cat] ?? "Principles",
+  })),
+];
+
+const DOMAIN_META: { name: Domain; label: string; color: string }[] = [
+  { name: "Principles", label: "Principles & Practices", color: "bg-cyan-500" },
+  { name: "Law", label: "Real Estate Law", color: "bg-rose-500" },
+  { name: "Brokerage", label: "Brokerage Operations", color: "bg-purple-500" },
+  { name: "Finance", label: "Escrow & Finance", color: "bg-amber-500" },
+];
+
 export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
-  // --- DYNAMIC LOGIC ENGINE ---
-  const { domainScores, weakest, overallAccuracy, totalMastered } =
+  const { domainScores, weakest, overallAccuracy, coverage, totalMastered } =
     useMemo(() => {
-      const masteredIds = stats
-        .filter((s) => s.status === "mastered")
-        .map((s) => s.question_id);
+      const masteredSet = new Set(
+        stats.filter((s) => s.status === "mastered").map((s) => s.question_id),
+      );
+      const trackedSet = new Set(stats.map((s) => s.question_id));
 
-      const calculateMastery = (cat: string) => {
-        const categoryCards = flashcards.filter((f) => f.category === cat);
-        if (categoryCards.length === 0) return 0;
-        const count = categoryCards.filter((f) =>
-          masteredIds.includes(f.id),
-        ).length;
-        return Math.round((count / categoryCards.length) * 100);
-      };
-
-      const domains = [
-        {
-          name: "Principles",
-          label: "Principles & Practices",
-          color: "bg-cyan-500",
-        },
-        { name: "Law", label: "Real Estate Law", color: "bg-rose-500" },
-        {
-          name: "Brokerage",
-          label: "Brokerage Operations",
-          color: "bg-purple-500",
-        },
-        { name: "Finance", label: "Escrow & Finance", color: "bg-amber-500" },
-      ];
-
-      const scores = domains.map((d) => ({
-        ...d,
-        score: calculateMastery(d.name),
-      }));
+      const scores = DOMAIN_META.map((d) => {
+        const items = ALL_ITEMS.filter((i) => i.domain === d.name);
+        const mastered = items.filter((i) => masteredSet.has(i.id)).length;
+        return {
+          ...d,
+          total: items.length,
+          masteredCount: mastered,
+          score: items.length ? Math.round((mastered / items.length) * 100) : 0,
+        };
+      });
 
       const weakestDomain = scores.reduce(
         (prev, curr) => (curr.score < prev.score ? curr : prev),
         scores[0],
       );
 
-      const totalCards = flashcards.length;
-      const accuracy =
-        totalCards > 0
-          ? Math.round((masteredIds.length / totalCards) * 100)
-          : 0;
+      const totalItems = ALL_ITEMS.length;
+      const mastered = ALL_ITEMS.filter((i) => masteredSet.has(i.id)).length;
+      const tracked = ALL_ITEMS.filter((i) => trackedSet.has(i.id)).length;
 
       return {
         domainScores: scores,
         weakest: weakestDomain,
-        overallAccuracy: accuracy,
-        totalMastered: masteredIds.length,
+        overallAccuracy: totalItems
+          ? Math.round((mastered / totalItems) * 100)
+          : 0,
+        coverage: totalItems ? Math.round((tracked / totalItems) * 100) : 0,
+        totalMastered: mastered,
       };
     }, [stats]);
 
@@ -102,21 +126,21 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
         <StatRingCard
           label="Retention"
           value={`${overallAccuracy}%`}
-          sub="Overall Accuracy"
+          sub="Mastered of all items"
           color="text-cyan-400"
           icon={<FaCircleCheck />}
         />
         <StatRingCard
-          label="Velocity"
-          value="2.1s"
-          sub="Avg. Decision Time"
+          label="Coverage"
+          value={`${coverage}%`}
+          sub="Items attempted at least once"
           color="text-purple-400"
-          icon={<FaBolt />}
+          icon={<FaLayerGroup />}
         />
         <StatRingCard
           label="Volume"
           value={totalMastered.toString()}
-          sub="Cards Mastered"
+          sub="Items Mastered"
           color="text-emerald-400"
           icon={<FaClockRotateLeft />}
         />
@@ -146,6 +170,7 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
               key={domain.name}
               label={domain.label}
               percentage={domain.score}
+              detail={`${domain.masteredCount}/${domain.total}`}
               color={domain.color}
             />
           ))}
@@ -275,17 +300,23 @@ function StatRingCard({ label, value, sub, color, icon }: StatRingCardProps) {
 interface ChartBarProps {
   label: string;
   percentage: number;
+  detail?: string;
   color: string;
 }
 
-function ChartBar({ label, percentage, color }: ChartBarProps) {
+function ChartBar({ label, percentage, detail, color }: ChartBarProps) {
   return (
     <div className="group">
       <div className="flex justify-between mb-2 items-end">
         <span className="text-[11px] font-black uppercase text-slate-400 tracking-wider group-hover:text-white transition-colors">
           {label}
         </span>
-        <span className="text-[11px] font-black text-white">{percentage}%</span>
+        <span className="text-[11px] font-black text-white">
+          {detail && (
+            <span className="text-slate-500 mr-2 font-bold">{detail}</span>
+          )}
+          {percentage}%
+        </span>
       </div>
       <div className="h-4 w-full bg-slate-950/50 border border-white/10 p-[2px] rounded-none">
         <motion.div

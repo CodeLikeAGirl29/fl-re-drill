@@ -61,6 +61,15 @@ export default function QuizContainer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, category]);
 
+  // Freeze the clock once the candidate finishes answering. Previously the
+  // timer kept ticking on the review/results screens.
+  useEffect(() => {
+    if (qz.view === "review" || qz.view === "results") {
+      tm.stopTimer();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [qz.view]);
+
   // Common animation variants for the "Slide Up" effect
   const slideUp = {
     initial: { opacity: 0, y: 20 },
@@ -78,7 +87,7 @@ export default function QuizContainer({
   }, [mode]);
 
   const getRank = (score: number, total: number) => {
-    const percentage = (score / total) * 100;
+    const percentage = total > 0 ? (score / total) * 100 : 0;
     if (percentage >= 94)
       return {
         name: "Exam Master",
@@ -114,8 +123,6 @@ export default function QuizContainer({
 
   // --- BRANCH: FLASHCARD MODE ---
   if (mode === "flashcards") {
-    // Use a local state or qz hook to track current index if needed,
-    // or use the length of your masteryStats relative to flashcards.length
     return (
       <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
         <motion.div initial="initial" animate="animate" variants={slideUp}>
@@ -136,7 +143,7 @@ export default function QuizContainer({
               </div>
             </div>
 
-            {/* NEW PROGRESS BAR */}
+            {/* PROGRESS BAR */}
             <div className="w-full group">
               <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                 <motion.div
@@ -218,6 +225,10 @@ export default function QuizContainer({
                 // This call triggers updateMastery in your server actions
                 onAnswer(currentQuestion.id, correct);
               }
+              if (currentQuestion) {
+                // Feeds the Weakest Link Drill data + results "missed topics"
+                qz.recordOutcome(currentQuestion.cat, correct);
+              }
 
               // --- NAVIGATION LOGIC ---
               if (correct) qz.setScore((s) => s + 1);
@@ -296,7 +307,8 @@ export default function QuizContainer({
             <ResultsView
               score={qz.score}
               total={qz.activeQuestions.length}
-              missed={[]}
+              missed={qz.missedCategories}
+              timeTaken={tm.formatTime()}
               rank={getRank(qz.score, qz.activeQuestions.length)}
               onRestart={qz.handleRestart}
             />
