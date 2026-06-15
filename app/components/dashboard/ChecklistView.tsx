@@ -19,40 +19,53 @@ export default function ChecklistView({ onBack }: { onBack: () => void }) {
     setSteps(steps.map((s) => (s.id === id ? { ...s, done: !s.done } : s)));
   };
 
+  const completed = steps.filter((s) => s.done).length;
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
-      className="space-y-8"
+      exit={{ opacity: 0, x: -20 }}
+      className="space-y-8 font-space"
     >
       <button
         onClick={onBack}
-        className="flex items-center gap-2 text-slate-500 hover:text-white font-black uppercase text-[10px] tracking-widest"
+        className="flex items-center gap-2 text-slate-500 hover:text-white font-black uppercase text-[10px] tracking-widest transition-colors group"
       >
-        <FaArrowLeft /> Back to Command
+        <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+        Back to Command Center
       </button>
 
-      <div className="bg-slate-900 border-4 border-white p-8 shadow-[8px_8px_0px_0px_rgba(255,255,255,0.05)]">
-        <h3 className="text-3xl font-black uppercase italic mb-2">
-          State Exam Path
-        </h3>
-        <p className="text-slate-500 font-bold uppercase text-[10px] tracking-widest mb-8 italic">
-          Florida DBPR Compliance Tracking
-        </p>
+      <div className="relative bg-slate-950/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-emerald-500/5 to-transparent rounded-bl-full pointer-events-none" />
 
-        <div className="space-y-4">
+        <div className="flex justify-between items-end mb-8">
+          <div>
+            <h3 className="text-2xl font-black uppercase italic text-white tracking-tight">
+              State Exam Path
+            </h3>
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+              Florida DBPR Compliance Tracking
+            </p>
+          </div>
+          <span className="text-sm font-black font-mono text-emerald-400">
+            {completed}/{steps.length}
+          </span>
+        </div>
+
+        <div className="space-y-3">
           {steps.map((step) => (
             <button
               key={step.id}
               onClick={() => toggleStep(step.id)}
-              className={`w-full flex items-center gap-4 p-4 border-2 transition-all ${
+              className={`w-full flex items-center gap-4 p-4 rounded-xl border backdrop-blur-md transition-all duration-300 text-left ${
                 step.done
-                  ? "border-emerald-500/50 bg-emerald-500/5"
-                  : "border-white/10 hover:border-white/30"
+                  ? "border-emerald-500/30 bg-emerald-500/5 hover:bg-emerald-500/10"
+                  : "border-white/5 bg-slate-900/30 hover:border-cyan-500/30"
               }`}
             >
               <div
-                className={step.done ? "text-emerald-500" : "text-slate-700"}
+                className={step.done ? "text-emerald-400" : "text-slate-600"}
               >
                 {step.done ? (
                   <FaCheckSquare size={20} />
@@ -61,7 +74,11 @@ export default function ChecklistView({ onBack }: { onBack: () => void }) {
                 )}
               </div>
               <span
-                className={`text-sm font-bold uppercase tracking-tight ${step.done ? "text-emerald-400 line-through opacity-50" : "text-white"}`}
+                className={`text-sm font-bold uppercase tracking-tight ${
+                  step.done
+                    ? "text-emerald-400 line-through opacity-60"
+                    : "text-white"
+                }`}
               >
                 {step.text}
               </span>

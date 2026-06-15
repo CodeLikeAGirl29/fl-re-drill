@@ -1,82 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { FiGithub, FiFacebook } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
 import { motion } from "framer-motion";
 
-type NetlifyStatus = "success" | "building" | "failed" | "loading";
-
 export default function Footer() {
-  const [deployStatus, setDeployStatus] = useState<NetlifyStatus>("loading");
-
-  const NETLIFY_SITE_DOMAIN = "fl-re-drill.netlify.app"; 
-
-  useEffect(() => {
-    async function fetchNetlifyStatus() {
-      try {
-        // Fetch the most recent deploys for the site
-        const response = await fetch(
-          `https://api.netlify.com/api/v1/sites/${NETLIFY_SITE_DOMAIN}/deploys`
-        );
-        
-        if (!response.ok) throw new Error("Failed to fetch status");
-        
-        const deploys = await response.json();
-        
-        if (deploys && deploys.length > 0) {
-          const latestDeploy = deploys[0];
-          // Netlify deploy states: 'ready', 'building', 'enqueued', 'error'
-          const state = latestDeploy.state;
-
-          if (state === "ready") {
-            setDeployStatus("success");
-          } else if (state === "building" || state === "enqueued") {
-            setDeployStatus("building");
-          } else if (state === "error") {
-            setDeployStatus("failed");
-          } else {
-            setDeployStatus("success"); // Fallback
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching Netlify deploy status:", error);
-        setDeployStatus("success"); // Fallback gracefully to live/success indicator
-      }
-    }
-
-    fetchNetlifyStatus();
-    // Optional: Poll every 30 seconds if you want it real-time during a build
-    const interval = setInterval(fetchNetlifyStatus, 30000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Helper config to change dots and text visually based on state
-  const statusConfig = {
-    loading: {
-      pingColor: "bg-slate-400",
-      dotColor: "bg-slate-500",
-      text: "Checking...",
-    },
-    success: {
-      pingColor: "bg-emerald-400",
-      dotColor: "bg-emerald-500",
-      text: "Netlify Live",
-    },
-    building: {
-      pingColor: "bg-amber-400",
-      dotColor: "bg-amber-500",
-      text: "Netlify Building",
-    },
-    failed: {
-      pingColor: "bg-rose-400",
-      dotColor: "bg-rose-500",
-      text: "Deploy Failed",
-    },
-  };
-
-  const currentStatus = statusConfig[deployStatus];
-  
   const socialLinks = [
     {
       icon: <FiGithub size={20} />,
@@ -102,14 +30,10 @@ export default function Footer() {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
     },
   };
 
-  // Individual icon variant
   const iconVariants = {
     hidden: { y: 10, opacity: 0 },
     visible: {
@@ -156,57 +80,14 @@ export default function Footer() {
         </p>
 
         {/* Neon Divider Line */}
-        <div className="h-px w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mb-6 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
+        <div className="h-px w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mb-6 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
 
         {/* Instructional Rationale Line */}
-        <p className="text-[0.69rem] text-slate-500 font-medium leading-relaxed max-w-[280px] italic mb-6">
+        <p className="text-[0.69rem] text-slate-500 font-medium leading-relaxed max-w-[280px] italic">
           Designed for high-retention learning and{" "}
           <span className="text-slate-400 font-bold">Florida State Exam</span>{" "}
           excellence.
         </p>
-
-        {/* Status Indicators Pill Container */}
-        <div className="flex flex-wrap items-center justify-center gap-4 bg-slate-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/5">
-          {/* Netlify Production Cloud Link Status Indicator */}
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              {deployStatus !== "failed" && (
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${currentStatus.pingColor} opacity-75`}></span>
-              )}
-              <span className={`relative inline-flex rounded-full h-2 w-2 ${currentStatus.dotColor}`}></span>
-            </span>
-            <span className="font-bold tracking-widest text-[9px] uppercase text-slate-400">
-              {currentStatus.text}
-            </span>
-          </div>
-
-          <span className="text-slate-800 text-[10px]">|</span>
-
-          {/* Database Verification Node Status Indicator */}
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
-            </span>
-            <span className="font-bold tracking-widest text-[9px] uppercase text-slate-400">
-              Supabase Connected
-            </span>
-          </div>
-
-          <span className="text-slate-800 text-[10px]">|</span>
-
-          {/* V8 Script Compiler Engine Status Indicator */}
-          <div className="flex items-center gap-2">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
-            </span>
-            <span className="font-bold tracking-widest text-[9px] uppercase text-slate-400">
-              Node 24 Active
-            </span>
-          </div>
-        </div>
-
       </div>
     </footer>
   );

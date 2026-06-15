@@ -1,10 +1,8 @@
+// proxy.ts  (project root)
 import { type NextRequest } from "next/server";
 import { updateSession } from "@/app/lib/supabase/middleware";
 
-export async function middleware(request: NextRequest) {
-  // Add logic here if you want to redirect unauthenticated users
-  // e.g., if (request.nextUrl.pathname.startsWith('/flashcards')) ...
-
+export async function proxy(request: NextRequest) {
   return await updateSession(request);
 }
 
@@ -15,7 +13,7 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
+     * Plus any file with a static image extension.
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],

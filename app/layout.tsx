@@ -15,7 +15,7 @@ const ralewayHeading = Raleway({
   variable: "--font-heading",
 });
 
-const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-sans" });
+const oxanium = Oxanium({ subsets: ["latin"], variable: "--font-oxanium" });
 
 export const metadata: Metadata = {
   title: "Florida Real Estate Exam Prep | Master Drill",

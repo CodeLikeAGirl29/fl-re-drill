@@ -7,6 +7,8 @@
 @theme inline {
   /* Design System Variables */
   --font-sans: var(--font-montserrat), system-ui, sans-serif;
+  --font-heading: var(--font-raleway), system-ui, sans-serif;
+  --font-space: var(--font-oxanium), system-ui, sans-serif;
   --font-mono-calc: var(--font-source-code), monospace;
 
   --radius-sm: calc(var(--radius) * 0.6);

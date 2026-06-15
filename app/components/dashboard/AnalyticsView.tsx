@@ -147,19 +147,22 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
       </div>
 
       {/* DOMAIN MASTERY CHART */}
-      <div className="bg-slate-900 border-4 border-white p-8 shadow-[8px_8px_0px_0px_rgba(34,211,238,0.1)]">
+      <div className="relative bg-slate-950/40 backdrop-blur-xl border border-white/5 p-8 rounded-2xl shadow-2xl overflow-hidden">
+        <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-bl from-cyan-500/5 to-transparent rounded-bl-full pointer-events-none" />
+
         <div className="flex justify-between items-end mb-10">
           <div>
-            <h3 className="text-2xl font-black uppercase italic text-white [text-shadow:1px_1px_0px_rgba(0,0,0,0.5)]">
+            <h3 className="text-2xl font-black uppercase italic text-white tracking-tight">
               Domain Mastery
             </h3>
             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
               Performance across Florida exam categories
             </p>
           </div>
-          <div className="hidden sm:block text-right">
-            <span className="text-[9px] font-black text-emerald-400 px-2 py-1 bg-emerald-500/5 border border-emerald-500/20 uppercase animate-pulse">
-              Live Sync Active
+          <div className="hidden sm:flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-[9px] font-black text-emerald-400 uppercase tracking-widest">
+              Live Sync
             </span>
           </div>
         </div>
@@ -183,15 +186,12 @@ export default function AnalyticsView({ stats, onBack }: AnalyticsViewProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
         className={cn(
-          "p-6 bg-slate-900 border-l-4 flex flex-col gap-2 relative overflow-hidden transition-all duration-500",
+          "p-6 bg-slate-950/40 backdrop-blur-xl rounded-2xl border-l-4 flex flex-col gap-2 relative overflow-hidden transition-all duration-500 shadow-xl",
           weakest.score < PASSING_THRESHOLD
-            ? "border-rose-500 shadow-[0_0_20px_rgba(244,63,94,0.15)]"
-            : "border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.15)]",
+            ? "border-rose-500 shadow-rose-500/5"
+            : "border-emerald-500 shadow-emerald-500/5",
         )}
       >
-        {/* Decorative scanline for that Cyberpunk feel */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px]" />
-
         <div className="flex items-center gap-2 mb-1">
           {weakest.score < PASSING_THRESHOLD ? (
             <FaTriangleExclamation className="text-rose-500 text-xs" />
@@ -262,15 +262,10 @@ function StatRingCard({ label, value, sub, color, icon }: StatRingCardProps) {
   return (
     <motion.div
       whileHover={{ y: -2 }}
-      className="bg-slate-900/60 backdrop-blur-xl border border-white/10 p-6 flex items-center gap-5 group hover:border-cyan-500/30 transition-all rounded-2xl shadow-xl"
+      className="bg-slate-900/40 backdrop-blur-xl border border-white/10 p-6 flex items-center gap-5 group hover:border-cyan-500/30 transition-all rounded-2xl shadow-xl"
     >
-      {/* The Skewing Icon Container */}
       <motion.div
-        whileHover={{
-          skewX: -12,
-          rotate: -5,
-          scale: 1.1,
-        }}
+        whileHover={{ skewX: -12, rotate: -5, scale: 1.1 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
         className={cn(
           "text-3xl p-3 rounded-xl bg-white/5 transition-colors group-hover:bg-white/10",
@@ -318,15 +313,12 @@ function ChartBar({ label, percentage, detail, color }: ChartBarProps) {
           {percentage}%
         </span>
       </div>
-      <div className="h-4 w-full bg-slate-950/50 border border-white/10 p-[2px] rounded-none">
+      <div className="h-2.5 w-full bg-slate-900 border border-white/5 p-[2px] rounded-full overflow-hidden">
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 1.2, ease: "circOut" }}
-          className={cn(
-            "h-full shadow-[0_0_12px_rgba(255,255,255,0.05)]",
-            color,
-          )}
+          className={cn("h-full rounded-full", color)}
         />
       </div>
     </div>
