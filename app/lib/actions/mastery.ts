@@ -1,7 +1,8 @@
 "use server";
 
-import { createClient } from "@/app/lib/supabase/server";
+import { adminAuth, adminDb } from "@/lib/firebase/admin";
 import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 // Define the interface so other components can import it
 export interface MasteryRecord {
@@ -9,53 +10,69 @@ export interface MasteryRecord {
   status: "mastered" | "review";
 }
 
+// Helper to verify the Firebase ID token from the cookie
+async function getVerifiedUid(): Promise<string | null> {
+  try {
+    const cookieStore = await cookies();
+    const token = cookieStore.get("firebase-token")?.value;
+    if (!token) return null;
+    const decoded = await adminAuth.verifyIdToken(token);
+    return decoded.uid;
+  } catch {
+    return null;
+  }
+}
+
 export async function updateMastery(
   questionId: string,
-  status: "mastered" | "review",
+  status: "mastered" | "review"
 ) {
-  const supabase = await createClient();
+  const uid = await getVerifiedUid();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // Return a safe status instead of crashing unauthenticated guest loops
-  if (!user) {
+  if (!uid) {
     return { success: false, error: "Unauthorized" };
   }
 
-  const { error } = await supabase.from("user_mastery").upsert(
-    {
-      user_id: user.id,
-      question_id: questionId,
-      status,
-      updated_at: new Date().toISOString(),
-    },
-    { onConflict: "user_id,question_id" },
-  );
+  try {
+    await adminDb
+      .collection("user_mastery")
+      .doc(uid)
+      .collection("questions")
+      .doc(questionId)
+      .set(
+        {
+          question_id: questionId,
+          status,
+          updated_at: new Date().toISOString(),
+        },
+        { merge: true }
+      );
 
-  // Return a graceful error payload instead of a hard application crash
-  if (error) {
-    console.error("Database telemetry sync failed:", error);
-    return { success: false, error: error.message };
+    // Revalidates the cache so the Dashboard stats update immediately
+    revalidatePath("/");
+
+    return { success: true };
+  } catch (err: any) {
+    console.error("Database telemetry sync failed:", err);
+    return { success: false, error: err.message };
   }
-
-  // Revalidates the cache so the Dashboard stats update immediately
-  revalidatePath("/");
-
-  return { success: true };
 }
 
 export async function getMasteryStats(): Promise<MasteryRecord[]> {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("user_mastery")
-    .select("question_id, status");
+  const uid = await getVerifiedUid();
 
-  if (error) {
-    console.error("Mastery Fetch Error:", error);
+  if (!uid) return [];
+
+  try {
+    const snapshot = await adminDb
+      .collection("user_mastery")
+      .doc(uid)
+      .collection("questions")
+      .get();
+
+    return snapshot.docs.map((doc) => doc.data() as MasteryRecord);
+  } catch (err) {
+    console.error("Mastery Fetch Error:", err);
     return [];
   }
-
-  return data as MasteryRecord[];
 }

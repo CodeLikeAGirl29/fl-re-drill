@@ -67,7 +67,6 @@ export default function QuestionCard({
   // STABILIZED KEYBOARD LISTENER
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      // Use q?.options?.length to ensure we aren't dependencies on a shifting array content
       if (!isAnswered && ["1", "2", "3", "4"].includes(event.key)) {
         const optionIndex = parseInt(event.key) - 1;
         if (q?.options && q.options[optionIndex]) {
@@ -87,9 +86,6 @@ export default function QuestionCard({
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-
-    // We only want to restart this listener when the core state changes.
-    // Do NOT put q.options directly in here if it's being shuffled on every render.
   }, [isAnswered, isMarked, q?.q, q?.options, handleNextClick, onToggleMark]);
 
   const addLeadingZero = (number: number) =>
@@ -100,7 +96,7 @@ export default function QuestionCard({
   const formatExplanation = (text: string) => {
     if (!text) return "No explanation provided.";
     return text
-      .replace(/(Key Point:)/g, '<b class="text-[#06b6d4] font-bold">$1</b>')
+      .replace(/(Key Point:)/g, '<b class="text-cyan-400 font-bold">$1</b>')
       .replace(/(Calculation:)/g, '<b class="text-purple-400 font-bold">$1</b>')
       .replace(/(Correction:)/g, '<b class="text-rose-400 font-bold">$1</b>');
   };
@@ -110,15 +106,15 @@ export default function QuestionCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="mx-auto w-full max-w-2xl bg-[#1e293b]/80 backdrop-blur-xl border border-white/10 rounded-3xl px-6 md:px-[40px] py-[25px] shadow-2xl relative z-10"
+      className="mx-auto w-full max-w-2xl bg-slate-800/80 backdrop-blur-xl border border-white/10 rounded-3xl px-6 md:px-[40px] py-[25px] shadow-2xl relative z-10"
     >
       {/* HEADER */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <span className="text-2xl font-medium text-[#06b6d4]">
+          <span className="text-2xl font-medium text-cyan-400">
             {addLeadingZero(index + 1)}
           </span>
-          <span className="text-[22px] font-medium text-[#817a8e]">
+          <span className="text-[22px] font-medium text-slate-400">
             /{addLeadingZero(totalQuestions)}
           </span>
         </div>
@@ -128,7 +124,7 @@ export default function QuestionCard({
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 border ${
             isMarked
               ? "bg-rose-500 border-rose-400 text-white shadow-[0_0_15px_rgba(244,63,94,0.3)]"
-              : "bg-slate-800 border-white/10 text-[#817a8e] hover:border-white/20"
+              : "bg-slate-800 border-white/10 text-slate-400 hover:border-white/20"
           }`}
         >
           {isMarked ? (
@@ -140,15 +136,15 @@ export default function QuestionCard({
         </button>
 
         <div className="flex w-[100px] items-center gap-2 justify-end">
-          <Timer className="text-[#06b6d4]" width={24} height={24} />
-          <span className="mt-0.5 block text-lg font-medium text-[#06b6d4]">
+          <Timer className="text-cyan-400" width={24} height={24} />
+          <span className="mt-0.5 block text-lg font-medium text-cyan-400">
             {currentTime}
           </span>
         </div>
       </div>
 
       <div className="mb-1">
-        <span className="text-[9px] font-black uppercase tracking-widest text-[#817a8e]">
+        <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">
           {q.cat}
         </span>
       </div>
@@ -156,7 +152,6 @@ export default function QuestionCard({
         {q.q}
       </h3>
       <DiamondDivider />
-      {/* 1. Wrap the list in a motion.div and apply containerVariants */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -170,11 +165,8 @@ export default function QuestionCard({
           return (
             <motion.button
               key={`${index}-${i}`}
-              variants={itemVariants} // 2. Apply itemVariants to each button
-              whileHover={{
-                scale: 1.01,
-                x: 4,
-              }}
+              variants={itemVariants}
+              whileHover={{ scale: 1.01, x: 4 }}
               whileTap={{ scale: 0.98 }}
               disabled={isAnswered}
               onClick={() => {
@@ -187,17 +179,17 @@ export default function QuestionCard({
                     ? "border-emerald-500 bg-emerald-500/10 text-white"
                     : isSelected
                       ? "border-rose-500 bg-rose-500/10 text-white"
-                      : "border-[#333] bg-[#0f172a] text-gray-500 opacity-50"
+                      : "border-white/10 bg-slate-900 text-slate-500 opacity-50"
                   : isSelected
-                    ? "border-[#06b6d4] bg-[#2f459c] text-white"
-                    : "border-[#333] bg-[#0f172a] text-white hover:border-[#444]"
+                    ? "border-cyan-500 bg-cyan-500/15 text-white"
+                    : "border-white/10 bg-slate-900 text-white hover:border-white/20"
               }`}
             >
               <div className="flex items-center gap-3">
                 <span
                   className={`text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center border ${
                     isSelected
-                      ? "bg-white text-blue-900 border-white"
+                      ? "bg-white text-slate-900 border-white"
                       : "border-white/20 text-white/40"
                   }`}
                 >
@@ -215,10 +207,10 @@ export default function QuestionCard({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-5 p-4 rounded-lg bg-[#0f172a] border-l-2 border-[#06b6d4]"
+            className="mt-5 p-4 rounded-lg bg-slate-900 border-l-2 border-cyan-500"
           >
             <p
-              className="text-sm text-[#817a8e] italic leading-relaxed"
+              className="text-sm text-slate-400 italic leading-relaxed"
               dangerouslySetInnerHTML={{
                 __html: formatExplanation(q.explanation),
               }}
@@ -231,7 +223,7 @@ export default function QuestionCard({
         <button
           onClick={handleNextClick}
           disabled={!isAnswered && !isMarked}
-          className="min-w-[120px] transform rounded-lg border border-[#06b6d4] bg-[#06b6d4] px-6 py-2 text-sm font-semibold text-white transition duration-300 hover:scale-105 hover:bg-[#1d4ed8] disabled:opacity-20"
+          className="min-w-[120px] transform rounded-lg border border-cyan-500 bg-cyan-500 px-6 py-2 text-sm font-semibold text-slate-950 transition duration-300 hover:scale-105 hover:bg-cyan-400 disabled:opacity-20"
         >
           {index + 1 === totalQuestions ? "Finish" : "Next"}
         </button>

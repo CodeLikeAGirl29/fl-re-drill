@@ -1,46 +1,83 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/app/lib/supabase/client";
+import { useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase/client";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  GoogleAuthProvider,
+  GithubAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaGoogle, FaEnvelope, FaLock, FaArrowRight, FaGithub } from "react-icons/fa";
+import {
+  FaGoogle,
+  FaEnvelope,
+  FaLock,
+  FaArrowRight,
+  FaGithub,
+} from "react-icons/fa";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ text: "", type: "" });
 
-  const supabase = createClient();
-
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setMessage({ text: "", type: "" });
 
-    const { error } = isSignUp
-      ? await supabase.auth.signUp({ email, password })
-      : await supabase.auth.signInWithPassword({ email, password });
-
-    if (error) {
-      setMessage({ text: error.message, type: "error" });
-    } else {
+    try {
+      if (isSignUp) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        setMessage({
+          text: "Account created! Redirecting...",
+          type: "success",
+        });
+      } else {
+        await signInWithEmailAndPassword(auth, email, password);
+        setMessage({ text: "Success! Redirecting...", type: "success" });
+      }
+      router.push("/");
+    } catch (err: any) {
+      const messages: Record<string, string> = {
+        "auth/email-already-in-use":
+          "An account with this email already exists.",
+        "auth/invalid-email": "Please enter a valid email address.",
+        "auth/weak-password": "Password must be at least 6 characters.",
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Incorrect password. Please try again.",
+        "auth/invalid-credential": "Invalid email or password.",
+        "auth/too-many-requests": "Too many attempts. Please try again later.",
+      };
       setMessage({
-        text: isSignUp
-          ? "Check your email to confirm your account!"
-          : "Success! Redirecting...",
-        type: "success",
+        text: messages[err.code] ?? err.message,
+        type: "error",
       });
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleOAuthLogin = async (provider: "google" | "github") => {
-    await supabase.auth.signInWithOAuth({
-      provider,
-      options: { redirectTo: `${window.location.origin}/api/auth/callback` },
-    });
+    setMessage({ text: "", type: "" });
+    try {
+      const p =
+        provider === "google"
+          ? new GoogleAuthProvider()
+          : new GithubAuthProvider();
+      await signInWithPopup(auth, p);
+      router.push("/");
+    } catch (err: any) {
+      // User closed the popup — silently ignore
+      if (err.code === "auth/popup-closed-by-user") return;
+      setMessage({ text: err.message, type: "error" });
+    }
   };
 
   return (
@@ -75,9 +112,7 @@ export default function LoginPage() {
           </div>
 
           <div className="space-y-6">
-            {/* Social Logins Container */}
             <div className="flex flex-col gap-3">
-              {/* Google Login */}
               <button
                 onClick={() => handleOAuthLogin("google")}
                 className="w-full flex items-center justify-center gap-3 bg-white hover:bg-slate-100 text-slate-900 py-3.5 px-4 rounded-xl font-bold uppercase text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-white/5"
@@ -85,7 +120,6 @@ export default function LoginPage() {
                 <FaGoogle className="text-lg" /> Continue with Google
               </button>
 
-              {/* GitHub Login */}
               <button
                 onClick={() => handleOAuthLogin("github")}
                 className="w-full flex items-center justify-center gap-3 bg-slate-950 border border-white/10 hover:bg-slate-900 text-white py-3.5 px-4 rounded-xl font-bold uppercase text-sm transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-black/40"
@@ -102,7 +136,6 @@ export default function LoginPage() {
               <div className="h-px bg-slate-800 flex-grow" />
             </div>
 
-            {/* Email/Password Form */}
             <form onSubmit={handleAuth} className="space-y-4">
               <div className="space-y-4">
                 <div className="relative group">

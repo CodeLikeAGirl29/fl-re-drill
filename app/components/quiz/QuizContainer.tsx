@@ -3,26 +3,25 @@
 import { useState, useMemo, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaChevronLeft, FaLayerGroup } from "react-icons/fa6";
-import WelcomeScreen from "./WelcomeScreen";
-import QuestionCard from "./quiz/QuestionCard";
-import ResultsView from "./quiz/ResultsView";
-import FormulaModal from "./FormulaModal";
-import QuizCalculator from "./QuizCalculator";
-import DiamondDivider from "./quiz/DiamondDivider";
-
-import FlashcardContainer from "./FlashcardContainer";
-import { flashcards } from "@/app/lib/flashcards";
-
-import { useQuiz } from "../hooks/useQuiz";
-import { useTimer } from "../hooks/useTimer";
-import { MasteryRecord } from "../lib/actions/mastery";
-
 import {
   IoCalculatorOutline,
   IoBookOutline,
   IoCheckmarkDoneCircleOutline,
   IoArrowForward,
 } from "react-icons/io5";
+
+import WelcomeScreen from "./WelcomeScreen";
+import QuestionCard from "./QuestionCard";
+import ResultsView from "./ResultsView";
+import DiamondDivider from "./DiamondDivider";
+import QuizCalculator from "./QuizCalculator";
+import FormulaModal from "@/app/components/FormulaModal";
+import FlashcardContainer from "@/app/components/flashcards/FlashcardContainer";
+
+import { flashcards } from "@/app/lib/flashcards";
+import { useQuiz } from "@/app/hooks/useQuiz";
+import { useTimer } from "@/app/hooks/useTimer";
+import { MasteryRecord } from "@/app/lib/actions/mastery";
 
 interface QuizContainerProps {
   mode: "standard" | "quick20" | "flashcards" | "weakest";

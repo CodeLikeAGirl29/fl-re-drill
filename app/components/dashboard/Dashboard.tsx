@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { User } from "@supabase/supabase-js";
+import { User } from "firebase/auth";
 import {
   FaPlay,
   FaSwatchbook,
@@ -16,8 +16,8 @@ import {
 import cn from "classnames";
 
 // Sub-components
-import AnalyticsView from "./dashboard/AnalyticsView";
-import ChecklistView from "./dashboard/ChecklistView";
+import AnalyticsView from "./AnalyticsView";
+import ChecklistView from "./ChecklistView";
 
 interface MasteryRecord {
   question_id: string;
@@ -128,14 +128,14 @@ export default function Dashboard({
 
             {/* --- MAIN ASYMMETRICAL TELEMETRY GRID --- */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              
               {/* LEFT CONTROL COLUMN: DRILLS & OPERATIONS */}
               <div className="lg:col-span-7 space-y-8">
                 <div>
                   <h3 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-                    <FaTerminal className="text-cyan-500/70 text-[10px]" /> Select Drill Operation
+                    <FaTerminal className="text-cyan-500/70 text-[10px]" />{" "}
+                    Select Drill Operation
                   </h3>
-                  
+
                   <div className="grid grid-cols-1 gap-4">
                     <DrillCard
                       title="The Standard"
@@ -170,11 +170,10 @@ export default function Dashboard({
 
               {/* RIGHT UTILITY COLUMN: SYSTEM PROGRESS & VIEWS */}
               <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">
-                
                 {/* CORE DIAGNOSTIC BLOCK */}
                 <div className="relative bg-slate-950/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6 shadow-2xl overflow-hidden">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/5 to-transparent rounded-bl-full pointer-events-none" />
-                  
+
                   <div className="flex justify-between items-baseline mb-4">
                     <div>
                       <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
@@ -207,7 +206,8 @@ export default function Dashboard({
                 {/* SUB-VIEW NAVIGATION TOGGLES */}
                 <div className="space-y-3">
                   <h3 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-[0.25em] mb-1 flex items-center gap-2 px-1">
-                    <FaCrosshairs className="text-purple-500/70 text-[10px]" /> Subsystems
+                    <FaCrosshairs className="text-purple-500/70 text-[10px]" />{" "}
+                    Subsystems
                   </h3>
 
                   <SubViewButton
@@ -227,7 +227,6 @@ export default function Dashboard({
                     iconColor="text-purple-400 bg-purple-500/10 border-purple-500/20"
                   />
                 </div>
-
               </div>
             </div>
           </motion.div>
@@ -278,7 +277,7 @@ function DrillCard({
 }: DrillCardProps) {
   return (
     <motion.button
-     whileHover={{ y: -3, backgroundColor: "rgba(15, 23, 42, 0.6)" }}
+      whileHover={{ y: -3, backgroundColor: "rgba(15, 23, 42, 0.6)" }}
       whileTap={{ scale: 0.99 }}
       onClick={onClick}
       className={cn(
@@ -344,9 +343,7 @@ function SubViewButton({
         <h4 className="text-xs font-bold uppercase text-white tracking-wider font-mono">
           {title}
         </h4>
-        <p className="text-[11px] text-slate-400 font-medium">
-          {desc}
-        </p>
+        <p className="text-[11px] text-slate-400 font-medium">{desc}</p>
       </div>
     </button>
   );

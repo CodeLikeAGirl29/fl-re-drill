@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FaLaptopHouse, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import { IoCalculatorOutline } from "react-icons/io5";
-import { User } from "@supabase/supabase-js";
-import { createClient } from "@/app/lib/supabase/client";
+import { useAuth } from "./AuthProvider";
+import { auth } from "@/lib/firebase/client";
+import { signOut } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
 interface HeaderProps {
@@ -14,38 +14,18 @@ interface HeaderProps {
   onHome?: () => void;
 }
 
-const supabase = createClient();
-
 export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
-  const [user, setUser] = useState<User | null>(null);
+  const { user } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    // Check initial session
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      setUser(user);
-    };
-    getUser();
-
-    // Listen for auth changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setUser(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [router]);
-
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    setUser(null); // Force local UI update immediately
-    router.push("/"); // Redirect to home if they were on a protected sub-page
+    await signOut(auth);
+    // Clear the token cookie
+    document.cookie = "firebase-token=; path=/; max-age=0";
+    router.push("/");
     router.refresh();
   };
+
   return (
     <header className="w-full py-4 px-6 flex justify-between items-center bg-slate-900/60 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
       <Link
@@ -72,7 +52,6 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
       </Link>
 
       <div className="flex items-center gap-3">
-        {/* NEW: Formula Button Integrated into Header */}
         <motion.button
           whileHover={{ skewX: -12 }}
           whileTap={{ scale: 0.95 }}
@@ -83,7 +62,6 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
           <span className="hidden sm:inline">Formulas</span>
         </motion.button>
 
-        {/* Auth Button */}
         {user ? (
           <motion.button
             whileHover={{ skewX: -12 }}

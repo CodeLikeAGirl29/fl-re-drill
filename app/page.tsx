@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User } from "@supabase/supabase-js";
-import { createClient } from "@/app/lib/supabase/client";
+import { User } from "firebase/auth";
+import { useAuth } from "./components/AuthProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Dashboard from "./components/Dashboard";
-import QuizContainer from "./components/QuizContainer";
-import WelcomeScreen from "./components/WelcomeScreen";
+import Dashboard from "./components/dashboard/Dashboard";
+import QuizContainer from "./components/quiz/QuizContainer";
+import WelcomeScreen from "./components/quiz/WelcomeScreen";
 import FormulaModal from "./components/FormulaModal";
 import {
   updateMastery,
@@ -16,32 +16,21 @@ import {
 } from "@/app/lib/actions/mastery";
 
 export default function Home() {
-  const [user, setUser] = useState<User | null>(null);
+  const { user, loading } = useAuth();
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
-  const [activeMode, setActiveMode] = useState<
-    "standard" | "quick20" | "flashcards" | "weakest" | null
-  >(null);
+  const [activeMode, setActiveMode] = useState;
+  "standard" | "quick20" | "flashcards" | "weakest" | (null > null);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [supabase] = useState(() => createClient());
-
+  // Load mastery stats whenever the auth state resolves
   useEffect(() => {
-    const load = async (u: User | null) => {
-      setUser(u);
-      setMasteryStats(u ? await getMasteryStats() : []);
-    };
-
-    supabase.auth.getUser().then(({ data }) => load(data.user));
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      load(session?.user ?? null);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [supabase]);
+    if (user) {
+      getMasteryStats().then(setMasteryStats);
+    } else {
+      setMasteryStats([]);
+    }
+  }, [user]);
 
   const handleAnswerUpdate = async (questionId: string, isCorrect: boolean) => {
     if (!user) return;
@@ -53,6 +42,22 @@ export default function Home() {
     setActiveMode(null);
     if (user) setMasteryStats([...(await getMasteryStats())]);
   };
+
+  // Don't flash the wrong screen while Firebase resolves the session
+  if (loading) {
+    return (
+      <div className="flex flex-col min-h-screen font-sans">
+        <Header
+          onOpenFormulas={() => setIsModalOpen(true)}
+          onHome={() => setActiveMode(null)}
+        />
+        <main className="flex-grow flex items-center justify-center">
+          <div className="w-6 h-6 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen font-sans">

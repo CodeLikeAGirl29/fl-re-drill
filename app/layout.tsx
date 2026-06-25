@@ -10,6 +10,8 @@ import {
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
+import { AuthProvider } from "@/app/context/AuthContext";
+
 const ralewayHeading = Raleway({
   subsets: ["latin"],
   variable: "--font-heading",
@@ -67,12 +69,14 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="text-[16px] sm:text-base">
-        {children}
-        <Script
-          src="https://readmecodegen.com/view-tracker.js"
-          data-user="user_mpez5xv7_tg0738"
-          strategy="afterInteractive"
-        />
+        <AuthProvider>
+          {children}
+          <Script
+            src="https://readmecodegen.com/view-tracker.js"
+            data-user="user_mpez5xv7_tg0738"
+            strategy="afterInteractive"
+          />
+        </AuthProvider>
       </body>
     </html>
   );
