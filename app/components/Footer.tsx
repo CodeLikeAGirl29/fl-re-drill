@@ -2,7 +2,7 @@
 
 import { FiGithub, FiFacebook } from "react-icons/fi";
 import { SlSocialLinkedin } from "react-icons/sl";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 export default function Footer() {
   const socialLinks = [
@@ -26,7 +26,7 @@ export default function Footer() {
     },
   ];
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -34,7 +34,7 @@ export default function Footer() {
     },
   };
 
-  const iconVariants = {
+  const iconVariants: Variants = {
     hidden: { y: 10, opacity: 0 },
     visible: {
       y: 0,
@@ -46,7 +46,6 @@ export default function Footer() {
   return (
     <footer className="w-full mt-auto py-10 px-4 border-t border-white/5 bg-slate-950/80 backdrop-blur-xl">
       <div className="max-w-md mx-auto flex flex-col items-center text-center">
-        {/* Animated Social Icon Row */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -74,15 +73,12 @@ export default function Footer() {
           ))}
         </motion.div>
 
-        {/* Branding & Copyright */}
         <p className="text-[0.625rem] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">
           © {new Date().getFullYear()} FL Real Estate Master Drill
         </p>
 
-        {/* Neon Divider Line */}
         <div className="h-px w-12 bg-gradient-to-r from-transparent via-cyan-500 to-transparent mb-6 shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
 
-        {/* Instructional Rationale Line */}
         <p className="text-[0.69rem] text-slate-500 font-medium leading-relaxed max-w-[280px] italic">
           Designed for high-retention learning and{" "}
           <span className="text-slate-400 font-bold">Florida State Exam</span>{" "}

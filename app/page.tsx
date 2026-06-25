@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { User } from "firebase/auth";
 import { useAuth } from "./components/AuthProvider";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -18,12 +17,12 @@ import {
 export default function Home() {
   const { user, loading } = useAuth();
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
-  const [activeMode, setActiveMode] = useState;
-  "standard" | "quick20" | "flashcards" | "weakest" | (null > null);
+  const [activeMode, setActiveMode] = useState<
+    "standard" | "quick20" | "flashcards" | "weakest" | null
+  >(null);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Load mastery stats whenever the auth state resolves
   useEffect(() => {
     if (user) {
       getMasteryStats().then(setMasteryStats);
@@ -43,7 +42,6 @@ export default function Home() {
     if (user) setMasteryStats([...(await getMasteryStats())]);
   };
 
-  // Don't flash the wrong screen while Firebase resolves the session
   if (loading) {
     return (
       <div className="flex flex-col min-h-screen font-sans">

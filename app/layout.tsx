@@ -6,11 +6,14 @@ import {
   Montserrat,
   Oxanium,
   Raleway,
+  Geist,
 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-import { AuthProvider } from "@/app/context/AuthContext";
+import { AuthProvider } from "@/app/components/AuthProvider";
+
+const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
 const ralewayHeading = Raleway({
   subsets: ["latin"],
@@ -62,9 +65,10 @@ export default function RootLayout({
         montserrat.variable,
         anonPro.variable,
         sourceCodePro.variable,
-        "font-sans",
         oxanium.variable,
         ralewayHeading.variable,
+        "font-sans",
+        geist.variable,
       )}
       suppressHydrationWarning
     >
