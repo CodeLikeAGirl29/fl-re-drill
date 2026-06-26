@@ -60,6 +60,7 @@ export async function updateMastery(
 
 export async function updateCategoryStat(category: string, isCorrect: boolean) {
   const uid = await getVerifiedUid();
+  console.log("updateCategoryStat called:", { category, isCorrect, uid });
   if (!uid) return { success: false, error: "Unauthorized" };
 
   try {
