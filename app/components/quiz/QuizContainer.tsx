@@ -21,7 +21,12 @@ import FlashcardContainer from "@/app/components/flashcards/FlashcardContainer";
 import { flashcards } from "@/app/lib/flashcards";
 import { useQuiz } from "@/app/hooks/useQuiz";
 import { useTimer } from "@/app/hooks/useTimer";
-import { MasteryRecord } from "@/app/lib/actions/mastery";
+import {
+  updateMastery,
+  updateCategoryStat,
+  getMasteryStats,
+  type MasteryRecord,
+} from "@/app/lib/actions/mastery";
 
 interface QuizContainerProps {
   mode: "standard" | "quick20" | "flashcards" | "weakest";
@@ -223,6 +228,7 @@ export default function QuizContainer({
               if (currentQuestion && onAnswer) {
                 // This call triggers updateMastery in your server actions
                 onAnswer(currentQuestion.id, correct);
+                updateCategoryStat(currentQuestion.cat, correct);
               }
               if (currentQuestion) {
                 // Feeds the Weakest Link Drill data + results "missed topics"

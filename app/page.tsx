@@ -10,8 +10,11 @@ import WelcomeScreen from "./components/quiz/WelcomeScreen";
 import FormulaModal from "./components/FormulaModal";
 import {
   updateMastery,
+  updateCategoryStat,
   getMasteryStats,
+  getCategoryStats,
   type MasteryRecord,
+  type CategoryStat,
 } from "@/app/lib/actions/mastery";
 
 export default function Home() {
@@ -22,19 +25,27 @@ export default function Home() {
   >(null);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [categoryStats, setCategoryStats] = useState<CategoryStat[]>([]);
 
   useEffect(() => {
     if (user) {
       getMasteryStats().then(setMasteryStats);
+      getCategoryStats().then(setCategoryStats);
     } else {
       setMasteryStats([]);
+      setCategoryStats([]);
     }
   }, [user]);
 
   const handleAnswerUpdate = async (questionId: string, isCorrect: boolean) => {
     if (!user) return;
     await updateMastery(questionId, isCorrect ? "mastered" : "review");
-    setMasteryStats(await getMasteryStats());
+    const [mastery, cats] = await Promise.all([
+      getMasteryStats(),
+      getCategoryStats(),
+    ]);
+    setMasteryStats(mastery);
+    setCategoryStats(cats);
   };
 
   const handleExit = async () => {
@@ -78,6 +89,7 @@ export default function Home() {
           <Dashboard
             user={user}
             masteryStats={masteryStats}
+            categoryStats={categoryStats}
             onStartQuiz={(mode) => setActiveMode(mode)}
           />
         ) : (

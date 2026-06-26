@@ -17,6 +17,7 @@ import cn from "classnames";
 
 import AnalyticsView from "./AnalyticsView";
 import ChecklistView from "./ChecklistView";
+import { type CategoryStat } from "@/app/lib/actions/mastery";
 
 interface MasteryRecord {
   question_id: string;
@@ -26,6 +27,7 @@ interface MasteryRecord {
 interface DashboardProps {
   user: User;
   masteryStats: MasteryRecord[];
+  categoryStats: CategoryStat[];
   onStartQuiz: (
     mode: "standard" | "quick20" | "flashcards" | "weakest",
   ) => void;
@@ -34,6 +36,7 @@ interface DashboardProps {
 export default function Dashboard({
   user,
   masteryStats,
+  categoryStats,
   onStartQuiz,
 }: DashboardProps) {
   const [activeSubView, setActiveSubView] = useState<
@@ -90,7 +93,7 @@ export default function Dashboard({
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="space-y-6"
           >
-            {/* ── TOP BAR ── */}
+            {/* TOP BAR */}
             <div className="flex items-center justify-between gap-4 flex-wrap">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-sm font-bold text-cyan-400 shrink-0">
@@ -105,7 +108,6 @@ export default function Dashboard({
                   </h2>
                 </div>
               </div>
-
               <div
                 className={cn(
                   "flex items-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider",
@@ -117,7 +119,7 @@ export default function Dashboard({
               </div>
             </div>
 
-            {/* ── STAT CARDS ── */}
+            {/* STAT CARDS */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <StatCard
                 label="Mastered"
@@ -145,7 +147,7 @@ export default function Dashboard({
               />
             </div>
 
-            {/* ── PROGRESS BAR ── */}
+            {/* PROGRESS BAR */}
             <div className="bg-slate-900/50 border border-white/5 rounded-2xl p-5">
               <div className="flex justify-between items-baseline mb-3">
                 <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
@@ -169,9 +171,9 @@ export default function Dashboard({
               </div>
             </div>
 
-            {/* ── LOWER GRID ── */}
+            {/* LOWER GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* DRILLS */}
+              {/* LEFT — DRILLS */}
               <div className="space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-1">
                   Drill operations
@@ -208,7 +210,7 @@ export default function Dashboard({
                 </div>
               </div>
 
-              {/* SUBSYSTEMS */}
+              {/* RIGHT — SUBSYSTEMS + CATEGORY SNAPSHOT */}
               <div className="space-y-3">
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-1">
                   Subsystems
@@ -244,39 +246,48 @@ export default function Dashboard({
                   />
                 </div>
 
-                {/* MINI CATEGORY BREAKDOWN */}
-                <div className="bg-slate-900/50 border border-white/5 rounded-2xl p-4 mt-2 space-y-3">
+                {/* CATEGORY SNAPSHOT */}
+                <div className="bg-slate-900/50 border border-white/5 rounded-2xl p-4 space-y-3">
                   <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
                     Category snapshot
                   </p>
-                  {[
-                    { label: "Law & License", pct: 60 },
-                    { label: "Real Estate Math", pct: 35 },
-                    { label: "Contracts", pct: 50 },
-                    { label: "Finance", pct: 25 },
-                  ].map((cat) => (
-                    <div key={cat.label}>
-                      <div className="flex justify-between text-[11px] font-bold text-slate-400 mb-1">
-                        <span>{cat.label}</span>
-                        <span>{cat.pct}%</span>
-                      </div>
-                      <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${cat.pct}%` }}
-                          transition={{ duration: 0.7, ease: "easeOut" }}
-                          className={cn(
-                            "h-full rounded-full",
-                            cat.pct >= 60
-                              ? "bg-emerald-500"
-                              : cat.pct >= 40
-                                ? "bg-cyan-500"
-                                : "bg-amber-500",
-                          )}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                  {categoryStats.length === 0 ? (
+                    <p className="text-[11px] text-slate-600 italic">
+                      Complete a quiz to see your category breakdown.
+                    </p>
+                  ) : (
+                    categoryStats
+                      .sort((a, b) => b.total - a.total)
+                      .slice(0, 5)
+                      .map((cat) => (
+                        <div key={cat.category}>
+                          <div className="flex justify-between text-[11px] font-bold text-slate-400 mb-1">
+                            <span className="truncate pr-2">
+                              {cat.category}
+                            </span>
+                            <span className="shrink-0">{cat.percent}%</span>
+                          </div>
+                          <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                            <motion.div
+                              initial={{ width: 0 }}
+                              animate={{ width: `${cat.percent}%` }}
+                              transition={{ duration: 0.7, ease: "easeOut" }}
+                              className={cn(
+                                "h-full rounded-full",
+                                cat.percent >= 75
+                                  ? "bg-emerald-500"
+                                  : cat.percent >= 50
+                                    ? "bg-cyan-500"
+                                    : "bg-amber-500",
+                              )}
+                            />
+                          </div>
+                          <p className="text-[9px] text-slate-600 mt-0.5">
+                            {cat.correct} / {cat.total} correct
+                          </p>
+                        </div>
+                      ))
+                  )}
                 </div>
               </div>
             </div>
@@ -297,8 +308,6 @@ export default function Dashboard({
     </div>
   );
 }
-
-// ── SUB-COMPONENTS ──
 
 function StatCard({
   label,
