@@ -10,14 +10,13 @@ import WelcomeScreen from "./components/quiz/WelcomeScreen";
 import FormulaModal from "./components/FormulaModal";
 import {
   updateMastery,
-  updateCategoryStat,
   getMasteryStats,
   getCategoryStats,
   type MasteryRecord,
   type CategoryStat,
 } from "@/app/lib/actions/mastery";
 
-export default function Home() {
+export default function HomePage() {
   const { user, loading } = useAuth();
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
   const [activeMode, setActiveMode] = useState<

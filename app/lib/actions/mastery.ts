@@ -63,14 +63,13 @@ export async function updateCategoryStat(category: string, isCorrect: boolean) {
   if (!uid) return { success: false, error: "Unauthorized" };
 
   try {
+    const { FieldValue } = await import("firebase-admin/firestore");
     const ref = adminDb
       .collection("user_mastery")
       .doc(uid)
       .collection("categories")
       .doc(category);
 
-    // Firestore atomic increment — no race conditions
-    const { FieldValue } = await import("firebase-admin/firestore");
     await ref.set(
       {
         category,
@@ -123,7 +122,7 @@ export async function getCategoryStats(): Promise<CategoryStat[]> {
         correct: d.correct ?? 0,
         total: d.total ?? 0,
         percent: d.total > 0 ? Math.round((d.correct / d.total) * 100) : 0,
-      } as CategoryStat;
+      };
     });
   } catch (err) {
     console.error("Category Stats Fetch Error:", err);
