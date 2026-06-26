@@ -10,7 +10,7 @@ import {
   FaFire,
   FaGraduationCap,
   FaChevronRight,
-  FaTag,
+  FaCrosshairs,
   FaCalculator,
 } from "react-icons/fa6";
 import cn from "classnames";
@@ -199,7 +199,7 @@ export default function Dashboard({
                     onClick={() => onStartQuiz("flashcards")}
                   />
                   <DrillButton
-                    icon={<FaTag size={13} />}
+                    icon={<FaCrosshairs size={13} />}
                     iconBg="bg-amber-500/15 text-amber-400"
                     title="Weakest drill"
                     sub="Focus on your lowest-mastery topics"
