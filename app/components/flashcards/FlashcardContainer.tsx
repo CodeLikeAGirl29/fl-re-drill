@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Flashcard } from "./Flashcard";
+import { auth } from "@/lib/firebase/client";
 import { updateMastery } from "@/app/lib/actions/mastery";
 
 interface Question {
@@ -25,10 +26,12 @@ export default function FlashcardContainer({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeDeck, setActiveDeck] = useState<Question[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
-  
+
   // Track swipe direction state so the exiting card knows which path to fly out towards
-  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(null);
-  
+  const [swipeDirection, setSwipeDirection] = useState<"left" | "right" | null>(
+    null,
+  );
+
   // Guard reference to ensure initialization code executes exactly once
   const deckBuiltRef = useRef(false);
 
@@ -68,15 +71,25 @@ export default function FlashcardContainer({
 
     // Decouple the database sync completely so it never blocks the animation UI timeline
     if (isAuthenticated) {
-      updateMastery(currentQuestion.id, isCorrect ? "mastered" : "review")
-        .then((result) => {
-          if (result && !result.success) {
-            console.warn(`Telemetry sync deferred: ${result.error}`);
-          }
-        })
-        .catch((err) => {
-          console.warn("Database sync deferred safely to preserve card loop.", err);
-        });
+      auth.currentUser?.getIdToken().then((token) => {
+        if (!token) return;
+        updateMastery(
+          token,
+          currentQuestion.id,
+          isCorrect ? "mastered" : "review",
+        )
+          .then((result) => {
+            if (result && !result.success) {
+              console.warn(`Telemetry sync deferred: ${result.error}`);
+            }
+          })
+          .catch((err) => {
+            console.warn(
+              "Database sync deferred safely to preserve card loop.",
+              err,
+            );
+          });
+      });
     }
   };
 
@@ -119,13 +132,17 @@ export default function FlashcardContainer({
   }
 
   // Safe question boundary resolution fallback for components caught mid-unmount lifecycle phase
-  const safeCurrentCard = activeDeck[currentIndex] || activeDeck[activeDeck.length - 1];
+  const safeCurrentCard =
+    activeDeck[currentIndex] || activeDeck[activeDeck.length - 1];
 
   return (
     <div className="flex flex-col items-center justify-center w-full min-h-[500px] relative">
       {/* Structural Round Counter */}
       <div className="mb-4 text-[10px] font-mono font-bold text-slate-500 uppercase tracking-widest">
-        Card <span className="text-white font-black">{Math.min(currentIndex + 1, activeDeck.length)}</span>{" "}
+        Card{" "}
+        <span className="text-white font-black">
+          {Math.min(currentIndex + 1, activeDeck.length)}
+        </span>{" "}
         of {activeDeck.length}
       </div>
 

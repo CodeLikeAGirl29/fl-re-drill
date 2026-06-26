@@ -15,8 +15,10 @@ import {
   type MasteryRecord,
   type CategoryStat,
 } from "@/app/lib/actions/mastery";
+import { auth } from "@/lib/firebase/client";
 
 export default function HomePage() {
+  const getToken = async () => (await auth.currentUser?.getIdToken()) ?? "";
   const { user, loading } = useAuth();
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
   const [activeMode, setActiveMode] = useState<
@@ -28,8 +30,10 @@ export default function HomePage() {
 
   useEffect(() => {
     if (user) {
-      getMasteryStats().then(setMasteryStats);
-      getCategoryStats().then(setCategoryStats);
+      getToken().then((token) => {
+        getMasteryStats(token).then(setMasteryStats);
+        getCategoryStats(token).then(setCategoryStats);
+      });
     } else {
       setMasteryStats([]);
       setCategoryStats([]);
@@ -38,10 +42,11 @@ export default function HomePage() {
 
   const handleAnswerUpdate = async (questionId: string, isCorrect: boolean) => {
     if (!user) return;
-    await updateMastery(questionId, isCorrect ? "mastered" : "review");
+    const token = await getToken();
+    await updateMastery(token, questionId, isCorrect ? "mastered" : "review");
     const [mastery, cats] = await Promise.all([
-      getMasteryStats(),
-      getCategoryStats(),
+      getMasteryStats(token),
+      getCategoryStats(token),
     ]);
     setMasteryStats(mastery);
     setCategoryStats(cats);
@@ -49,7 +54,15 @@ export default function HomePage() {
 
   const handleExit = async () => {
     setActiveMode(null);
-    if (user) setMasteryStats([...(await getMasteryStats())]);
+    if (user) {
+      const token = await getToken();
+      const [mastery, cats] = await Promise.all([
+        getMasteryStats(token),
+        getCategoryStats(token),
+      ]);
+      setMasteryStats(mastery);
+      setCategoryStats(cats);
+    }
   };
 
   if (loading) {

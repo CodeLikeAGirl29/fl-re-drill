@@ -2,7 +2,6 @@
 
 import { adminAuth, adminDb, FieldValue } from "@/lib/firebase/admin";
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
 
 export interface MasteryRecord {
   question_id: string;
@@ -16,11 +15,8 @@ export interface CategoryStat {
   percent: number;
 }
 
-async function getVerifiedUid(): Promise<string | null> {
+async function getUidFromToken(token: string): Promise<string | null> {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("firebase-token")?.value;
-    if (!token) return null;
     const decoded = await adminAuth.verifyIdToken(token);
     return decoded.uid;
   } catch {
@@ -29,10 +25,11 @@ async function getVerifiedUid(): Promise<string | null> {
 }
 
 export async function updateMastery(
+  token: string,
   questionId: string,
   status: "mastered" | "review"
 ) {
-  const uid = await getVerifiedUid();
+  const uid = await getUidFromToken(token);
   if (!uid) return { success: false, error: "Unauthorized" };
 
   try {
@@ -58,9 +55,12 @@ export async function updateMastery(
   }
 }
 
-export async function updateCategoryStat(category: string, isCorrect: boolean) {
-  const uid = await getVerifiedUid();
-  console.log("updateCategoryStat called:", { category, isCorrect, uid });
+export async function updateCategoryStat(
+  token: string,
+  category: string,
+  isCorrect: boolean
+) {
+  const uid = await getUidFromToken(token);
   if (!uid) return { success: false, error: "Unauthorized" };
 
   try {
@@ -86,8 +86,8 @@ export async function updateCategoryStat(category: string, isCorrect: boolean) {
   }
 }
 
-export async function getMasteryStats(): Promise<MasteryRecord[]> {
-  const uid = await getVerifiedUid();
+export async function getMasteryStats(token: string): Promise<MasteryRecord[]> {
+  const uid = await getUidFromToken(token);
   if (!uid) return [];
 
   try {
@@ -104,8 +104,8 @@ export async function getMasteryStats(): Promise<MasteryRecord[]> {
   }
 }
 
-export async function getCategoryStats(): Promise<CategoryStat[]> {
-  const uid = await getVerifiedUid();
+export async function getCategoryStats(token: string): Promise<CategoryStat[]> {
+  const uid = await getUidFromToken(token);
   if (!uid) return [];
 
   try {

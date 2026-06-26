@@ -21,6 +21,7 @@ import FlashcardContainer from "@/app/components/flashcards/FlashcardContainer";
 import { flashcards } from "@/app/lib/flashcards";
 import { useQuiz } from "@/app/hooks/useQuiz";
 import { useTimer } from "@/app/hooks/useTimer";
+import { auth } from "@/lib/firebase/client";
 import {
   updateMastery,
   updateCategoryStat,
@@ -223,21 +224,24 @@ export default function QuizContainer({
             isMarked={qz.markedQuestions.has(qz.currentIdx)}
             onToggleMark={() => qz.toggleMark(qz.currentIdx)}
             onNext={(correct) => {
-              // --- DYNAMIC MASTERY SYNC ---
+              // Run async logic without making onNext itself async
               const currentQuestion = qz.activeQuestions[qz.currentIdx];
+
               if (currentQuestion && onAnswer) {
-                // This call triggers updateMastery in your server actions
+                // Fire and forget — get token then call server actions
+                auth.currentUser?.getIdToken().then((token) => {
+                  if (token) {
+                    updateCategoryStat(token, currentQuestion.cat, correct);
+                  }
+                });
                 onAnswer(currentQuestion.id, correct);
-                updateCategoryStat(currentQuestion.cat, correct);
               }
+
               if (currentQuestion) {
-                // Feeds the Weakest Link Drill data + results "missed topics"
                 qz.recordOutcome(currentQuestion.cat, correct);
               }
 
-              // --- NAVIGATION LOGIC ---
               if (correct) qz.setScore((s) => s + 1);
-
               window.scrollTo({ top: 0, behavior: "smooth" });
 
               if (qz.isReviewJump) {
