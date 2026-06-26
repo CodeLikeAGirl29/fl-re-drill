@@ -229,7 +229,7 @@ export default function Dashboard({
                     onClick={() => setActiveSubView("checklist")}
                   />
                   <SubButton
-                    icon={<FaTarget size={15} />}
+                    icon={<FaCrosshairs size={15} />}
                     iconColor="text-amber-400"
                     title="Weakest drill"
                     sub="Low-mastery focus"
