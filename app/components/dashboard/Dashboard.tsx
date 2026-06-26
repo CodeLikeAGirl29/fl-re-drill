@@ -10,12 +10,11 @@ import {
   FaFire,
   FaGraduationCap,
   FaChevronRight,
-  FaTerminal,
-  FaCrosshairs,
-} from "react-icons/fa";
+  FaTag,
+  FaCalculator,
+} from "react-icons/fa6";
 import cn from "classnames";
 
-// Sub-components
 import AnalyticsView from "./AnalyticsView";
 import ChecklistView from "./ChecklistView";
 
@@ -27,7 +26,9 @@ interface MasteryRecord {
 interface DashboardProps {
   user: User;
   masteryStats: MasteryRecord[];
-  onStartQuiz: (mode: "standard" | "quick20" | "flashcards") => void;
+  onStartQuiz: (
+    mode: "standard" | "quick20" | "flashcards" | "weakest",
+  ) => void;
 }
 
 export default function Dashboard({
@@ -42,6 +43,7 @@ export default function Dashboard({
   const masteredCount = masteryStats.filter(
     (s) => s.status === "mastered",
   ).length;
+  const reviewCount = masteryStats.filter((s) => s.status === "review").length;
   const totalQuestions = 100;
   const progressPercent = Math.round((masteredCount / totalQuestions) * 100);
 
@@ -49,183 +51,232 @@ export default function Dashboard({
     if (pct >= 90)
       return {
         name: "Master",
-        color: "text-yellow-400 bg-yellow-500/5 border-yellow-500/20",
-        glow: "shadow-yellow-500/5",
+        color: "text-yellow-400 border-yellow-500/30 bg-yellow-500/10",
       };
     if (pct >= 75)
       return {
         name: "Expert",
-        color: "text-cyan-400 bg-cyan-500/5 border-cyan-500/20",
-        glow: "shadow-cyan-500/5",
+        color: "text-cyan-400 border-cyan-500/30 bg-cyan-500/10",
       };
     if (pct >= 50)
       return {
         name: "Senior",
-        color: "text-purple-400 bg-purple-500/5 border-purple-500/20",
-        glow: "shadow-purple-500/5",
+        color: "text-purple-400 border-purple-500/30 bg-purple-500/10",
       };
     if (pct >= 20)
       return {
         name: "Associate",
-        color: "text-blue-400 bg-blue-500/5 border-blue-500/20",
-        glow: "shadow-blue-500/5",
+        color: "text-blue-400 border-blue-500/30 bg-blue-500/10",
       };
     return {
       name: "Novice",
-      color: "text-slate-400 bg-slate-500/5 border-slate-500/20",
-      glow: "shadow-slate-500/5",
+      color: "text-slate-400 border-slate-500/30 bg-slate-500/10",
     };
   };
 
   const rank = getRankInfo(progressPercent);
+  const initials = user.email?.split("@")[0].slice(0, 2).toUpperCase() ?? "??";
+  const username = user.email?.split("@")[0] ?? "candidate";
 
   return (
-    <div className="w-full max-w-6xl p-4 md:p-8 antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+    <div className="w-full max-w-5xl px-4 py-8">
       <AnimatePresence mode="wait">
         {activeSubView === "main" ? (
           <motion.div
             key="main"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -15 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="space-y-8"
+            className="space-y-6"
           >
-            {/* --- TOP HEADER BAR --- */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-white/5">
-              <div>
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-500 animate-pulse" />
-                  <p className="text-cyan-500 font-mono tracking-[0.3em] text-[10px] uppercase font-bold">
-                    Candidate Data Stream // Active
-                  </p>
+            {/* ── TOP BAR ── */}
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-full bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-sm font-bold text-cyan-400 shrink-0">
+                  {initials}
                 </div>
-                <h2 className="text-4xl font-black uppercase italic text-white tracking-tight">
-                  Welcome,{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 font-sans not-italic font-black">
-                    {user.email?.split("@")[0]}
-                  </span>
-                </h2>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                    Welcome back
+                  </p>
+                  <h2 className="text-xl font-black text-white tracking-tight capitalize">
+                    {username}
+                  </h2>
+                </div>
               </div>
 
               <div
                 className={cn(
-                  "flex items-center gap-4 bg-slate-950/40 backdrop-blur-md border px-5 py-2.5 rounded-xl shadow-inner transition-all duration-300",
+                  "flex items-center gap-2 px-4 py-2 rounded-lg border text-xs font-bold uppercase tracking-wider",
                   rank.color,
-                  rank.glow,
                 )}
               >
-                <div className="text-left">
-                  <p className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-wider">
-                    Rank Evaluation
-                  </p>
-                  <p className="text-lg font-black uppercase tracking-tight font-mono">
-                    {rank.name}
-                  </p>
-                </div>
+                <span>⬡</span>
+                {rank.name}
               </div>
             </div>
 
-            {/* --- MAIN ASYMMETRICAL TELEMETRY GRID --- */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              {/* LEFT CONTROL COLUMN: DRILLS & OPERATIONS */}
-              <div className="lg:col-span-7 space-y-8">
-                <div>
-                  <h3 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-[0.25em] mb-4 flex items-center gap-2">
-                    <FaTerminal className="text-cyan-500/70 text-[10px]" />{" "}
-                    Select Drill Operation
-                  </h3>
+            {/* ── STAT CARDS ── */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <StatCard
+                label="Mastered"
+                value={masteredCount}
+                sub="of 100 topics"
+                valueColor="text-emerald-400"
+              />
+              <StatCard
+                label="Need review"
+                value={reviewCount}
+                sub="flagged items"
+                valueColor="text-amber-400"
+              />
+              <StatCard
+                label="Remaining"
+                value={totalQuestions - masteredCount}
+                sub="topics left"
+                valueColor="text-slate-300"
+              />
+              <StatCard
+                label="Mastery index"
+                value={`${progressPercent}%`}
+                sub="overall progress"
+                valueColor="text-cyan-400"
+              />
+            </div>
 
-                  <div className="grid grid-cols-1 gap-4">
-                    <DrillCard
-                      title="The Standard"
-                      subtitle="Full 100-Question Exam Simulation"
-                      desc="Comprehensive baseline testing structured to emulate the timing, distribution, and formatting of the Florida state exam."
-                      icon={<FaPlay className="ml-0.5" />}
-                      color="from-cyan-500 to-blue-600 text-cyan-950"
-                      glow="hover:border-cyan-500/30 hover:shadow-cyan-500/5"
-                      onClick={() => onStartQuiz("standard")}
-                    />
-                    <DrillCard
-                      title="Rapid Fire"
-                      subtitle="High-Intensity 20 Question Hit"
-                      desc="Accelerated assessment block targeted at keeping operational response velocity tight and identifying sudden logic gaps."
-                      icon={<FaFire />}
-                      color="from-rose-500 to-orange-500 text-rose-950"
-                      glow="hover:border-rose-500/30 hover:shadow-rose-500/5"
-                      onClick={() => onStartQuiz("quick20")}
-                    />
-                    <DrillCard
-                      title="Flashcards"
-                      subtitle="Swipe & Memorize Core Principles"
-                      desc="Rapid conceptual retention routine mapped through active recall cards covering statutes, formulas, and operational systems."
-                      icon={<FaSwatchbook />}
-                      color="from-purple-500 to-indigo-500 text-purple-950"
-                      glow="hover:border-purple-500/30 hover:shadow-purple-500/5"
-                      onClick={() => onStartQuiz("flashcards")}
-                    />
-                  </div>
+            {/* ── PROGRESS BAR ── */}
+            <div className="bg-slate-900/50 border border-white/5 rounded-2xl p-5">
+              <div className="flex justify-between items-baseline mb-3">
+                <span className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                  Mastery progress
+                </span>
+                <span className="text-xs font-bold text-cyan-400">
+                  {masteredCount} / {totalQuestions}
+                </span>
+              </div>
+              <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressPercent}%` }}
+                  transition={{ duration: 0.9, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full"
+                />
+              </div>
+              <div className="flex justify-between text-[10px] font-bold uppercase tracking-wider text-slate-600 mt-2">
+                <span>Novice → Expert → Master</span>
+                <span>{totalQuestions - masteredCount} remaining</span>
+              </div>
+            </div>
+
+            {/* ── LOWER GRID ── */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* DRILLS */}
+              <div className="space-y-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-1">
+                  Drill operations
+                </p>
+                <div className="space-y-2">
+                  <DrillButton
+                    icon={<FaPlay size={13} className="ml-0.5" />}
+                    iconBg="bg-cyan-500/15 text-cyan-400"
+                    title="The standard"
+                    sub="100-question exam simulation"
+                    onClick={() => onStartQuiz("standard")}
+                  />
+                  <DrillButton
+                    icon={<FaFire size={14} />}
+                    iconBg="bg-rose-500/15 text-rose-400"
+                    title="Rapid fire"
+                    sub="20-question high-intensity hit"
+                    onClick={() => onStartQuiz("quick20")}
+                  />
+                  <DrillButton
+                    icon={<FaSwatchbook size={13} />}
+                    iconBg="bg-purple-500/15 text-purple-400"
+                    title="Flashcards"
+                    sub="Active recall, core principles"
+                    onClick={() => onStartQuiz("flashcards")}
+                  />
+                  <DrillButton
+                    icon={<FaTag size={13} />}
+                    iconBg="bg-amber-500/15 text-amber-400"
+                    title="Weakest drill"
+                    sub="Focus on your lowest-mastery topics"
+                    onClick={() => onStartQuiz("weakest")}
+                  />
                 </div>
               </div>
 
-              {/* RIGHT UTILITY COLUMN: SYSTEM PROGRESS & VIEWS */}
-              <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">
-                {/* CORE DIAGNOSTIC BLOCK */}
-                <div className="relative bg-slate-950/40 backdrop-blur-xl border border-white/5 rounded-2xl p-6 shadow-2xl overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-cyan-500/5 to-transparent rounded-bl-full pointer-events-none" />
-
-                  <div className="flex justify-between items-baseline mb-4">
-                    <div>
-                      <h4 className="text-xs font-mono font-bold text-slate-400 uppercase tracking-wider">
-                        Mastery Index
-                      </h4>
-                      <p className="text-[11px] text-slate-500 font-medium mt-0.5">
-                        Completed vs Total Target Domain
-                      </p>
-                    </div>
-                    <span className="text-4xl font-black font-mono text-white tracking-tighter">
-                      {progressPercent}%
-                    </span>
-                  </div>
-
-                  <div className="h-2.5 w-full bg-slate-900 rounded-full border border-white/5 p-[2px] overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progressPercent}%` }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-500 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.3)]"
-                    />
-                  </div>
-
-                  <div className="flex justify-between text-[10px] font-mono text-slate-500 font-bold uppercase tracking-wider mt-3">
-                    <span>{masteredCount} System Mastered</span>
-                    <span>100 Units</span>
-                  </div>
+              {/* SUBSYSTEMS */}
+              <div className="space-y-3">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500 px-1">
+                  Subsystems
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  <SubButton
+                    icon={<FaChartLine size={15} />}
+                    iconColor="text-cyan-400"
+                    title="Analytics"
+                    sub="Category breakdown"
+                    onClick={() => setActiveSubView("analytics")}
+                  />
+                  <SubButton
+                    icon={<FaGraduationCap size={15} />}
+                    iconColor="text-purple-400"
+                    title="Tracker"
+                    sub="DBPR checklist"
+                    onClick={() => setActiveSubView("checklist")}
+                  />
+                  <SubButton
+                    icon={<FaTarget size={15} />}
+                    iconColor="text-amber-400"
+                    title="Weakest drill"
+                    sub="Low-mastery focus"
+                    onClick={() => onStartQuiz("weakest")}
+                  />
+                  <SubButton
+                    icon={<FaCalculator size={15} />}
+                    iconColor="text-emerald-400"
+                    title="Formulas"
+                    sub="Math reference"
+                    onClick={() => {}}
+                  />
                 </div>
 
-                {/* SUB-VIEW NAVIGATION TOGGLES */}
-                <div className="space-y-3">
-                  <h3 className="text-xs font-mono font-bold text-slate-500 uppercase tracking-[0.25em] mb-1 flex items-center gap-2 px-1">
-                    <FaCrosshairs className="text-purple-500/70 text-[10px]" />{" "}
-                    Subsystems
-                  </h3>
-
-                  <SubViewButton
-                    onClick={() => setActiveSubView("analytics")}
-                    icon={<FaChartLine size={18} />}
-                    title="Performance Analytics"
-                    desc="Granular matrix breakdown of current category strengths"
-                    hoverColor="hover:border-cyan-500/30 hover:bg-cyan-500/[0.02]"
-                    iconColor="text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
-                  />
-                  <SubViewButton
-                    onClick={() => setActiveSubView("checklist")}
-                    icon={<FaGraduationCap size={18} />}
-                    title="Compliance Tracker"
-                    desc="Review and monitor Florida DBPR prerequisite pipelines"
-                    hoverColor="hover:border-purple-500/30 hover:bg-purple-500/[0.02]"
-                    iconColor="text-purple-400 bg-purple-500/10 border-purple-500/20"
-                  />
+                {/* MINI CATEGORY BREAKDOWN */}
+                <div className="bg-slate-900/50 border border-white/5 rounded-2xl p-4 mt-2 space-y-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">
+                    Category snapshot
+                  </p>
+                  {[
+                    { label: "Law & License", pct: 60 },
+                    { label: "Real Estate Math", pct: 35 },
+                    { label: "Contracts", pct: 50 },
+                    { label: "Finance", pct: 25 },
+                  ].map((cat) => (
+                    <div key={cat.label}>
+                      <div className="flex justify-between text-[11px] font-bold text-slate-400 mb-1">
+                        <span>{cat.label}</span>
+                        <span>{cat.pct}%</span>
+                      </div>
+                      <div className="h-1 w-full bg-slate-800 rounded-full overflow-hidden">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${cat.pct}%` }}
+                          transition={{ duration: 0.7, ease: "easeOut" }}
+                          className={cn(
+                            "h-full rounded-full",
+                            cat.pct >= 60
+                              ? "bg-emerald-500"
+                              : cat.pct >= 40
+                                ? "bg-cyan-500"
+                                : "bg-amber-500",
+                          )}
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -247,103 +298,96 @@ export default function Dashboard({
   );
 }
 
-interface DrillCardProps {
-  title: string;
-  subtitle: string;
-  desc: string;
-  icon: React.ReactNode;
-  color: string;
-  glow: string;
-  onClick: () => void;
+// ── SUB-COMPONENTS ──
+
+function StatCard({
+  label,
+  value,
+  sub,
+  valueColor,
+}: {
+  label: string;
+  value: string | number;
+  sub: string;
+  valueColor: string;
+}) {
+  return (
+    <div className="bg-slate-900/50 border border-white/5 rounded-xl p-4">
+      <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">
+        {label}
+      </p>
+      <p
+        className={cn(
+          "text-2xl font-black font-mono tracking-tight",
+          valueColor,
+        )}
+      >
+        {value}
+      </p>
+      <p className="text-[10px] text-slate-600 font-medium mt-0.5">{sub}</p>
+    </div>
+  );
 }
 
-interface SubViewButtonProps {
-  onClick: () => void;
-  icon: React.ReactNode;
-  title: string;
-  desc: string;
-  hoverColor: string;
-  iconColor: string;
-}
-
-function DrillCard({
-  title,
-  subtitle,
-  desc,
+function DrillButton({
   icon,
-  color,
-  glow,
+  iconBg,
+  title,
+  sub,
   onClick,
-}: DrillCardProps) {
+}: {
+  icon: React.ReactNode;
+  iconBg: string;
+  title: string;
+  sub: string;
+  onClick: () => void;
+}) {
   return (
     <motion.button
-      whileHover={{ y: -3, backgroundColor: "rgba(15, 23, 42, 0.6)" }}
-      whileTap={{ scale: 0.99 }}
+      whileHover={{ x: 2 }}
+      whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className={cn(
-        "relative group w-full bg-slate-900/30 backdrop-blur-md border border-white/5 p-5 md:p-6 text-left rounded-2xl transition-all duration-300 flex items-start gap-5 overflow-hidden shadow-lg",
-        glow,
-      )}
+      className="w-full flex items-center gap-4 bg-slate-900/40 hover:bg-slate-900/80 border border-white/5 hover:border-white/10 rounded-xl p-4 text-left transition-colors"
     >
       <div
         className={cn(
-          "w-11 h-11 shrink-0 bg-gradient-to-br rounded-xl flex items-center justify-center text-sm shadow-md transition-transform duration-300 group-hover:scale-105",
-          color,
+          "w-9 h-9 rounded-lg flex items-center justify-center shrink-0",
+          iconBg,
         )}
       >
         {icon}
       </div>
-
-      <div className="space-y-1 pr-4">
-        <div className="flex items-baseline gap-2.5">
-          <h3 className="text-xl font-black uppercase italic text-white tracking-tight">
-            {title}
-          </h3>
-          <span className="text-[9px] font-mono font-bold text-slate-500 uppercase tracking-wider block">
-            // {subtitle}
-          </span>
-        </div>
-        <p className="text-xs text-slate-400 font-medium leading-relaxed max-w-xl">
-          {desc}
-        </p>
+      <div className="flex-1 min-w-0">
+        <p className="text-sm font-bold text-white capitalize">{title}</p>
+        <p className="text-[11px] text-slate-500 font-medium mt-0.5">{sub}</p>
       </div>
-
-      <div className="absolute top-6 right-6 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-        <FaChevronRight className="text-white/30 text-xs" />
-      </div>
+      <FaChevronRight size={10} className="text-slate-600 shrink-0" />
     </motion.button>
   );
 }
 
-function SubViewButton({
-  onClick,
+function SubButton({
   icon,
-  title,
-  desc,
-  hoverColor,
   iconColor,
-}: SubViewButtonProps) {
+  title,
+  sub,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  iconColor: string;
+  title: string;
+  sub: string;
+  onClick: () => void;
+}) {
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "w-full flex items-center gap-4 bg-slate-900/20 backdrop-blur-md border border-white/5 p-4 rounded-xl transition-all duration-300 group text-left shadow-md",
-        hoverColor,
-      )}
+      className="flex flex-col gap-2 bg-slate-900/40 hover:bg-slate-900/80 border border-white/5 hover:border-white/10 rounded-xl p-4 text-left transition-colors"
     >
-      <div
-        className={cn(
-          "w-10 h-10 rounded-lg flex items-center justify-center border transition-all duration-300 group-hover:scale-105",
-          iconColor,
-        )}
-      >
-        {icon}
-      </div>
-      <div className="space-y-0.5">
-        <h4 className="text-xs font-bold uppercase text-white tracking-wider font-mono">
-          {title}
-        </h4>
-        <p className="text-[11px] text-slate-400 font-medium">{desc}</p>
+      <span className={cn("text-lg", iconColor)}>{icon}</span>
+      <div>
+        <p className="text-xs font-bold text-white">{title}</p>
+        <p className="text-[10px] text-slate-500 font-medium mt-0.5">{sub}</p>
       </div>
     </button>
   );

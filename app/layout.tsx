@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import {
   Anonymous_Pro,
   Source_Code_Pro,
@@ -73,14 +72,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="text-[16px] sm:text-base">
-        <AuthProvider>
-          {children}
-          <Script
-            src="https://readmecodegen.com/view-tracker.js"
-            data-user="user_mpez5xv7_tg0738"
-            strategy="afterInteractive"
-          />
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
