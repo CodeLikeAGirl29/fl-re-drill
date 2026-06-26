@@ -1,6 +1,6 @@
 "use server";
 
-import { adminAuth, adminDb } from "@/lib/firebase/admin";
+import { adminAuth, adminDb, FieldValue } from "@/lib/firebase/admin";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
@@ -64,7 +64,6 @@ export async function updateCategoryStat(category: string, isCorrect: boolean) {
   if (!uid) return { success: false, error: "Unauthorized" };
 
   try {
-    const { FieldValue } = await import("firebase-admin/firestore");
     const ref = adminDb
       .collection("user_mastery")
       .doc(uid)
@@ -74,7 +73,7 @@ export async function updateCategoryStat(category: string, isCorrect: boolean) {
     await ref.set(
       {
         category,
-        correct: isCorrect ? FieldValue.increment(1) : FieldValue.increment(0),
+        correct: FieldValue.increment(isCorrect ? 1 : 0),
         total: FieldValue.increment(1),
       },
       { merge: true }
