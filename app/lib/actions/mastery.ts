@@ -16,10 +16,13 @@ export interface CategoryStat {
 }
 
 async function getUidFromToken(token: string): Promise<string | null> {
+  console.log("getUidFromToken called, token length:", token.length);
   try {
     const decoded = await adminAuth.verifyIdToken(token);
+    console.log("token verified, uid:", decoded.uid);
     return decoded.uid;
-  } catch {
+  } catch (err) {
+    console.error("verifyIdToken failed:", err);
     return null;
   }
 }
