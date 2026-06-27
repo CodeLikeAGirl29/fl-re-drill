@@ -29,7 +29,7 @@ import {
 } from "@/app/lib/actions/mastery";
 
 interface QuizContainerProps {
-  mode: "standard" | "quick20" | "flashcards" | "weakest";
+  mode: "standard" | "quick20" | "flashcards" | "weakest" | "review";
   category: string;
   onAnswer: (id: string, isCorrect: boolean) => void;
   onExit: () => void;
