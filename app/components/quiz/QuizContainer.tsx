@@ -63,7 +63,7 @@ export default function QuizContainer({
       } else if (mode === "weakest") {
         qz.handleWeakestLinkDrill(20);
       } else if (mode === "review") {
-        qz.handleReviewDrill();
+        qz.handleReviewDrill(); // This is the new line
       }
     }
   }, [mode, category]);
