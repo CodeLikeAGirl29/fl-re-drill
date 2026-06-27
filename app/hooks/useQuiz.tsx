@@ -264,5 +264,6 @@ export function useQuiz(
     setIsReviewJump,
     missedQuestions,
     setMissedQuestions,
+    handleReviewDrill,
   };
 }

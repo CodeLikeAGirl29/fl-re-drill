@@ -29,7 +29,7 @@ interface DashboardProps {
   masteryStats: MasteryRecord[];
   categoryStats: CategoryStat[];
   onStartQuiz: (
-    mode: "standard" | "quick20" | "flashcards" | "weakest",
+    mode: "standard" | "quick20" | "flashcards" | "weakest" | "review",
   ) => void;
 }
 
