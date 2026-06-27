@@ -244,6 +244,7 @@ export function useQuiz(
     view,
     setView,
     activeQuestions,
+    setActiveQuestions,
     currentIdx,
     setCurrentIdx,
     score,
