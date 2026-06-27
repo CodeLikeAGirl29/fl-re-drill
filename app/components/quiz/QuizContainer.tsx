@@ -18,7 +18,7 @@ import QuizCalculator from "./QuizCalculator";
 import FormulaModal from "@/app/components/FormulaModal";
 import FlashcardContainer from "@/app/components/flashcards/FlashcardContainer";
 
-import { flashcards } from "@/app/lib/flashcards";
+import { useQuestions, useFlashcards } from "@/app/hooks/useQuestions";
 import { useQuiz } from "@/app/hooks/useQuiz";
 import { useTimer } from "@/app/hooks/useTimer";
 import { auth } from "@/lib/firebase/client";
@@ -47,10 +47,12 @@ export default function QuizContainer({
   masteryStats,
 }: QuizContainerProps) {
   const tm = useTimer();
-  const qz = useQuiz(tm.seconds, tm.resetTimer);
+  const qz = useQuiz(tm.seconds, tm.resetTimer, questions);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+  const { questions, loading: questionsLoading } = useQuestions();
+  const { flashcards, loading: flashcardsLoading } = useFlashcards();
 
   useEffect(() => {
     if (qz.view === "welcome") {
@@ -123,6 +125,14 @@ export default function QuizContainer({
       color: "text-rose-400",
     };
   };
+
+  if (questionsLoading || flashcardsLoading) {
+    return (
+      <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
+        <div className="w-6 h-6 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
+      </div>
+    );
+  }
 
   if (!qz.isMounted) return <div className="min-h-screen bg-[#0f172a]" />;
 

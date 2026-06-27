@@ -132,3 +132,13 @@ export async function getCategoryStats(token: string): Promise<CategoryStat[]> {
     return [];
   }
 }
+
+export async function getQuestions() {
+  const snapshot = await adminDb.collection("questions").get();
+  return snapshot.docs.map((doc) => doc.data());
+}
+
+export async function getFlashcards() {
+  const snapshot = await adminDb.collection("flashcards").get();
+  return snapshot.docs.map((doc) => doc.data());
+}
