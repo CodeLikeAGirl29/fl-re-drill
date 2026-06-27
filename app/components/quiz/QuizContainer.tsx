@@ -46,13 +46,13 @@ export default function QuizContainer({
   isAuthenticated,
   masteryStats,
 }: QuizContainerProps) {
+  const { questions, loading: questionsLoading } = useQuestions();
+  const { flashcards, loading: flashcardsLoading } = useFlashcards();
   const tm = useTimer();
   const qz = useQuiz(tm.seconds, tm.resetTimer, questions);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
-  const { questions, loading: questionsLoading } = useQuestions();
-  const { flashcards, loading: flashcardsLoading } = useFlashcards();
 
   useEffect(() => {
     if (qz.view === "welcome") {
@@ -91,7 +91,7 @@ export default function QuizContainer({
       return [...flashcards].sort(() => 0.5 - Math.random());
     }
     return [];
-  }, [mode]);
+  }, [mode, flashcards]);
 
   const getRank = (score: number, total: number) => {
     const percentage = total > 0 ? (score / total) * 100 : 0;
