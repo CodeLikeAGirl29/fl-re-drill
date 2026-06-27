@@ -17,6 +17,8 @@ import {
 } from "@/app/lib/actions/mastery";
 import { auth } from "@/lib/firebase/client";
 
+type QuizMode = "standard" | "quick20" | "flashcards" | "weakest";
+
 const getToken = async (): Promise<string> => {
   const user = auth.currentUser;
   if (!user) return "";
@@ -30,14 +32,7 @@ const getToken = async (): Promise<string> => {
 export default function HomePage() {
   const { user, loading } = useAuth();
   const [masteryStats, setMasteryStats] = useState<MasteryRecord[]>([]);
-  const [activeMode, setActiveMode] = useState<
-    | "standard"
-    | "quick20"
-    | "flashcards"
-    | "weakest"
-    | "flashcards-weakest"
-    | null
-  >(null);
+  const [activeMode, setActiveMode] = useState<QuizMode | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [categoryStats, setCategoryStats] = useState<CategoryStat[]>([]);
@@ -45,7 +40,6 @@ export default function HomePage() {
   useEffect(() => {
     if (user) {
       getToken().then((token) => {
-        console.log("useEffect token length:", token.length);
         if (!token) return;
         getMasteryStats(token).then(setMasteryStats);
         getCategoryStats(token).then(setCategoryStats);
@@ -59,7 +53,6 @@ export default function HomePage() {
   const handleAnswerUpdate = async (questionId: string, isCorrect: boolean) => {
     if (!user) return;
     const token = await getToken();
-    console.log("handleAnswerUpdate token length:", token.length);
     if (!token) return;
     await updateMastery(token, questionId, isCorrect ? "mastered" : "review");
     const [mastery, cats] = await Promise.all([
