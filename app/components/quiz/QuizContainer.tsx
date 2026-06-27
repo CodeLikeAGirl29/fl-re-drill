@@ -22,10 +22,9 @@ import { useQuestions, useFlashcards } from "@/app/hooks/useQuestions";
 import { useQuiz } from "@/app/hooks/useQuiz";
 import { useTimer } from "@/app/hooks/useTimer";
 import { auth } from "@/lib/firebase/client";
+import { shuffleQuestionOptions } from "@/app/lib/utils";
 import {
-  updateMastery,
   updateCategoryStat,
-  getMasteryStats,
   type MasteryRecord,
 } from "@/app/lib/actions/mastery";
 
@@ -53,6 +52,7 @@ export default function QuizContainer({
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCalcOpen, setIsCalcOpen] = useState(false);
+  const [retryMode, setRetryMode] = useState(false);
 
   useEffect(() => {
     if (qz.view === "welcome") {
@@ -61,15 +61,12 @@ export default function QuizContainer({
       } else if (mode === "quick20") {
         qz.handleNewQuiz(category, 20);
       } else if (mode === "weakest") {
-        // Triggers the specific logic to filter for low-mastery questions
         qz.handleWeakestLinkDrill(20);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, category]);
 
-  // Freeze the clock once the candidate finishes answering. Previously the
-  // timer kept ticking on the review/results screens.
   useEffect(() => {
     if (qz.view === "review" || qz.view === "results") {
       tm.stopTimer();
@@ -77,7 +74,6 @@ export default function QuizContainer({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qz.view]);
 
-  // Common animation variants for the "Slide Up" effect
   const slideUp = {
     initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
@@ -85,7 +81,6 @@ export default function QuizContainer({
     transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
   };
 
-  // Prepare questions based on mode selection
   const preparedFlashcards = useMemo(() => {
     if (mode === "flashcards") {
       return [...flashcards].sort(() => 0.5 - Math.random());
@@ -126,6 +121,20 @@ export default function QuizContainer({
     };
   };
 
+  const handleRetryMissed = () => {
+    if (!qz.missedQuestions || qz.missedQuestions.length === 0) return;
+    const retryQuestions = qz.missedQuestions.map((q) =>
+      shuffleQuestionOptions(q),
+    );
+    qz.setActiveQuestions(retryQuestions);
+    qz.setScore(0);
+    qz.setCurrentIdx(0);
+    qz.setMissedQuestions([]);
+    tm.resetTimer(0);
+    qz.setView("quiz");
+    setRetryMode(true);
+  };
+
   if (questionsLoading || flashcardsLoading) {
     return (
       <div className="min-h-screen bg-[#0f172a] flex items-center justify-center">
@@ -141,7 +150,6 @@ export default function QuizContainer({
     return (
       <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
         <motion.div initial="initial" animate="animate" variants={slideUp}>
-          {/* HEADER & PROGRESS */}
           <div className="w-full mb-12 border-b border-white/10 pb-6">
             <div className="flex justify-between items-center mb-6">
               <button
@@ -157,8 +165,6 @@ export default function QuizContainer({
                 </span>
               </div>
             </div>
-
-            {/* PROGRESS BAR */}
             <div className="w-full group">
               <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                 <motion.div
@@ -171,7 +177,6 @@ export default function QuizContainer({
               </div>
             </div>
           </div>
-
           <FlashcardContainer
             questions={preparedFlashcards}
             isAuthenticated={isAuthenticated}
@@ -185,12 +190,11 @@ export default function QuizContainer({
   // --- BRANCH: STANDARD QUIZ MODE ---
   return (
     <div className="w-full max-w-2xl mx-auto py-10 relative z-10 px-4 font-sans">
-      {/* PROGRESS BAR */}
       {(qz.view === "quiz" || qz.view === "review") && (
         <div className="w-full mb-6 group">
           <div className="flex justify-between items-end mb-1.5 px-1">
             <span className="text-[9px] font-black uppercase tracking-widest text-slate-500">
-              Progress
+              {retryMode ? "Retry Round" : "Progress"}
             </span>
             <span className="text-[9.5px] font-black text-cyan-500 uppercase tracking-widest">
               {Math.round(
@@ -235,33 +239,18 @@ export default function QuizContainer({
             onToggleMark={() => qz.toggleMark(qz.currentIdx)}
             onNext={(correct) => {
               const currentQuestion = qz.activeQuestions[qz.currentIdx];
-              console.log("onNext fired:", {
-                correct,
-                questionId: currentQuestion?.id,
-                hasOnAnswer: !!onAnswer,
-              });
 
               if (currentQuestion && onAnswer) {
                 auth.currentUser?.getIdToken().then((token) => {
-                  console.log(
-                    "token in onNext:",
-                    token?.length ?? 0,
-                    "currentUser:",
-                    auth.currentUser?.email,
-                  );
                   if (token) {
-                    updateCategoryStat(token, currentQuestion.cat, correct)
-                      .then((r) => console.log("updateCategoryStat result:", r))
-                      .catch((e) =>
-                        console.error("updateCategoryStat error:", e),
-                      );
+                    updateCategoryStat(token, currentQuestion.cat, correct);
                   }
                 });
                 onAnswer(currentQuestion.id, correct);
               }
 
               if (currentQuestion) {
-                qz.recordOutcome(currentQuestion.cat, correct);
+                qz.recordOutcome(currentQuestion.cat, correct, currentQuestion);
               }
 
               if (correct) qz.setScore((s) => s + 1);
@@ -340,15 +329,19 @@ export default function QuizContainer({
               score={qz.score}
               total={qz.activeQuestions.length}
               missed={qz.missedCategories}
+              missedCount={qz.missedQuestions?.length ?? 0}
               timeTaken={tm.formatTime()}
               rank={getRank(qz.score, qz.activeQuestions.length)}
-              onRestart={qz.handleRestart}
+              onRestart={() => {
+                setRetryMode(false);
+                qz.handleRestart();
+              }}
+              onRetryMissed={handleRetryMissed}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* FLOATING TOOLKIT */}
       {qz.view === "quiz" && (
         <div className="fixed bottom-8 right-8 flex flex-col gap-3 z-50">
           <motion.button

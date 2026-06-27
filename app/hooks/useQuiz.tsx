@@ -21,6 +21,7 @@ export function useQuiz(
   const [currentIdx, setCurrentIdx] = useState(0);
   const [score, setScore] = useState(0);
   const [isReviewJump, setIsReviewJump] = useState(false);
+  const [missedQuestions, setMissedQuestions] = useState<Question[]>([]);
   const [userAnswers, setUserAnswers] = useState<Record<number, number | null>>(
     {},
   );
@@ -174,10 +175,16 @@ export function useQuiz(
   );
 
   const recordOutcome = useCallback(
-    (category: Category, isCorrect: boolean) => {
+    (category: Category, isCorrect: boolean, question?: Question) => {
       updateCategoryStats(category, isCorrect);
       if (!isCorrect) {
         setMissedCategories((prev) => Array.from(new Set([...prev, category])));
+        if (question) {
+          setMissedQuestions((prev) => {
+            const exists = prev.find((q) => q.id === question.id);
+            return exists ? prev : [...prev, question];
+          });
+        }
       }
     },
     [updateCategoryStats],
@@ -201,6 +208,7 @@ export function useQuiz(
     setUserAnswers({});
     setMarkedQuestions(new Set());
     resetTimer(0);
+    setMissedQuestions([]);
   }, [resetTimer]);
 
   return {
@@ -225,5 +233,7 @@ export function useQuiz(
     handleRestart,
     isReviewJump,
     setIsReviewJump,
+    missedQuestions,
+    setMissedQuestions,
   };
 }
