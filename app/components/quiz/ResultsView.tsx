@@ -47,11 +47,13 @@ export default function ResultsView({
   return (
     <div className="mx-auto w-full max-w-2xl bg-[#1e293b]/80 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/10 shadow-2xl text-center font-space">
       {/* STATUS BADGE */}
-      <div className={`inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border ${
-        isPass
-          ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
-          : "bg-rose-500/10 border-rose-500/50 text-rose-400"
-      }`}>
+      <div
+        className={`inline-block px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border ${
+          isPass
+            ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
+            : "bg-rose-500/10 border-rose-500/50 text-rose-400"
+        }`}
+      >
         {isPass ? "OFFICIAL PASS" : "DID NOT PASS"}
       </div>
 
@@ -60,7 +62,9 @@ export default function ResultsView({
       </div>
 
       <div className="mb-8">
-        <h2 className={`text-2xl font-black uppercase tracking-tight mb-1 ${rank.color}`}>
+        <h2
+          className={`text-2xl font-black uppercase tracking-tight mb-1 ${rank.color}`}
+        >
           {rank.name}
         </h2>
         <p className="text-slate-400 text-sm italic font-medium">{rank.sub}</p>
@@ -68,8 +72,12 @@ export default function ResultsView({
         {timeTaken && (
           <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
             <Clock className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Time</span>
-            <span className="text-xs font-bold text-white tabular-nums">{timeTaken}</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+              Time
+            </span>
+            <span className="text-xs font-bold text-white tabular-nums">
+              {timeTaken}
+            </span>
           </div>
         )}
       </div>
@@ -81,7 +89,9 @@ export default function ResultsView({
             <Trophy className="w-4 h-4 text-emerald-400" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Correct</p>
+            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">
+              Correct
+            </p>
             <p className="text-2xl font-bold text-white">{score}</p>
           </div>
         </div>
@@ -90,7 +100,9 @@ export default function ResultsView({
             <AlertCircle className="w-4 h-4 text-rose-400" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Missed</p>
+            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">
+              Missed
+            </p>
             <p className="text-2xl font-bold text-white">{missedCount}</p>
           </div>
         </div>
@@ -99,7 +111,9 @@ export default function ResultsView({
             <Target className="w-4 h-4 text-blue-400" />
           </div>
           <div>
-            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">Total</p>
+            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">
+              Total
+            </p>
             <p className="text-2xl font-bold text-white">{total}</p>
           </div>
         </div>
@@ -148,7 +162,7 @@ export default function ResultsView({
           Reset Protocol
         </button>
         {isPass ? (
-          
+          <a
             href="https://home.pearsonvue.com/fl/realestate"
             target="_blank"
             rel="noopener noreferrer"
