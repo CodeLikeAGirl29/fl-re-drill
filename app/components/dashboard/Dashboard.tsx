@@ -127,12 +127,22 @@ export default function Dashboard({
                 sub="of 100 topics"
                 valueColor="text-emerald-400"
               />
-              <StatCard
-                label="Need review"
-                value={reviewCount}
-                sub="flagged items"
-                valueColor="text-amber-400"
-              />
+              // Replace the "Need review" StatCard with this:
+              <button
+                onClick={() => onStartQuiz("review")}
+                disabled={reviewCount === 0}
+                className="bg-slate-900/50 border border-white/5 hover:border-amber-500/30 rounded-xl p-4 text-left transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mb-1">
+                  Need review
+                </p>
+                <p className="text-2xl font-black font-mono tracking-tight text-amber-400">
+                  {reviewCount}
+                </p>
+                <p className="text-[10px] text-amber-500/70 font-bold mt-0.5">
+                  {reviewCount > 0 ? "Tap to drill →" : "all caught up"}
+                </p>
+              </button>
               <StatCard
                 label="Remaining"
                 value={totalQuestions - masteredCount}

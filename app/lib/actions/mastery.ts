@@ -142,3 +142,22 @@ export async function getFlashcards() {
   const snapshot = await adminDb.collection("flashcards").get();
   return snapshot.docs.map((doc) => doc.data());
 }
+
+export async function getReviewQuestionIds(token: string): Promise<string[]> {
+  const uid = await getUidFromToken(token);
+  if (!uid) return [];
+
+  try {
+    const snapshot = await adminDb
+      .collection("user_mastery")
+      .doc(uid)
+      .collection("questions")
+      .where("status", "==", "review")
+      .get();
+
+    return snapshot.docs.map((doc) => doc.data().question_id as string);
+  } catch (err) {
+    console.error("Review questions fetch error:", err);
+    return [];
+  }
+}

@@ -62,9 +62,10 @@ export default function QuizContainer({
         qz.handleNewQuiz(category, 20);
       } else if (mode === "weakest") {
         qz.handleWeakestLinkDrill(20);
+      } else if (mode === "review") {
+        qz.handleReviewDrill();
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, category]);
 
   useEffect(() => {

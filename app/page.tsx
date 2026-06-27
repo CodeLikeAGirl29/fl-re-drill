@@ -17,7 +17,7 @@ import {
 } from "@/app/lib/actions/mastery";
 import { auth } from "@/lib/firebase/client";
 
-type QuizMode = "standard" | "quick20" | "flashcards" | "weakest";
+type QuizMode = "standard" | "quick20" | "flashcards" | "weakest" | "review";
 
 const getToken = async (): Promise<string> => {
   const user = auth.currentUser;

@@ -154,6 +154,35 @@ export function useQuiz(
     }
   }, [resetTimer]);
 
+  const handleReviewDrill = useCallback(async () => {
+    if (questionsWithIds.length === 0) return;
+
+    // Get review question IDs from Firestore via the token
+    const { auth } = await import("@/lib/firebase/client");
+    const { getReviewQuestionIds } = await import("@/app/lib/actions/mastery");
+
+    const token = (await auth.currentUser?.getIdToken()) ?? "";
+    if (!token) return handleNewQuiz("All Categories", 20);
+
+    const reviewIds = await getReviewQuestionIds(token);
+    if (reviewIds.length === 0) return handleNewQuiz("All Categories", 20);
+
+    const reviewPool = questionsWithIds.filter((q) => reviewIds.includes(q.id));
+
+    const randomized = shuffleArray(reviewPool).map((q) =>
+      shuffleQuestionOptions(q),
+    );
+
+    setActiveQuestions(randomized);
+    setScore(0);
+    setCurrentIdx(0);
+    setUserAnswers({});
+    setMarkedQuestions(new Set());
+    setMissedCategories([]);
+    resetTimer(0);
+    setView("quiz");
+  }, [questionsWithIds, handleNewQuiz, resetTimer]);
+
   const saveAnswer = useCallback(
     (questionIdx: number, answerIdx: number, isCorrect: boolean) => {
       const newAnswers = { ...userAnswers, [questionIdx]: answerIdx };
