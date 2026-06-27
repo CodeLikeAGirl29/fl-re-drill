@@ -224,14 +224,27 @@ export default function QuizContainer({
             isMarked={qz.markedQuestions.has(qz.currentIdx)}
             onToggleMark={() => qz.toggleMark(qz.currentIdx)}
             onNext={(correct) => {
-              // Run async logic without making onNext itself async
               const currentQuestion = qz.activeQuestions[qz.currentIdx];
+              console.log("onNext fired:", {
+                correct,
+                questionId: currentQuestion?.id,
+                hasOnAnswer: !!onAnswer,
+              });
 
               if (currentQuestion && onAnswer) {
-                // Fire and forget — get token then call server actions
                 auth.currentUser?.getIdToken().then((token) => {
+                  console.log(
+                    "token in onNext:",
+                    token?.length ?? 0,
+                    "currentUser:",
+                    auth.currentUser?.email,
+                  );
                   if (token) {
-                    updateCategoryStat(token, currentQuestion.cat, correct);
+                    updateCategoryStat(token, currentQuestion.cat, correct)
+                      .then((r) => console.log("updateCategoryStat result:", r))
+                      .catch((e) =>
+                        console.error("updateCategoryStat error:", e),
+                      );
                   }
                 });
                 onAnswer(currentQuestion.id, correct);
