@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  FaLaptopHouse,
-  FaSignOutAlt,
-  FaUserCircle,
+  FaLaptop,
+  FaArrowRightFromBracket,
+  FaCircleUser,
   FaGear,
 } from "react-icons/fa6";
 import { IoCalculatorOutline } from "react-icons/io5";
@@ -46,7 +46,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
           transition={{ type: "spring", stiffness: 400, damping: 15 }}
           className="w-10 h-10 bg-cyan-600 rounded-xl flex items-center justify-center shadow-lg shadow-cyan-500/20 group-hover:bg-cyan-400 transition-colors"
         >
-          <FaLaptopHouse size={17} className="text-white text-lg" />
+          <FaLaptop size={17} className="text-white text-lg" />
         </motion.div>
 
         <div className="font-space">
@@ -96,7 +96,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
             onClick={handleSignOut}
             className="flex items-center gap-2 bg-rose-500/10 border border-rose-400/20 text-rose-300 px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-rose-500/20 hover:text-white transition-all font-space"
           >
-            <FaSignOutAlt size={14} />
+            <FaArrowRightFromBracket size={14} />
             <span className="hidden sm:inline">Sign Out</span>
           </motion.button>
         ) : (
@@ -106,7 +106,7 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
               whileTap={{ scale: 0.95 }}
               className="flex items-center gap-2 bg-slate-500/10 border border-slate-400/20 text-slate-300 px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter hover:bg-slate-500/20 hover:text-white transition-all font-space"
             >
-              <FaUserCircle size={14} />
+              <FaCircleUser size={14} />
               <span className="hidden sm:inline">Sign In</span>
             </motion.button>
           </Link>
