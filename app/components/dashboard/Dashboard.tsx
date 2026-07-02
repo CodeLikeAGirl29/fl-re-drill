@@ -17,6 +17,8 @@ import cn from "classnames";
 
 import AnalyticsView from "./AnalyticsView";
 import ChecklistView from "./ChecklistView";
+import ExamCountdown from "@/components/ExamCountdown";
+import { useSettings } from "@/hooks/useSettings";
 import { type CategoryStat } from "@/app/lib/actions/mastery";
 
 interface MasteryRecord {
@@ -42,6 +44,18 @@ export default function Dashboard({
   const [activeSubView, setActiveSubView] = useState<
     "main" | "analytics" | "checklist"
   >("main");
+
+  // Pull name from settings, fall back to email prefix
+  const { settings } = useSettings();
+  const displayName = settings.name || user.email?.split("@")[0] || "candidate";
+  const initials = settings.name
+    ? settings.name
+        .split(" ")
+        .map((w) => w[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase()
+    : (user.email?.split("@")[0].slice(0, 2).toUpperCase() ?? "??");
 
   const masteredCount = masteryStats.filter(
     (s) => s.status === "mastered",
@@ -78,8 +92,6 @@ export default function Dashboard({
   };
 
   const rank = getRankInfo(progressPercent);
-  const initials = user.email?.split("@")[0].slice(0, 2).toUpperCase() ?? "??";
-  const username = user.email?.split("@")[0] ?? "candidate";
 
   return (
     <div className="w-full max-w-5xl px-4 py-8">
@@ -104,7 +116,7 @@ export default function Dashboard({
                     Welcome back
                   </p>
                   <h2 className="text-xl font-black text-white tracking-tight capitalize">
-                    {username}
+                    {displayName}
                   </h2>
                 </div>
               </div>
@@ -119,6 +131,9 @@ export default function Dashboard({
               </div>
             </div>
 
+            {/* EXAM COUNTDOWN — inserted here */}
+            <ExamCountdown />
+
             {/* STAT CARDS */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <StatCard
@@ -127,7 +142,6 @@ export default function Dashboard({
                 sub="of 100 topics"
                 valueColor="text-emerald-400"
               />
-              // Replace the "Need review" StatCard with this:
               <button
                 onClick={() => onStartQuiz("review")}
                 disabled={reviewCount === 0}

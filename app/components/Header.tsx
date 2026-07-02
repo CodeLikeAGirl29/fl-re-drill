@@ -2,12 +2,17 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { FaLaptopHouse, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import {
+  FaLaptopHouse,
+  FaSignOutAlt,
+  FaUserCircle,
+  FaGear,
+} from "react-icons/fa6";
 import { IoCalculatorOutline } from "react-icons/io5";
 import { useAuth } from "./AuthProvider";
 import { auth } from "@/lib/firebase/client";
 import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface HeaderProps {
   onOpenFormulas: () => void;
@@ -17,17 +22,20 @@ interface HeaderProps {
 export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
   const { user } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleSignOut = async () => {
     await signOut(auth);
-    // Clear the token cookie
     document.cookie = "firebase-token=; path=/; max-age=0";
     router.push("/");
     router.refresh();
   };
 
+  const isSettings = pathname === "/settings";
+
   return (
     <header className="w-full py-4 px-6 flex justify-between items-center bg-slate-900/60 backdrop-blur-xl border-b border-white/5 sticky top-0 z-50">
+      {/* Logo */}
       <Link
         href="/"
         onClick={onHome}
@@ -51,7 +59,9 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
         </div>
       </Link>
 
-      <div className="flex items-center gap-3">
+      {/* Nav actions */}
+      <div className="flex items-center gap-2">
+        {/* Formulas */}
         <motion.button
           whileHover={{ skewX: -12 }}
           whileTap={{ scale: 0.95 }}
@@ -62,6 +72,23 @@ export default function Header({ onOpenFormulas, onHome }: HeaderProps) {
           <span className="hidden sm:inline">Formulas</span>
         </motion.button>
 
+        {/* Settings */}
+        <Link href="/settings">
+          <motion.div
+            whileHover={{ skewX: -12 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center gap-2 border px-3 sm:px-5 py-2 rounded-md text-[0.625rem] font-black uppercase tracking-tighter transition-all font-space cursor-pointer ${
+              isSettings
+                ? "bg-slate-400/20 border-slate-400/40 text-white"
+                : "bg-slate-500/10 border-slate-400/20 text-slate-400 hover:bg-slate-500/20 hover:text-white"
+            }`}
+          >
+            <FaGear size={13} />
+            <span className="hidden sm:inline">Settings</span>
+          </motion.div>
+        </Link>
+
+        {/* Auth */}
         {user ? (
           <motion.button
             whileHover={{ skewX: -12 }}
